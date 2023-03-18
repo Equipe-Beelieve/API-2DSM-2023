@@ -40,6 +40,8 @@ CREATE TABLE `nota_fiscal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+INSERT INTO `nota_fiscal` VALUES(1, 2022-06-06, 'A', 'A', 'A', 'A', 'sim', 1);
+
 --
 -- Dumping data for table `nota_fiscal`
 --

@@ -31,7 +31,7 @@ CREATE TABLE `pedido` (
   `ped_tipo_frete` varchar(20) DEFAULT NULL,
   `ped_produto_massa` varchar(10) DEFAULT NULL,
   `ped_descricao` varchar(20) DEFAULT NULL,
-  `ped_data_entrega` date DEFAULT NULL,
+  `ped_data_entrega` datetime DEFAULT NULL,
   `nf_codigo` int NOT NULL,
   PRIMARY KEY (`ped_codigo`),
   KEY `fk_nota_fiscal_pedido` (`nf_codigo`),
