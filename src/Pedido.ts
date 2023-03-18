@@ -16,4 +16,8 @@ export default class Pedido { //classe com os atributos de um pedido (me baseei 
         this.data_entrega = data_entrega
         this.nota_fiscal = nota_fiscal
     }
+
+    get pegarDescricao(){
+        return this.descricao
+    }
 }
