@@ -12,11 +12,22 @@ app.use(bodyParser.urlencoded({extended: true }));
 
 const bd = new bancoDados() //criando uma instância do bd para utilizar os métodos
 
-app.get('/', (req, res) => {
+
+//========================= Listagem Pedido =========================
+
+app.get('/', async (req,res) =>{
+    let tabelaPedidos = await bd.pegarTabela('pedido')
+    res.render('pedidosCadastrados', {tabela:tabelaPedidos})
+})
+
+
+
+//========================= Cadastro Pedido =========================
+app.get('/cadastroPedido', (req, res) => {
     res.render('cadastroPedido');
 });
 
-app.post('/', async (req,res) => {
+app.post('/postCadastroPedido', async (req,res) => {
     let dadosPedido = Object.values(req.body) //armazenei só os valores do que veio do formulário, na ordem em que eles estão lá
     
     let pedido = new Pedido(...dadosPedido as [string, string, string, string, string, Date], 1)
@@ -29,6 +40,7 @@ app.post('/', async (req,res) => {
     await bd.inserirPedido(pedido) //método da clase bancoDados para inserir na tabela pedido
     let tabelaPedido = await bd.pegarTabela('pedido') //método para consultar a tabela inteira
     console.log(tabelaPedido)
+    res.redirect('/')
 });
     
 

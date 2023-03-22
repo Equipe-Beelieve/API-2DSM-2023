@@ -7,12 +7,20 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>cadastro realizado</h1>
-    <p>Fornecedor: <%= nomeFor %></p>
-    <p>Tranportadora: <%= transportadora %></p>
-    <p>Descrição: <%= descricaoPro %></p>
-    <p>Data de entrega: <%= dataEnt %></p>
-    <p>Tipo do frete: <%= tipoFre %></p>
-    <p>Quantidade: <%= quantidade %></p>
+    <a href="/cadastroPedido">Adicionar um pedido</a>
+    <h1>Lista de pedidos:</h1>
+    
+    <% for (let linha in tabela){ %>
+        <div>
+            <h1>Pedido <%= `${tabela[linha].ped_codigo}` %></h1>
+            <p>Fornecedor: <%= tabela[linha].ped_nome_fornecedor %></p>
+            <p>Tranportadora: <%= tabela[linha].ped_transportadora %></p>
+            <p>Descrição: <%= tabela[linha].ped_descricao %></p>
+            <p>Data de entrega: <%= tabela[linha].ped_data_entrega %></p>
+            <p>Tipo do frete: <%= tabela[linha].ped_tipo_frete %></p>
+            <p>Quantidade: <%= tabela[linha].ped_produto_massa %></p>
+        </div>
+        <hr>
+    <% } %>
 </body>
 </html>
