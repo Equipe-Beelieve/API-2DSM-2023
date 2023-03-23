@@ -28,11 +28,14 @@ CREATE TABLE `fornecedor` (
   `for_codigo` int NOT NULL AUTO_INCREMENT,
   `for_nome` varchar(100) DEFAULT NULL,
   `for_cnpj` varchar(14) DEFAULT NULL,
-  PRIMARY KEY (`for_codigo`)
+  `end_codigo` int NOT NULL,
+  `for_razao_social` varchar(50) DEFAULT NULL,
+  `for_nome_fantasia` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`for_codigo`),
+  KEY `fk_endereço_fornecedor` (`end_codigo`),
+  CONSTRAINT `fk_endereço_fornecedor` FOREIGN KEY (`end_codigo`) REFERENCES `endereco_fornecedor` (`end_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-INSERT INTO `fornecedor` VALUES(1, 'fornecedor1', '1111111111');
 
 --
 -- Dumping data for table `fornecedor`
@@ -52,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-17 11:54:15
+-- Dump completed on 2023-03-23 19:25:59

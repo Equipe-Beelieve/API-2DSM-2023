@@ -33,14 +33,17 @@ CREATE TABLE `nota_fiscal` (
   `nf_produto_descricao` varchar(20) DEFAULT NULL,
   `nf_laudo` varchar(3) DEFAULT NULL,
   `for_codigo` int NOT NULL,
+  `nf_valor_total` int DEFAULT NULL,
+  `nf_valor_unidade` int DEFAULT NULL,
+  `ped_codigo` int NOT NULL,
   PRIMARY KEY (`nf_codigo`),
   KEY `fk_fornecedor_nota_fiscal` (`for_codigo`),
+  KEY `fk_pedido_nota_fiscal` (`ped_codigo`),
   CONSTRAINT `fk_fornecedor_nota_fiscal` FOREIGN KEY (`for_codigo`) REFERENCES `fornecedor` (`for_codigo`),
+  CONSTRAINT `fk_pedido_nota_fiscal` FOREIGN KEY (`ped_codigo`) REFERENCES `pedido` (`ped_codigo`),
   CONSTRAINT `chk_laudo` CHECK (((`nf_laudo` = _utf8mb4'sim') or (0 <> _utf8mb4'não')))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-INSERT INTO `nota_fiscal` VALUES(1, 2022-06-06, 'A', 'A', 'A', 'A', 'sim', 1);
 
 --
 -- Dumping data for table `nota_fiscal`
@@ -60,4 +63,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-17 11:54:14
+-- Dump completed on 2023-03-23 19:25:58

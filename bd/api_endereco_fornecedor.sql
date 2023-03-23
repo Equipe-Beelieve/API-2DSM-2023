@@ -18,36 +18,31 @@ USE `api`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `pedido`
+-- Table structure for table `endereco_fornecedor`
 --
 
-DROP TABLE IF EXISTS `pedido`;
+DROP TABLE IF EXISTS `endereco_fornecedor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `pedido` (
-  `ped_codigo` int NOT NULL AUTO_INCREMENT,
-  `ped_nome_fornecedor` varchar(50) DEFAULT NULL,
-  `ped_transportadora` varchar(100) DEFAULT NULL,
-  `ped_tipo_frete` varchar(20) DEFAULT NULL,
-  `ped_produto_massa` varchar(10) DEFAULT NULL,
-  `ped_descricao` varchar(20) DEFAULT NULL,
-  `ped_data_entrega` date DEFAULT NULL,
-  `nf_codigo` int NOT NULL,
-  `ped_valor_total` int DEFAULT NULL,
-  `ped_valor_unidade` int DEFAULT NULL,
-  PRIMARY KEY (`ped_codigo`),
-  KEY `fk_nota_fiscal_pedido` (`nf_codigo`),
-  CONSTRAINT `fk_nota_fiscal_pedido` FOREIGN KEY (`nf_codigo`) REFERENCES `nota_fiscal` (`nf_codigo`)
+CREATE TABLE `endereco_fornecedor` (
+  `end_codigo` int NOT NULL AUTO_INCREMENT,
+  `end_cep` varchar(8) DEFAULT NULL,
+  `end_estado` varchar(20) DEFAULT NULL,
+  `end_cidade` varchar(50) DEFAULT NULL,
+  `end_bairro` varchar(50) DEFAULT NULL,
+  `end_rua_avenida` varchar(100) DEFAULT NULL,
+  `end_numero` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`end_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pedido`
+-- Dumping data for table `endereco_fornecedor`
 --
 
-LOCK TABLES `pedido` WRITE;
-/*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
+LOCK TABLES `endereco_fornecedor` WRITE;
+/*!40000 ALTER TABLE `endereco_fornecedor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `endereco_fornecedor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
