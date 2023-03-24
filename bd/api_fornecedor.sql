@@ -37,6 +37,8 @@ CREATE TABLE `fornecedor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+INSERT INTO `fornecedor` VALUES(1, 'Fornecedor Teste', '12345678000199', 1, 'Teste LTDA', 'Fornecedor Teste');
+
 --
 -- Dumping data for table `fornecedor`
 --

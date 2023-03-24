@@ -35,15 +35,14 @@ CREATE TABLE `nota_fiscal` (
   `for_codigo` int NOT NULL,
   `nf_valor_total` int DEFAULT NULL,
   `nf_valor_unidade` int DEFAULT NULL,
-  `ped_codigo` int NOT NULL,
   PRIMARY KEY (`nf_codigo`),
   KEY `fk_fornecedor_nota_fiscal` (`for_codigo`),
-  KEY `fk_pedido_nota_fiscal` (`ped_codigo`),
   CONSTRAINT `fk_fornecedor_nota_fiscal` FOREIGN KEY (`for_codigo`) REFERENCES `fornecedor` (`for_codigo`),
-  CONSTRAINT `fk_pedido_nota_fiscal` FOREIGN KEY (`ped_codigo`) REFERENCES `pedido` (`ped_codigo`),
   CONSTRAINT `chk_laudo` CHECK (((`nf_laudo` = _utf8mb4'sim') or (0 <> _utf8mb4'não')))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+INSERT INTO `nota_fiscal`(`nf_codigo`, `for_codigo`) VALUES(1, 1);
 
 --
 -- Dumping data for table `nota_fiscal`

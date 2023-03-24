@@ -36,6 +36,7 @@ CREATE TABLE `endereco_fornecedor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+INSERT INTO `endereco_fornecedor` VALUES(1, '1235678', 'São Paulo', 'São José dos Campos', 'Centro', 'Avenida Sabiá', '40');
 --
 -- Dumping data for table `endereco_fornecedor`
 --

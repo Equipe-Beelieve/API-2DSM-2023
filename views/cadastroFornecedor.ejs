@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Fornecedores</title>
+</head>
+<body>
+    <form action="/postCadastroFornecedores" method="post">
+        <label for="for_nome">Nome do fornecedor:</label>
+        <input type="text" id="for_nome" name="for_nome"> <br><br>
+
+        <label for="for_cnpj">CNPJ:</label>
+        <input type="number" id="for_cnpj" name="for_cnpj"><br><br>
+
+        <label for="for_endereco">Endereço:</label><br>
+        <label for="end_cep">CEP:</label>
+        <input type="text" id="end_cep" name="end_cep"><br>
+        <label for="end_estado">Estado:</label>
+        <select name="end_estado" id="end_estado">
+            <option value="Acre">Acre</option>
+            <option value="Alagoas">Alagoas</option>
+            <option value="Amapá">Amapá</option>
+            <option value="Amazonas">Amazonas</option>
+            <option value="Bahia">Bahia</option>
+            <option value="Ceará">Ceará</option>
+            <option value="Distrito Federal">Distrito Federal</option>
+            <option value="Espírito Santo">Espírito Santo</option>
+            <option value="Goiás">Goiás</option>
+            <option value="Maranhão">Maranhão</option>
+            <option value="Mato Grosso">Mato Grosso</option>
+            <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+            <option value="Minas Gerais">Minas Gerais</option>
+            <option value="Pará">Pará</option>
+            <option value="Paraíba">Paraíba</option>
+            <option value="Paraná">Paraná</option>
+            <option value="Pernambuco">Pernambuco</option>
+            <option value="Piauí">Piauí</option>
+            <option value="Rio de Janeiro">Rio de Janeiro</option>
+            <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+            <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+            <option value="Rondônia">Rondônia</option>
+            <option value="Roraima">Roraima</option>
+            <option value="Santa Catarina">Santa Catarina</option>
+            <option value="São Paulo">São Paulo</option>
+            <option value="Sergipe">Sergipe</option>
+            <option value="Tocantins">Tocantins</option>
+          </select><br>
+        <label for="end_cidade">Cidade:</label>
+        <input type="text" id="end_cidade" name="end_cidade"><br>
+        <label for="end_bairro">Bairro:</label>
+        <input type="text" id="end_bairro" name="end_bairro"><br>
+        <label for="end_rua_avenida">Rua/Avenida:</label>
+        <input type="text" id="end_rua_avenida" name="end_rua_avenida"><br>
+        <label for="end_numero">Número:</label>
+        <input type="text" id="end_numero" name="end_numero"><br><br>
+
+        <label for="for_razao_social">Razão Social:</label>
+        <input type="text" id="for_razao_social" name="for_razao_social"><br><br>
+
+        <label for="for_nome_fantasia">Nome Fantasia:</label>
+        <input type="text" id="for_nome_fantasia" name="for_nome_fantasia"><br><br>
+
+        <input type="submit" value="Cadastrar">
+    </form>
+</div>
+</body>
+</html>

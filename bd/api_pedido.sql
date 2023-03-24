@@ -41,6 +41,8 @@ CREATE TABLE `pedido` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+INSERT INTO `pedido` VALUES(1, 'Fornecedor Teste', 'Transportadora Teste', 'Rodoviário', '50kg', 'Nenhuma', CURDATE(), 1, 500, 10);
+
 --
 -- Dumping data for table `pedido`
 --

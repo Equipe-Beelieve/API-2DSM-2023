@@ -1,19 +1,21 @@
-import express from 'express';
+import express from "express";
 import bodyParser from "body-parser";
 import bancoDados from "./bancoDados.js"
 import Pedido from "./Pedido.js"
+import Endereco from "./Endereco.js";
+import Fornecedor from "./Fornecedor.js";
 
 const PORT = 8080;
 const app = express();
-app.set('view engine','ejs')
-
+app.set('views', '../views')
+app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true }));
 
 
 const bd = new bancoDados() //criando uma instância do bd para utilizar os métodos
 
 
-//========================= Listagem Pedido =========================
+//========================= Listagem de Pedidos =========================
 
 app.get('/', async (req,res) =>{
     let tabelaPedidos = await bd.pegarTabela('pedido')
@@ -22,14 +24,14 @@ app.get('/', async (req,res) =>{
 
 
 
-//========================= Cadastro Pedido =========================
+//========================= Cadastro de Pedidos =========================
 app.get('/cadastroPedido', (req, res) => {
     res.render('cadastroPedido');
 });
 
 app.post('/postCadastroPedido', async (req,res) => {
     let dadosPedido = Object.values(req.body) //armazenei só os valores do que veio do formulário, na ordem em que eles estão lá
-    
+
     let pedido = new Pedido(...dadosPedido as [string, string, string, string, string, Date], 1)
     /* aqui eu estou criando um novo pedido (classe)
        utilizei um operador chamado spread, são esses '...' para atribuir os valores necessários que foram passados no construtor da classe,
@@ -42,7 +44,16 @@ app.post('/postCadastroPedido', async (req,res) => {
     console.log(tabelaPedido)
     res.redirect('/')
 });
-    
+
+//========================= Cadastro de Fornecedores =========================
+app.get('/cadastroFornecedor', (req, res) => {
+    res.render('cadastroFornecedor')
+})
+app.post('/postCadastroFornecedor', async (req, res) => {
+    let {for_nome, for_cnpj, end_cep, end_estado, end_cidade, end_bairro, end_rua_avenida, end_numero, for_razao_social, for_nome_fantasia} = req.body
+    let endereco = new Endereco(end_cep, end_estado, end_cidade, end_bairro, end_rua_avenida, end_numero)
+    let fornecedor = new Fornecedor(for_nome, for_cnpj, endereco, for_razao_social, for_nome_fantasia)
+})   
 
 
 
