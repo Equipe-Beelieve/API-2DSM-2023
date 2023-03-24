@@ -7,7 +7,6 @@ import Fornecedor from "./Fornecedor.js";
 
 const PORT = 8080;
 const app = express();
-app.set('views', '../views')
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true }));
 
@@ -31,8 +30,8 @@ app.get('/cadastroPedido', (req, res) => {
 
 app.post('/postCadastroPedido', async (req,res) => {
     let dadosPedido = Object.values(req.body) //armazenei só os valores do que veio do formulário, na ordem em que eles estão lá
-
-    let pedido = new Pedido(...dadosPedido as [string, string, string, string, string, Date], 1)
+    
+    let pedido = new Pedido(...dadosPedido as [string, string, string, string, string,string,string,string,Date,string])
     /* aqui eu estou criando um novo pedido (classe)
        utilizei um operador chamado spread, são esses '...' para atribuir os valores necessários que foram passados no construtor da classe,
        como eu estou utilizando só os valores do que foi preenchido no form, é necessário especificar os tipos no array seguinte.

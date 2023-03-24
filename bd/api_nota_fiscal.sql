@@ -1,8 +1,6 @@
-CREATE DATABASE  IF NOT EXISTS `api` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `api`;
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
--- Host: localhost    Database: api
+-- Host: 127.0.0.1    Database: api
 -- ------------------------------------------------------
 -- Server version	8.0.32
 
@@ -26,6 +24,7 @@ DROP TABLE IF EXISTS `nota_fiscal`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nota_fiscal` (
   `nf_codigo` int NOT NULL AUTO_INCREMENT,
+  `nf_razao_social` varchar(50) DEFAULT NULL,
   `nf_data_entrega` date DEFAULT NULL,
   `nf_transportadora` varchar(100) DEFAULT NULL,
   `nf_produto_massa` varchar(10) DEFAULT NULL,
@@ -35,14 +34,15 @@ CREATE TABLE `nota_fiscal` (
   `for_codigo` int NOT NULL,
   `nf_valor_total` int DEFAULT NULL,
   `nf_valor_unidade` int DEFAULT NULL,
+  `ped_codigo` int NOT NULL,
   PRIMARY KEY (`nf_codigo`),
   KEY `fk_fornecedor_nota_fiscal` (`for_codigo`),
+  KEY `fk_pedido_nota_fiscal` (`ped_codigo`),
   CONSTRAINT `fk_fornecedor_nota_fiscal` FOREIGN KEY (`for_codigo`) REFERENCES `fornecedor` (`for_codigo`),
+  CONSTRAINT `fk_pedido_nota_fiscal` FOREIGN KEY (`ped_codigo`) REFERENCES `pedido` (`ped_codigo`),
   CONSTRAINT `chk_laudo` CHECK (((`nf_laudo` = _utf8mb4'sim') or (0 <> _utf8mb4'não')))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-INSERT INTO `nota_fiscal`(`nf_codigo`, `for_codigo`) VALUES(1, 1);
 
 --
 -- Dumping data for table `nota_fiscal`
@@ -50,6 +50,7 @@ INSERT INTO `nota_fiscal`(`nf_codigo`, `for_codigo`) VALUES(1, 1);
 
 LOCK TABLES `nota_fiscal` WRITE;
 /*!40000 ALTER TABLE `nota_fiscal` DISABLE KEYS */;
+INSERT INTO `nota_fiscal` VALUES (1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,0);
 /*!40000 ALTER TABLE `nota_fiscal` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -62,4 +63,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-23 19:25:58
+-- Dump completed on 2023-03-24 10:24:56

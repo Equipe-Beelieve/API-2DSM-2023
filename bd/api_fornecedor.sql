@@ -1,8 +1,6 @@
-CREATE DATABASE  IF NOT EXISTS `api` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `api`;
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
--- Host: localhost    Database: api
+-- Host: 127.0.0.1    Database: api
 -- ------------------------------------------------------
 -- Server version	8.0.32
 
@@ -34,10 +32,8 @@ CREATE TABLE `fornecedor` (
   PRIMARY KEY (`for_codigo`),
   KEY `fk_endereço_fornecedor` (`end_codigo`),
   CONSTRAINT `fk_endereço_fornecedor` FOREIGN KEY (`end_codigo`) REFERENCES `endereco_fornecedor` (`end_codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-INSERT INTO `fornecedor` VALUES(1, 'Fornecedor Teste', '12345678000199', 1, 'Teste LTDA', 'Fornecedor Teste');
 
 --
 -- Dumping data for table `fornecedor`
@@ -45,6 +41,7 @@ INSERT INTO `fornecedor` VALUES(1, 'Fornecedor Teste', '12345678000199', 1, 'Tes
 
 LOCK TABLES `fornecedor` WRITE;
 /*!40000 ALTER TABLE `fornecedor` DISABLE KEYS */;
+INSERT INTO `fornecedor` VALUES (1,'Fornecedor Teste','12345678000199',1,'Teste LTDA','Fornecedor Teste');
 /*!40000 ALTER TABLE `fornecedor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-23 19:25:59
+-- Dump completed on 2023-03-24 10:24:56

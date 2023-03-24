@@ -1,8 +1,6 @@
-CREATE DATABASE  IF NOT EXISTS `api` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `api`;
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
--- Host: localhost    Database: api
+-- Host: 127.0.0.1    Database: api
 -- ------------------------------------------------------
 -- Server version	8.0.32
 
@@ -33,16 +31,16 @@ CREATE TABLE `endereco_fornecedor` (
   `end_rua_avenida` varchar(100) DEFAULT NULL,
   `end_numero` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`end_codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `endereco_fornecedor` VALUES(1, '1235678', 'São Paulo', 'São José dos Campos', 'Centro', 'Avenida Sabiá', '40');
 --
 -- Dumping data for table `endereco_fornecedor`
 --
 
 LOCK TABLES `endereco_fornecedor` WRITE;
 /*!40000 ALTER TABLE `endereco_fornecedor` DISABLE KEYS */;
+INSERT INTO `endereco_fornecedor` VALUES (1,'1235678','São Paulo','São José dos Campos','Centro','Avenida Sabiá','40');
 /*!40000 ALTER TABLE `endereco_fornecedor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-23 19:25:58
+-- Dump completed on 2023-03-24 10:24:56
