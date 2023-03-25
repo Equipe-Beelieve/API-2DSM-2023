@@ -8,6 +8,7 @@ import Fornecedor from "./Fornecedor.js";
 const PORT = 8080;
 const app = express();
 app.set('view engine', 'ejs')
+app.set('views', '../views')
 app.use(bodyParser.urlencoded({extended: true }));
 
 
@@ -48,10 +49,13 @@ app.post('/postCadastroPedido', async (req,res) => {
 app.get('/cadastroFornecedor', (req, res) => {
     res.render('cadastroFornecedor')
 })
-app.post('/postCadastroFornecedor', async (req, res) => {
-    let {for_nome, for_cnpj, end_cep, end_estado, end_cidade, end_bairro, end_rua_avenida, end_numero, for_razao_social, for_nome_fantasia} = req.body
+app.post('/CadastroFornecedor', async (req, res) => {
+    let {for_cnpj, end_cep, end_estado, end_cidade, end_bairro, end_rua_avenida, end_numero, for_razao_social, for_nome_fantasia} = req.body
     let endereco = new Endereco(end_cep, end_estado, end_cidade, end_bairro, end_rua_avenida, end_numero)
-    let fornecedor = new Fornecedor(for_nome, for_cnpj, endereco, for_razao_social, for_nome_fantasia)
+    let fornecedor = new Fornecedor(for_cnpj, endereco, for_razao_social, for_nome_fantasia)
+
+    await bd.inserirFornecedor(fornecedor, endereco)
+    res.redirect('/cadastroFornecedor')
 })   
 
 

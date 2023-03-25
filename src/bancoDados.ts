@@ -1,4 +1,6 @@
 import * as mysql from 'mysql2/promise' //importando os módulos necessários
+import Endereco from './Endereco.js'
+import Fornecedor from './Fornecedor.js'
 import Pedido from './Pedido.js'
 
 export default class bancoDados { //clase que contém, a princípio, tudo envolvendo banco de dados
@@ -9,7 +11,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'fatec', //sua senha
+                password: '', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -28,9 +30,36 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         return consulta
     }
 
+    async pegarLinha(tabela:string, campo:string, condicao:any) {
+        await this.conectar()
+        let linha = await this.conexao.query(`SELECT * FROM ${tabela} WHERE ${campo} = ${condicao}` )
+        return linha[0]
+    }
+
+    async pegarValor(valor:string, tabela:string, campo:string, condicao:any) {
+        await this.conectar()
+        let [consulta] = await this.conexao.query(`SELECT ${valor} FROM ${tabela} WHERE ${campo} = ?`, [condicao]) as Array<any>
+        let linha = consulta[0]
+        return linha[valor]
+    }
+
+
     async inserirPedido(pedido:Pedido) { //aqui a função recebe um argumento do tipo Pedido (que é uma classe que eu criei)
         await this.conectar()
         await this.conexao.query('INSERT INTO pedido(ped_razao_social,ped_nome_fantasia,ped_transportadora,ped_tipo_frete,ped_produto_massa,ped_descricao,ped_valor_unidade,ped_valor_total,ped_data_entrega,ped_condicao_pagamento) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [pedido['razao_social'], pedido['nome_fantasia'],pedido['transportadora'] ,pedido['tipo_frete'], pedido['produto_massa'], pedido['descricao'],pedido['valor_unidade'],pedido['valor_total'],pedido['data_entrega'],pedido['condicao_pagamento']]) //o primeiro parâmetro é a execução SQL e o segundo é um array acessando as informações específicas do pedido para cada campo. As '?' nos VALUES indica que eles receberão variáveis
+        await this.conexao.end()
+    }
+
+    async inserirEndereco(endereco:Endereco) {
+        await this.conexao.query('INSERT INTO endereco_fornecedor(end_cep, end_estado, end_cidade, end_bairro, end_rua_avenida, end_numero) VALUES(?, ?, ?, ?, ?, ?)', [endereco['cep'], endereco['estado'], endereco['cidade'], endereco['bairro'], endereco['rua_avenida'], endereco['numero']])
+        let end_codigo = await this.pegarValor('end_codigo', 'endereco_fornecedor', 'end_cep', endereco['cep'])
+        return end_codigo
+    }
+
+    async inserirFornecedor(fornecedor:Fornecedor, endereco:Endereco) {
+        await this.conectar()
+        let end_codigo = await this.inserirEndereco(endereco)
+        await this.conexao.query('INSERT INTO fornecedor(for_cnpj, end_codigo, for_razao_social, for_nome_fantasia) VALUES(?, ?, ?, ?)', [fornecedor['cnpj'], end_codigo, fornecedor['razao_social'], fornecedor['nome_fantasia']])
         await this.conexao.end()
     }
 }
