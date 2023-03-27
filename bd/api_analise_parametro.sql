@@ -18,26 +18,32 @@ USE `api`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `regras_de_recebimento`
+-- Table structure for table `analise_parametro`
 --
 
-DROP TABLE IF EXISTS `regras_de_recebimento`;
+DROP TABLE IF EXISTS `analise_parametro`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `regras_de_recebimento` (
-  `reg_codigo` int NOT NULL AUTO_INCREMENT,
-  `reg_tipo_produto` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`reg_codigo`)
+CREATE TABLE `analise_parametro` (
+  `anl_codigo` int NOT NULL,
+  `prod_codigo` int NOT NULL,
+  `ped_codigo` int NOT NULL,
+  PRIMARY KEY (`anl_codigo`,`prod_codigo`,`ped_codigo`),
+  KEY `fk_produto_analise` (`prod_codigo`),
+  KEY `fk_pedido_analise` (`ped_codigo`),
+  CONSTRAINT `fk_analise_parametro` FOREIGN KEY (`anl_codigo`) REFERENCES `analise` (`anl_codigo`),
+  CONSTRAINT `fk_pedido_analise` FOREIGN KEY (`ped_codigo`) REFERENCES `parametros_do_pedido` (`ped_codigo`),
+  CONSTRAINT `fk_produto_analise` FOREIGN KEY (`prod_codigo`) REFERENCES `parametros_do_pedido` (`prod_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `regras_de_recebimento`
+-- Dumping data for table `analise_parametro`
 --
 
-LOCK TABLES `regras_de_recebimento` WRITE;
-/*!40000 ALTER TABLE `regras_de_recebimento` DISABLE KEYS */;
-/*!40000 ALTER TABLE `regras_de_recebimento` ENABLE KEYS */;
+LOCK TABLES `analise_parametro` WRITE;
+/*!40000 ALTER TABLE `analise_parametro` DISABLE KEYS */;
+/*!40000 ALTER TABLE `analise_parametro` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
