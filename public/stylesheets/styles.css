@@ -1,13 +1,36 @@
-.pedidos1{
+.listaOut{
     background-color: #D9D9D9;
     width: 30%;
     padding-top: 2vh;
-    padding-bottom: 0.01vh;
+    padding-bottom: 2vh;
+    padding-left: 2vw;
+    margin-left: 35%;
+    margin-bottom: 1%;
 }
 
-.pedidos2{
+.listaIn{
     background-color: #C0C0C0;
     width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 0.5%;
+    padding-right: 1%;
+}
+
+#botaoTopo{
+    position: fixed;
+    top: 90%;
+    left: 95%; 
+    font-size: 2vh;
+    padding-top: 0.75%;
+    padding-left: 1%;
+    padding-bottom: 0.75%;
+    padding-right: 1%;
+    background-color: #B4D892;
+    border: none;
+    border-radius: 60%;
+}
+
+#botaoTopo:hover{
+    background-color: #3E813B;
 }

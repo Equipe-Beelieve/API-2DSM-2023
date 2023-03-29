@@ -5,16 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
+    <script src="/scripts/scripts.js"></script>
     <title>Document</title>
 </head>
 <body>
     <a href="/cadastroPedido">Adicionar um pedido</a><br>
     <a href="/fornecedores">Fornecedores</a>
-    <h1>Lista de pedidos:</h1>
+    <center><h1>Lista de pedidos</h1></center>
     
     <% for (let linha in tabela){ %>
-        <div class="pedidos1">
-            <div class="pedidos2"
+        <div class="listaOut">
+            <div class="listaIn">
                 <h1>Pedido <%= `${tabela[linha].ped_codigo}` %></h1>
                 <p>Razão social: <%= tabela[linha].ped_razao_social %></p>
                 <p>Nome fantasia: <%= tabela[linha].ped_nome_fantasia %></p>
@@ -28,7 +29,7 @@
                 <p>condição de pagamento: <%= tabela[linha].ped_condicao_pagamento %></p>
             </div>
         </div>
-        <hr>
     <% } %>
+    <button onclick="topoFunction()" id="botaoTopo">⇧</button>
 </body>
 </html>
