@@ -11,7 +11,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: '', //sua senha
+                password: 'Meusequel@d0', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -61,5 +61,12 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         let end_codigo = await this.inserirEndereco(endereco)
         await this.conexao.query('INSERT INTO fornecedor(for_cnpj, end_codigo, for_razao_social, for_nome_fantasia) VALUES(?, ?, ?, ?)', [fornecedor['cnpj'], end_codigo, fornecedor['razao_social'], fornecedor['nome_fantasia']])
         await this.conexao.end()
+    }
+
+    public async listarFornecedores() {
+        await this.conectar()
+        let [fornecedores, meta]:any = await this.conexao.query('SELECT f.for_codigo, f.for_cnpj, f.for_razao_social, f.for_nome_fantasia, e.end_cep, e.end_estado, e.end_cidade, e.end_bairro, e.end_rua_avenida, e.end_numero FROM fornecedor f, endereco_fornecedor e WHERE f.end_codigo = e.end_codigo')
+        await this.conexao.end()
+        return fornecedores
     }
 }

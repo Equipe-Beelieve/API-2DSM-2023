@@ -8,7 +8,7 @@ import Fornecedor from "./Fornecedor.js";
 const PORT = 8080;
 const app = express();
 app.set('view engine', 'ejs')
-app.set('views', '../views')
+//app.set('views', '../views')
 app.use(bodyParser.urlencoded({extended: true }));
 
 
@@ -21,8 +21,6 @@ app.get('/', async (req,res) =>{
     let tabelaPedidos = await bd.pegarTabela('pedido')
     res.render('pedidosCadastrados', {tabela:tabelaPedidos})
 })
-
-
 
 //========================= Cadastro de Pedidos =========================
 app.get('/cadastroPedido', (req, res) => {
@@ -45,11 +43,17 @@ app.post('/postCadastroPedido', async (req,res) => {
     res.redirect('/')
 });
 
+//========================= Listagem de Fornecedores =========================
+app.get("/fornecedores", async (req, res) => {
+    let tabelaFornecedores = await bd.listarFornecedores()
+    res.render('fornecedoresCadastrados', {tabela:tabelaFornecedores})
+})
+
 //========================= Cadastro de Fornecedores =========================
 app.get('/cadastroFornecedor', (req, res) => {
     res.render('cadastroFornecedor')
 })
-app.post('/CadastroFornecedor', async (req, res) => {
+app.post('/cadastroFornecedor', async (req, res) => {
     let {for_cnpj, end_cep, end_estado, end_cidade, end_bairro, end_rua_avenida, end_numero, for_razao_social, for_nome_fantasia} = req.body
     let endereco = new Endereco(end_cep, end_estado, end_cidade, end_bairro, end_rua_avenida, end_numero)
     let fornecedor = new Fornecedor(for_cnpj, endereco, for_razao_social, for_nome_fantasia)
