@@ -26,7 +26,9 @@ DROP TABLE IF EXISTS `regras_de_recebimento`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `regras_de_recebimento` (
   `reg_codigo` int NOT NULL AUTO_INCREMENT,
-  `reg_tipo_produto` varchar(100) DEFAULT NULL,
+  `reg_umidade` varchar(3) DEFAULT NULL,
+  `reg_pureza` varchar(3) DEFAULT NULL,
+  `reg_avaria` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`reg_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -49,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-27 18:06:05
+-- Dump completed on 2023-03-29 17:49:00

@@ -30,7 +30,7 @@ CREATE TABLE `parametros_do_pedido` (
   `umidade` varchar(3) DEFAULT NULL,
   `pureza` varchar(3) DEFAULT NULL,
   `massa` varchar(10) DEFAULT NULL,
-  `descricao_avaria` varchar(100) DEFAULT NULL,
+  `avaria` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`prod_codigo`,`ped_codigo`),
   KEY `fk_pedido_parametro` (`ped_codigo`),
   CONSTRAINT `fk_pedido_parametro` FOREIGN KEY (`ped_codigo`) REFERENCES `pedido` (`ped_codigo`),
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-27 18:06:04
+-- Dump completed on 2023-03-29 17:49:00

@@ -18,28 +18,29 @@ USE `api`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `analise`
+-- Table structure for table `regras_do_produto`
 --
 
-DROP TABLE IF EXISTS `analise`;
+DROP TABLE IF EXISTS `regras_do_produto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `analise` (
-  `anl_codigo` int NOT NULL AUTO_INCREMENT,
-  `anl_descricao_umidade` varchar(3) DEFAULT NULL,
-  `anl_descricao_pureza` varchar(3) DEFAULT NULL,
-  `anl_descrica_avaria` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`anl_codigo`)
+CREATE TABLE `regras_do_produto` (
+  `reg_codigo` int NOT NULL,
+  `prod_codigo` int NOT NULL,
+  PRIMARY KEY (`reg_codigo`,`prod_codigo`),
+  KEY `fk_produto_regra` (`prod_codigo`),
+  CONSTRAINT `fk_produto_regra` FOREIGN KEY (`prod_codigo`) REFERENCES `produto` (`prod_codigo`),
+  CONSTRAINT `fk_regra_produto` FOREIGN KEY (`reg_codigo`) REFERENCES `regras_de_recebimento` (`reg_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `analise`
+-- Dumping data for table `regras_do_produto`
 --
 
-LOCK TABLES `analise` WRITE;
-/*!40000 ALTER TABLE `analise` DISABLE KEYS */;
-/*!40000 ALTER TABLE `analise` ENABLE KEYS */;
+LOCK TABLES `regras_do_produto` WRITE;
+/*!40000 ALTER TABLE `regras_do_produto` DISABLE KEYS */;
+/*!40000 ALTER TABLE `regras_do_produto` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-27 18:06:04
+-- Dump completed on 2023-03-29 17:49:00
