@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+</head>
+<body>
+    <a href="/">Voltar</a><br>
+    <a href="/cadastroUsuario">Cadastrar Usuario</a>
+    <h1>Lista de ususarios:</h1>
+    
+    <% for (let linha in tabela){ %>
+        <div>
+            <p>nome: <%= tabela[linha].us_nome %></p>
+            <p>senha: <%= tabela[linha].us_senha %></p>
+            <p>funcao: <%= tabela[linha].us_funcao %></p>
+            <p>login: <%= tabela[linha].us_login %></p>
+        </div>
+        <hr>
+    <% } %>
+</body>
+</html>

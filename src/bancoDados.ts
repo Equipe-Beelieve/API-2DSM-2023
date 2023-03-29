@@ -2,6 +2,7 @@ import * as mysql from 'mysql2/promise' //importando os módulos necessários
 import Endereco from './Endereco.js'
 import Fornecedor from './Fornecedor.js'
 import Pedido from './Pedido.js'
+import Usuario from './Usuario.js'
 
 export default class bancoDados { //clase que contém, a princípio, tudo envolvendo banco de dados
     private conexao: mysql.Connection //atributo que tem o tipo "conexão com MySQL"
@@ -11,7 +12,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'Meusequel@d0', //sua senha
+                password: 'fatec', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -68,5 +69,18 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         let [fornecedores, meta]:any = await this.conexao.query('SELECT f.for_codigo, f.for_cnpj, f.for_razao_social, f.for_nome_fantasia, e.end_cep, e.end_estado, e.end_cidade, e.end_bairro, e.end_rua_avenida, e.end_numero FROM fornecedor f, endereco_fornecedor e WHERE f.end_codigo = e.end_codigo')
         await this.conexao.end()
         return fornecedores
+    }
+
+    async inserirUsuario(usuario:Usuario) { 
+        await this.conectar()
+        await this.conexao.query('INSERT INTO usuario(us_nome,us_senha,us_funcao,us_login) VALUES(?, ?, ?, ?)', [usuario['nome'], usuario['senha'],usuario['funcao'], usuario['login']]) 
+        await this.conexao.end()
+    }
+
+    public async listarUsuario() {
+        await this.conectar()
+        let [usuarios, meta]:any = await this.conexao.query('SELECT us_nome, us_senha, us_funcao, us_login FROM usuario')
+        await this.conexao.end()
+        return usuarios
     }
 }

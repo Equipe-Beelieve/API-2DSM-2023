@@ -4,6 +4,7 @@ import bancoDados from "./bancoDados.js"
 import Pedido from "./Pedido.js"
 import Endereco from "./Endereco.js";
 import Fornecedor from "./Fornecedor.js";
+import Usuario from "./Usuario.js";
 
 const PORT = 8080;
 const app = express();
@@ -62,6 +63,33 @@ app.post('/cadastroFornecedor', async (req, res) => {
     await bd.inserirFornecedor(fornecedor, endereco)
     res.redirect('/cadastroFornecedor')
 })   
+
+
+//========================= Listagem de Usuarios =========================
+app.get('/usuariosCadastrados', async (req, res) => {
+    let tabelaUsuario = await bd.listarUsuario()
+    res.render('usuariosCadastrados', {tabela:tabelaUsuario});
+});
+
+
+
+//========================= Cadastro de Usuarios =========================
+app.get('/cadastroUsuario', (req, res) => {
+    res.render('cadastroUsuario');
+});
+
+app.post('/postCadastroUsuario', async (req,res) => {
+    let dadosUsuario = Object.values(req.body) //armazenei só os valores do que veio do formulário, na ordem em que eles estão lá
+    
+    let usuario = new Usuario(...dadosUsuario as [string, string, string, string])
+    
+    await bd.inserirUsuario(usuario) //método da clase bancoDados para inserir na tabela pedido
+    let tabelaPedido = await bd.pegarTabela('usuario') //método para consultar a tabela inteira
+    console.log(tabelaPedido)
+    res.redirect('/')
+
+    console.log(dadosUsuario)
+});
 
 
 
