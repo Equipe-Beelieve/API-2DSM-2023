@@ -4,24 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
     <title>Fornecedores</title>
 </head>
 <body>
     <a href="/">Voltar</a><br>
     <a href="/cadastroFornecedor">Cadastrar um fornecedor</a>
-    <h1>Lista de fornecedores:</h1>
+    <center><h1>Lista de fornecedores</h1></center>
     
     <% for (let linha in tabela){ %>
-        <div>
-            <p>Razão social: <%= tabela[linha].for_razao_social %></p>
-            <p>Nome fantasia: <%= tabela[linha].for_nome_fantasia %></p>
-            <p>CNPJ: <%= tabela[linha].for_cnpj %></p>
-            <p>Endereço</p>
-            <p>CEP: <%= tabela[linha].end_cep %></p>
-            <p><%= tabela[linha].end_cidade%> - <%= tabela[linha].end_estado%></p>
-            <p><%= tabela[linha].end_rua_avenida %>, <%= tabela[linha].end_numero %></p>
+        <div class="listaOut">
+            <div class="listaIn">
+                <p>Razão social: <%= tabela[linha].for_razao_social %></p>
+                <p>Nome fantasia: <%= tabela[linha].for_nome_fantasia %></p>
+                <p>CNPJ: <%= tabela[linha].for_cnpj %></p>
+                <p>Endereço</p>
+                <p>CEP: <%= tabela[linha].end_cep %></p>
+                <p><%= tabela[linha].end_cidade%> - <%= tabela[linha].end_estado%></p>
+                <p><%= tabela[linha].end_rua_avenida %>, <%= tabela[linha].end_numero %></p>
+            </div>
         </div>
-        <hr>
     <% } %>
 </body>
 </html>
