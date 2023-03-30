@@ -4,7 +4,9 @@
     <a href="#sobre">Sobre</a> | 
     <a href="#instalacao">Instalação</a> |
     <a href="#entregas">Entregas</a> | 
-    <a href="#backlogs">Backlogs</a> |  
+    <a href="#backlogs">Backlogs</a> |
+    <a href="#burndown">Burndown</a> |
+    <a href="#modeloLogico">Modelo Lógico</a> |
     <a href="#tecnologias">Tecnologias</a> | 
     <a href="#equipe">Equipe</a> | 
 </p>
@@ -33,38 +35,78 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 <h2>Backlogs</h2>
 <h3>Backlog do Produto</h3>
 
-| Sprint | Funcionalidade | User Story |
-| :--:      | :--------------:  |:--:    |
-| **01** | Protótipo navegável | **--** |
-| **01** | Cadastro de pedido. | **01** |
-| **02** | Cadastro de produto. | **02** |
-| **02** | Cadastro de regras de recebimento. | **03** |
-| **02** | Cadastro de fornecedor. | **04** |
-| **02** | Cadastro de usuário. | **05** |
-| **02** | Deve haver diferentes níveis de acesso (usuário comum e administrador). | **06** |
-| **03** | Na fase de entrada do matérial deve haver a inserção dos dados da nota fiscal. | **07** |
-| **03** | O sistema deve comparar os dados da nota fiscal com o do relatório de compras. | **08** |
-| **03** | O sistema deve comparar os valores da conferência quantitativa com a nota fiscal e disponibilizar o resultado para a análise do usuário. | **09** |
-| **03** | Na fase de conferência qualitativa, o usuário deverá ter acesso há uma tela que o permite informar se há avarias e se o laudo veio anexado á nota fiscal. | **10** |
-| **04** | O Sistema deve gerar um relatório final com a decisão de aceite ou recusa (feita pelo próprio sistema a partir das regras de négocio). | **11** |
-| **04** | Sistema deve guardar inforamções de entregas armazenadas (etregas que foram aceitas), bem como mostrar o que há no armazem. | **12** |
+| Sprint | Funcionalidade | User Story | Critérios de Aceitação | 
+| :--:   | :-----------:  | :--: | :--: |
+| **01** | Cadastro de pedido. | **01** | **01** |
+| **01** | Cadastro de fornecedor. | **02** | **02** |
+| **01** | Listagem de pedidos cadastrados. | **03** | **03** |
+| **01** | Listagem de fornecedores cadastrados. | **04** | **04** |
+| **02** | Cadastro de produto. | **05** | **05** |
+| **02** | Cadastro de regras de recebimento. | **06** | **06** |
+| **02** | Cadastro de usuário. | **07** | **07** |
+| **02** | Deve haver diferentes níveis de acesso (usuário comum, gerente e administrador). | **08** | **08** |
+| **02** | Listagem de usuários cadastrados. | **09** | **09** |
+| **02** | Listagem de produtos cadastrados. | **10** | **10** |
+| **03** | Na fase de entrada do matérial, deve haver a inserção dos dados da nota fiscal. | **11** | **11** |
+| **03** | Na fase de conferência quantitativa, deve haver a inserção da quantidade do material em análise | **12** | **12** |
+| **03** | Filtragem da lista de pedidos por etapa do processo | **13** | **13** |
+| **03** | Deverá ser possível voltar em fases anteriores do processo de entrada de material | **14** | **14** |
+| **03** | Na fase de conferência qualitativa, o usuário deverá ter acesso há uma tela que o permite informar se há avarias, se o laudo veio anexado à nota fiscal e as informações relacionadas às regras de recebimento. | **15** | **15** |
+| **04** | O Sistema deve gerar um relatório final com a decisão de aceite ou recusa (feita pelo próprio sistema a partir das regras de négocio e da comparação dos dados inseridos). | **16** | **16** |
+| **04** | Sistema deve guardar inforamções de entregas armazenadas (etregas que foram aceitas pelo administrador), bem como mostrar o que há no armazem. | **17** | **17** |
+| **04** | Alteração de dados de fornecedores cadastrados. | **18** | **18** |
+| **04** | Alteração de dados de usuários cadastrados. | **19** | **19** |
+| **04** | Alteração de dados do produtos cadastrados. | **20** | **20** |
 
 <h3>Referência das User Stories</h3>
 
-| ID | User Stories |
+| ID | User Story |
 | :--:   | :----------------:  |
-| **01** | Eu como usuário comum desejo cadastrar os dados de pedidos e vê-los listados, para armazenar e gerenciar os pedidos. |
-| **02** | Eu como usuário comum desejo cadastrar produtos, para manter a integridade dos dados relacionados ao conteúdo dos pedidos. |
-| **03** | Eu como usuário comum desejo cadastrar a regras de recebimento, para que elas se adquem a diferentes produtos e situações. |
-| **04** | Eu como usuário comum desejo cadastrar os dados do fornecedor, para manter a integridade dos dados de cada fornecedotr. |
-| **05** | Eu como administrador desejo cadastrar os trabalhadores (usuário comum), para permitir a eles o acesso ao sistema. |
-| **06** | Eu como administrador desejo que o sistema tenha diferentes níveis de acesso, para que os demais usuários não tenham acesso à funcionalidades críticas e dados sensíveis. |
-| **07** | Eu como usuário comum desejo marcar um pedido como recebido e inserir os dados da nota fiscal, para armazenar os dados da nota fiscal e proceguir o processo de entrada de material. |
-| **08** | Eu como usuário comum desejo que o sistema faça a comparação entre os dados da nota fiscal e do relatório de compras, para identificar possíveis inconsistências. |
-| **09** | Eu como usuário comum desejo que o sistema faça a comparação entre os dados da nota fiscal e o dados do conferência  quantitativa, para identificar possíveis inconsistências. |
-| **10** | Eu como usuário comum desejo que o sistema informe se o produto não está avariado e de acordo com os dados do laudo, para realizar a análise qualitativa.|
-| **11** | Eu como usuário comum desejo ter acesso ao relatório final e à decisão de aceite ou recusa do matérial, para conferir quais foram as inconsistências do pedido. |
-| **12** | Eu como usuário comum desejo ter acesso aos dados dos produtos já recebidos para gerenciar o estoque. |
+| **01** | Eu como gerente desejo cadastrar os dados do relatório de compras no sistema, para armazenar e gerenciar os pedidos. |
+| **02** | Eu como gerente desejo cadastrar os dados do fornecedor, para manter a integridade dessas informações.  |
+| **03** | Eu como gerente desejo ver os pedidos já cadastrados, para conferir a conformidade dessas informações. |
+| **04** | Eu como gerente desejo ver os fornecedores já cadastrados, para conferir a conformidade dessas informações. |
+| **05** | Eu como gerente quero cadastrar produtos, para manter a integridade dos dados relacionados ao conteúdo dos pedidos. |
+| **06** | Eu como gerente quero cadastrar as regras de recebimento, para que elas se adequem a diferentes produtos e situações. |
+| **07** | Eu como administrador quero cadastrar os trabalhadores, para permitir a eles o acesso ao sistema. |
+| **08** | Eu como administrador quero que o sistema tenha níveis de acesso, para que os demais usuários não tenham acesso a funcionalidades críticas e dados sensíveis. |
+| **09** | Eu como administrador quero que o sistema liste os usuários cadastrados, para gerencia-los. |
+| **10** | Eu como gerente quero que o sistema liste os produtos cadastrados, para ter acesso a suas informações.|
+| **11** | Eu como usuário comum desejo marcar o pedido como recebido e inserir os dados da nota fiscal para armazenar os dados da nota e prosseguir o processo de entrada de material. |
+| **12** | Eu como usuário comum desejo inserir os dados referentes à análise quantitativa no sistema, para que posteriormente esses dados sejam comparados com os demais documentos pelo sistema. |
+| **13** | Eu como usuário comum desejo que o sistema filtre os pedidos de acordo com a etapa em que estão, para que haja uma melhor organização do trabalho. |
+| **14** | Eu como usuário comum desejo que o sistema permita a correção de possíveis erros em etapas anteriores do processo, para minimizar o impacto dessas falhas. |
+| **15** | Eu como usuário comum quero informar os dados relacionados às análises qualitativas, para que o sistema compare essas informações com as regras de recebimento. |
+| **16** | Eu como gerente quero ter acesso ao relatório final e à decisão do sistema de aceite ou recusa do material, para conferir quais foram as inconsistensias do pedido e se será necessário forçar o aceite. |
+| **17** | Eu como gerente quero ter acesso aos dados dos produtos já recebidos, para verificar se a decisão se adequa com a realidade da empresa. |
+| **18** | Eu como gerente quero poder mudar os dados dos fornecedores, para atualizar informações obsoletas e corrigir possíveis erros cadastrais. |
+| **19** | Eu como administrador quero poder mudar os dados dos usuários, para atualizar informações obsoletas e gerenciar as contas. |
+| **20** | Eu como gerente quero poder mudar os dados dos produtos, para atualizar informações obsoletas e gerenciar os produtos. |
+
+<h3>Referência dos Critérios de Aceitação</h3>
+
+| ID | Critérios de Aceitação |
+| :--:   | :----------------:  |
+| **01** | - Deve haver uma página com um formulário de cadastro com estilização.<br>- Tudo o que é inserido nesse formulário deverá ser guardado em um banco no banco de dados. |
+| **02** | - Deve haver uma página com um formulário de cadastro de fornecedor com estilização.<br>- Tudo o que é inserido nesse formulário deverá ser guardado em um banco no banco de dados. |
+| **03** | - Deve haver uma página home que liste todos os fornecedores com estilização. |
+| **04** | - Deve haver uma página que liste todos os fornecedores cadastrados com estilização.<br>- Cada um dos pedidos listados deem levar à fase em que estão no processo ao serem clicados. |
+| **05** | - Deve haver uma página com um formulário de cadastro de produto com estilização.<br>- Nessa página deverá ter um campo destinado a adição de regras de recebimento.<br>- Tudo o que é inserido nesse formulário deverá ser guardado em um banco no banco de dados. |
+| **06** | - Essa funcionalidade deve estarem um campo página de cadastro de produto.<br>- Nesse campo o usuário deve ser capaz de adicionar regras de nedócio, escolhendo o tipo de regra, a limitação que ela impõem e se seu cumprimento é obrigatório ou não.<br>- Essas informações devem ser guardadas no banco de dados. |
+| **07** | - Deve haver uma página estilizada onde é possível cadastrar os usuários.<br>- Apenas o administrador deve ter acesso à essa funcionalidade.<br>- Todas dados cadastradas devem ser guardadas no banco de dados. |
+| **08** | - Deve haver o nível de acesso de administrador, que tem acesso a todas as funcionalidades (principalmente as relacionadas ao cadastro e o gerenciamento de usuário).<br>- deve haver o nível de acesso de gerente, que além de fazer o processo de entrada, pode cadastrar produtos, pedidos e fornecedores.<br>- Deve haver o nível de acesso de usuário comum que apenas pode acessar a lista de pedidos, as etapas de conferencia e regularização. |
+| **09** | - Deve haver uma página que liste todos os usuários cadastrados com estilização.<br>- Apenas os administradores devem ter acesso a essa funcionalidade. |
+| **10** | - Deve haver uma página que liste todos os produtos cadastrados e suas respectivas regras de negócio com estilização. |
+| **11** | - Deve haver uma tela de inserção de dados da nota fiscal.<br>- Um botão de computar a informação e continuar o processo, outro de computar e voltar para home, e um botão de cancelar.<br>- As informações devem ser guardadas no banco.<br>- O atributo de fase do pedido deve ser alterado para a próxima fase no banco de dados, caso seja necessário. |
+| **12** | - Deve haver uma tela onde o usuário insira os dados da conferencia quantitativa.<br>- Um botão de computar a informação e continuar o processo, outro de computar e voltar para home, e um botão de cancelar. |
+| **13** | - Na tela home, deve haver um filtro na tela home (Listagem de Pedidos). Esse filtro deve estar dividido entre pedidos "a caminho", "em análise" e  "finalizados".<br>- Pedidos "a caminho" serão aqueles que ainda não chegaram. Os "em análise" são aqueles que estão na etapa de conferencia qualitativa ou quantitativa. Os finalizados são os pedidos recuzados e aceitos. |
+| **14** | - Pedidos listados na home devem se expandiar quando clicados, mostrando mais informações e botões que levem a fazes anteriores, bem como à fase atual. |
+| **15** | - Deve haver uma página com as regras de negócio atreladas ao produto em análise com campos para que o usuário insira os dados da análise.<br>- Obrigatóriamente deve haver um campo referente à presença do laudo e outro referente à possíveis avarias.<br>- Essas informações inseridas pelo usuário devem ser guardadas no banco de dados.<br>- Um botão de computar a informação e continuar o processo, outro de computar e voltar para home, e um botão de cancelar. |
+| **16** | - Deve haver uma página que gere um relatório que mostre o resultado das comparações feitas entre os dados colocados nas diversas fases.<br>- Nessa página deve haver a decisão que o sistema tomou com base nessas comparações e nas regras de recebimento.<br>- Deve haver um botão de forçar o aceite da entregue, disponível apenas para o administrador e  o gerente. |
+| **17** | - Deve haver uma listagem dos pedidos aceitos anteriormente. |
+| **18** | - Deve haver uma tela que possibilite a mudança dos dados já cadastrados dos fornecedores.<br>- Apenas o gerente e o administrador devem ter acesso a essa funcionalidade.<br>- Essa tela deve ser acessada ao clicar em um dos fornecedores da tela de listagem de fornecedores. |
+| **19** | - Deve haver uma tela que possibilite a mudança dos dados já cadastrados dos usuários.<br>- Apenas o administrador deve ter acesso a essa funcionalidade.<br>- Essa tela deve ser acessada ao clicar em um dos usuários da tela de listagem de usuários. |
+| **20** | - Deve haver uma tela que possibilite a mudança dos dados já cadastrados dos produtos e suas respectivas regras de recebimento.<br>- Apenas o gerente e o administrador devem ter acesso a essa funcionalidade.<br>- Essa tela deve ser acessada ao clicar em um dos produtos da tela de listagem de produtos. |
 
 <h3>Backlog das sprints</h3>
 <h4>Sprint 1</h4>
@@ -73,6 +115,9 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 | :--:   | :----------------  |
 | **01** | Protótipo navegável. |
 | **02** | Cadastro de pedido. |
+| **03** | Cadastro de fornecedor. |
+| **04** | Listagem de fornecedores cadastrados. |
+| **05** | Listagem de pedidos cadastrados. |
 
 <h4>Sprint 2</h4>
 
@@ -80,28 +125,41 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 | :--:   | :----------------   |
 | **01** | Cadastro de produto. |
 | **02** | Cadastro de regras de recebimento. |
-| **03** | Cadastro de fornecedor. |
 | **04** | Cadastro de usuário. |
 | **05** | Deve haver diferentes níveis de acesso (usuário comum e usuário administrador). |
+| **06** | Listagem de produtos cadastrados. |
+| **07** | Listagem de usuários cadastrados. |
 
 <h4>Sprint 3</h4>
 
 | Item | Funcionalidade |
 | :--:   | :---------------- |
-| **01** | Cadastro de produto. |
-| **02** | Cadastro de regras de recebimento. |
-| **03** | Cadastro de fornecedor. |
-| **04** | Cadastro de usuário. |
-| **05** | Deve haver diferentes níveis de acesso (usuário comum e usuário administrador). |
+| **01** | Inserção dos dados da nota fiscal. |
+| **02** | Inserção da quantidade de material na fase da análise quantitativa. |
+| **03** | Filtragem da lista de pedidos por etapa do processo. |
+| **04** | Retornar em fases anteriores do processo de recebimento. |
+| **05** | Inserção de dados sobre avaria, regras de recebimento e se o laudo foi entregue junto com a nota fiscal na fase de análise qualitativa. |
 
 <h4>Sprint 4</h4>
 
 | Item | Funcionalidade |
 | :--:   | :---------------- |
-| **01** | O Sistema deve gerar um relatório final com a decisão de aceite ou recusa (feita pelo próprio sistema a partir das regras de négocio). |
-| **02** | Sistema deve guardar inforamções de entregas armazenadas (etregas que foram aceitas), bem como mostrar o que há no armazem. |
+| **01** | Criação de um relatório final com a decisão de aceite ou recusa do pedido (feito pelo próprio sistema a partir das regras de négocio). |
+| **02** | Guardar informações de entregas armazenadas (etregas que foram aceitas), bem como mostrar o que há no armazem. |
+| **03** | Alteração de dados de fornecedor cadastrado. |
+| **04** | Alteração de dados de usuário cadastrados. |
+| **05** | Alteração de dados de produto cadastrados. |
 
+<span id="modeloLogico"></span>
+<h2> Modelo Lógico </h2>
+Esse projeto foi feito utilizando o Banco de Dados relacional SQL e como ferramenta de gerenciamento o MySQL.<br><br>
+
+<p aling="center">
+    <img src="docs/imagens/modelo_logico_sprint1.jpg">
+</p>
 <span id="tecnologias"></span>
+
+
 <h2> Tecnologias utilizadas </h2>
 
 <span id="equipe"></span>
