@@ -19,35 +19,30 @@ O Back-end foi desenvolvido em TypeScript utilizando o framework express e o ban
 
 <span id="instalcao"></span>
 <h2> Executar a aplicação </h2>
-* Tenha o Node.js e o MySQL instalados
-* Clone o repositório
-* Acesse o projeto pelo terminal
-* Instale as dependências do projeto
-```powershell
-npm install
-```
-* Utilize dos arquivos script .sql no diretório bd para criar a estrutura do banco de dados<br>
-<a href="https://www.youtube.com/watch?v=Y18wK0v6mxA">Tutorial em mais detalhes para importar scripts no MySQL</a>
-* Configure as informações da conexão de acordo com o seu servidor no arquivo 'bancoDados.ts'
-```js
-this.conexao = await mysql.createConnection({
-                host: 'localhost',
-                user: '', //Nome do usuário, 'root' por padrão
-                password: '', //sua senha
-                database: 'api', //base de dados do api
-                port: 3306
-}
-```
-* Compile o código
-```powershell
-npx tsc
-```
-* Execute a aplicação no código compilado
-```powershell
-cd out //pasta que os arquivos foram compilados
-node app.js
-//o link para acessar aparecerá no terminal
-```
+<ul>
+	<li>Tenha o Node.js e o MySQL instalados</li>
+	<li>Clone o repositório</li>
+	<li>Acesse o projeto pelo terminal</li>
+	<li>Instale as dependências do projeto</li>
+        <code>npm installl</code><br><br>
+	<li>Utilize dos arquivos script .sql no diretório bd para criar a estrutura do banco de dados</li>
+	<a href="https://www.youtube.com/watch?v=Y18wK0v6mxA">Tutorial em mais detalhes para importar scripts no MySQL</a><br><br>
+	<li>Configure as informações da conexão de acordo com o seu servidor no arquivo 'bancoDados.ts'</li><br>
+        <pre>this.conexao = await mysql.createConnection({ 
+                host: 'localhost', 
+                user: '', //Nome do usuário, 'root' por padrão 
+                password: '', //sua senha 
+                database: 'api', //base de dados do api 
+                port: 3306 
+}</pre> <br>
+	<li>Compile o código</li>
+        <code>npx tsc</code><br><br>
+	<li>Execute a aplicação no código compilado</li><br>
+        <pre>cd out //pasta que os arquivos foram compilados
+         node app.js
+         //o link para acessar aparecerá no terminal
+        </pre>
+</ul>
 
 <span id="entregas"></span>
 <h2>Entregas</h2>
@@ -184,13 +179,13 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 Esse projeto foi feito utilizando o Banco de Dados relacional SQL e como ferramenta de gerenciamento o MySQL.<br><br>
 
 <p aling="center">
-    <img src="docs/imagens/modelo_logico_sprint1.jpg">
+    <img src="docs/imagens/modelo_logico_sprint1.jpg" alt="Modelo lógico do banco de dados">
 </p>
 <span id="tecnologias"></span>
 
 
 <h2> Tecnologias utilizadas </h2>
-![Tecnologias utilizadas.](docs/imagens/tecnologias.jpg "HTML5, CSS3, Javascript, Typescript, Node.js, Express, MySQL, Miro, Jira, Figma e Discord.")
+<img src="docs/imagens/tecnologias.jpg" alt="HTML5, CSS3, Javascript, Typescript, Node.js, Express, MySQL, Miro, Jira, Figma e Discord">
 
 <span id="equipe"></span>
 <h2> Equipe </h2>
