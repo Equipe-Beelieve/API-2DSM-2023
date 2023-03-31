@@ -18,7 +18,36 @@ O Back-end foi desenvolvido em TypeScript utilizando o framework express e o ban
 >Status do projeto: Em desenvolvimento :hourglass:
 
 <span id="instalcao"></span>
-<h2> Instalação e utilização da aplicação </h2>
+<h2> Executar a aplicação </h2>
+* Tenha o Node.js e o MySQL instalados
+* Clone o repositório
+* Acesse o projeto pelo terminal
+* Instale as dependências do projeto
+```powershell
+npm install
+```
+* Utilize dos arquivos script .sql no diretório bd para criar a estrutura do banco de dados<br>
+<a href="https://www.youtube.com/watch?v=Y18wK0v6mxA">Tutorial em mais detalhes para importar scripts no MySQL</a>
+* Configure as informações da conexão de acordo com o seu servidor no arquivo 'bancoDados.ts'
+```js
+this.conexao = await mysql.createConnection({
+                host: 'localhost',
+                user: '', //Nome do usuário, 'root' por padrão
+                password: '', //sua senha
+                database: 'api', //base de dados do api
+                port: 3306
+}
+```
+* Compile o código
+```powershell
+npx tsc
+```
+* Execute a aplicação no código compilado
+```powershell
+cd out //pasta que os arquivos foram compilados
+node app.js
+//o link para acessar aparecerá no terminal
+```
 
 <span id="entregas"></span>
 <h2>Entregas</h2>
@@ -27,8 +56,8 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 | Sprint| Período | Status |
 |:-----:|:----------:|:---------:|
 | 01 |   13/03/2023 - 02/04/2023 | Entregue :hourglass: | 
-| 02 |   03/04/2023 - 23/04/2023 | Entregue :hourglass: |  
-| 03 |   24/04/2023 - 14/05/2023 | Entregue :hourglass: | 
+| 02 |   03/04/2023 - 23/04/2023 | Pendente :hourglass: |  
+| 03 |   24/04/2023 - 14/05/2023 | Pendente :hourglass: | 
 | 04 |   15/05/2023 - 04/06/2023 | Pendente :hourglass: | 
 
 <span id="backlogs"></span>
@@ -161,6 +190,7 @@ Esse projeto foi feito utilizando o Banco de Dados relacional SQL e como ferrame
 
 
 <h2> Tecnologias utilizadas </h2>
+![Tecnologias utilizadas.](docs/imagens/tecnologias.jpg "HTML5, CSS3, Javascript, Typescript, Node.js, Express, MySQL, Miro, Jira, Figma e Discord.")
 
 <span id="equipe"></span>
 <h2> Equipe </h2>
