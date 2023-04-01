@@ -52,6 +52,20 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conexao.end()
     }
 
+    async pegarListaFornecedores() {
+        await this.conectar()
+        let [consulta, meta]:any = await this.conexao.query(`SELECT f.for_codigo, f.for_cnpj, f.for_razao_social, f.for_nome_fantasia, e.end_cep FROM fornecedor f, endereco_fornecedor e Where f.end_codigo=e.end_codigo`) //o pacote do mysql2 retorna 1 array com 2 arrays dentro dele numa consulta ao banco, um com resultados e outro com metadados da busca, os [] nas variáveis separa os resultado em arrays diferentes. É uma funcionalidade chamada de 'destructring arrays'
+        await this.conexao.end() //fecha a conexão com o banco depois de usá-lo
+        return consulta
+    }
+
+    async pegarRazaoSocial() {
+        await this.conectar()
+        let [consulta, meta]:any = await this.conexao.query(`SELECT for_razao_social FROM fornecedor`) //o pacote do mysql2 retorna 1 array com 2 arrays dentro dele numa consulta ao banco, um com resultados e outro com metadados da busca, os [] nas variáveis separa os resultado em arrays diferentes. É uma funcionalidade chamada de 'destructring arrays'
+        await this.conexao.end() //fecha a conexão com o banco depois de usá-lo
+        return consulta
+    }
+
     async pegarListaPedidos() {
         await this.conectar()
         let [consulta, meta]:any = await this.conexao.query(`SELECT ped_codigo, ped_produto_massa, ped_descricao, ped_valor_total, date_format(ped_data_entrega, '%d/%m/%Y') as ped_data_entrega  FROM pedido`) //o pacote do mysql2 retorna 1 array com 2 arrays dentro dele numa consulta ao banco, um com resultados e outro com metadados da busca, os [] nas variáveis separa os resultado em arrays diferentes. É uma funcionalidade chamada de 'destructring arrays'

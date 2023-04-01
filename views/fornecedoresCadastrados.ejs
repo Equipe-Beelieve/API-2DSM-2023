@@ -41,21 +41,23 @@
     <% for (let linha in tabela){ %>
         <div class="listaOut">
             <div class="listaIn">
+                <p>Fornecedor: <%= tabela[linha].for_codigo %>
+                </p>
                 <p>Razão social: <%= tabela[linha].for_razao_social %>
                 </p>
                 <p>Nome fantasia: <%= tabela[linha].for_nome_fantasia %>
                 </p>
                 <p>CNPJ: <%= tabela[linha].for_cnpj %>
                 </p>
-                <p>Endereço</p>
+                <!-- <p>Endereço</p> -->
                 <p>CEP: <%= tabela[linha].end_cep %>
                 </p>
-                <p>
+                <!-- <p>
                     <%= tabela[linha].end_cidade%> - <%= tabela[linha].end_estado%>
                 </p>
                 <p>
                     <%= tabela[linha].end_rua_avenida %>, <%= tabela[linha].end_numero %>
-                </p>
+                </p> -->
             </div>
         </div>
         <% } %>

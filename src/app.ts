@@ -25,9 +25,10 @@ app.get('/', async (req,res) =>{
 })
 
 //========================= Cadastro de Pedidos =========================
-app.get('/cadastroPedido', (req, res) => {
-    res.render('cadastroPedido');
-});
+app.get('/cadastroPedido', async (req, res) => {
+    let razaoSocial = await bd.pegarRazaoSocial()
+    res.render('cadastroPedido', {tabelaRazao:razaoSocial});
+})
 
 app.post('/postCadastroPedido', async (req,res) => {
     let pedido = new Pedido(req.body.produto, req.body.dataPedido, req.body.dataEntrega,
@@ -40,7 +41,7 @@ app.post('/postCadastroPedido', async (req,res) => {
 
 //========================= Listagem de Fornecedores =========================
 app.get("/fornecedores", async (req, res) => {
-    let tabelaFornecedores = await bd.listarFornecedores()
+    let tabelaFornecedores = await bd.pegarListaFornecedores()
     res.render('fornecedoresCadastrados', {tabela:tabelaFornecedores})
 })
 
@@ -54,7 +55,7 @@ app.post('/cadastroFornecedor', async (req, res) => {
     let fornecedor = new Fornecedor(for_cnpj, endereco, for_razao_social, for_nome_fantasia)
 
     await bd.inserirFornecedor(fornecedor, endereco)
-    res.redirect('/cadastroFornecedor')
+    res.redirect('/fornecedores')
 })   
 
 

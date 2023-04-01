@@ -50,7 +50,7 @@
                             <tbody>
                                 <tr>
                                     <td><input class="input_form" type="text" id="for_razao_social"
-                                            name="for_razao_social">
+                                            name="for_razao_social" required>
                                     </td>
                                 </tr>
                             </tbody>
@@ -67,7 +67,7 @@
                             <tbody>
                                 <tr>
                                     <td><input class="input_form" type="text" id="for_nome_fantasia"
-                                            name="for_nome_fantasia">
+                                            name="for_nome_fantasia" required>
                                     </td>
                                 </tr>
                             </tbody>
@@ -83,7 +83,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input class="input_form" type="number" min="0" id="for_cnpj" name="for_cnpj">
+                                    <td><input class="input_form" type="number" min="0" id="for_cnpj" name="for_cnpj" required>
                                     </td>
                                 </tr>
                             </tbody>
@@ -99,7 +99,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input class="input_form" type="text" id="end_cidade" name="end_cidade">
+                                    <td><input class="input_form" type="text" id="end_cidade" name="end_cidade" required>
                                     </td>
                                 </tr>
                             </tbody>
@@ -115,7 +115,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input class="input_form" type="text" id="end_cep" name="end_cep"></td>
+                                    <td><input class="input_form" type="text" id="end_cep" name="end_cep" required></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -130,7 +130,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><select class="input_form" name="end_estado" id="end_estado">
+                                    <td><select class="input_form" name="end_estado" id="end_estado" required>
                                             <option value="Acre">Acre</option>
                                             <option value="Alagoas">Alagoas</option>
                                             <option value="Amapá">Amapá</option>
@@ -173,7 +173,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input class="input_form" type="text" id="endereco" name="endereco">
+                                    <td><input class="input_form" type="text" id="endereco" name="endereco" required>
                                     </td>
                                 </tr>
                             </tbody>
@@ -191,7 +191,7 @@
                             <tbody>
                                 <tr>
                                     <td><input class="input_form" type="number" min="0" id="end_numero"
-                                            name="end_numero">
+                                            name="end_numero" required>
                                     </td>
                                 </tr>
                             </tbody>
@@ -200,9 +200,14 @@
                 </div>
             </div>
 
-            <input class="confirm_button" type="submit" value="Cadastrar">
-            <button class="cancel_button">Cancelar</button>
+            
+            <input type="submit" class="confirm_button" value="Confirmar">              
+            
+            <a href="/fornecedores">
+                <button type="button" class="cancel_button">Cancelar</button>
+            </a>
         </form>
+        
     </div>
 </body>
 
