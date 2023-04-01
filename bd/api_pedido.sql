@@ -27,7 +27,6 @@ DROP TABLE IF EXISTS `pedido`;
 CREATE TABLE `pedido` (
   `ped_codigo` int NOT NULL AUTO_INCREMENT,
   `ped_razao_social` varchar(50) DEFAULT NULL,
-  `ped_nome_fantasia` varchar(50) DEFAULT NULL,
   `ped_transportadora` varchar(100) DEFAULT NULL,
   `ped_tipo_frete` varchar(20) DEFAULT NULL,
   `ped_produto_massa` varchar(10) DEFAULT NULL,
@@ -35,6 +34,7 @@ CREATE TABLE `pedido` (
   `ped_valor_unidade` varchar(20) DEFAULT NULL,
   `ped_valor_total` varchar(20) DEFAULT NULL,
   `ped_data_entrega` date DEFAULT NULL,
+  `ped_data_pedido` date DEFAULT NULL,
   `ped_condicao_pagamento` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ped_codigo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
