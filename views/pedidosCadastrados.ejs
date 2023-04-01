@@ -45,26 +45,26 @@
             <div class="listaIn">
                 <h1>Pedido <%= `${tabela[linha].ped_codigo}` %>
                 </h1>
-                <p>Razão social: <%= tabela[linha].ped_razao_social %>
+                <!-- <p>Razão social: <%= tabela[linha].ped_razao_social %>
                 </p>
                 <p>Nome fantasia: <%= tabela[linha].ped_nome_fantasia %>
                 </p>
                 <p>Tranportadora: <%= tabela[linha].ped_transportadora %>
                 </p>
                 <p>Tipo do frete: <%= tabela[linha].ped_tipo_frete %>
+                </p> -->
+                <p>Descrição: <%= tabela[linha].ped_descricao %>
                 </p>
                 <p>Quantidade: <%= tabela[linha].ped_produto_massa %>
                 </p>
-                <p>Descrição: <%= tabela[linha].ped_descricao %>
-                </p>
-                <p>Valor unidade: <%= tabela[linha].ped_valor_unidade %>
-                </p>
+                <!-- <p>Valor unidade: <%= tabela[linha].ped_valor_unidade %>
+                </p> -->
                 <p>Valor total: <%= tabela[linha].ped_valor_total %>
                 </p>
                 <p>Data de entrega: <%= tabela[linha].ped_data_entrega %>
                 </p>
-                <p>condição de pagamento: <%= tabela[linha].ped_condicao_pagamento %>
-                </p>
+                <!-- <p>condição de pagamento: <%= tabela[linha].ped_condicao_pagamento %>
+                </p> -->
             </div>
         </div>
         <% } %>

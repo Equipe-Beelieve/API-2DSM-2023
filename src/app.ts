@@ -20,7 +20,7 @@ const bd = new bancoDados() //criando uma instância do bd para utilizar os mét
 //========================= Listagem de Pedidos =========================
 
 app.get('/', async (req,res) =>{
-    let tabelaPedidos = await bd.pegarTabela('pedido')
+    let tabelaPedidos = await bd.pegarListaPedidos()
     res.render('pedidosCadastrados', {tabela:tabelaPedidos})
 })
 
@@ -30,18 +30,11 @@ app.get('/cadastroPedido', (req, res) => {
 });
 
 app.post('/postCadastroPedido', async (req,res) => {
-    let dadosPedido = Object.values(req.body) //armazenei só os valores do que veio do formulário, na ordem em que eles estão lá
+    let pedido = new Pedido(req.body.produto, req.body.dataPedido, req.body.dataEntrega,
+        req.body.razaoSocial, req.body.precoUnitario, req.body.quantidade,
+        req.body.precoTotal, req.body.frete, req.body.transportadora, req.body.condicaoPagamento)
     
-    let pedido = new Pedido(...dadosPedido as [string, string, string, string, string,string,string,string,Date,string])
-    /* aqui eu estou criando um novo pedido (classe)
-       utilizei um operador chamado spread, são esses '...' para atribuir os valores necessários que foram passados no construtor da classe,
-       como eu estou utilizando só os valores do que foi preenchido no form, é necessário especificar os tipos no array seguinte.
-       IMPORTANTE: como o spread só distribui os valores em sequência, a ordem que a gente recebe os dados do forms tem que ser a mesma ordem
-       do construtor da classe, porque caso dois atributos em sequência tiverem o mesmo tipo e vierem na ordem errada, ficarão com a os valores trocados*/
-
     await bd.inserirPedido(pedido) //método da clase bancoDados para inserir na tabela pedido
-    let tabelaPedido = await bd.pegarTabela('pedido') //método para consultar a tabela inteira
-    console.log(tabelaPedido)
     res.redirect('/')
 });
 
