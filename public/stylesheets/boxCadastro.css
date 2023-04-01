@@ -1,0 +1,56 @@
+* {
+    align-items: center;
+}
+
+body {
+    background-color: transparent;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.poscentralized{
+
+    -webkit-display: flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    }
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+table {
+    border-collapse: collapse;
+    width: 95%;
+    margin: auto;
+}
+
+thead {
+    text-align: center;
+}
+table:nth-child(even) {
+    align-items: center;
+}
+
+th,
+td {
+    padding: 0.1em 0.1em;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box {
+    box-sizing: border-box;
+    padding: 1rem;
+    /* width: 50%; */
+}
+
+.divFornecedor {
+    text-align: center;
+}

@@ -1,87 +1,122 @@
-.listaOut{
-    background-color: #D9D9D9;
-    width: 30%;
-    padding-top: 2vh;
-    padding-bottom: 2vh;
-    padding-left: 2vw;
-    margin-left: 35%;
-    margin-bottom: 1%;
+.listaOut {
+  background-color: #D9D9D9;
+  width: 30%;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  padding-left: 2vw;
+  margin-left: 35%;
+  margin-bottom: 1%;
 }
 
-.listaIn{
-    background-color: #C0C0C0;
-    width: 90%;
-    padding-top: 1%;
-    padding-left: 1%;
-    padding-bottom: 0.5%;
-    padding-right: 1%;
+.listaIn {
+  background-color: #C0C0C0;
+  width: 90%;
+  padding-top: 1%;
+  padding-left: 1%;
+  padding-bottom: 0.5%;
+  padding-right: 1%;
 }
 
-#botaoTopo{
-    position: fixed;
-    top: 90%;
-    left: 95%; 
-    font-size: 2vh;
-    padding-top: 0.75%;
-    padding-left: 1%;
-    padding-bottom: 0.75%;
-    padding-right: 1%;
-    background-color: #B4D892;
-    border: none;
-    border-radius: 60%;
+#botaoTopo {
+  position: fixed;
+  top: 90%;
+  left: 95%;
+  font-size: 2vh;
+  padding-top: 0.75%;
+  padding-left: 1%;
+  padding-bottom: 0.75%;
+  padding-right: 1%;
+  background-color: #B4D892;
+  border: none;
+  border-radius: 60%;
 }
 
-#botaoTopo:hover{
-    background-color: #3E813B;
+#botaoTopo:hover {
+  background-color: #3E813B;
 }
 
 /* HEADER */
 .header {
-    overflow: hidden;
-    background-color: #30321C;
-    padding: 20px 10px;
-  }
-  
+  overflow: hidden;
+  background-color: #30321C;
+  padding: 20px 10px;
+}
+
+.header a {
+  float: left;
+  color: #FCF7F8;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.header a.active {
+  background-color: #FCF7F8;
+  color: black;
+}
+
+.header-right {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
   .header a {
-    float: left;
-    color: #FCF7F8;
-    text-align: center;
-    padding: 12px;
-    text-decoration: none;
-    font-size: 18px; 
-    line-height: 25px;
-    border-radius: 4px;
-  }
-  
-  .header a.logo {
-    font-size: 25px;
-    font-weight: bold;
-  }
-  
-  .header a.active {
-    background-color:#FCF7F8;
-    color: black;
-  }
-  
-  .header-right {
-    float: right;
-  }
-  
-  @media screen and (max-width: 500px) {
-    .header a {
-      float: none;
-      display: block;
-      text-align: left;
-    }
-    
-    .header-right {
-      float: none;
-    }
+    float: none;
+    display: block;
+    text-align: left;
   }
 
+  .header-right {
+    float: none;
+  }
+}
+
 /* CRIA UMA CAIXA SOLIDA COM BORDA */
-p.solid {border-style: solid;
-    background-color: #D4DF9E;
-    border-color: #30321C;
-    color:white;
-    font-weight: bold;}
+p.solid {
+  border-style: solid;
+  background-color: #D4DF9E;
+  border-color: #30321C;
+  color: white;
+  font-weight: bold;
+}
+
+.input_form {
+  background-color: #C0C0C0;
+  border-color: transparent;
+}
+
+.cancel_button {
+  background: #FF6962;
+  border-radius: 20px;
+  border-color: transparent;
+}
+
+.cancel_button:hover {
+  background: #ee2a20;
+}
+
+.confirm_button {
+  background: #B4D892;
+  border-radius: 20px;
+  border-color: transparent;
+}
+
+.confirm_button:hover {
+  background-color: #3E813B;
+}
+
+.bg_navbar {
+  background-color: #3E813B;
+}
+
+.navbar_itens {
+  margin: 0 auto;
+}
