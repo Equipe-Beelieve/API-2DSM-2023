@@ -19,11 +19,11 @@
 <body>
     <!-- <a href="/">Voltar</a><br> -->
     <nav class="navbar navbar-dark navbar-expand-lg bg_navbar">
-        <a class="navbar-brand text_navbar" href="/">Home</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        <a class="navbar-brand" href="/"><img src="../docs/imagens/logo.png" alt="logotipo sabiá"></a>
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> -->
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav navbar_itens">
                 <a class="nav-item nav-link" href="/">Pedidos</a>
@@ -37,177 +37,194 @@
     <div class="divFornecedor">
         <h1>Cadastro de Fornecedores</h1>
         <form action="/cadastroFornecedor" method="post">
-            <div class="poscentralized">
 
-                <div class="grid-container">
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">Razão Social:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="text" id="for_razao_social"
-                                            name="for_razao_social" required>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="grid-container poscentralized">
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Razão Social:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="for_razao_social" name="for_razao_social"
+                                        required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">Nome Fantasia:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="text" id="for_nome_fantasia"
-                                            name="for_nome_fantasia" required>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome Fantasia:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="for_nome_fantasia"
+                                        name="for_nome_fantasia" required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">CNPJ:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="number" min="0" id="for_cnpj" name="for_cnpj" required>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">Cidade:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="text" id="end_cidade" name="end_cidade" required>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">CEP:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="text" id="end_cep" name="end_cep" required></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">Estado:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><select class="input_form" name="end_estado" id="end_estado" required>
-                                            <option value="Acre">Acre</option>
-                                            <option value="Alagoas">Alagoas</option>
-                                            <option value="Amapá">Amapá</option>
-                                            <option value="Amazonas">Amazonas</option>
-                                            <option value="Bahia">Bahia</option>
-                                            <option value="Ceará">Ceará</option>
-                                            <option value="Distrito Federal">Distrito Federal</option>
-                                            <option value="Espírito Santo">Espírito Santo</option>
-                                            <option value="Goiás">Goiás</option>
-                                            <option value="Maranhão">Maranhão</option>
-                                            <option value="Mato Grosso">Mato Grosso</option>
-                                            <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
-                                            <option value="Minas Gerais">Minas Gerais</option>
-                                            <option value="Pará">Pará</option>
-                                            <option value="Paraíba">Paraíba</option>
-                                            <option value="Paraná">Paraná</option>
-                                            <option value="Pernambuco">Pernambuco</option>
-                                            <option value="Piauí">Piauí</option>
-                                            <option value="Rio de Janeiro">Rio de Janeiro</option>
-                                            <option value="Rio Grande do Norte">Rio Grande do Norte</option>
-                                            <option value="Rio Grande do Sul">Rio Grande do Sul</option>
-                                            <option value="Rondônia">Rondônia</option>
-                                            <option value="Roraima">Roraima</option>
-                                            <option value="Santa Catarina">Santa Catarina</option>
-                                            <option value="São Paulo">São Paulo</option>
-                                            <option value="Sergipe">Sergipe</option>
-                                            <option value="Tocantins">Tocantins</option>
-                                        </select></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">Endereço:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="text" id="endereco" name="endereco" required>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">Número:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="number" min="0" id="end_numero"
-                                            name="end_numero" required>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CNPJ:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" placeholder="333.333.333/4444-22"
+                                        pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" id="for_cnpj"
+                                        name="for_cnpj" required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            
-            <input type="submit" class="confirm_button" value="Confirmar">              
-            
-            <a href="/fornecedores">
-                <button type="button" class="cancel_button">Cancelar</button>
-            </a>
+            <div class="grid-container poscentralized">
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Cidade:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="end_cidade" name="end_cidade" required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CEP:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" placeholder="55555-333"
+                                        pattern="[0-9]{5}-[0-9]{3}" id="end_cep" name="end_cep" required></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Estado:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><select class="input_form" name="end_estado" id="end_estado" required>
+                                        <option value="Acre">Acre</option>
+                                        <option value="Alagoas">Alagoas</option>
+                                        <option value="Amapá">Amapá</option>
+                                        <option value="Amazonas">Amazonas</option>
+                                        <option value="Bahia">Bahia</option>
+                                        <option value="Ceará">Ceará</option>
+                                        <option value="Distrito Federal">Distrito Federal</option>
+                                        <option value="Espírito Santo">Espírito Santo</option>
+                                        <option value="Goiás">Goiás</option>
+                                        <option value="Maranhão">Maranhão</option>
+                                        <option value="Mato Grosso">Mato Grosso</option>
+                                        <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                                        <option value="Minas Gerais">Minas Gerais</option>
+                                        <option value="Pará">Pará</option>
+                                        <option value="Paraíba">Paraíba</option>
+                                        <option value="Paraná">Paraná</option>
+                                        <option value="Pernambuco">Pernambuco</option>
+                                        <option value="Piauí">Piauí</option>
+                                        <option value="Rio de Janeiro">Rio de Janeiro</option>
+                                        <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                                        <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                                        <option value="Rondônia">Rondônia</option>
+                                        <option value="Roraima">Roraima</option>
+                                        <option value="Santa Catarina">Santa Catarina</option>
+                                        <option value="São Paulo">São Paulo</option>
+                                        <option value="Sergipe">Sergipe</option>
+                                        <option value="Tocantins">Tocantins</option>
+                                    </select></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid-container poscentralized">
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Bairro:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="end_bairro" name="end_bairro" required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rua/Avenida:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="end_rua_avenida" name="end_rua_avenida"
+                                        required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Número:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="number" min="0" id="end_numero" name="end_numero"
+                                        required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <input class="confirm_button" type="submit" value="Cadastrar">
+            <button class="cancel_button">Cancelar</button>
         </form>
-        
     </div>
 </body>
 

@@ -11,6 +11,11 @@ body {
     grid-template-columns: auto auto auto;
 }
 
+.grid-container-2 {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
 .poscentralized{
 
     -webkit-display: flex;

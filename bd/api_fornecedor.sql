@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `fornecedor`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `fornecedor` (
   `for_codigo` int NOT NULL AUTO_INCREMENT,
-  `for_cnpj` varchar(14) DEFAULT NULL,
+  `for_cnpj` varchar(19) DEFAULT NULL,
   `end_codigo` int NOT NULL,
   `for_razao_social` varchar(50) DEFAULT NULL,
   `for_nome_fantasia` varchar(50) DEFAULT NULL,

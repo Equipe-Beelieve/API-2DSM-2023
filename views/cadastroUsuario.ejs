@@ -16,16 +16,16 @@
     <title>Cadastro de Usuarios</title>
 </head>
 
-<body>
+<body class="bg-geral">
     <!-- <a href="/">Voltar</a><br> -->
     <nav class="navbar navbar-dark navbar-expand-lg bg_navbar">
-        <a class="navbar-brand text_navbar" href="/">Home</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        <div class="logo"><a class="navbar-brand" href="/"><img src="../docs/imagens/logo.png" alt="logo sabiá"></a></div>
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav navbar_itens">
+        </button> -->
+        <div class="navbar_itens" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
                 <a class="nav-item nav-link" href="/">Pedidos</a>
                 <a class="nav-item nav-link" href="/fornecedores">Fornecedores</a>
                 <a class="nav-item nav-link" href="#">Produtos</a>
@@ -37,169 +37,172 @@
     <div class="divFornecedor">
         <h1>Cadastro de Usuário</h1>
         <form action="/postCadastroUsuario" method="post">
-            <div class="poscentralized">
 
-                <div class="grid-container">
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">Login:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="text" id="login" name="login">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="poscentralized grid-container">
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Login:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="login" name="login">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">Senha:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="password" id="senha" name="senha">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Senha:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="password" id="senha" name="senha">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">nome:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="text" id="nome" name="nome">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>nome:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="nome" name="nome">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">CPF:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="text" id="cpf" name="cpf">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="poscentralized grid-container">
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CPF:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="cpf" name="cpf">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">Função:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="text" id="funcao" name="funcao">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Função:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="funcao" name="funcao">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">CEP:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="text" id="cep" name="cep">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CEP:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="cep" name="cep">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">Estado:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="text" id="estado" name="estado">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="poscentralized grid-container">
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Estado:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="estado" name="estado">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">Cidade:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="text" id="cidade" name="cidade">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Cidade:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="cidade" name="cidade">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">Endereço:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="text" id="endereco" name="endereco">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Endereço:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="endereco" name="endereco">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                    <div class="box">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan="3">Número:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="input_form" type="text" id="numero" name="numero">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
+            <div class="poscentralized grid-container2">
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Número:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="numero" name="numero">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 

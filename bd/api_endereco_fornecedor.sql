@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `endereco_fornecedor`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `endereco_fornecedor` (
   `end_codigo` int NOT NULL AUTO_INCREMENT,
-  `end_cep` varchar(8) DEFAULT NULL,
+  `end_cep` varchar(9) DEFAULT NULL,
   `end_estado` varchar(20) DEFAULT NULL,
   `end_cidade` varchar(50) DEFAULT NULL,
   `end_bairro` varchar(50) DEFAULT NULL,
