@@ -24,7 +24,7 @@ O Back-end foi desenvolvido em TypeScript utilizando o framework express e o ban
 	<li>Clone o repositório</li>
 	<li>Acesse o projeto pelo terminal</li>
 	<li>Instale as dependências do projeto</li>
-        <code>npm installl</code><br><br>
+        <code>npm install</code><br><br>
 	<li>Utilize dos arquivos script .sql no diretório bd para criar a estrutura do banco de dados</li>
 	<a href="https://www.youtube.com/watch?v=Y18wK0v6mxA">Tutorial em mais detalhes para importar scripts no MySQL</a><br><br>
 	<li>Configure as informações da conexão de acordo com o seu servidor no arquivo 'bancoDados.ts'</li><br>
@@ -154,7 +154,7 @@ Artefatos que nos ajudaram a chegar em Definitions of Ready:
 | <a href="#backlogs">Backlog do Produto</a> | Essencial para sabermos o que deve ser feito e em qual sprint |
 | <a href="/docs/imagens/modelo_logico_sprint1.jpg">Modelo lógico do banco de dados</a> | Essencial para construir o modelo físico do banco de dados |
 | <a href="/docs/Casos_de_teste-Sprint1.pdf">Modelo de casos de teste</a> | Artefato importante para realizar a o processo de Q.A. |
-| <a href="/docs/imagens/Sabiá-Mockup.jpg"> Mockup </a> | Artefato importante para posteriormente contruirmos o prtótipo e, em seguida a interface do software |
+| <a href="/docs/imagens/Sabiá-Mockup.jpg"> Mockup </a> | Artefato importante para posteriormente contruirmos o protótipo e, em seguida a interface do software |
 
 Artefatos que nos ajudaram a chegar em Definitions of Done:
 
@@ -163,7 +163,7 @@ Artefatos que nos ajudaram a chegar em Definitions of Done:
 | :--------------:   | :---------------------:  |
 | <a href="#criterioAceitacao">Critérios de aceitação</a> | Importante para saber quando um requisito está pronto para entrega |
 | <a href="/bd">Modelo físico do banco de dados</a> | Parte essencial do da aplicação. Importante para saber quais dados devem ser armazenadas |
-| <a href="/docs/Casos_de_teste-sprint1-Preenchido.pdf">Modelo de casos de teste preenchidos</a> | Artefeta também muito importante para saber o que de fato está pronto para a entrega |
+| <a href="/docs/Casos de teste-sprint1-Preenchido.pdf">Modelo de casos de teste preenchidos</a> | Artefeto é muito importante para saber o que de fato está pronto para a entrega |
 | <a href="https://www.figma.com/proto/1BLzM65qzng5exjhuqab28/SABI%C3%81?node-id=0-1&viewport=606%2C404%2C0.03&scaling=min-zoom&starting-point-node-id=45%3A100"> Protótipo </a> | Artefato que guia a produção da interface e define quando ela está terminada |
 
 <h3>Sprint 2</h3>
