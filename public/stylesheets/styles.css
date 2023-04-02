@@ -27,6 +27,7 @@
 #register {
   color: #FFFFFF;
   background-color: #3E813B;
+  width: 20%;
 
   border: none;
   border-radius: 10px;
@@ -231,6 +232,14 @@ p.solid {
 }
 
 .navbar_itens {
-  position: absolute;
-  margin: 0 420px
+  position: relative;
+  margin: 0 34vw;
+}
+
+.cadastro{
+  width: 90%;
+}
+
+.cadastro2{
+  width: 70%;
 }
