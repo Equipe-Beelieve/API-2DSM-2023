@@ -1,20 +1,123 @@
+.mainTitle {
+  font-size: 35px;
+  margin-top: 5vh;
+  font-weight: bold;
+}
+
+
+/*Botões de seleção de status*/
+.state {
+  display: flex;
+  justify-content: center;
+
+  width: 80%;
+}
+
+.state button {
+  margin: 2vh 2vw;
+
+  background-color: #D9D9D9;
+  padding: 0 1.5vw;
+  border: none;
+
+  font-size: 30px;
+  font-weight: 500;
+}
+
+#register {
+  color: #FFFFFF;
+  background-color: #3E813B;
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 24px;
+  font-weight: 700;
+}
+
+#register a, #register a:visited, #register a:hover {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.mainContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/*Título e botão de cadastro */
+.titleRegister {
+  margin: 5vh 0;
+
+  width: 80%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.titleRegister .mainTitle {
+  align-self: center;
+  margin: 0;
+}
+
+.titleRegister #register {
+  align-self: flex-end;
+  margin-left: 5vw;
+}
+
+
 .listaOut {
   background-color: #D9D9D9;
-  width: 30%;
-  padding-top: 2vh;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2vh 0;
+  padding: 1.5vh 0;
+  /* padding-top: 2vh;
   padding-bottom: 2vh;
   padding-left: 2vw;
   margin-left: 35%;
-  margin-bottom: 1%;
+  margin-bottom: 1%; */
 }
 
 .listaIn {
   background-color: #C0C0C0;
-  width: 90%;
+
+  width: 98%;
   padding-top: 1%;
   padding-left: 1%;
   padding-bottom: 0.5%;
   padding-right: 1%;
+
+  font-weight: bold;
+}
+
+/*Colunas para os campos de listagem*/
+.listColumns {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  line-height: 0.5;
+}
+
+.listColumns .column2 {
+  margin-left: 5vw;
+  
+}
+
+.listaIn h1 {
+  font-size: 30px;
+  margin-bottom: 2vh;
+}
+
+.listaIn p {
+  font-size: 25px;
 }
 
 #botaoTopo {
@@ -51,6 +154,11 @@
   font-size: 18px;
   line-height: 25px;
   border-radius: 4px;
+}
+
+.nav-logo{
+  width: 35px;
+  margin: 0 0 0 10px;
 }
 
 .header a.logo {
@@ -103,6 +211,11 @@ p.solid {
   background: #ee2a20;
 }
 
+.cancel_button a, a:visited, a:hover {
+  text-decoration: none;
+  color: #000000;
+}
+
 .confirm_button {
   background: #B4D892;
   border-radius: 20px;
@@ -118,5 +231,6 @@ p.solid {
 }
 
 .navbar_itens {
-  margin: 0 auto;
+  position: absolute;
+  margin: 0 420px
 }

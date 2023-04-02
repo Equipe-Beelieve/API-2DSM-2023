@@ -19,7 +19,7 @@
     <!-- <a href="/">Voltar</a><br>
     <a href="/cadastroFornecedor">Cadastrar um fornecedor</a> -->
     <nav class="navbar navbar-dark navbar-expand-lg bg_navbar">
-        <a class="navbar-brand text_navbar" src="../docs/imagens/logo.png" href="/">Home</a>
+        <a class="navbar-brand text_navbar"  href="/"><img class="nav-logo" src="/images/logo.png" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,31 +27,36 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav navbar_itens">
                 <a class="nav-item nav-link" href="/">Pedidos</a>
-                <a class="nav-item nav-link" href="/cadastroFornecedor">Cadastro de Fornecedores</a>
+                <a class="nav-item nav-link" href="/fornecedores">Fornecedores</a>
                 <a class="nav-item nav-link" href="#">Produtos</a>
                 <a class="nav-item nav-link" href="/usuariosCadastrados">Usuarios</a>
             </div>
         </div>
     </nav>
 
-    <center>
-        <h1>Lista de fornecedores</h1>
-    </center>
-
+    <div class="mainContent">
+    <div class="titleRegister">
+        <h1 class="mainTitle">FORNECEDORES</h1>
+        <button id="register">
+            <a href="/cadastroFornecedor">CADASTRO</a>
+            <img src="" alt="">
+        </button>
+    </div>
+    
     <% for (let linha in tabela){ %>
         <div class="listaOut">
             <div class="listaIn">
-                <p>Fornecedor: <%= tabela[linha].for_codigo %>
-                </p>
-                <p>Razão social: <%= tabela[linha].for_razao_social %>
-                </p>
-                <p>Nome fantasia: <%= tabela[linha].for_nome_fantasia %>
-                </p>
-                <p>CNPJ: <%= tabela[linha].for_cnpj %>
-                </p>
-                <!-- <p>Endereço</p> -->
-                <p>CEP: <%= tabela[linha].end_cep %>
-                </p>
+                <h1>Fornecedor <%= tabela[linha].for_codigo %></h1>
+                <div class="listColumns">
+                    <div class="column1">
+                        <p>Razão social: <%= tabela[linha].for_razao_social %></p>
+                        <p>Nome fantasia: <%= tabela[linha].for_nome_fantasia %></p>
+                    </div>
+                    <div class="column2">
+                        <p>CNPJ: <%= tabela[linha].for_cnpj %></p>
+                        <p>CEP: <%= tabela[linha].end_cep %></p>
+                    </div>
+                </div>
                 <!-- <p>
                     <%= tabela[linha].end_cidade%> - <%= tabela[linha].end_estado%>
                 </p>
@@ -61,6 +66,7 @@
             </div>
         </div>
         <% } %>
+    </div>
             <button onclick="topoFunction()" id="botaoTopo">⇧</button>
 </body>
 

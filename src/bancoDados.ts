@@ -12,7 +12,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'root', //sua senha
+                password: '', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -68,7 +68,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async pegarListaPedidos() {
         await this.conectar()
-        let [consulta, meta]:any = await this.conexao.query(`SELECT ped_codigo, ped_produto_massa, ped_descricao, ped_valor_total, date_format(ped_data_entrega, '%d/%m/%Y') as ped_data_entrega  FROM pedido`) //o pacote do mysql2 retorna 1 array com 2 arrays dentro dele numa consulta ao banco, um com resultados e outro com metadados da busca, os [] nas variáveis separa os resultado em arrays diferentes. É uma funcionalidade chamada de 'destructring arrays'
+        let [consulta, meta]:any = await this.conexao.query(`SELECT ped_codigo, ped_razao_social, ped_produto_massa, ped_descricao, ped_valor_total, date_format(ped_data_entrega, '%d/%m/%Y') as ped_data_entrega  FROM pedido`) //o pacote do mysql2 retorna 1 array com 2 arrays dentro dele numa consulta ao banco, um com resultados e outro com metadados da busca, os [] nas variáveis separa os resultado em arrays diferentes. É uma funcionalidade chamada de 'destructring arrays'
         await this.conexao.end() //fecha a conexão com o banco depois de usá-lo
         return consulta
     }

@@ -17,7 +17,7 @@ Projeto desenvolvido por alunos do 2º semestre do curso de Desenvolviento de So
 O Back-end foi desenvolvido em TypeScript utilizando o framework express e o banco de dados foi o SQL com o SGBD MySQL.<br>
 >Status do projeto: Em desenvolvimento :hourglass:
 
-<span id="instalcao"></span>
+<span id="instalacao"></span>
 <h2> Executar a aplicação </h2>
 <ul>
 	<li>Tenha o Node.js e o MySQL instalados</li>

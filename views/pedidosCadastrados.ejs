@@ -21,14 +21,14 @@
     <a href="/fornecedores">Fornecedores</a>
     <a href="/usuariosCadastrados">Usuarios</a> -->
     <nav class="navbar navbar-dark navbar-expand-lg bg_navbar">
-        <a class="navbar-brand text_navbar" src="../docs/imagens/logo.png" href="/">Home</a>
+        <a class="navbar-brand text_navbar"  href="/"><img class="nav-logo" src="/images/logo.png" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav navbar_itens">
-                    <a class="nav-item nav-link"  href="/cadastroPedido">Cadastro de Pedidos</a>
+                    <a class="nav-item nav-link"  href="/">Pedidos</a>
                     <a class="nav-item nav-link" href="/fornecedores">Fornecedores</a>
                     <a class="nav-item nav-link" href="#">Produtos</a>
                     <a class="nav-item nav-link" href="/usuariosCadastrados">Usuarios</a>
@@ -37,14 +37,35 @@
     </nav>
 
     <center>
-        <h1>Lista de pedidos:</h1>
+        <h1 class="mainTitle">PEDIDOS</h1>
     </center>
+    
+    <div class="mainContent">
 
+    <div class="state">
+        <button>A caminho</button>
+        <button>Em análise</button>
+        <button>Finalizado</button>
+        <button id="register">
+            <a href="/cadastroPedido">CADASTRO</a>
+            <img src="" alt="">
+        </button>
+    </div>
+    
     <% for (let linha in tabela){ %>
         <div class="listaOut">
             <div class="listaIn">
-                <h1>Pedido <%= `${tabela[linha].ped_codigo}` %>
-                </h1>
+                <h1>Pedido nº <%= `${tabela[linha].ped_codigo}` %>: Produto <!-- ainda não temos essa informação no bd --> (<%= `${tabela[linha].ped_razao_social}` %>)</h1>
+                <div class="listColumns">
+                    <div class="column1">
+                        <p>Peso: <%= tabela[linha].ped_produto_massa %></p>
+                        <p>Data de entrega: <%= tabela[linha].ped_data_entrega %></p>
+                        <p>Estado: Ainda não entregue</p>
+                    </div>
+                    <div class="column2">
+                        <p>Valor total: R$<%= tabela[linha].ped_valor_total %>,00</p>
+                    </div>
+                </div>
                 <!-- <p>Razão social: <%= tabela[linha].ped_razao_social %>
                 </p>
                 <p>Nome fantasia: <%= tabela[linha].ped_nome_fantasia %>
@@ -52,22 +73,19 @@
                 <p>Tranportadora: <%= tabela[linha].ped_transportadora %>
                 </p>
                 <p>Tipo do frete: <%= tabela[linha].ped_tipo_frete %>
-                </p> -->
+                </p>
                 <p>Descrição: <%= tabela[linha].ped_descricao %>
-                </p>
-                <p>Quantidade: <%= tabela[linha].ped_produto_massa %>
-                </p>
+                </p> -->
+                
                 <!-- <p>Valor unidade: <%= tabela[linha].ped_valor_unidade %>
                 </p> -->
-                <p>Valor total: <%= tabela[linha].ped_valor_total %>
-                </p>
-                <p>Data de entrega: <%= tabela[linha].ped_data_entrega %>
-                </p>
+                
                 <!-- <p>condição de pagamento: <%= tabela[linha].ped_condicao_pagamento %>
                 </p> -->
             </div>
         </div>
         <% } %>
+    </div>
             <button onclick="topoFunction()" id="botaoTopo">⇧</button>
 </body>
 
