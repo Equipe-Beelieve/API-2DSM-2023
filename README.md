@@ -148,8 +148,7 @@ Nessa Sprint um dos focos foi criar artefatos que nos auxiliem a chegar em DoRs 
 
 Artefatos que nos ajudaram a chegar em Definitions of Ready:
 
-| Tabela de DoRs |
-| :-------------------------------------------: |
+
 | Artefato | Descrição |
 | :--------------:   | :---------------------:  |
 | <a href="#backlogs">Backlog do Produto</a> | Essencial para sabermos o que deve ser feito e em qual sprint |
@@ -160,13 +159,11 @@ Artefatos que nos ajudaram a chegar em Definitions of Ready:
 Artefatos que nos ajudaram a chegar em Definitions of Done:
 
 
-| Tabela de DoDs |
-| :-------------------------------------------: |
 | Artefato | Descrição |
 | :--------------:   | :---------------------:  |
 | <a href="#criterioAceitacao">Critérios de aceitação</a> | Importante para saber quando um requisito está pronto para entrega |
 | <a href="/bd">Modelo físico do banco de dados</a> | Parte essencial do da aplicação. Importante para saber quais dados devem ser armazenadas |
-| <a href="/docs/Casos_de_teste-sprint1-Preenchido.pdff">Modelo de casos de teste preenchidos</a> | Artefeta também muito importante para saber o que de fato está pronto para a entrega |
+| <a href="/docs/Casos_de_teste-sprint1-Preenchido.pdf">Modelo de casos de teste preenchidos</a> | Artefeta também muito importante para saber o que de fato está pronto para a entrega |
 | <a href="https://www.figma.com/proto/1BLzM65qzng5exjhuqab28/SABI%C3%81?node-id=0-1&viewport=606%2C404%2C0.03&scaling=min-zoom&starting-point-node-id=45%3A100"> Protótipo </a> | Artefato que guia a produção da interface e define quando ela está terminada |
 
 <h3>Sprint 2</h3>
