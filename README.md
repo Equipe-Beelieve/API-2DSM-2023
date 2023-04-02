@@ -6,7 +6,7 @@
     <a href="#entregas">Entregas</a> | 
     <a href="#backlogs">Backlogs</a> |
     <a href="#burndown">Burndown</a> |
-    <a href="#modeloLogico">Modelo Lógico</a> |
+    <!-- <a href="#modeloLogico">Modelo Lógico</a> | -->
     <a href="#tecnologias">Tecnologias</a> | 
     <a href="#equipe">Equipe</a> | 
 </p>
@@ -107,6 +107,7 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 | **19** | Eu como administrador quero poder mudar os dados dos usuários, para atualizar informações obsoletas e gerenciar as contas. |
 | **20** | Eu como gerente quero poder mudar os dados dos produtos, para atualizar informações obsoletas e gerenciar os produtos. |
 
+<span id="criterioAceitacao"></span>
 <h3>Referência dos Critérios de Aceitação</h3>
 
 | ID | Critérios de Aceitação |
@@ -132,8 +133,8 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 | **19** | - Deve haver uma tela que possibilite a mudança dos dados já cadastrados dos usuários.<br>- Apenas o administrador deve ter acesso a essa funcionalidade.<br>- Essa tela deve ser acessada ao clicar em um dos usuários da tela de listagem de usuários. |
 | **20** | - Deve haver uma tela que possibilite a mudança dos dados já cadastrados dos produtos e suas respectivas regras de recebimento.<br>- Apenas o gerente e o administrador devem ter acesso a essa funcionalidade.<br>- Essa tela deve ser acessada ao clicar em um dos produtos da tela de listagem de produtos. |
 
-<h3>Backlog das sprints</h3>
-<h4>Sprint 1</h4>
+
+<h3>Sprint 1</h3>
 
 | Item | Funcionalidade |
 | :--:   | :----------------  |
@@ -143,7 +144,32 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 | **04** | Listagem de fornecedores cadastrados. |
 | **05** | Listagem de pedidos cadastrados. |
 
-<h4>Sprint 2</h4>
+Nessa Sprint um dos focos foi criar artefatos que nos auxiliem a chegar em DoRs e DoDs.
+
+Artefatos que nos ajudaram a chegar em Definitions of Ready:
+
+| Tabela de DoRs |
+| :-------------------------------------------: |
+| Artefato | Descrição |
+| :--------------:   | :---------------------:  |
+| <a href="#backlogs">Backlog do Produto</a> | Essencial para sabermos o que deve ser feito e em qual sprint |
+| <a href="/docs/imagens/modelo_logico_sprint1.jpg">Modelo lógico do banco de dados</a> | Essencial para construir o modelo físico do banco de dados |
+| <a href="/docs/Casos_de_teste-Sprint1.pdf">Modelo de casos de teste</a> | Artefato importante para realizar a o processo de Q.A. |
+| <a href="/docs/imagens/Sabiá-Mockup.jpg"> Mockup </a> | Artefato importante para posteriormente contruirmos o prtótipo e, em seguida a interface do software |
+
+Artefatos que nos ajudaram a chegar em Definitions of Done:
+
+
+| Tabela de DoDs |
+| :-------------------------------------------: |
+| Artefato | Descrição |
+| :--------------:   | :---------------------:  |
+| <a href="#criterioAceitacao">Critérios de aceitação</a> | Importante para saber quando um requisito está pronto para entrega |
+| <a href="/bd">Modelo físico do banco de dados</a> | Parte essencial do da aplicação. Importante para saber quais dados devem ser armazenadas |
+| <a href="/docs/Casos_de_teste-sprint1-Preenchido.pdff">Modelo de casos de teste preenchidos</a> | Artefeta também muito importante para saber o que de fato está pronto para a entrega |
+| <a href="https://www.figma.com/proto/1BLzM65qzng5exjhuqab28/SABI%C3%81?node-id=0-1&viewport=606%2C404%2C0.03&scaling=min-zoom&starting-point-node-id=45%3A100"> Protótipo </a> | Artefato que guia a produção da interface e define quando ela está terminada |
+
+<h3>Sprint 2</h3>
 
 | Item | Funcionalidade |
 | :--:   | :----------------   |
@@ -154,7 +180,7 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 | **06** | Listagem de produtos cadastrados. |
 | **07** | Listagem de usuários cadastrados. |
 
-<h4>Sprint 3</h4>
+<h3>Sprint 3</h3>
 
 | Item | Funcionalidade |
 | :--:   | :---------------- |
@@ -164,7 +190,7 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 | **04** | Retornar em fases anteriores do processo de recebimento. |
 | **05** | Inserção de dados sobre avaria, regras de recebimento e se o laudo foi entregue junto com a nota fiscal na fase de análise qualitativa. |
 
-<h4>Sprint 4</h4>
+<h3>Sprint 4</h3>
 
 | Item | Funcionalidade |
 | :--:   | :---------------- |
@@ -174,13 +200,13 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 | **04** | Alteração de dados de usuário cadastrados. |
 | **05** | Alteração de dados de produto cadastrados. |
 
-<span id="modeloLogico"></span>
+<!-- <span id="modeloLogico"></span>
 <h2> Modelo Lógico </h2>
 Esse projeto foi feito utilizando o Banco de Dados relacional SQL e como ferramenta de gerenciamento o MySQL.<br><br>
 
 <p aling="center">
     <img src="docs/imagens/modelo_logico_sprint1.jpg" alt="Modelo lógico do banco de dados">
-</p>
+</p> -->
 <span id="tecnologias"></span>
 
 
