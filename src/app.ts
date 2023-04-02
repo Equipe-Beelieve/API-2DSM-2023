@@ -20,7 +20,6 @@ const bd = new bancoDados() //criando uma instância do bd para utilizar os mét
 
 app.get('/', async (req,res) =>{
     let tabelaPedidos = await bd.pegarListaPedidos()
-    console.log(tabelaPedidos)
     res.render('pedidosCadastrados', {tabela:tabelaPedidos})
 })
 

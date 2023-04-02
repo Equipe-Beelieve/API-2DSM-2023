@@ -1,3 +1,8 @@
+.nav-texts a, .nav-texts a:visited {
+  color: #ffffff;
+  font-size: 20px;
+}
+
 .mainTitle {
   font-size: 35px;
   margin-top: 5vh;
@@ -212,7 +217,7 @@ p.solid {
   background: #ee2a20;
 }
 
-.cancel_button a, a:visited, a:hover {
+.cancel_button a, .cancel_button a:visited, .cancel_button a:hover {
   text-decoration: none;
   color: #000000;
 }

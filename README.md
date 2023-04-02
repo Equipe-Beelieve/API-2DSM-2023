@@ -50,7 +50,7 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 
 | Sprint| Período | Status |
 |:-----:|:----------:|:---------:|
-| 01 |   13/03/2023 - 02/04/2023 | Entregue :hourglass: | 
+| 01 |   13/03/2023 - 02/04/2023 | Entregue :heavy_check_mark: | 
 | 02 |   03/04/2023 - 23/04/2023 | Pendente :hourglass: |  
 | 03 |   24/04/2023 - 14/05/2023 | Pendente :hourglass: | 
 | 04 |   15/05/2023 - 04/06/2023 | Pendente :hourglass: | 
@@ -166,6 +166,9 @@ Artefatos que nos ajudaram a chegar em Definitions of Done:
 | <a href="/docs/Casos de teste-sprint1-Preenchido.pdf">Modelo de casos de teste preenchidos</a> | Artefeto é muito importante para saber o que de fato está pronto para a entrega |
 | <a href="https://www.figma.com/proto/1BLzM65qzng5exjhuqab28/SABI%C3%81?node-id=0-1&viewport=606%2C404%2C0.03&scaling=min-zoom&starting-point-node-id=45%3A100"> Protótipo </a> | Artefato que guia a produção da interface e define quando ela está terminada |
 
+<h4>Entrega</h4>
+<img src="docs/imagens/demo_sprint1.gif" alt="Demonstração da entrega da primeira sprint">
+
 <h3>Sprint 2</h3>
 
 | Item | Funcionalidade |
@@ -196,6 +199,11 @@ Artefatos que nos ajudaram a chegar em Definitions of Done:
 | **03** | Alteração de dados de fornecedor cadastrado. |
 | **04** | Alteração de dados de usuário cadastrados. |
 | **05** | Alteração de dados de produto cadastrados. |
+
+<span id="burndown"></span>
+<h2>Burndown chart</h2>
+<a href="/docs/imagens/burndown_final_sprint1.png">Sprint 1</a>
+
 
 <!-- <span id="modeloLogico"></span>
 <h2> Modelo Lógico </h2>

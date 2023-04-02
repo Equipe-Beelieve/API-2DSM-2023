@@ -5,11 +5,11 @@ function cnpj(i){
         return;
     }
     
-    i.setAttribute("maxlength", "19");
-    if(v.length == 3) i.value += ".";
-    if(v.length == 7) i.value += ".";
-    if(v.length == 11) i.value += "/";
-    if(v.length == 16) i.value += "-";
+    i.setAttribute("maxlength", "18");
+    if(v.length == 2) i.value += ".";
+    if(v.length == 6) i.value += ".";
+    if(v.length == 10) i.value += "/";
+    if(v.length == 15) i.value += "-";
 }
     function cep(i){
         var v = i.value
