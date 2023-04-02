@@ -17,7 +17,7 @@ Projeto desenvolvido por alunos do 2º semestre do curso de Desenvolviento de So
 O Back-end foi desenvolvido em TypeScript utilizando o framework express e o banco de dados foi o SQL com o SGBD MySQL.<br>
 >Status do projeto: Em desenvolvimento :hourglass:
 
-<span id="instalcao"></span>
+<span id="instalacao"></span>
 <h2> Executar a aplicação </h2>
 <ul>
 	<li>Tenha o Node.js e o MySQL instalados</li>
@@ -173,6 +173,11 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 | **03** | Alteração de dados de fornecedor cadastrado. |
 | **04** | Alteração de dados de usuário cadastrados. |
 | **05** | Alteração de dados de produto cadastrados. |
+
+<span id="burndown"></span>
+<h2>Burndown chart</h2>
+<h3>Sprint 1</h3>
+<img src="docs/imagens/burndown_final_sprint1.png">
 
 <span id="modeloLogico"></span>
 <h2> Modelo Lógico </h2>

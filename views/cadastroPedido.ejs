@@ -105,7 +105,7 @@
                                 <td><select class="input_form" type="text" id="razaoSocial" name="razaoSocial" required>
                                     <option value=""></option>
                                     <% for (let linha in tabelaRazao){ %>
-                                        <option value=`$[<%= tabelaRazao[linha].for_razao_social %>]`><%= tabelaRazao[linha].for_razao_social %></option>
+                                        <option value=<%= tabelaRazao[linha].for_razao_social %>><%= tabelaRazao[linha].for_razao_social %></option>
                                     <% } %>
                                 </td>
                             </tr>
@@ -231,7 +231,9 @@
             </div>
 
             <input class="confirm_button" type="submit" value="Cadastrar">
-            <button class="cancel_button">Cancelar</button>
+            <button class="cancel_button">
+                <a href="/">Cancelar</a>
+            </button>
         </form>
     </div>
 

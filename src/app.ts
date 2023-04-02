@@ -9,7 +9,6 @@ import Usuario from "./Usuario.js";
 const PORT = 8080;
 const app = express();
 app.set('view engine', 'ejs')
-// app.set('views', '../views')
 app.use(bodyParser.urlencoded({extended: true }));
 app.use(express.static('public'));
 
@@ -21,6 +20,7 @@ const bd = new bancoDados() //criando uma instância do bd para utilizar os mét
 
 app.get('/', async (req,res) =>{
     let tabelaPedidos = await bd.pegarListaPedidos()
+    console.log(tabelaPedidos)
     res.render('pedidosCadastrados', {tabela:tabelaPedidos})
 })
 
