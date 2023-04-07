@@ -8,12 +8,46 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import CadFornecedor from './components/CadFornecedor';
 
+
+import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import ListaPedidos from './components/ListaPedidos';
+import CadPedido from './components/CadPedido';
+import ListaFornecedor from './components/ListaFornecedor';
+
+
+const router = createBrowserRouter([
+  {
+    element:<App />,
+    children: [
+      {
+        path: "/",
+        element: <ListaPedidos/>
+      },
+      {
+        path: "/cadastroFornecedor",
+        element: <CadFornecedor/>
+      },
+      {
+        path: "/cadastroPedido",
+        element: <CadPedido/>
+      },
+      {
+        path: "/listaFornecedor",
+        element: <ListaFornecedor/>
+      },
+    ]
+  }
+])
+
+
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <CadFornecedor />
+    <RouterProvider router={router}/>
   </React.StrictMode>
 );
 

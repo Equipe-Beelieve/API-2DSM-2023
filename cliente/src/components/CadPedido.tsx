@@ -1,14 +1,57 @@
-import React from "react";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import api from '../services/api';
 import NavBar from "./NavBar";
+import { Link, redirect } from 'react-router-dom';
+import { RedirectFunction } from 'react-router-dom';
 
-export default function CadPedido(){
+function CadPedido(){
+
+    const [fornecedores, setFornecedores] = useState([]) //Fornecedores que virão do bd
+
+    const [produto, setProduto] = useState('')
+    const [dataPedido, setDataPedido] = useState('')
+    const [dataEntrega, setDataEntrega] = useState('')
+    const [razaoSocial, setRazaoSocial] = useState('')
+    const [precoUnitario, setPrecoUnitario] = useState('')
+    const [quantidade, setQuantidade] = useState('')
+    const [precoTotal, setPrecoTotal] = useState('')
+    const [frete, setFrete] = useState('')
+    const [transportadora, setTransportadora] = useState('')
+    const [condicaoPagamento, setCondicaoPagamento] = useState('')
+    
 
     
+
+    // função que pega os fornecedores
+    const getFornecedor = async () => {
+        try{
+            const resposta = await api.get('/cadastroPedido')
+            setFornecedores(resposta.data) //pegando os dados da resposta
+        }
+        catch(error){
+            console.log(error)
+        }
+        
+    }
+
+    useEffect(()=>{
+        getFornecedor();
+    }, []) //Aciona as funções apenas quando a página é renderizada
+
+    function cadastroPedido(evento:any){
+        evento.preventDefault();
+        const post ={produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento}
+        api.post('/postCadastroPedido',
+            {post}
+        )
+        redirect('/')
+    }
+
     return(
-    <><NavBar />
         <div className="divFornecedor">
             <h1>Cadastro de Pedidos</h1>
-            <form action="/postCadastroPedido" method="post">
+            <form onSubmit={cadastroPedido}>
 
                 <div className="poscentralized grid-container">
                     <div className="box">
@@ -20,10 +63,14 @@ export default function CadPedido(){
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><select className="input_form" name="produto" id="produto" required />
+                                    <td><select className="input_form" name="produto" id="produto" 
+                                    required 
+                                    value={produto} 
+                                    onChange={(e)=>{setProduto(e.target.value)}}>
                                         <option value=""></option>
                                         <option value="3">Produto 1</option>
                                         <option value="2">Produto 2</option>
+                                    </select>
 
                                     </td>
                                 </tr>
@@ -40,7 +87,9 @@ export default function CadPedido(){
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input className="input_form" type="date" id="dataPedido" name="dataPedido" required />
+                                    <td><input className="input_form" type="date" id="dataPedido" name="dataPedido" required 
+                                    value={dataPedido}
+                                    onChange={(e)=>{setDataPedido(e.target.value)}}/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -56,7 +105,9 @@ export default function CadPedido(){
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input className="input_form" type="date" id="dataEntrega" name="dataEntrega" required />
+                                    <td><input className="input_form" type="date" id="dataEntrega" name="dataEntrega" required 
+                                    value={dataEntrega}
+                                    onChange={(e)=>{setDataEntrega(e.target.value)}}/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -74,9 +125,18 @@ export default function CadPedido(){
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><select className="input_form" id="razaoSocial" name="razaoSocial" required />
-                                        <option value=""></option>
-
+                                    <td>
+                                        <select className="input_form" id="razaoSocial" name="razaoSocial" required 
+                                        value={razaoSocial}
+                                        onChange={(e)=>{setRazaoSocial(e.target.value)}}>
+                                            <option value=""></option>
+                                            <option value="teste">testeee</option>
+                                            {/* {fornecedores.map((f, id) =>(
+                                                <option key={id} value={f}>{f}</option>
+                                            ))} */}
+                                        </select>
+                                            
+                                    
                                     </td>
                                 </tr>
                             </tbody>
@@ -94,7 +154,9 @@ export default function CadPedido(){
                             <tbody>
                                 <tr>
                                     <td><input className="input_form" type="text" id="precoUnitario" name="precoUnitario"
-                                        required />
+                                        required 
+                                        value={precoUnitario}
+                                        onChange={(e)=>{setPrecoUnitario(e.target.value)}}/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -110,7 +172,9 @@ export default function CadPedido(){
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input className="input_form" type="text" id="quantidade" name="quantidade" required />
+                                    <td><input className="input_form" type="text" id="quantidade" name="quantidade" required
+                                    value={quantidade}
+                                    onChange={(e)=>{setQuantidade(e.target.value)}} />
                                     </td>
                                 </tr>
                             </tbody>
@@ -128,7 +192,9 @@ export default function CadPedido(){
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input className="input_form" type="text" id="precoTotal" name="precoTotal" required />
+                                    <td><input className="input_form" type="text" id="precoTotal" name="precoTotal" required 
+                                    value={precoTotal}
+                                    onChange={(e)=>{setPrecoTotal(e.target.value)}}/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -144,7 +210,9 @@ export default function CadPedido(){
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input className="input_form" type="text" id="frete" name="frete" required />
+                                    <td><input className="input_form" type="text" id="frete" name="frete" required 
+                                    value={frete}
+                                    onChange={(e)=>{setFrete(e.target.value)}}/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -161,7 +229,9 @@ export default function CadPedido(){
                             <tbody>
                                 <tr>
                                     <td><input className="input_form" type="text" id="condicaoPagamento" name="transportadora"
-                                        required />
+                                        required 
+                                        value={transportadora}
+                                        onChange={(e)=>{setTransportadora(e.target.value)}}/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -179,7 +249,9 @@ export default function CadPedido(){
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required />
+                                    <td><select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required 
+                                    value={condicaoPagamento}
+                                    onChange={(e)=>{setCondicaoPagamento(e.target.value)}}>
                                         <option value=""></option>
                                         <option value="00/100">00/100</option>
                                         <option value="10/90">10/90</option>
@@ -192,6 +264,7 @@ export default function CadPedido(){
                                         <option value="80/20">80/20</option>
                                         <option value="90/10">90/10</option>
                                         <option value="100/00">100/00</option>
+                                    </select>
                                     </td>
                                 </tr>
                             </tbody>
@@ -202,13 +275,13 @@ export default function CadPedido(){
 
                 <input className="confirm_button" type="submit" value="Cadastrar" />
                 <button className="cancel_button">
-                    <a href="/">Cancelar</a>
+                    <Link to={"/"}>Cancelar</Link>
                 </button>
             </form>
         </div>
-    </>
 
     )
 }
 
+export default CadPedido
 

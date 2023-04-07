@@ -1,14 +1,17 @@
 import express from "express";
-import bodyParser from "body-parser";
+import bodyParser, { json } from "body-parser";
 import bancoDados from "./bancoDados.js"
 import Pedido from "./Pedido.js"
 import Endereco from "./Endereco.js";
 import Fornecedor from "./Fornecedor.js";
 import Usuario from "./Usuario.js";
+import cors from 'cors'
 
 const PORT = 8080;
 const app = express();
 app.set('view engine', 'ejs')
+app.use(cors())
+app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true }));
 app.use(express.static('public'));
 
@@ -18,43 +21,46 @@ const bd = new bancoDados() //criando uma instância do bd para utilizar os mét
 
 //========================= Listagem de Pedidos =========================
 
-app.get('/', async (req,res) =>{
+app.get('/listaPedido', async (req,res) =>{
     let tabelaPedidos = await bd.pegarListaPedidos()
-    res.render('pedidosCadastrados', {tabela:tabelaPedidos})
+    res.send({tabelaPedidos})
+    console.log(tabelaPedidos)
 })
 
 //========================= Cadastro de Pedidos =========================
 app.get('/cadastroPedido', async (req, res) => {
     let razaoSocial = await bd.pegarRazaoSocial()
-    res.render('cadastroPedido', {tabelaRazao:razaoSocial});
+    res.send({razaoSocial});
 })
 
 app.post('/postCadastroPedido', async (req,res) => {
-    let pedido = new Pedido(req.body.produto, req.body.dataPedido, req.body.dataEntrega,
-        req.body.razaoSocial, req.body.precoUnitario, req.body.quantidade,
-        req.body.precoTotal, req.body.frete, req.body.transportadora, req.body.condicaoPagamento)
-    
+    let pedido = new Pedido(req.body.post.produto, req.body.post.dataPedido, req.body.post.dataEntrega,
+        req.body.post.razaoSocial, req.body.post.precoUnitario, req.body.post.quantidade,
+        req.body.post.precoTotal, req.body.post.frete, req.body.post.transportadora, req.body.post.condicaoPagamento)
     await bd.inserirPedido(pedido) //método da clase bancoDados para inserir na tabela pedido
-    res.redirect('/')
+
 });
 
 //========================= Listagem de Fornecedores =========================
-app.get("/fornecedores", async (req, res) => {
+app.get("/listaFornecedores", async (req, res) => {
     let tabelaFornecedores = await bd.pegarListaFornecedores()
-    res.render('fornecedoresCadastrados', {tabela:tabelaFornecedores})
+    const jsonFornecedores = JSON.stringify(tabelaFornecedores)
+    res.send({jsonFornecedores})
+    console.log(jsonFornecedores)
 })
 
 //========================= Cadastro de Fornecedores =========================
-app.get('/cadastroFornecedor', (req, res) => {
-    res.render('cadastroFornecedor')
-})
+// app.get('/cadastroFornecedor', (req, res) => {
+//     res.render('cadastroFornecedor')
+// })
 app.post('/cadastroFornecedor', async (req, res) => {
-    let {for_cnpj, end_cep, end_estado, end_cidade, end_bairro, end_rua_avenida, end_numero, for_razao_social, for_nome_fantasia} = req.body
-    let endereco = new Endereco(end_cep, end_estado, end_cidade, end_bairro, end_rua_avenida, end_numero)
-    let fornecedor = new Fornecedor(for_cnpj, endereco, for_razao_social, for_nome_fantasia)
-
+    let {cnpj, cep, estado, cidade, bairro, ruaAvenida, numero, razaoSocial, nomeFantasia} = req.body.post
+    let endereco = new Endereco(cep, estado, cidade, bairro, ruaAvenida, numero)
+    let fornecedor = new Fornecedor(cnpj, endereco, razaoSocial, nomeFantasia)
+    console.log(req.body.post)
+    console.log(cnpj, cep, estado, cidade, bairro, ruaAvenida, numero, razaoSocial, nomeFantasia)
     await bd.inserirFornecedor(fornecedor, endereco)
-    res.redirect('/fornecedores')
+    
 })   
 
 

@@ -12,7 +12,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: '', //sua senha
+                password: 'root', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -41,6 +41,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conectar()
         let [consulta] = await this.conexao.query(`SELECT ${valor} FROM ${tabela} WHERE ${campo} = ?`, [condicao]) as Array<any>
         let linha = consulta[0]
+        console.log(`pegarValor : ${linha}`)
         return linha[valor]
     }
 
