@@ -44,9 +44,8 @@ app.post('/postCadastroPedido', async (req,res) => {
 //========================= Listagem de Fornecedores =========================
 app.get("/listaFornecedores", async (req, res) => {
     let tabelaFornecedores = await bd.pegarListaFornecedores()
-    const jsonFornecedores = JSON.stringify(tabelaFornecedores)
-    res.send({jsonFornecedores})
-    console.log(jsonFornecedores)
+    //const jsonFornecedores = JSON.stringify(tabelaFornecedores)
+    res.send({tabelaFornecedores})
 })
 
 //========================= Cadastro de Fornecedores =========================

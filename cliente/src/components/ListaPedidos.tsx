@@ -3,21 +3,30 @@ import { useState, useEffect } from 'react';
 import cadastro from '../images/cadastro.png'
 import api from '../services/api';
 
+
+interface Pedido {
+    ped_codigo:number
+    ped_razao_social:string
+    ped_produto_massa:string
+    ped_descricao:string
+    ped_valor_total:string
+    ped_data_entrega:string
+}
+
 function ListaPedidos(){
 
     
-    const [pedidos, setPedido] = useState([])
+    const [pedidos, setPedido] = useState<Pedido[]>([])
     
-    const getPedidos = async () => {
+    async function getPedidos() {
         try{
-            const resposta = await api.get('/listaPedido')
-            setPedido(resposta.data) //pegando os dados da resposta
-            console.log(resposta.data)
+            const response = await api.get('/listaPedido')
+            setPedido(response.data.tabelaPedidos) //pegando os dados da resposta
+            console.log(response.data.tabelaPedidos)
         }
-        catch(error){
-            console.log(error)
+        catch(erro){
+            console.log(erro)
         }
-        
     }
 
 
@@ -36,15 +45,28 @@ function ListaPedidos(){
                 <button>Finalizado</button>
                 <button id="register">
                     <a href="/cadastroPedido">
-                        <img className="cadastro" src={cadastro}/>
+                        <img className="cadastro" src={cadastro} alt=""/>
                     </a>
                 </button>
             </div>
-            {/* {pedidos.map((pedido, id)=>(
-                <div className='listaOut' key={id}>
-                    <h1>Pedido nº{pedido}</h1>
+            {pedidos.map((pedido, index) =>(
+                <div className='listaOut' key={index}>
+                <div className="listaIn">
+                    <h1>Pedido nº{pedido.ped_codigo} Produto: ({pedido.ped_razao_social})</h1>
+                    <div className="listColumns">
+                        <div className="column1">
+                            <p>Peso: {pedido.ped_produto_massa}</p>
+                            <p>Data de entrega: {pedido.ped_data_entrega}</p>
+                        </div>
+                        <div className="column2">
+                            <p>Valor total: {pedido.ped_valor_total}</p>
+                        </div>
+                    </div>
                 </div>
-            ))} */}
+            </div>
+            ))
+
+            }
         </div>
 
         </>
