@@ -4,10 +4,11 @@ import api from '../services/api';
 import NavBar from "./NavBar";
 import { Link, redirect } from 'react-router-dom';
 import { RedirectFunction } from 'react-router-dom';
+import { Fornecedor } from './ListaFornecedor';
 
 function CadPedido(){
 
-    const [fornecedores, setFornecedores] = useState([]) //Fornecedores que virão do bd
+    const [fornecedores, setFornecedores] = useState<Fornecedor[]>([]) //Fornecedores que virão do bd
 
     const [produto, setProduto] = useState('')
     const [dataPedido, setDataPedido] = useState('')
@@ -27,7 +28,8 @@ function CadPedido(){
     const getFornecedor = async () => {
         try{
             const resposta = await api.get('/cadastroPedido')
-            setFornecedores(resposta.data) //pegando os dados da resposta
+            console.log(resposta.data.razaoSocial)
+            setFornecedores(resposta.data.razaoSocial) //pegando os dados da resposta
         }
         catch(error){
             console.log(error)
@@ -130,13 +132,11 @@ function CadPedido(){
                                         value={razaoSocial}
                                         onChange={(e)=>{setRazaoSocial(e.target.value)}}>
                                             <option value=""></option>
-                                            <option value="teste">testeee</option>
-                                            {/* {fornecedores.map((f, id) =>(
-                                                <option key={id} value={f}>{f}</option>
-                                            ))} */}
+                                            {fornecedores.map((fornecedor, index) =>(
+                                                <option value={fornecedor.for_razao_social} key={index}>{fornecedor.for_razao_social}</option>
+                                            ))
+                                            }
                                         </select>
-                                            
-                                    
                                     </td>
                                 </tr>
                             </tbody>
@@ -273,7 +273,10 @@ function CadPedido(){
 
                 </div>
 
-                <input className="confirm_button" type="submit" value="Cadastrar" />
+                <Link to={"/"}>
+                    <input className="confirm_button" type="submit" value="Cadastrar" />
+                </Link>
+                    
                 <button className="cancel_button">
                     <Link to={"/"}>Cancelar</Link>
                 </button>

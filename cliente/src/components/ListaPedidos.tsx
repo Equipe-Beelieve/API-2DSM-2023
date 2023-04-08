@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import cadastro from '../images/cadastro.png'
 import api from '../services/api';
+import { Link } from 'react-router-dom';
 
 
 interface Pedido {
@@ -44,9 +45,9 @@ function ListaPedidos(){
                 <button>Em análise</button>
                 <button>Finalizado</button>
                 <button id="register">
-                    <a href="/cadastroPedido">
+                    <Link to={'/cadastroPedido'}>
                         <img className="cadastro" src={cadastro} alt=""/>
-                    </a>
+                    </Link>
                 </button>
             </div>
             {pedidos.map((pedido, index) =>(

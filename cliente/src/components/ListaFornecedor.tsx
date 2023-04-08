@@ -5,7 +5,7 @@ import api from '../services/api';
 import { Link } from 'react-router-dom';
 
 
-interface Fornecedor {
+export interface Fornecedor {
     for_codigo: number;
     for_cnpj: string;
     for_razao_social: string;
@@ -39,7 +39,7 @@ function ListaFornecedor(){
                 <h1 className="mainTitle">FORNECEDORES</h1>
                     <button id="register">
                         <Link to={'/cadastroFornecedor'}>
-                            <img className="cadastro" src={cadastro }alt=""/>
+                            <img className="cadastro" src={cadastro} alt=""/>
                         </Link>
                     </button>
             </div>
