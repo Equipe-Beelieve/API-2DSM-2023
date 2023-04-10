@@ -2,9 +2,10 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import api from '../services/api';
 import NavBar from "./NavBar";
-import { Link, redirect } from 'react-router-dom';
+import { Link, redirect, useNavigate } from 'react-router-dom';
 import { RedirectFunction } from 'react-router-dom';
 import { Fornecedor } from './ListaFornecedor';
+import verificaLogado from '../funcoes/verificaLogado';
 
 function CadPedido(){
 
@@ -20,7 +21,10 @@ function CadPedido(){
     const [frete, setFrete] = useState('')
     const [transportadora, setTransportadora] = useState('')
     const [condicaoPagamento, setCondicaoPagamento] = useState('')
-    
+
+
+    const [logado, setLogado] = useState(Boolean)
+    const navegate = useNavigate()
 
     
 
@@ -36,9 +40,23 @@ function CadPedido(){
         }
         
     }
+    async function veLogado(){
+        setLogado(await verificaLogado())
+    }
 
     useEffect(()=>{
-        getFornecedor();
+        async function veLogado(){
+            let resultado = await verificaLogado()
+            //setLogado(resultado)
+            if (resultado){
+                getFornecedor();
+            }
+            else{
+                navegate('/')
+            }
+        }
+        veLogado()
+        
     }, []) //Aciona as funções apenas quando a página é renderizada
 
     function cadastroPedido(evento:any){
@@ -273,7 +291,7 @@ function CadPedido(){
 
                 </div>
 
-                <Link to={"/"}>
+                <Link to={"/listaPedidos"}>
                     <input className="confirm_button" type="submit" value="Cadastrar" />
                 </Link>
                     

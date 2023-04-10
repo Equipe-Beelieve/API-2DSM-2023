@@ -2,7 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import cadastro from '../images/cadastro.png'
 import api from '../services/api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import verificaLogado from '../funcoes/verificaLogado';
 
 
 export interface Fornecedor {
@@ -15,7 +16,9 @@ export interface Fornecedor {
 
 function ListaFornecedor(){
     const [fornecedores, setFornecedores] = useState<Fornecedor[]>([])
-    
+    const [logado, setLogado] = useState(Boolean)
+    const navegate = useNavigate()
+
     async function getFornecedores() {
         try {
             const response = await api.get('/listaFornecedores')
@@ -26,9 +29,22 @@ function ListaFornecedor(){
         }
     }
 
-
+    async function veLogado(){
+        setLogado(await verificaLogado())
+    }
     useEffect(()=>{
-        getFornecedores();
+        async function veLogado(){
+            let resultado = await verificaLogado()
+            //setLogado(resultado)
+            if (resultado){
+                getFornecedores();
+            }
+            else{
+                navegate('/')
+            }
+        }
+        veLogado()
+        
         
     }, []) //Aciona as funções apenas quando a página é renderizada
     

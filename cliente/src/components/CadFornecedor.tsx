@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../services/api'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import verificaLogado from '../funcoes/verificaLogado';
 
 function CadFornecedor() {
 
@@ -14,6 +15,10 @@ function CadFornecedor() {
     const [bairro, setBairro] = useState('')
     const [ruaAvenida, setRuaAvenida] = useState('')
     const [numero, setNumero] = useState('')
+
+
+    const [logado, setLogado] = useState(Boolean)
+    const navegate = useNavigate()
 
     
     //================== SUBMIT DE FORMULÁRIO ==================   
@@ -64,6 +69,21 @@ function CadFornecedor() {
             setNumero(valor)
         }
     }
+
+    async function veLogado() {
+        setLogado(await verificaLogado())
+    }
+
+    useEffect(()=>{
+        async function veLogado(){
+            let resultado = await verificaLogado()
+            //setLogado(resultado)
+            if (!resultado){
+                navegate('/')
+            }
+        }
+        veLogado()
+        })
 
     //================== REENDERIZAÇÃO ==================
 

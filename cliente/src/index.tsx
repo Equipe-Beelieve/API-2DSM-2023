@@ -14,6 +14,7 @@ import NavBar from './components/NavBar';
 import ListaPedidos from './components/ListaPedidos';
 import CadPedido from './components/CadPedido';
 import ListaFornecedor from './components/ListaFornecedor';
+import Login from './components/Login';
 
 
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Login/>
+      },
+      {
+        path: "/listaPedidos",
         element: <ListaPedidos/>
       },
       {

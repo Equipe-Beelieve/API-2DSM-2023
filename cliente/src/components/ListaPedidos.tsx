@@ -2,7 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import cadastro from '../images/cadastro.png'
 import api from '../services/api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import verificaLogado from '../funcoes/verificaLogado';
 
 
 interface Pedido {
@@ -15,10 +16,9 @@ interface Pedido {
 }
 
 function ListaPedidos(){
-
-    
+    const [logado, setLogado] = useState(Boolean)
     const [pedidos, setPedido] = useState<Pedido[]>([])
-    
+    const navegate = useNavigate()
     async function getPedidos() {
         try{
             const response = await api.get('/listaPedido')
@@ -29,10 +29,27 @@ function ListaPedidos(){
             console.log(erro)
         }
     }
-
+    // async function veLogado(){
+    //     let resultado = await verificaLogado()
+    //     console.log(`RARARAGAGAULAAA ${resultado}`)
+    //     setLogado(resultado)
+    // }
 
     useEffect(()=>{
-        getPedidos();
+        async function veLogado(){
+            let resultado = await verificaLogado()
+            console.log(`RARARAGAGAULAAA ${resultado}`)
+            await setLogado(resultado)
+            await console.log(`AQUIII ${logado}`)
+            if (resultado){
+                getPedidos();
+            }
+            else{
+                navegate('/')
+            }
+        }
+        veLogado()
+        
     }, []) //Aciona as funções apenas quando a página é renderizada
     
     return(
