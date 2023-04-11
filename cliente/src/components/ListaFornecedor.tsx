@@ -4,6 +4,7 @@ import cadastro from '../images/cadastro.png'
 import api from '../services/api';
 import { Link, useNavigate } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
+import NavBar from './NavBar';
 
 
 export interface Fornecedor {
@@ -50,6 +51,8 @@ function ListaFornecedor(){
     
 
     return(
+        <>
+        <NavBar />
         <div className='mainContent'>
             <div className="titleRegister">
                 <h1 className="mainTitle">FORNECEDORES</h1>
@@ -79,6 +82,7 @@ function ListaFornecedor(){
             ))
             }
         </div>
+        </>
     )
 }
 

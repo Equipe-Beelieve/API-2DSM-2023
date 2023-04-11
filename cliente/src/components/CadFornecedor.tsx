@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import api from '../services/api'
 import { Link, useNavigate } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
+import NavBar from './NavBar';
 
 function CadFornecedor() {
 
@@ -88,6 +89,8 @@ function CadFornecedor() {
     //================== REENDERIZAÇÃO ==================
 
     return (
+        <>
+        <NavBar />
         <div className="divFornecedor">
             <h1>Cadastro de Fornecedores</h1>
             <form onSubmit={cadastraFornecedor}>
@@ -290,6 +293,7 @@ function CadFornecedor() {
 
             </form>
         </div>
+        </>
         
     );
 }

@@ -46,7 +46,7 @@ const bd = new bancoDados() //criando uma instância do bd para utilizar os mét
 app.get('/confereLogado', async(req,res)=>{
     console.log(req.session.funcao)
     if (req.session.funcao){
-        res.send('true')
+        res.send({logado:'true', funcao:req.session.funcao})
     }
     else{
         res.send('false')
@@ -79,7 +79,19 @@ app.post('/login', async(req,res)=>{
     // }
 })
 
+app.get('/loggout', async (req,res) =>{
+    
+    req.session.destroy((err)=>{
+        if (err){
+            res.send(err)
+        }
+        else{
+            res.send('Deslogado')
+        }
+    })
 
+   
+})
 
 
 //========================= Listagem de Pedidos =========================

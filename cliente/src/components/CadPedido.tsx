@@ -69,6 +69,8 @@ function CadPedido(){
     }
 
     return(
+        <>
+        <NavBar />
         <div className="divFornecedor">
             <h1>Cadastro de Pedidos</h1>
             <form onSubmit={cadastroPedido}>
@@ -296,10 +298,11 @@ function CadPedido(){
                 </Link>
                     
                 <button className="cancel_button">
-                    <Link to={"/"}>Cancelar</Link>
+                    <Link to={"/listaPedidos"}>Cancelar</Link>
                 </button>
             </form>
         </div>
+        </>
 
     )
 }

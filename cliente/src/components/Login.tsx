@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import api from '../services/api';
 import { redirect, useNavigate } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
+import NavBar from './NavBar';
 
 
 function Login(){
@@ -45,7 +46,8 @@ function Login(){
 
     }, [])
     return(
-        <><h1>Login</h1><form onSubmit={entrar}>
+        <>
+        <h1>Login</h1><form onSubmit={entrar}>
             <h3>Login:</h3>
             <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
             <h3>Senha:</h3>
@@ -53,7 +55,8 @@ function Login(){
             
             <input type="submit" />
         </form>
-        <button onClick={()=>{navegate('/listaPedidos')}}>aperta</button></>
+        </>
+        
     )
 }
 

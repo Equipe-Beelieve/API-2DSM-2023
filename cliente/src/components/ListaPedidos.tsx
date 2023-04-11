@@ -4,6 +4,7 @@ import cadastro from '../images/cadastro.png'
 import api from '../services/api';
 import { Link, useNavigate } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
+import NavBar from './NavBar';
 
 
 interface Pedido {
@@ -38,9 +39,7 @@ function ListaPedidos(){
     useEffect(()=>{
         async function veLogado(){
             let resultado = await verificaLogado()
-            console.log(`RARARAGAGAULAAA ${resultado}`)
-            await setLogado(resultado)
-            await console.log(`AQUIII ${logado}`)
+            //setLogado(resultado)
             if (resultado){
                 getPedidos();
             }
@@ -53,7 +52,9 @@ function ListaPedidos(){
     }, []) //Aciona as funções apenas quando a página é renderizada
     
     return(
-        <><center>
+        <>
+        <NavBar />
+        <center>
             <h1 className="mainTitle">PEDIDOS</h1>
         </center>
         <div className="mainContent">
