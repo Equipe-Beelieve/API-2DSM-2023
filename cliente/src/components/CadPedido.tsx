@@ -293,9 +293,9 @@ function CadPedido(){
 
                 </div>
 
-                <Link to={"/listaPedidos"}>
-                    <input className="confirm_button" type="submit" value="Cadastrar" />
-                </Link>
+                
+                <input className="confirm_button" type="submit" value="Cadastrar" />
+                
                     
                 <button className="cancel_button">
                     <Link to={"/listaPedidos"}>Cancelar</Link>

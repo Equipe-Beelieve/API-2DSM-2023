@@ -3,6 +3,7 @@ import Endereco from './Endereco.js'
 import Fornecedor from './Fornecedor.js'
 import Pedido from './Pedido.js'
 import Usuario from './Usuario.js'
+import Produto from './Produto.js'
 
 export default class bancoDados { //clase que contém, a princípio, tudo envolvendo banco de dados
     private conexao: mysql.Connection //atributo que tem o tipo "conexão com MySQL"
@@ -12,7 +13,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'root', //sua senha
+                password: '', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -46,7 +47,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     }
 
 
-    async inserirPedido(pedido:Pedido) { //aqui a função recebe um argumento do tipo Pedido (que é uma classe que eu criei)
+    async inserirPedido(pedido:Pedido) { //aqui a função recebe um argumento do tipo Pedido (que é uma classe)
         await this.conectar()
         await this.conexao.query('INSERT INTO pedido(ped_razao_social,ped_transportadora,ped_tipo_frete,ped_produto_massa,ped_descricao,ped_valor_unidade,ped_valor_total,ped_data_entrega,ped_condicao_pagamento, ped_data_pedido) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
         [pedido['razao_social'], pedido['transportadora'] ,pedido['tipo_frete'], pedido['produto_massa'], pedido['descricao'],pedido['valor_unidade'],pedido['valor_total'],pedido['data_entrega'],pedido['condicao_pagamento'], pedido['data_pedido']]) //o primeiro parâmetro é a execução SQL e o segundo é um array acessando as informações específicas do pedido para cada campo. As '?' nos VALUES indica que eles receberão variáveis
@@ -56,21 +57,21 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     async pegarListaFornecedores() {
         await this.conectar()
         let [consulta, meta]:any = await this.conexao.query(`SELECT f.for_codigo, f.for_cnpj, f.for_razao_social, f.for_nome_fantasia, e.end_cep FROM fornecedor f, endereco_fornecedor e Where f.end_codigo=e.end_codigo`) //o pacote do mysql2 retorna 1 array com 2 arrays dentro dele numa consulta ao banco, um com resultados e outro com metadados da busca, os [] nas variáveis separa os resultado em arrays diferentes. É uma funcionalidade chamada de 'destructring arrays'
-        await this.conexao.end() //fecha a conexão com o banco depois de usá-lo
+        await this.conexao.end() 
         return consulta
     }
 
     async pegarRazaoSocial() {
         await this.conectar()
         let [consulta, meta]:any = await this.conexao.query(`SELECT for_razao_social FROM fornecedor`) //o pacote do mysql2 retorna 1 array com 2 arrays dentro dele numa consulta ao banco, um com resultados e outro com metadados da busca, os [] nas variáveis separa os resultado em arrays diferentes. É uma funcionalidade chamada de 'destructring arrays'
-        await this.conexao.end() //fecha a conexão com o banco depois de usá-lo
+        await this.conexao.end() 
         return consulta
     }
 
     async pegarListaPedidos() {
         await this.conectar()
         let [consulta, meta]:any = await this.conexao.query(`SELECT ped_codigo, ped_razao_social, ped_produto_massa, ped_descricao, ped_valor_total, date_format(ped_data_entrega, '%d/%m/%Y') as ped_data_entrega  FROM pedido`) //o pacote do mysql2 retorna 1 array com 2 arrays dentro dele numa consulta ao banco, um com resultados e outro com metadados da busca, os [] nas variáveis separa os resultado em arrays diferentes. É uma funcionalidade chamada de 'destructring arrays'
-        await this.conexao.end() //fecha a conexão com o banco depois de usá-lo
+        await this.conexao.end() 
         return consulta
     }
 
@@ -111,9 +112,19 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conectar()
         let [usuario, meta]:any = await this.conexao.query(`SELECT us_nome, us_senha, us_funcao, us_login FROM usuario WHERE us_login = "${credencias.login}" and us_senha = "${credencias.senha}" `)
         console.log(`Login: ${credencias.login} e Senha: ${credencias.senha}`)
-        // console.log(usuario)
         await this.conexao.end()
-        return usuario[0]
-        
+        return usuario[0] 
+    }
+
+    async inserirProduto(produto:Produto) { 
+        await this.conectar()
+        await this.conexao.query('INSERT INTO produto(prod_descricao, prod_unidade_medida) VALUES(?, ?)', [produto['descricao'], produto['unidade_medida']]) 
+        await this.conexao.end()
+    }
+
+    async listarProdutos() {
+        await this.conectar()
+        await this.conexao.query('SELECT prod_codigo, prod_descricao, prod_unidade_medida FROM produto')
+        await this.conexao.end()
     }
 }

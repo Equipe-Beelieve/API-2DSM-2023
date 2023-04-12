@@ -7,6 +7,7 @@ import Fornecedor from "./Fornecedor.js";
 import Usuario from "./Usuario.js";
 import cors from 'cors'
 import session from 'express-session';
+import Produto from "./Produto.js";
 
 declare module 'express-session' {
     export interface SessionData {
@@ -16,7 +17,6 @@ declare module 'express-session' {
     }
   }
   
-const PORT = 8080;
 const app = express();
 app.use(session({
     secret: 'rerbegvefvecvfertverfvfvegbfererbgfvebr',
@@ -89,18 +89,14 @@ app.get('/loggout', async (req,res) =>{
             res.send('Deslogado')
         }
     })
-
-   
 })
 
 
 //========================= Listagem de Pedidos =========================
-
 app.get('/listaPedido', async (req,res) =>{
     let tabelaPedidos = await bd.pegarListaPedidos()
     let funcao = req.session.funcao
     res.send({tabelaPedidos, funcao})
-    console.log(tabelaPedidos)
 })
 
 //========================= Cadastro de Pedidos =========================
@@ -110,32 +106,25 @@ app.get('/cadastroPedido', async (req, res) => {
 })
 
 app.post('/postCadastroPedido', async (req,res) => {
-    let pedido = new Pedido(req.body.post.produto, req.body.post.dataPedido, req.body.post.dataEntrega,
-        req.body.post.razaoSocial, req.body.post.precoUnitario, req.body.post.quantidade,
-        req.body.post.precoTotal, req.body.post.frete, req.body.post.transportadora, req.body.post.condicaoPagamento)
+    let {produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento} = req.body.post
+    let pedido = new Pedido(produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento)
     await bd.inserirPedido(pedido) //método da clase bancoDados para inserir na tabela pedido
 
 });
 
+
 //========================= Listagem de Fornecedores =========================
 app.get("/listaFornecedores", async (req, res) => {
     let tabelaFornecedores = await bd.pegarListaFornecedores()
-    //const jsonFornecedores = JSON.stringify(tabelaFornecedores)
     res.send({tabelaFornecedores})
 })
 
 //========================= Cadastro de Fornecedores =========================
-// app.get('/cadastroFornecedor', (req, res) => {
-//     res.render('cadastroFornecedor')
-// })
 app.post('/cadastroFornecedor', async (req, res) => {
     let {cnpj, cep, estado, cidade, bairro, ruaAvenida, numero, razaoSocial, nomeFantasia} = req.body.post
     let endereco = new Endereco(cep, estado, cidade, bairro, ruaAvenida, numero)
     let fornecedor = new Fornecedor(cnpj, endereco, razaoSocial, nomeFantasia)
-    console.log(req.body.post)
-    console.log(cnpj, cep, estado, cidade, bairro, ruaAvenida, numero, razaoSocial, nomeFantasia)
     await bd.inserirFornecedor(fornecedor, endereco)
-    
 })   
 
 
@@ -145,27 +134,30 @@ app.get('/usuariosCadastrados', async (req, res) => {
     res.send({tabelaUsuario});
 });
 
-
-
 //========================= Cadastro de Usuarios =========================
-
-
 app.post('/postCadastroUsuario', async (req,res) => {
-    let dadosUsuario = Object.values(req.body) //armazenei só os valores do que veio do formulário, na ordem em que eles estão lá
-    
-    let usuario = new Usuario(...dadosUsuario as [string, string, string, string])
-    
-    await bd.inserirUsuario(usuario) //método da clase bancoDados para inserir na tabela pedido
-    let tabelaPedido = await bd.pegarTabela('usuario') //método para consultar a tabela inteira
-    console.log(tabelaPedido)
-
-    console.log(dadosUsuario)
+    let {nome, funcao, login, senha} = req.body.post
+    let usuario = new Usuario(nome, funcao, login, senha)
+    await bd.inserirUsuario(usuario) 
 });
 
 
+//========================= Listagem de Produtos =========================
+app.get('/listaProdutos', async (req, res) => {
+    let tabelaProdutos = await bd.listarProdutos()
+    res.send({tabelaProdutos})
+})
+
+//========================= Cadastro de Produtos =========================
+app.post('/cadastroProduto', async (req, res) => {
+    let {descricao, unidade_medida} = req.body.post
+    let produto = new Produto(descricao, unidade_medida)
+    await bd.inserirProduto(produto)
+})
+
 
 app.listen(8080, () => {
-    console.log(`servidor rodando em http://localhost:${PORT}`);
+    console.log(`servidor rodando em http://localhost:8080`);
 });
 
 //npm install - instala as dependências

@@ -31,16 +31,16 @@ const router = createBrowserRouter([
         element: <ListaPedidos/>
       },
       {
-        path: "/cadastroFornecedor",
-        element: <CadFornecedor/>
-      },
-      {
         path: "/cadastroPedido",
         element: <CadPedido/>
       },
       {
         path: "/listaFornecedor",
         element: <ListaFornecedor/>
+      },
+      {
+        path: "/cadastroFornecedor",
+        element: <CadFornecedor/>
       },
       {
         path: "/listaUsuario",
