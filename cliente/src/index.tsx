@@ -15,6 +15,7 @@ import ListaPedidos from './components/ListaPedidos';
 import CadPedido from './components/CadPedido';
 import ListaFornecedor from './components/ListaFornecedor';
 import Login from './components/Login';
+import ListaUsuario from './components/ListaUsuario';
 
 
 const router = createBrowserRouter([
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/listaFornecedor",
         element: <ListaFornecedor/>
+      },
+      {
+        path: "/listaUsuario",
+        element: <ListaUsuario/>
       },
     ]
   }

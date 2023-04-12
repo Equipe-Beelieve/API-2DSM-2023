@@ -9,6 +9,9 @@
   font-weight: bold;
 }
 
+.loggout{
+  margin-left: 16vw;
+}
 
 /*Botões de seleção de status*/
 .state {
@@ -165,6 +168,7 @@
 .nav-logo{
   width: 35px;
   margin: 0 0 0 10px;
+  margin-left: 3vw;
 }
 
 .header a.logo {

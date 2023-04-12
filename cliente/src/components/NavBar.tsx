@@ -42,7 +42,7 @@ function NavBar(){
                             <Link className="nav-item nav-link" to={'/listaFornecedor'}>Fornecedores</Link>
                             <Link className="nav-item nav-link" to={'/listaProduto'}>Produtos</Link>
                             <Link className="nav-item nav-link" to={'/listaUsuario'}>Usuarios</Link>
-                            <button onClick={loggout}>LOGGOUT</button>
+                            <button className='loggout' onClick={loggout}>LOGGOUT</button>
                         </div> 
                     </div>
                 </nav>
@@ -57,7 +57,7 @@ function NavBar(){
                             <Link className="nav-item nav-link" to={'/listaPedidos'}>Pedidos</Link>
                             <Link className="nav-item nav-link" to={'/listaFornecedor'}>Fornecedores</Link>
                             <Link className="nav-item nav-link" to={'/listaProduto'}>Produtos</Link>
-                            <button onClick={loggout}>LOGGOUT</button>
+                            <button className='loggout' onClick={loggout}>LOGGOUT</button>
                         </div>  
                     </div>
                 </nav>
