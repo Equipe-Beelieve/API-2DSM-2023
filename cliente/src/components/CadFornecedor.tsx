@@ -71,15 +71,16 @@ function CadFornecedor() {
         }
     }
 
-    async function veLogado() {
-        setLogado(await verificaLogado())
-    }
+
 
     useEffect(()=>{
         async function veLogado(){
             let resultado = await verificaLogado()
             //setLogado(resultado)
-            if (!resultado){
+            if (resultado.logado && (resultado.funcao != 'Gerente' && resultado.funcao != 'Administrador')){
+                navegate('/listaPedidos')
+            }
+            else if(!resultado.logado){
                 navegate('/')
             }
         }

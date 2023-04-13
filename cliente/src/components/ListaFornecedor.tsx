@@ -30,15 +30,17 @@ function ListaFornecedor(){
         }
     }
 
-    async function veLogado(){
-        setLogado(await verificaLogado())
-    }
+
     useEffect(()=>{
         async function veLogado(){
             let resultado = await verificaLogado()
             //setLogado(resultado)
-            if (resultado){
+            if (resultado.logado){
                 getFornecedores();
+                if (resultado.funcao){
+                    navegate('/listaPedidos')
+                }
+
             }
             else{
                 navegate('/')

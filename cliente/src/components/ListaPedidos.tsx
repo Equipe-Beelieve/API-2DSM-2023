@@ -17,8 +17,8 @@ interface Pedido {
 }
 
 function ListaPedidos(){
-    const [logado, setLogado] = useState(Boolean)
     const [pedidos, setPedido] = useState<Pedido[]>([])
+    const [funcao, setFuncao] = useState('')
     const navegate = useNavigate()
     async function getPedidos() {
         try{
@@ -40,8 +40,9 @@ function ListaPedidos(){
         async function veLogado(){
             let resultado = await verificaLogado()
             //setLogado(resultado)
-            if (resultado){
+            if (resultado.logado){
                 getPedidos();
+                setFuncao(resultado.funcao)
             }
             else{
                 navegate('/')
@@ -62,11 +63,14 @@ function ListaPedidos(){
                 <button>A caminho</button>
                 <button>Em análise</button>
                 <button>Finalizado</button>
+                {(funcao === 'Administrador' || funcao === 'Gerente') &&
                 <button id="register">
                     <Link to={'/cadastroPedido'}>
                         <img className="cadastro" src={cadastro} alt=""/>
                     </Link>
                 </button>
+                }
+                
             </div>
             {pedidos.map((pedido, index) =>(
                 <div className='listaOut' key={index}>
