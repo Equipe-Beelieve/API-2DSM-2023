@@ -7,16 +7,15 @@ import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
 
 
-interface Usuario {
-    us_matricula:number
-    us_nome:string
-    us_senha:string
-    us_funcao:string
-    us_login:string
+export interface Usuarios {
+    us_matricula:number;
+    us_nome:string;
+    us_funcao:string;
+    us_login:string;
 }
 
 function ListaUsuario(){
-    const [usuario, setUsuario] = useState<Usuario[]>([])
+    const [usuarios, setUsuarios] = useState<Usuarios[]>([])
     const [logado, setLogado] = useState(Boolean)
     const navegate = useNavigate()
 
@@ -24,7 +23,7 @@ function ListaUsuario(){
         try {
             const response = await api.get('/listaUsuario')
             console.log(response.data.tabelaUsario)
-            setUsuario(response.data.tabelaUsario)
+            setUsuarios(response.data.tabelaUsario)
             }
             catch (erro) {
             console.log(erro)
@@ -40,7 +39,7 @@ function ListaUsuario(){
                 if (resultado.logado){
                     getUsuario();
                     if (resultado.funcao !== 'Administrador'){
-                        navegate('/listaPesdidos')
+                        navegate('/listaPedidos')
                     }
                 }
                 else{
@@ -58,10 +57,33 @@ function ListaUsuario(){
     return(
         <>
         <NavBar />
-        <center>
-            <h1 className="mainTitle">Usuarios</h1>
-        </center>
-
+        <div className="mainContent">
+            <div className="titleRegister">
+                <h1 className="mainTitle">Usuarios</h1>
+                <button id="register">
+                        <Link to={'/'}>
+                            <img className="cadastro" src={cadastro} alt=""/>
+                        </Link>
+                </button>
+            </div>
+            {usuarios.map((usuario, index) => (
+                <div className='listaOut' key={index}>
+                    <div className="listaIn">
+                        <h1>Pedido nº{usuario.us_matricula}</h1>
+                        <div className="listColumns">
+                            <div className="column1">
+                                <p>Peso: {usuario.us_nome}</p>
+                                <p>Data de entrega: {usuario.us_funcao}</p>
+                            </div>
+                            <div className="column2">
+                                <p>Valor total: {usuario.us_login}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ))
+            }
+        </div>
         </>
     )
 }
