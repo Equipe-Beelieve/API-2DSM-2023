@@ -39,7 +39,7 @@ function ListaUsuario(){
                 //setLogado(resultado)
                 if (resultado.logado){
                     getUsuario();
-                    if (resultado.funcao != 'Administrador'){
+                    if (resultado.funcao !== 'Administrador'){
                         navegate('/listaPesdidos')
                     }
                 }

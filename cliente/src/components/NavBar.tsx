@@ -32,7 +32,7 @@ function NavBar(){
         veLogado()
     })
     if (logado){
-        if (funcao == 'Administrador'){
+        if (funcao === 'Administrador'){
             return(
                 <nav className="navbar navbar-dark navbar-expand-lg bg_navbar">
                     <Link className="navbar-brand text_navbar"  to={'/listaPedidos'}><img className="nav-logo" src={logo} alt=""/></Link>
@@ -48,7 +48,7 @@ function NavBar(){
                 </nav>
             )
         }
-        else if (funcao == 'Gerente'){
+        else if (funcao === 'Gerente'){
             return(
                 <nav className="navbar navbar-dark navbar-expand-lg bg_navbar">
                     <Link className="navbar-brand text_navbar"  to={'/listaPedidos'}><img className="nav-logo" src={logo} alt=""/></Link>

@@ -77,7 +77,7 @@ function CadFornecedor() {
         async function veLogado(){
             let resultado = await verificaLogado()
             //setLogado(resultado)
-            if (resultado.logado && (resultado.funcao != 'Gerente' && resultado.funcao != 'Administrador')){
+            if (resultado.logado && (resultado.funcao !== 'Gerente' && resultado.funcao !== 'Administrador')){
                 navegate('/listaPedidos')
             }
             else if(!resultado.logado){
