@@ -39,6 +39,9 @@ CREATE TABLE `usuario` (
 --
 
 LOCK TABLES `usuario` WRITE;
+insert into usuario(us_matricula, us_nome, us_senha, us_funcao, us_login) VALUES(1, 'Giovana', '1', 'Administrador', '1');
+insert into usuario(us_matricula, us_nome, us_senha, us_funcao, us_login) VALUES(2, 'Carlos', '2', 'Gerente', '2');
+insert into usuario(us_matricula, us_nome, us_senha, us_funcao, us_login) VALUES(3, 'Giovana', '3', 'Conferente', '3');
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;

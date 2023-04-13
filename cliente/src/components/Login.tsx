@@ -31,7 +31,8 @@ function Login(){
     }
 
     async function veLogado(){
-        setLogado(await verificaLogado())
+        let situacao = await verificaLogado()
+        setLogado(situacao.logado)
     }
 
 

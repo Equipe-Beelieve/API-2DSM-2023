@@ -31,15 +31,17 @@ function ListaUsuario(){
             }
         }
 
-        async function veLogado(){
-            setLogado(await verificaLogado())
-        }
+        
+
         useEffect(()=>{
             async function veLogado(){
                 let resultado = await verificaLogado()
                 //setLogado(resultado)
-                if (resultado){
+                if (resultado.logado){
                     getUsuario();
+                    if (resultado.funcao != 'Administrador'){
+                        navegate('/listaPesdidos')
+                    }
                 }
                 else{
                     navegate('/')
