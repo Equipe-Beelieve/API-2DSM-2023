@@ -48,7 +48,7 @@ function CadPedido(){
             //setLogado(resultado)
             if (resultado.logado){
                 getFornecedor();
-                if (resultado.funcao !== 'Administrador' || resultado.funcao !== 'Gerente'){
+                if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente'){
                     navegate('/listaPedidos')
                 }
             }

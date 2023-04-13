@@ -37,7 +37,7 @@ function ListaFornecedor(){
             //setLogado(resultado)
             if (resultado.logado){
                 getFornecedores();
-                if (resultado.funcao !== 'Administrador' || resultado.funcao !== 'Gerente'){
+                if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente'){
                     navegate('/listaPedidos')
                 }
 
