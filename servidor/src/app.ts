@@ -136,8 +136,8 @@ app.get('/usuariosCadastrados', async (req, res) => {
 
 //========================= Cadastro de Usuarios =========================
 app.post('/postCadastroUsuario', async (req,res) => {
-    let {nome, funcao, login, senha} = req.body.post
-    let usuario = new Usuario(nome, funcao, login, senha)
+    let {nome, senha,funcao, login} = req.body.post
+    let usuario = new Usuario(nome, senha,funcao, login)
     await bd.inserirUsuario(usuario) 
 });
 

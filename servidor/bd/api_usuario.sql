@@ -32,6 +32,13 @@ CREATE TABLE `usuario` (
   `us_login` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`us_matricula`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `usuario` VALUES (1,'adm','administrador','Administrador','loginadm');
+INSERT INTO `usuario` VALUES (2,'ger','gerente','Gerente','loginger');
+INSERT INTO `usuario` VALUES (3,'Pedro reachers','conferente','Conferente','loginconferente');
+
+
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
