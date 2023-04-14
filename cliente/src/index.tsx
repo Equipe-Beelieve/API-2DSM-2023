@@ -16,6 +16,7 @@ import CadPedido from './components/CadPedido';
 import ListaFornecedor from './components/ListaFornecedor';
 import Login from './components/Login';
 import ListaUsuario from './components/ListaUsuario';
+import CadProduto from './components/CadProduto';
 
 
 const router = createBrowserRouter([
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/listaUsuario",
         element: <ListaUsuario/>
+      },
+      {
+        path: "/cadastroProduto",
+        element: <CadProduto/>
       },
     ]
   }

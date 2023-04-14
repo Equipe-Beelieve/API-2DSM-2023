@@ -44,7 +44,7 @@ const bd = new bancoDados() //criando uma instância do bd para utilizar os mét
 
 
 app.get('/confereLogado', async(req,res)=>{
-    console.log(req.session.funcao)
+    //console.log(req.session.funcao)
     if (req.session.funcao){
         res.send({logado:'true', funcao:req.session.funcao})
     }
@@ -102,7 +102,8 @@ app.get('/listaPedido', async (req,res) =>{
 //========================= Cadastro de Pedidos =========================
 app.get('/cadastroPedido', async (req, res) => {
     let razaoSocial = await bd.pegarRazaoSocial()
-    res.send({razaoSocial});
+    let produtos = await bd.listarProdutos()
+    res.send({razaoSocial, produtos});
 })
 
 app.post('/postCadastroPedido', async (req,res) => {
@@ -150,8 +151,8 @@ app.get('/listaProdutos', async (req, res) => {
 
 //========================= Cadastro de Produtos =========================
 app.post('/cadastroProduto', async (req, res) => {
-    let {descricao, unidade_medida} = req.body.post
-    let produto = new Produto(descricao, unidade_medida)
+    let {descricao, unidadeMedida} = req.body.post
+    let produto = new Produto(descricao, unidadeMedida)
     await bd.inserirProduto(produto)
 })
 

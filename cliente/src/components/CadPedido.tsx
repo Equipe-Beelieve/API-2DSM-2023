@@ -5,11 +5,13 @@ import NavBar from "./NavBar";
 import { Link, redirect, useNavigate } from 'react-router-dom';
 import { RedirectFunction } from 'react-router-dom';
 import { Fornecedor } from './ListaFornecedor';
+import { Produto } from './ListaProdutos';
 import verificaLogado from '../funcoes/verificaLogado';
 
 function CadPedido(){
 
     const [fornecedores, setFornecedores] = useState<Fornecedor[]>([]) //Fornecedores que virão do bd
+    const [produtos, setProdutos] = useState<Produto[]>([]) //Produtos que virão do bd
 
     const [produto, setProduto] = useState('')
     const [dataPedido, setDataPedido] = useState('')
@@ -32,7 +34,7 @@ function CadPedido(){
     const getFornecedor = async () => {
         try{
             const resposta = await api.get('/cadastroPedido')
-            console.log(resposta.data.razaoSocial)
+            //console.log(resposta.data.razaoSocial)
             setFornecedores(resposta.data.razaoSocial) //pegando os dados da resposta
         }
         catch(error){
@@ -41,13 +43,26 @@ function CadPedido(){
         
     }
 
+    // função que pega os produtos
+    async function getProdutos() {
+        try {
+            const resposta = await api.get('/cadastroPedido')
+            //console.log(resposta.data.produtos)
+            setProdutos(resposta.data.produtos)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     useEffect(()=>{
         async function veLogado(){
             let resultado = await verificaLogado()
             //setLogado(resultado)
             if (resultado.logado){
-                getFornecedor();
+                getFornecedor()
+                getProdutos()
                 if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente'){
                     navegate('/listaPedidos')
                 }
@@ -91,8 +106,9 @@ function CadPedido(){
                                     value={produto} 
                                     onChange={(e)=>{setProduto(e.target.value)}}>
                                         <option value=""></option>
-                                        <option value="3">Produto 1</option>
-                                        <option value="2">Produto 2</option>
+                                        {produtos.map((produto, index) =>(
+                                                <option value={produto.prod_descricao} key={index}>{produto.prod_descricao}</option>
+                                        ))}
                                     </select>
 
                                     </td>

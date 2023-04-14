@@ -13,7 +13,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: '1234', //sua senha
+                password: '', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -124,8 +124,9 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async listarProdutos() {
         await this.conectar()
-        await this.conexao.query('SELECT prod_codigo, prod_descricao, prod_unidade_medida FROM produto')
+        let [produtos, meta] = await this.conexao.query('SELECT prod_codigo, prod_descricao, prod_unidade_medida FROM produto')
         await this.conexao.end()
+        return produtos
     }
 }
 
