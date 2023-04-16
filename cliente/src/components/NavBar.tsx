@@ -40,7 +40,7 @@ function NavBar(){
                         <div className="navbar-nav navbar_itens nav-texts">
                             <Link className="nav-item nav-link" to={'/listaPedidos'}>Pedidos</Link>
                             <Link className="nav-item nav-link" to={'/listaFornecedor'}>Fornecedores</Link>
-                            <Link className="nav-item nav-link" to={'/listaProduto'}>Produtos</Link>
+                            <Link className="nav-item nav-link" to={'/listaProdutos'}>Produtos</Link>
                             <Link className="nav-item nav-link" to={'/listaUsuario'}>Usuarios</Link>
                             <button className='loggout' onClick={loggout}>LOGGOUT</button>
                         </div> 
@@ -56,7 +56,7 @@ function NavBar(){
                         <div className="navbar-nav navbar_itens nav-texts">
                             <Link className="nav-item nav-link" to={'/listaPedidos'}>Pedidos</Link>
                             <Link className="nav-item nav-link" to={'/listaFornecedor'}>Fornecedores</Link>
-                            <Link className="nav-item nav-link" to={'/listaProduto'}>Produtos</Link>
+                            <Link className="nav-item nav-link" to={'/listaProdutos'}>Produtos</Link>
                             <button className='loggout' onClick={loggout}>LOGGOUT</button>
                         </div>  
                     </div>
