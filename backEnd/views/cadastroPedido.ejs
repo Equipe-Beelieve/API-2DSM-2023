@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/boxCadastro.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
+
+    <title>Cadastro de Pedidos</title>
+</head>
+
+<body>
+    <!-- <a href="/">Voltar</a><br> -->
+    <nav class="navbar navbar-dark navbar-expand-lg bg_navbar">
+        <a class="navbar-brand text_navbar"  href="/"><img class="nav-logo" src="/images/logo.png" alt=""></a>
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <div class="collapse navbar-collapse" src="../docs/imagens/logo.png" id="navbarNavAltMarkup">
+            <div class="navbar-nav navbar_itens nav-texts">
+                <a class="nav-item nav-link" href="/">Pedidos</a>
+                <a class="nav-item nav-link" href="/fornecedores">Fornecedores</a>
+                <a class="nav-item nav-link" href="#">Produtos</a>
+                <a class="nav-item nav-link" href="/usuariosCadastrados">Usuarios</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="divFornecedor">
+        <h1>Cadastro de Pedidos</h1>
+        <form action="/postCadastroPedido" method="post">
+
+            <div class="poscentralized grid-container">
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><select class="input_form" name="produto" id="produto" required>
+                                        <option value=""></option>
+                                        <option value="3">Produto 1</option>
+                                        <option value="2">Produto 2</option>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data do Pedido:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="date" id="dataPedido" name="dataPedido" required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data de Entrega:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="date" id="dataEntrega" name="dataEntrega" required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="poscentralized grid-container">
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Razão Social(fornecedor):</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><select class="input_form" type="text" id="razaoSocial" name="razaoSocial" required>
+                                    <option value=""></option>
+                                    <% for (let linha in tabelaRazao){ %>
+                                        <option value=<%= tabelaRazao[linha].for_razao_social %>><%= tabelaRazao[linha].for_razao_social %></option>
+                                    <% } %>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Preço Unitário:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="precoUnitario" name="precoUnitario"
+                                        required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Quantidade:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="quantidade" name="quantidade" required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="poscentralized grid-container">
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Preço Total:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="precoTotal" name="precoTotal" required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo de Frete:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="frete" name="frete" required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Transportadora:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="input_form" type="text" id="condicaoPagamento" name="transportadora"
+                                        required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="poscentralized grid-container">
+                <div class="box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Condição de Pagamento:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><select class="input_form" name="condicaoPagamento" id="condicaoPagamento" required>
+                                        <option value=""></option>
+                                        <option value="00/100">00/100</option>
+                                        <option value="10/90">10/90</option>
+                                        <option value="20/80">20/80</option>
+                                        <option value="30/70">30/70</option>
+                                        <option value="40/60">40/60</option>
+                                        <option value="50/50">50/50</option>
+                                        <option value="60/40">60/40</option>
+                                        <option value="70/30">70/30</option>
+                                        <option value="80/20">80/20</option>
+                                        <option value="90/10">90/10</option>
+                                        <option value="100/00">100/00</option>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <input class="confirm_button" type="submit" value="Cadastrar">
+            <button class="cancel_button">
+                <a href="/">Cancelar</a>
+            </button>
+        </form>
+    </div>
+
+</body>
+
+</html>

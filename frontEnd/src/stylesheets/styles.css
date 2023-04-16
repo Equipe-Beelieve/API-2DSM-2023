@@ -1,0 +1,250 @@
+.nav-texts a, .nav-texts a:visited {
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.mainTitle {
+  font-size: 35px;
+  margin-top: 5vh;
+  font-weight: bold;
+}
+
+.loggout{
+  margin-left: 16vw;
+}
+
+/*Botões de seleção de status*/
+.state {
+  display: flex;
+  justify-content: center;
+
+  width: 80%;
+}
+
+.state button {
+  margin: 2vh 2vw;
+
+  background-color: #D9D9D9;
+  padding: 0 1.5vw;
+  border: none;
+
+  font-size: 30px;
+  font-weight: 500;
+}
+
+#register {
+  color: #FFFFFF;
+  background-color: #3E813B;
+  width: 20%;
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 24px;
+  font-weight: 700;
+}
+
+#register a, #register a:visited, #register a:hover {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.mainContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/*Título e botão de cadastro */
+.titleRegister {
+  margin: 5vh 0;
+
+  width: 80%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.titleRegister .mainTitle {
+  align-self: center;
+  margin: 0;
+}
+
+.titleRegister #register {
+  align-self: flex-end;
+  margin-left: 5vw;
+}
+
+
+.listaOut {
+  background-color: #D9D9D9;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2vh 0;
+  padding: 1.5vh 0;
+  /* padding-top: 2vh;
+  padding-bottom: 2vh;
+  padding-left: 2vw;
+  margin-left: 35%;
+  margin-bottom: 1%; */
+}
+
+.listaIn {
+  background-color: #C0C0C0;
+
+  width: 98%;
+  padding-top: 1%;
+  padding-left: 1%;
+  padding-bottom: 0.5%;
+  padding-right: 1%;
+
+  font-weight: bold;
+}
+
+/*Colunas para os campos de listagem*/
+.listColumns {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  line-height: 0.5;
+}
+
+.listColumns .column2 {
+  margin-left: 5vw;
+  
+}
+
+.listaIn h1 {
+  font-size: 30px;
+  margin-bottom: 2vh;
+}
+
+.listaIn p {
+  font-size: 25px;
+}
+
+#botaoTopo {
+  position: fixed;
+  top: 90%;
+  left: 95%;
+  font-size: 2vh;
+  padding-top: 0.75%;
+  padding-left: 1%;
+  padding-bottom: 0.75%;
+  padding-right: 1%;
+  background-color: #B4D892;
+  border: none;
+  border-radius: 60%;
+}
+
+#botaoTopo:hover {
+  background-color: #3E813B;
+}
+
+/* HEADER */
+.header {
+  overflow: hidden;
+  background-color: #30321C;
+  padding: 20px 10px;
+}
+
+.header a {
+  float: left;
+  color: #FCF7F8;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.nav-logo{
+  width: 35px;
+  margin: 0 0 0 10px;
+  margin-left: 3vw;
+}
+
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.header a.active {
+  background-color: #FCF7F8;
+  color: black;
+}
+
+.header-right {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+  .header-right {
+    float: none;
+  }
+}
+
+/* CRIA UMA CAIXA SOLIDA COM BORDA */
+p.solid {
+  border-style: solid;
+  background-color: #D4DF9E;
+  border-color: #30321C;
+  color: white;
+  font-weight: bold;
+}
+
+.input_form {
+  background-color: #C0C0C0;
+  border-color: transparent;
+}
+
+.cancel_button {
+  background: #FF6962;
+  border-radius: 20px;
+  border-color: transparent;
+}
+
+.cancel_button:hover {
+  background: #ee2a20;
+}
+
+.cancel_button a, .cancel_button a:visited, .cancel_button a:hover {
+  text-decoration: none;
+  color: #000000;
+}
+
+.confirm_button {
+  background: #B4D892;
+  border-radius: 20px;
+  border-color: transparent;
+}
+
+.confirm_button:hover {
+  background-color: #3E813B;
+}
+
+.bg_navbar {
+  background-color: #3E813B;
+}
+
+.navbar_itens {
+  position: relative;
+  margin: 0 34vw;
+}
+
+.cadastro{
+  width: 70%;
+}

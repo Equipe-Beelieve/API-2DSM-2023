@@ -1,4 +1,4 @@
-servidor/node_modules/
-cliente/node_modules/
+backEnd/node_modules/
+frontEnd/node_modules/
 out/
 package-lock.json/
