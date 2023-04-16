@@ -55,6 +55,25 @@ function CadPedido(){
         }
     }
 
+    function trataDatalistProduto (evento:any){
+        for(let i in produtos){
+            if (produto === produtos[i].prod_descricao){
+                setProduto(evento.target.value)
+                return;
+            }
+        }
+        setProduto('')
+    }
+
+    function trataDatalistFornecedor(evento:any){
+        for(let i in fornecedores){
+            if (razaoSocial === fornecedores[i].for_razao_social){
+                setRazaoSocial(evento.target.value)
+                return;
+            }
+        }
+        setRazaoSocial('')
+    }
 
     useEffect(()=>{
         async function veLogado(){
@@ -101,15 +120,19 @@ function CadPedido(){
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><select className="input_form" name="produto" id="produto" 
+                                    <td><input list='datalistProduto' type='text' className="input_form" name="produto" id="produto" 
                                     required 
                                     value={produto} 
-                                    onChange={(e)=>{setProduto(e.target.value)}}>
-                                        <option value=""></option>
-                                        {produtos.map((produto, index) =>(
-                                                <option value={produto.prod_descricao} key={index}>{produto.prod_descricao}</option>
-                                        ))}
-                                    </select>
+                                    onChange={(e)=>{setProduto(e.target.value)}}
+                                    onBlur={trataDatalistProduto}/>
+                                        <datalist id='datalistProduto'>
+                                            <option value=""></option>
+                                            {produtos.map((produto, index) =>(
+                                                    <option value={produto.prod_descricao} key={index}>{produto.prod_descricao}</option>
+                                            ))}
+                                        </datalist>
+                                        
+                                    
 
                                     </td>
                                 </tr>
@@ -165,15 +188,17 @@ function CadPedido(){
                             <tbody>
                                 <tr>
                                     <td>
-                                        <select className="input_form" id="razaoSocial" name="razaoSocial" required 
+                                        <input type='text' list='datalistFornecedor' className="input_form" id="razaoSocial" name="razaoSocial" required 
                                         value={razaoSocial}
-                                        onChange={(e)=>{setRazaoSocial(e.target.value)}}>
-                                            <option value=""></option>
-                                            {fornecedores.map((fornecedor, index) =>(
-                                                <option value={fornecedor.for_razao_social} key={index}>{fornecedor.for_razao_social}</option>
-                                            ))
-                                            }
-                                        </select>
+                                        onChange={(e)=>{setRazaoSocial(e.target.value)}}
+                                        onBlur={trataDatalistFornecedor}/>
+                                            <datalist id='datalistFornecedor'>
+                                                <option value=""></option>
+                                                {fornecedores.map((fornecedor, index) =>(
+                                                    <option value={fornecedor.for_razao_social} key={index}>{fornecedor.for_razao_social}</option>
+                                                ))
+                                                }
+                                            </datalist>
                                     </td>
                                 </tr>
                             </tbody>

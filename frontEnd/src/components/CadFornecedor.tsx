@@ -16,7 +16,7 @@ function CadFornecedor() {
     const [bairro, setBairro] = useState('')
     const [ruaAvenida, setRuaAvenida] = useState('')
     const [numero, setNumero] = useState('')
-
+    const [controleCnpj, setControleCnpj] = useState(0)
 
     const [logado, setLogado] = useState(Boolean)
     const navegate = useNavigate()
@@ -37,27 +37,80 @@ function CadFornecedor() {
 
     function trataCnpj(evento:any){
         let valor = evento.target.value
-        if(isNaN(valor[valor.length-1])){
-            setCnpj('')
-            return;
+        if(isNaN(valor[valor.length-1]) && valor[valor.length-1] !== '.' && valor[valor.length-1] !== '-' && valor[valor.length-1] !== '/' && valor[valor.length-1] !== undefined){
+            console.log(valor[valor.length-1])
+            setCnpj(cnpj)
         }
         else{
-            if(valor.length === 2) {setCnpj(valor + '.')}
-            else if(valor.length === 6) {setCnpj(valor + '.')}
-            else if(valor.length === 10) {setCnpj(valor + '/')}
-            else if(valor.length === 15) {setCnpj(valor + '-')}
-            else {setCnpj(valor)}
+            // console.log(controleCnpj)
+            // console.log(valor.length)
+            console.log(`valor.length: ${valor.length}`)
+            if (valor.length < 2){
+                setCnpj(valor)
+                setControleCnpj(0)
+            }
+            else if(valor.length === 2 && controleCnpj < 2) {
+                setCnpj(valor + '.')
+                setControleCnpj(2)
+            }
+            else if(valor.length === 3 && valor[valor.length-1] !== '.'){
+                setCnpj(cnpj + '.' + valor[valor.length-1])
+                setControleCnpj(2)
+            }
+            else if (valor.length<6){
+                setCnpj(valor)
+                setControleCnpj(2)
+            }
+            else if(valor.length === 6 && controleCnpj < 6) {
+                setCnpj(valor + '.')
+                setControleCnpj(6)
+            }
+            else if(valor.length === 7 && valor[valor.length-1] !== '.'){
+                setCnpj(cnpj + '.' + valor[valor.length-1])
+                setControleCnpj(6)
+            }
+            else if (valor.length < 10){
+                setCnpj(valor)
+                setControleCnpj(6)
+            }
+            else if(valor.length === 10 && controleCnpj < 10) {
+                setCnpj(valor + '/')
+                setControleCnpj(10)
+            }
+            else if(valor.length === 11 && valor[valor.length-1] !== '/'){
+                setCnpj(cnpj + '/' + valor[valor.length-1])
+                setControleCnpj(10)
+            }
+            else if (valor.length < 15){
+                setCnpj(valor)
+                setControleCnpj(10)
+            }
+            else if(valor.length === 15 && controleCnpj < 15) {
+                setCnpj(valor + '-')
+                setControleCnpj(15)
+            }
+            else if(valor.length === 16 && valor[valor.length-1] !== '-'){
+                setCnpj(cnpj + '-' + valor[valor.length-1])
+                setControleCnpj(15)
+            }
+            else {
+                setCnpj(valor)
+            }
         }
     }
 
     function trataCep(evento:any){
         let valor = evento.target.value
-        if(isNaN(valor[valor.length-1])){
-            setCep('')
+        if(isNaN(valor[valor.length-1]) && valor[valor.length-1] !=='-' && valor[valor.length-1] !== undefined){
+            setCep(cep)
         }
         else{
-        if(valor.length === 5) {setCep(valor + '-')}
-        else{setCep(valor)}
+            if(valor.length === 5 && cep[cep.length-1] !=='-') {setCep(valor + '-')}
+            else if (valor.length === 6 && valor[valor.length-1] !== '-'){
+                
+                setCep(cep + '-' + valor[valor.length-1])
+            }
+            else{setCep(valor)}
         }
     }
 
