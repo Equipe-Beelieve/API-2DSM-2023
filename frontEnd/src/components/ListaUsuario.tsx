@@ -21,9 +21,9 @@ function ListaUsuario(){
 
     async function getUsuario(){
         try {
-            const response = await api.get('/listaUsuario')
-            console.log(response.data.tabelaUsario)
-            setUsuarios(response.data.tabelaUsario)
+            const response = await api.get('/listarUsuario')
+            console.log(response.data.tabelaUsuario)
+            setUsuarios(response.data.tabelaUsuario)
             }
             catch (erro) {
             console.log(erro)
@@ -69,14 +69,16 @@ function ListaUsuario(){
             {usuarios.map((usuario, index) => (
                 <div className='listaOut' key={index}>
                     <div className="listaIn">
-                        <h1>Pedido nº{usuario.us_matricula}</h1>
+                        <h1>
+                            Matricula: {usuario.us_matricula}
+                        </h1>
                         <div className="listColumns">
                             <div className="column1">
-                                <p>Peso: {usuario.us_nome}</p>
-                                <p>Data de entrega: {usuario.us_funcao}</p>
+                                <p>Nome: {usuario.us_nome}</p>
+                                <p>Função: {usuario.us_funcao}</p>
                             </div>
                             <div className="column2">
-                                <p>Valor total: {usuario.us_login}</p>
+                                <p>Login: {usuario.us_login}</p>
                             </div>
                         </div>
                     </div>
