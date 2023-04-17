@@ -130,7 +130,7 @@ app.post('/cadastroFornecedor', async (req, res) => {
 
 
 //========================= Listagem de Usuarios =========================
-app.get('/usuariosCadastrados', async (req, res) => {
+app.get('/listarUsuario', async (req, res) => {
     let tabelaUsuario = await bd.listarUsuario()
     res.send({tabelaUsuario});
 });
