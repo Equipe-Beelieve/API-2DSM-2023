@@ -4,6 +4,7 @@ import api from '../services/api';
 import { redirect, useNavigate } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
+import logo from '../images/logo.png'
 
 
 function Login(){
@@ -48,14 +49,25 @@ function Login(){
     }, [])
     return(
         <>
-        <h1>Login</h1><form onSubmit={entrar}>
-            <h3>Login:</h3>
+        
+        <div className='login2'>
+            <div className='login-center'>
+        <div className='mainContent'>
+        <div className='state'>
+        <h1></h1><form onSubmit={entrar}>
+            <br></br>
+            <p></p>
+            <div className='logocentro'>
+        <img className="logo" src={logo} alt="logo"/></div>
+        <br></br>
+            <h3 className='login-text'>Login:</h3>
             <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
-            <h3>Senha:</h3>
+            <h3 className='login-text'>Senha:</h3>
             <input type="text" value={senha} onChange={(e) => setSenha(e.target.value)} />
-            
-            <input type="submit" />
+            <p></p>
+            <input type="submit" className="login_button" />
         </form>
+        </div></div></div></div>
         </>
         
     )
