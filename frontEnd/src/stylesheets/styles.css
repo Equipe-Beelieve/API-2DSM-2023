@@ -254,6 +254,7 @@ p.solid {
 .login2{
   background-color:#3E813B;
   height: 100vh;
+  
 }
 
 .login_button {
@@ -283,6 +284,11 @@ p.solid {
   margin: auto;
   width: 50%;
   text-align:center;
+  margin: 0;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
 }
 
@@ -293,9 +299,7 @@ p.solid {
 }
 
 .logo{
-  
   width: 40%;
-  alignment:center;
   margin-right:2vw;
 }
 
