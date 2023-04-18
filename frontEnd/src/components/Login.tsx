@@ -54,7 +54,7 @@ function Login(){
             <div className='login-center'>
         <div className='mainContent'>
         <div className='state'>
-        <h1></h1><form onSubmit={entrar}>
+        <form onSubmit={entrar}>
             <br></br>
             <p></p>
             <div className='logocentro'>
