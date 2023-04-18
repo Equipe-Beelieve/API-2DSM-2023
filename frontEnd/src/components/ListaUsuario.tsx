@@ -61,7 +61,7 @@ function ListaUsuario(){
             <div className="titleRegister">
                 <h1 className="mainTitle">Usuarios</h1>
                 <button id="register">
-                        <Link to={'/'}>
+                        <Link to={'/listaPedidos'}>
                             <img className="cadastro" src={cadastro} alt=""/>
                         </Link>
                 </button>

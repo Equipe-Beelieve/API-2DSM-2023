@@ -59,7 +59,7 @@ function CadProduto() {
                         </tbody>
                     </table>
                 </div>
-                <div className="box">
+                <div className="box2">
                     <table>
                         <thead>
                             <tr>

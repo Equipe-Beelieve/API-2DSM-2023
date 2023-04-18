@@ -9,8 +9,21 @@
   font-weight: bold;
 }
 
-.loggout{
+.loggout {
   margin-left: 16vw;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  background-color: #3E813B;
+  font-weight:500;
+  transition-duration: 0.5s;
+  color: white;
+  padding: 1%;
+}
+
+.loggout:hover{
+  background-color: #B4D892;
 }
 
 /*Botões de seleção de status*/
@@ -230,6 +243,7 @@ p.solid {
   background: #B4D892;
   border-radius: 20px;
   border-color: transparent;
+  margin-right: 2vw;
 }
 
 .confirm_button:hover {
@@ -242,7 +256,8 @@ p.solid {
 
 .navbar_itens {
   position: relative;
-  margin: 0 34vw;
+  margin-left: 31vw;
+  display: flex;
 }
 
 .cadastro{
@@ -306,6 +321,10 @@ p.solid {
   align-items: center;
   flex-direction: column;
   font-weight: bold;
-  font-size:large;
-  
+  font-size:large; 
+}
+
+.box2{
+  width: 12vw;
+  margin-right: 2.5vw;
 }
