@@ -12,6 +12,7 @@ function CadPedido(){
 
     const [fornecedores, setFornecedores] = useState<Fornecedor[]>([]) //Fornecedores que virão do bd
     const [produtos, setProdutos] = useState<Produto[]>([]) //Produtos que virão do bd
+    const [unidade, setUnidade] = useState('')
 
     const [produto, setProduto] = useState('')
     const [dataPedido, setDataPedido] = useState('')
@@ -55,13 +56,60 @@ function CadPedido(){
         }
     }
 
+    function trataPrecoUnitario(evento:any){
+        let valor = evento.target.value
+        if (isNaN(valor[valor.length-1]) && unidade !== ''){
+            setPrecoUnitario(precoUnitario)
+        }
+        else{
+            setPrecoUnitario(valor)
+        }
+    }
+
+    function blurPrecoUnitario(evento:any){
+        let valor = evento.target.value
+        
+        if (unidade !== ''){
+            if(valor[0] !== 'R' && valor[0] !== '$' && valor.slice(-1) !== 't' && valor.slice(-1) !== 'g' 
+            && valor.slice(-1) !== '/' && valor.slice(-1) !== 'k' && valor.slice(-1) !== ' '){
+                setPrecoUnitario('R$' + valor + '/' + unidade)
+            }
+            else if (valor.slice(-1) !== '/' && valor.slice(-1) !== 'k' && valor[0] !== '$'){
+                setPrecoUnitario('')
+            }
+            else{
+                setPrecoUnitario(precoUnitario)
+            }
+        }
+        else {
+            setPrecoUnitario('')
+        }
+        
+    }
+
+    function selectPrecoUnitario(evento:any){
+        let valor = evento.target.value
+        if (valor[0] === 'R' && valor.slice(-1) === 't'){
+            console.log(valor.slice(2, -2))
+            setPrecoUnitario(valor.slice(2, -2))
+        }
+        else if (valor[0] === 'R' && valor.slice(-1) === 'g'){
+            console.log(valor.slice(2, -3))
+            setPrecoUnitario(valor.slice(3, -3))
+        }
+    }
+
+
+
     function trataDatalistProduto (evento:any){
         for(let i in produtos){
             if (produto === produtos[i].prod_descricao){
                 setProduto(evento.target.value)
+                setUnidade(produtos[i].prod_unidade_medida)
                 return;
             }
         }
+        setUnidade('')
         setProduto('')
     }
 
@@ -218,7 +266,9 @@ function CadPedido(){
                                     <td><input className="input_form" type="text" id="precoUnitario" name="precoUnitario"
                                         required 
                                         value={precoUnitario}
-                                        onChange={(e)=>{setPrecoUnitario(e.target.value)}}/>
+                                        onChange={trataPrecoUnitario}
+                                        onBlur={blurPrecoUnitario}
+                                        onSelect={selectPrecoUnitario}/>
                                     </td>
                                 </tr>
                             </tbody>
