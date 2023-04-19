@@ -1,4 +1,5 @@
 import * as mysql from 'mysql2/promise' //importando os módulos necessários
+import { RowDataPacket } from 'mysql2'; //é responsável por reconhecer o tipo de dados retorndos por determinada consulta 
 import Endereco from './Endereco.js'
 import Fornecedor from './Fornecedor.js'
 import Pedido from './Pedido.js'
@@ -101,6 +102,14 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conexao.end()
     }
 
+    async pegarLogin() {
+        await this.conectar();
+        const [result] = await this.conexao.query<RowDataPacket[]>(`SELECT login FROM usuario`);//armazena os dados da consulta na variavel result
+        await this.conexao.end();
+        const login = result.map((row) => row.login);//Converte a array de registros retornados pela consulta em uma array de logins
+        return login;
+      }
+      
     public async listarUsuario() {
         await this.conectar()
         let [usuarios, meta]:any = await this.conexao.query('SELECT us_matricula,us_nome, us_senha, us_funcao, us_login FROM usuario')
@@ -128,5 +137,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conexao.end()
         return produtos
     }
+
+    
 }
 

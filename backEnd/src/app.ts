@@ -136,12 +136,17 @@ app.get('/listarUsuario', async (req, res) => {
 });
 
 //========================= Cadastro de Usuarios =========================
-app.post('/postCadastroUsuario', async (req,res) => {
+app.post('/cadastroUsuario', async (req,res) => {
     let {nome, senha,funcao, login} = req.body.post
     let usuario = new Usuario(nome, senha,funcao, login)
     await bd.inserirUsuario(usuario) 
 });
 
+// metodo para verificar os logins ja existentes, afim de evitar repetição
+app.get('/pegarLogin', async (req, res) => {
+    let login = await bd.pegarLogin()
+    res.send(login);
+});
 
 //========================= Listagem de Produtos =========================
 app.get('/listaProdutos', async (req, res) => {
