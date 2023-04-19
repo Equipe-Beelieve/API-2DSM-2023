@@ -63,7 +63,7 @@ function Login(){
             <h3 className='login-text'>Login:</h3>
             <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
             <h3 className='login-text'>Senha:</h3>
-            <input type="text" value={senha} onChange={(e) => setSenha(e.target.value)} />
+            <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
             <p></p>
             <input type="submit" className="login_button" />
         </form>

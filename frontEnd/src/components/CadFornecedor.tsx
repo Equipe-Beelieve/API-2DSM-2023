@@ -31,6 +31,7 @@ function CadFornecedor() {
         api.post('/cadastroFornecedor', 
         {post}
         );
+        navegate('/listaFornecedor')
     }
     
     //================== MASCARAS DE FORMULÁRIO ==================

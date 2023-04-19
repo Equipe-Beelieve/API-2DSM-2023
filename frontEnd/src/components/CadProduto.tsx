@@ -29,7 +29,7 @@ function CadProduto() {
         evento.preventDefault()
         const post = {descricao, unidadeMedida}
         api.post('/cadastroProduto', {post})
-        redirect('/') //atualizar para o componente de listagem de Produtos, quando o mesmo for criado
+        navegate('/listaProdutos') //atualizar para o componente de listagem de Produtos, quando o mesmo for criado
     }
 
     return (
