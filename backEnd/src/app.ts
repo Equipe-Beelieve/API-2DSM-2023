@@ -146,6 +146,7 @@ app.post('/cadastroUsuario', async (req,res) => {
 app.get('/pegarLogin', async (req, res) => {
     let login = await bd.pegarLogin()
     res.send(login);
+    console.log(login)
 });
 
 //========================= Listagem de Produtos =========================
