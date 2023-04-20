@@ -27,7 +27,6 @@ function CadFornecedor() {
         evento.preventDefault();
         const post = {cnpj, cep, estado, cidade, bairro, numero, ruaAvenida, razaoSocial, nomeFantasia}
         console.log({razaoSocial, nomeFantasia,cnpj, cidade, cep, estado, bairro, ruaAvenida, numero})
-        const jsonCadFor = JSON.stringify(post)
         api.post('/cadastroFornecedor', 
         {post}
         );

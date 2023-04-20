@@ -2,8 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import api from '../services/api';
 import NavBar from "./NavBar";
-import { Link, redirect, useNavigate } from 'react-router-dom';
-import { RedirectFunction } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
+import { redirect } from 'react-router-dom';
 import { Fornecedor } from './ListaFornecedor';
 import { Produto } from './ListaProdutos';
 import verificaLogado from '../funcoes/verificaLogado';
@@ -29,7 +29,7 @@ function CadPedido(){
     
 
     const [logado, setLogado] = useState(Boolean)
-    const navegate = useNavigate()
+    const navigate = useNavigate()
 
     
 
@@ -208,11 +208,11 @@ function CadPedido(){
                 getFornecedor()
                 getProdutos()
                 if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente'){
-                    navegate('/listaPedidos')
+                    navigate('/listaPedidos')
                 }
             }
             else{
-                navegate('/')
+                navigate('/')
             }
         }
         if (!render){
@@ -251,10 +251,10 @@ function CadPedido(){
             setQuantidade(quantidade.replace('t', 'kg'))
             setPrecoUnitario(precoUnitario.replace('t', 'kg'))
         }
-    }, [navegate, precoUnitario, quantidade, render, unidade]) //Aciona as funções apenas quando a página é renderizada
+    }, [navigate, precoUnitario, quantidade, render, unidade]) //Aciona as funções apenas quando a página é renderizada
 
 
-    function cadastroPedido(evento:any){
+    async function cadastroPedido(evento:any){
         evento.preventDefault();
         if (unidade === 'kg'){
             setPrecoUnitario(precoUnitario.slice(2, -3))
@@ -268,10 +268,12 @@ function CadPedido(){
         }
 
         const post ={produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento}
-        api.post('/postCadastroPedido',
-            {post}
-        )
-        navegate('/listaPedidos')
+        await api.post('/postCadastroPedido', {post})
+        return redirect('listaPedidos')
+    }
+
+    function redirecionarPedido(){
+        navigate("/listaPedidos")
     }
 
     return(
@@ -517,12 +519,8 @@ function CadPedido(){
                 </div>
 
                 
-                <input className="confirm_button" type="submit" value="Cadastrar" />
-                
-                    
-                <button className="cancel_button">
-                    <Link to={"/listaPedidos"}>Cancelar</Link>
-                </button>
+                <input className="confirm_button" type="submit" value="Cadastrar"/>
+                <button className="cancel_button" onClick={redirecionarPedido}>Cancelar</button>
             </form>
         </div>
         </>

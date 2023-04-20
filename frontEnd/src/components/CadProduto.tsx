@@ -9,17 +9,18 @@ function CadProduto() {
     const [descricao, setDescricao] = useState('')
     const [unidadeMedida, setUnidadeMedida] = useState('')
 
-    const navegate = useNavigate()
+    
+    const navigate = useNavigate()
 
     useEffect(()=>{
         async function veLogado(){
             let resultado = await verificaLogado()
             //setLogado(resultado)
             if (resultado.logado && (resultado.funcao !== 'Gerente' && resultado.funcao !== 'Administrador')){
-                navegate('/') //atualizar para o componente de listagem de produtos quando o mesmo for criado
+                navigate('/listaPedidos') 
             }
             else if(!resultado.logado){
-                navegate('/')
+                navigate('/')
             }
         }
         veLogado()
@@ -29,7 +30,7 @@ function CadProduto() {
         evento.preventDefault()
         const post = {descricao, unidadeMedida}
         api.post('/cadastroProduto', {post})
-        navegate('/listaProdutos') //atualizar para o componente de listagem de Produtos, quando o mesmo for criado
+        navigate('/listaProdutos') 
     }
 
     return (

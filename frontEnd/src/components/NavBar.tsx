@@ -7,7 +7,7 @@ import api from '../services/api';
 function NavBar(){
     const [logado, setLogado] = useState(Boolean)
     const [funcao, setFuncao] = useState('')
-    const navegate = useNavigate()
+    const navigate = useNavigate()
 
     async function veLogado(){
         let dadoUsuario = await api.get('/confereLogado')
@@ -25,7 +25,7 @@ function NavBar(){
     async function loggout() {
         const log = await api.get('/loggout')
         console.log(log.data)
-        navegate('/')
+        navigate('/')
     }
 
     useEffect(()=>{
