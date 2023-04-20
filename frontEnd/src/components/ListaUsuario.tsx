@@ -75,10 +75,11 @@ function ListaUsuario(){
                         <div className="listColumns">
                             <div className="column1">
                                 <p>Nome: {usuario.us_nome}</p>
-                                <p>Função: {usuario.us_funcao}</p>
+                                <p>Login: {usuario.us_login}</p>
+                                
                             </div>
                             <div className="column2">
-                                <p>Login: {usuario.us_login}</p>
+                                <p>Função: {usuario.us_funcao}</p>
                             </div>
                         </div>
                     </div>
