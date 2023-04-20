@@ -18,6 +18,7 @@ export interface Fornecedor {
 function ListaFornecedor(){
     const [fornecedores, setFornecedores] = useState<Fornecedor[]>([])
     const [logado, setLogado] = useState(Boolean)
+    const [renderizou, setRenderizou] = useState(false)
     const navegate = useNavigate()
 
     async function getFornecedores() {
@@ -51,6 +52,15 @@ function ListaFornecedor(){
         
     }, []) //Aciona as funções apenas quando a página é renderizada
     
+    useEffect(()=>{ // Garante uma segunda renderização para que nenhum pedido fique fora
+        if (!renderizou){
+            getFornecedores()
+            console.log('FOI 1')
+            setRenderizou(true)
+        }else{
+            console.log('FOI 2')
+            return;
+        }}, [renderizou])
 
     return(
         <>

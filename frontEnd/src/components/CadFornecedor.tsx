@@ -23,14 +23,14 @@ function CadFornecedor() {
 
     
     //================== SUBMIT DE FORMULÁRIO ==================   
-    function cadastraFornecedor(evento:any){
+    async function cadastraFornecedor(evento:any){
         evento.preventDefault();
         const post = {cnpj, cep, estado, cidade, bairro, numero, ruaAvenida, razaoSocial, nomeFantasia}
         console.log({razaoSocial, nomeFantasia,cnpj, cidade, cep, estado, bairro, ruaAvenida, numero})
-        api.post('/cadastroFornecedor', 
+        navegate('/listaFornecedor')
+        await api.post('/cadastroFornecedor', 
         {post}
         );
-        navegate('/listaFornecedor')
     }
     
     //================== MASCARAS DE FORMULÁRIO ==================
@@ -138,7 +138,7 @@ function CadFornecedor() {
             }
         }
         veLogado()
-        })
+        }, [])
 
     //================== REENDERIZAÇÃO ==================
 

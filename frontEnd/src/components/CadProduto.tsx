@@ -24,13 +24,13 @@ function CadProduto() {
             }
         }
         veLogado()
-        })
+        }, [])
 
-    function cadastroProduto(evento:any) {
+    async function cadastroProduto(evento:any) {
         evento.preventDefault()
         const post = {descricao, unidadeMedida}
-        api.post('/cadastroProduto', {post})
         navigate('/listaProdutos') 
+        await api.post('/cadastroProduto', {post})
     }
 
     return (

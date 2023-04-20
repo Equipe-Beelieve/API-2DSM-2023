@@ -10,6 +10,8 @@ import verificaLogado from '../funcoes/verificaLogado';
 
 function CadPedido(){
 
+// ===================== Estados =====================
+
     const [fornecedores, setFornecedores] = useState<Fornecedor[]>([]) //Fornecedores que virão do bd
     const [produtos, setProdutos] = useState<Produto[]>([]) //Produtos que virão do bd
     const [unidade, setUnidade] = useState('')
@@ -29,9 +31,9 @@ function CadPedido(){
     
 
     const [logado, setLogado] = useState(Boolean)
-    const navigate = useNavigate()
+    const navegate = useNavigate()
 
-    
+// ===================== Ligações com o Backend =====================
 
     // função que pega os fornecedores
     const getFornecedor = async () => {
@@ -57,6 +59,8 @@ function CadPedido(){
             console.log(error)
         }
     }
+
+    // ===================== Mascaras de campo =====================
 
     function trataPrecoUnitario(evento:any){
         let valor = evento.target.value
@@ -200,6 +204,8 @@ function CadPedido(){
         }
     }
 
+    // ===================== UseEffect =====================
+
     useEffect(()=>{
         async function veLogado(){
             let resultado = await verificaLogado()
@@ -208,11 +214,11 @@ function CadPedido(){
                 getFornecedor()
                 getProdutos()
                 if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente'){
-                    navigate('/listaPedidos')
+                    navegate('/listaPedidos')
                 }
             }
             else{
-                navigate('/')
+                navegate('/')
             }
         }
         if (!render){
@@ -251,11 +257,13 @@ function CadPedido(){
             setQuantidade(quantidade.replace('t', 'kg'))
             setPrecoUnitario(precoUnitario.replace('t', 'kg'))
         }
-    }, [navigate, precoUnitario, quantidade, render, unidade]) //Aciona as funções apenas quando a página é renderizada
+    }, [navegate, precoUnitario, quantidade, render, unidade]) //Aciona as funções apenas quando a página é renderizada
 
+
+// ===================== Submit =====================
 
     async function cadastroPedido(evento:any){
-        evento.preventDefault();
+
         if (unidade === 'kg'){
             setPrecoUnitario(precoUnitario.slice(2, -3))
             setPrecoTotal(precoTotal.slice(3))
@@ -266,15 +274,18 @@ function CadPedido(){
             setPrecoTotal(precoTotal.slice(3))
             setQuantidade(quantidade.slice(0, -2))
         }
-
         const post ={produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento}
+        navegate("/listaPedidos")
         await api.post('/postCadastroPedido', {post})
-        return redirect('listaPedidos')
+
+        
     }
 
     function redirecionarPedido(){
-        navigate("/listaPedidos")
+        navegate("/listaPedidos")
     }
+
+// ===================== HTML =====================  
 
     return(
         <>

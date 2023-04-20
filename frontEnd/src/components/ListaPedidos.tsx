@@ -19,6 +19,7 @@ interface Pedido {
 function ListaPedidos(){
     const [pedidos, setPedido] = useState<Pedido[]>([])
     const [funcao, setFuncao] = useState('')
+    const [renderizou, setRenderizou] = useState(false)
     const navegate = useNavigate()
     async function getPedidos() {
         try{
@@ -37,21 +38,34 @@ function ListaPedidos(){
     // }
 
     useEffect(()=>{
+        
         async function veLogado(){
             let resultado = await verificaLogado()
             //setLogado(resultado)
             if (resultado.logado){
                 getPedidos();
                 setFuncao(resultado.funcao)
+                setRenderizou(true)
             }
             else{
                 navegate('/')
             }
         }
         veLogado()
-        
+        console.log('foi')
     }, []) //Aciona as funções apenas quando a página é renderizada
     
+    useEffect(()=>{ // Garante uma segunda renderização para que nenhum pedido fique fora
+        if (!renderizou){
+            getPedidos()
+            setRenderizou(true)
+            console.log('FOI 1')
+        }else{
+            console.log('FOI 2')
+            return;
+        }
+    },[renderizou])
+
     return(
         <>
         <NavBar />
@@ -75,7 +89,7 @@ function ListaPedidos(){
             {pedidos.map((pedido, index) =>(
                 <div className='listaOut' key={index}>
                 <div className="listaIn">
-                    <h1>Pedido nº{pedido.ped_codigo} Produto: ({pedido.ped_razao_social})</h1>
+                    <h1>Pedido nº{pedido.ped_codigo} - {pedido.ped_descricao} ({pedido.ped_razao_social})</h1>
                     <div className="listColumns">
                         <div className="column1">
                             <p>Peso: {pedido.ped_produto_massa}</p>

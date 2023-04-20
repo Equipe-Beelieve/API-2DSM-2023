@@ -15,6 +15,7 @@ export interface Produto {
 function ListaProdutos(){
     const [produtos, setProdutos] = useState<Produto[]>([])
     const [logado, setLogado] = useState(Boolean)
+    const [renderizou, setRenderizou] = useState(false)
     const navegate = useNavigate()
 
     async function getProdutos(){
@@ -40,6 +41,17 @@ function ListaProdutos(){
             }
         } veLogado()
     },[])
+
+    useEffect(()=>{ // Garante uma segunda renderização para que nenhum pedido fique fora
+        if (!renderizou){
+            getProdutos()
+            console.log('FOI 1')
+            setRenderizou(true)
+        }else{
+            console.log('FOI 2')
+            return;
+        }
+    },[renderizou])
 
     return(
         <>

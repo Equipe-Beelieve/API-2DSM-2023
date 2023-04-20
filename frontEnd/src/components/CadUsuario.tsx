@@ -19,21 +19,35 @@ function CadUsuario() {
 
     
     //================== SUBMIT DE FORMULÁRIO ==================   
-    function cadUsuario(evento:any){
+    async function cadUsuario(evento:any){
         evento.preventDefault();
         const post = {nome, senha, funcao, login}
-        console.log({nome, senha,funcao, login})
-        const jsonCadFor = JSON.stringify(post)
-        api.post('/cadastroUsuario', 
+        navegate('/listaUsuario')
+        await api.post('/cadastroUsuario', 
         {post}
         );
-        navegate('/listaUsuario')
     }
 
     
     
-    //================== Função para não repetir login ==================
-
+    //================== Função para não repetir login (useEffect) ==================
+    
+    useEffect(()=>{
+        async function veLogado(){
+            let resultado = await verificaLogado()
+            //setLogado(resultado)
+            if (resultado.logado){
+                if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente'){
+                    navegate('/listaPedidos')
+                }
+            }
+            else{
+                navegate('/')
+            }
+        }
+        veLogado()
+    }, [])
+        
    
     //================== REENDERIZAÇÃO ==================
 
@@ -92,6 +106,7 @@ function CadUsuario() {
                                 <td><select className="input_form" name="end_estado" id="end_estado" required
                                         value={funcao}
                                         onChange={(e) => setFuncao(e.target.value)}>
+                                            <option value=""></option>
                                             <option value="Administrador">Administrador</option>
                                             <option value="Gerente">Gerente</option>
                                             <option value="Conferente">Conferente</option>
