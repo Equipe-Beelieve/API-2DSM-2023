@@ -37,7 +37,7 @@ function CadUsuario() {
             let resultado = await verificaLogado()
             //setLogado(resultado)
             if (resultado.logado){
-                if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente'){
+                if (resultado.funcao !== 'Administrador'){
                     navegate('/listaPedidos')
                 }
             }
