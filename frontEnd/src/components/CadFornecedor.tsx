@@ -140,13 +140,17 @@ function CadFornecedor() {
         veLogado()
         }, [])
 
+
     //================== REENDERIZAÇÃO ==================
 
     return (
         <>
         <NavBar />
         <div className="divFornecedor">
-            <h1>Cadastro de Fornecedores</h1>
+            <center>
+                <h1>Cadastro de Fornecedores</h1>
+            </center>
+            
             <form onSubmit={cadastraFornecedor}>
                 <div className="grid-container poscentralized">
                     <div className="box">
@@ -253,6 +257,7 @@ function CadFornecedor() {
                                     <td><select className="input_form" name="end_estado" id="end_estado" required
                                         value={estado}
                                         onChange={(e) => setEstado(e.target.value)}>
+                                            <option value=""></option>
                                             <option value="Acre">Acre</option>
                                             <option value="Alagoas">Alagoas</option>
                                             <option value="Amapá">Amapá</option>

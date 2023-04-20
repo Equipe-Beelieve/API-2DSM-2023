@@ -34,45 +34,43 @@ function NavBar(){
     if (logado){
         if (funcao === 'Administrador'){
             return(
-                <nav className="navbar navbar-dark navbar-expand-lg bg_navbar">
+                <nav className="navbar navbar-dark navbar-expand-lg bg_navbar d-flex justify-content-between">
                     <Link className="navbar-brand text_navbar"  to={'/listaPedidos'}><img className="nav-logo" src={logo} alt=""/></Link>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div className="navbar-nav navbar_itens nav-texts">
-                            <Link className="nav-item nav-link" to={'/listaPedidos'}>Pedidos</Link>
-                            <Link className="nav-item nav-link" to={'/listaFornecedor'}>Fornecedores</Link>
-                            <Link className="nav-item nav-link" to={'/listaProdutos'}>Produtos</Link>
-                            <Link className="nav-item nav-link" to={'/listaUsuario'}>Usuarios</Link>
-                            <button className='loggout' onClick={loggout}>LOGGOUT</button>
-                        </div> 
-                    </div>
+                    <div className="navbar-nav navbar_itens nav-texts ">
+                        <Link className="nav-item nav-link" to={'/listaPedidos'}>Pedidos</Link>
+                        <Link className="nav-item nav-link" to={'/listaFornecedor'}>Fornecedores</Link>
+                        <Link className="nav-item nav-link" to={'/listaProdutos'}>Produtos</Link>
+                        <Link className="nav-item nav-link" to={'/listaUsuario'}>Usuarios</Link>
+                    </div> 
+                    <button className='loggout' onClick={loggout}>LOGGOUT</button>
                 </nav>
             )
         }
         else if (funcao === 'Gerente'){
             return(
-                <nav className="navbar navbar-dark navbar-expand-lg bg_navbar">
+                <nav className="navbar navbar-dark navbar-expand-lg bg_navbar d-flex justify-content-between">
                     <Link className="navbar-brand text_navbar"  to={'/listaPedidos'}><img className="nav-logo" src={logo} alt=""/></Link>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div className="navbar-nav navbar_itens nav-texts">
+                        <Link className="nav-item nav-link" to={'/listaPedidos'}>Pedidos</Link>
+                        <Link className="nav-item nav-link" to={'/listaFornecedor'}>Fornecedores</Link>
+                        <Link className="nav-item nav-link" to={'/listaProdutos'}>Produtos</Link>
+                    </div>  
+                    {/* <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div className="navbar-nav navbar_itens nav-texts">
                             <Link className="nav-item nav-link" to={'/listaPedidos'}>Pedidos</Link>
                             <Link className="nav-item nav-link" to={'/listaFornecedor'}>Fornecedores</Link>
                             <Link className="nav-item nav-link" to={'/listaProdutos'}>Produtos</Link>
-                            <button className='loggout' onClick={loggout}>LOGGOUT</button>
                         </div>  
-                    </div>
+                    </div> */}
+                    <button className='loggout' onClick={loggout}>LOGGOUT</button>
                 </nav>
             )
         }
         else{
             return(
-                <nav className="navbar navbar-dark navbar-expand-lg bg_navbar">
+                <nav className="navbar navbar-dark navbar-expand-lg bg_navbar d-flex justify-content-between">
                     <Link className="navbar-brand text_navbar"  to={'/listaPedidos'}><img className="nav-logo" src={logo} alt=""/></Link>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div className="navbar-nav navbar_itens nav-texts">
-                            <Link className="nav-item nav-link" to={'/listaPedidos'}>Pedidos</Link>
-                            <button onClick={loggout}>LOGGOUT</button>
-                        </div>  
-                    </div>
+                    <button className='loggout' onClick={loggout}>LOGGOUT</button>
                 </nav>
             )
             

@@ -68,7 +68,7 @@ function ListaUsuario(){
         <NavBar />
         <div className="mainContent">
             <div className="titleRegister">
-                <h1 className="mainTitle">Usuarios</h1>
+                <h1 className="mainTitle">USUÁRIOS</h1>
                 <button id="register">
                         <Link to={'/cadastroUsuario'}>
                             <img className="cadastro" src={cadastro} alt=""/>

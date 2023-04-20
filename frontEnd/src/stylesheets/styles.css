@@ -10,7 +10,7 @@
 }
 
 .loggout {
-  margin-left: 16vw;
+  margin-right: 0.5vw;
   border: none;
   text-align: center;
   text-decoration: none;
@@ -258,8 +258,8 @@ p.solid {
 }
 
 .navbar_itens {
-  position: relative;
-  margin-left: 31vw;
+  /* position: relative; */
+  /* margin-left: 31vw; */
   display: flex;
 }
 

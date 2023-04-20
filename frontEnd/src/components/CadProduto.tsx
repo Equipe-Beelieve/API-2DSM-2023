@@ -86,7 +86,7 @@ function CadProduto() {
             </div>
             <input className="confirm_button" type="submit" value="Cadastrar" />    
             <button className="cancel_button">
-                <Link to={"/listaPedidos"}>Cancelar</Link>
+                <Link to={"/listaProdutos"}>Cancelar</Link>
             </button>
         </form>
        </div>
