@@ -61,7 +61,7 @@ function ListaProdutos(){
                         </h1>
                         <div className = "listColumns">
                             <div className = "column1">
-                                <p>Produto descrição: {produto.prod_descricao}</p>
+                                <p>Descrição: {produto.prod_descricao}</p>
                                 <p>Unidade de medida: {produto.prod_unidade_medida}</p>
                             </div>
                         </div>

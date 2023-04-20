@@ -70,7 +70,7 @@ function ListaUsuario(){
                 <div className='listaOut' key={index}>
                     <div className="listaIn">
                         <h1>
-                            Matricula: {usuario.us_matricula}
+                            Matricula nº{usuario.us_matricula}
                         </h1>
                         <div className="listColumns">
                             <div className="column1">

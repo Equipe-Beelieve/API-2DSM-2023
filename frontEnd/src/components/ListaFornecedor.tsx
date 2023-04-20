@@ -70,7 +70,7 @@ function ListaFornecedor(){
                     <div className="listaIn">
                         <h1>Fornecedor nº{fornecedor.for_codigo}</h1>
                         <div className="listColumns">
-                            <div className="column1">
+                            <div className="column1_for">
                                 <p>Razão social: {fornecedor.for_razao_social}</p>
                                 <p>Nome fantasia: {fornecedor.for_nome_fantasia}</p>
                             </div>

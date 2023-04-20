@@ -79,10 +79,8 @@ function ListaPedidos(){
                     <div className="listColumns">
                         <div className="column1">
                             <p>Peso: {pedido.ped_produto_massa}</p>
-                            <p>Data de entrega: {pedido.ped_data_entrega}</p>
-                        </div>
-                        <div className="column2">
                             <p>Valor total: {pedido.ped_valor_total}</p>
+                            <p>Data de entrega: {pedido.ped_data_entrega}</p>
                         </div>
                     </div>
                 </div>
