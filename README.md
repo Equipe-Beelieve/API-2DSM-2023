@@ -150,7 +150,7 @@ Esses resultados devem seguir os resulatados propostos na tabela de casos de tes
 <span id="tecnologias"></span>
 
 <h2> Tecnologias utilizadas </h2>
-<img src="docs/imagens/tecnologias.jpg" alt="HTML5, CSS3, Javascript, Typescript, Node.js, Express, MySQL, Miro, Jira, Figma e Discord">
+<img src="docs/imagens/tecnologias1.jpg" alt="HTML5, CSS3, Javascript, Typescript, Node.js, Express, MySQL, Miro, Jira, Figma e Discord">
 
 <span id="equipe"></span>
 <h2> Equipe </h2>
