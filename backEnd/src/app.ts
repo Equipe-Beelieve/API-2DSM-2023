@@ -145,7 +145,8 @@ app.post('/cadastroUsuario', async (req,res) => {
 
 // metodo para verificar os logins ja existentes, afim de evitar repetição
 app.get('/pegarLogin', async (req, res) => {
-    let logins = await bd.pegarLogin()
+    let logins = await bd.pegarLogin();
+    // let loginsSimples = logins.map((login: Record<string, string>) => login.us_login); // transformando a array de objetos em uma array simples
     res.send({logins});
 });
 

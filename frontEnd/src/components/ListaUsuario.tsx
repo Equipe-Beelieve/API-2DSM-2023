@@ -12,6 +12,7 @@ export interface Usuarios {
     us_nome:string;
     us_funcao:string;
     us_login:string;
+    login:string;//para o tratamento de logins
 }
 
 function ListaUsuario(){

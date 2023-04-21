@@ -39,7 +39,7 @@ function CadPedido(){
     const getFornecedor = async () => {
         try{
             const resposta = await api.get('/cadastroPedido')
-            //console.log(resposta.data.razaoSocial)
+            console.log(resposta.data)
             setFornecedores(resposta.data.razaoSocial) //pegando os dados da resposta
         }
         catch(error){

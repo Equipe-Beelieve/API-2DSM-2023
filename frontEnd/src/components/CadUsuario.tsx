@@ -5,7 +5,7 @@ import api from '../services/api'
 import { Link, useNavigate } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
-import { Usuarios } from './ListaUsuario';
+import { Usuarios } from './ListaUsuario'
 
 function CadUsuario() {
 
@@ -15,56 +15,46 @@ function CadUsuario() {
     const [funcao, setFuncao] = useState('')
     const [login, setLogin] = useState('')
     //================== Tratar login ==================
-    const [us_login, setLogins] = useState<Usuarios[]>([]) //Logins que virão do bd
-    
+    const [loginExistente, setLogins] = useState<Usuarios[]>([]) //Logins que virão do bd
+
 
     const [logado, setLogado] = useState(Boolean)
     const navegate = useNavigate()
 
     
-    //================== SUBMIT DE FORMULÁRIO ==================   
-    async function cadUsuario(evento:any){
-        evento.preventDefault();
-        const post = {nome, senha, funcao, login}
-        navegate('/listaUsuario')
-        await api.post('/cadastroUsuario', 
-        {post}
-        );
+    //================== Função para recuperar os logins existentes ==================
+    async function fetchLogin() {
+        try {
+        const pegar = await api.get('/pegarLogin');
+          setLogins(pegar.data.logins);
+          console.log(pegar.data.logins)
+          
+        } catch(erro) {
+            console.log(erro)
+        }
     }
 
-    
-    
-    //================== Função para não repetir login (useEffect) ==================
-
-    useEffect(() => {
-        async function fetchLogin() {
-          const pegar = await api.get('/pegarLogin');
-          setLogins(pegar.data);
-          console.log(pegar.data)
-          return setLogins
+    //================== SUBMIT DE FORMULÁRIO ==================   
+    async function CadUsuario(evento:any){
+        evento.preventDefault();
+        if (loginExistente.includes(evento.target.elements.for_login.value)) {
+            alert('Login já cadastrado')
+            setLogin('')
+        } else {
+            const post = {nome, senha, funcao, login}
+            navegate('/listaUsuario')
+            await api.post('/cadastroUsuario', {post});
         }
-        
-        fetchLogin();
-      }, []);
-
-      function imprime(){
-        console.log(us_login)
-      }
-
-      function verificarLoginExistente(login: string): boolean {
-        return us_login.some((usuario) => usuario.us_login === login);
-      }
-      
-
-
-    //================== Função verifica logado (useEffect) ==================
-
+    }
     
+    
+    //================== Função verifica logado (useEffect) ==================
     useEffect(()=>{
         async function veLogado(){
             let resultado = await verificaLogado()
             //setLogado(resultado)
             if (resultado.logado){
+                fetchLogin()
                 if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente'){
                     navegate('/listaPedidos')
                 }
@@ -83,8 +73,8 @@ function CadUsuario() {
         <>
         <NavBar />
         <div className="divFornecedor">
-        <form onSubmit={cadUsuario}>
-            <h1>Cadastro de Usuario ninja</h1>                
+        <form onSubmit={CadUsuario}>
+            <h1>Cadastro de Usuario</h1>                
                 <div className="grid-container poscentralized">
                     <div className="box">
                         <table>
@@ -173,7 +163,6 @@ function CadUsuario() {
             
                 </form>
     </div>
-    <div><button onClick={imprime}>click</button></div>
     </>
         
     )
