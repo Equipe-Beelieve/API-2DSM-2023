@@ -14,7 +14,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'root', //sua senha
+                password: 'fatec', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -102,13 +102,12 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conexao.end()
     }
 
-    async pegarLogin() {
-        await this.conectar();
-        const [result] = await this.conexao.query<RowDataPacket[]>(`SELECT login FROM usuario`);//armazena os dados da consulta na variavel result
-        await this.conexao.end();
-        const login = result.map((row) => row.login);//Converte a array de registros retornados pela consulta em uma array de logins
-        return login;
-      }
+    public async pegarLogin() {
+        await this.conectar()
+        let [logins, meta]:any = await this.conexao.query('SELECT us_login FROM usuario')
+        await this.conexao.end()
+        return logins
+    }
       
     public async listarUsuario() {
         await this.conectar()

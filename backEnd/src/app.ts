@@ -145,9 +145,8 @@ app.post('/cadastroUsuario', async (req,res) => {
 
 // metodo para verificar os logins ja existentes, afim de evitar repetição
 app.get('/pegarLogin', async (req, res) => {
-    let login = await bd.pegarLogin()
-    res.send(login);
-    console.log(login)
+    let logins = await bd.pegarLogin()
+    res.send({logins});
 });
 
 //========================= Listagem de Produtos =========================
