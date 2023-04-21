@@ -531,7 +531,7 @@ function CadPedido() {
                     </div>
 
 
-                    <input className="confirm_button" type="submit" value="Cadastrar" />
+                    <input className="confirm_button" type="submit" value="Confirmar" />
                     <button className="cancel_button" onClick={redirecionarPedido}>Cancelar</button>
                 </form>
             </div>

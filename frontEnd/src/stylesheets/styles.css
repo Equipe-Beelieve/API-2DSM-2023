@@ -236,6 +236,7 @@ p.solid {
   background: #FF6962;
   border-radius: 20px;
   border-color: transparent;
+  width: 150px;
 }
 
 .cancel_button:hover {
@@ -254,6 +255,7 @@ p.solid {
   border-radius: 20px;
   border-color: transparent;
   margin-right: 2vw;
+  width: 150px;
 }
 
 .confirm_button:hover {

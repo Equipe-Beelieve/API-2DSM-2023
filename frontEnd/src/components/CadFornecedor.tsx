@@ -344,7 +344,7 @@ function CadFornecedor() {
                         </table>
                     </div>
                 </div>
-                <input className="confirm_button" type="submit" value="Cadastrar" />
+                <input className="confirm_button" type="submit" value="Confirmar" />
                 <button className="cancel_button">
                     <Link to={'/listaFornecedor'}>Cancelar</Link>
                 </button>
