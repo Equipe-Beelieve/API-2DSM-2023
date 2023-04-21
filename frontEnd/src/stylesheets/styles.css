@@ -229,6 +229,7 @@ p.solid {
 .input_form {
   background-color: #C0C0C0;
   border-color: transparent;
+  width: 200px;
 }
 
 .cancel_button {
