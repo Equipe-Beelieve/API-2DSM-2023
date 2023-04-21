@@ -62,7 +62,7 @@ function NavBar(){
                             <Link className="nav-item nav-link" to={'/listaProdutos'}>Produtos</Link>
                         </div>  
                     </div> */}
-                    <button className='loggout' onClick={loggout}>LOGGOUT</button>
+                    <button className='loggout' onClick={loggout}>SAIR</button>
                 </nav>
             )
         }
@@ -70,7 +70,7 @@ function NavBar(){
             return(
                 <nav className="navbar navbar-dark navbar-expand-lg bg_navbar d-flex justify-content-between">
                     <Link className="navbar-brand text_navbar"  to={'/listaPedidos'}><img className="nav-logo" src={logo} alt=""/></Link>
-                    <button className='loggout' onClick={loggout}>LOGGOUT</button>
+                    <button className='loggout' onClick={loggout}>SAIR</button>
                 </nav>
             )
             

@@ -1,4 +1,5 @@
-.nav-texts a, .nav-texts a:visited {
+.nav-texts a,
+.nav-texts a:visited {
   color: #ffffff;
   font-size: 20px;
 }
@@ -16,14 +17,15 @@
   text-decoration: none;
   display: inline-block;
   background-color: #3E813B;
-  font-weight:500;
+  font-weight: 500;
   transition-duration: 0.5s;
   color: white;
   padding: 1%;
 }
 
-.loggout:hover{
-  background-color: #B4D892;
+.loggout:hover {
+  background-color: #3E813B;
+  color: #B4D892;
 }
 
 /*Botões de seleção de status*/
@@ -57,7 +59,9 @@
   font-weight: 700;
 }
 
-#register a, #register a:visited, #register a:hover {
+#register a,
+#register a:visited,
+#register a:hover {
   color: #FFFFFF;
   text-decoration: none;
 }
@@ -133,7 +137,7 @@
 }
 
 .listColumns .column1_for {
-  width: 50%; 
+  width: 50%;
 }
 
 .listaIn h1 {
@@ -181,7 +185,7 @@
   border-radius: 4px;
 }
 
-.nav-logo{
+.nav-logo {
   width: 35px;
   margin: 0 0 0 10px;
   margin-left: 3vw;
@@ -237,7 +241,9 @@ p.solid {
   background: #ee2a20;
 }
 
-.cancel_button a, .cancel_button a:visited, .cancel_button a:hover {
+.cancel_button a,
+.cancel_button a:visited,
+.cancel_button a:hover {
   text-decoration: none;
   color: #000000;
 }
@@ -263,43 +269,43 @@ p.solid {
   display: flex;
 }
 
-.cadastro{
+.cadastro {
   width: 70%;
 }
 
 /* Aqui estão varias coisas do login */
 
-.login2{
-  background-color:#3E813B;
+.login2 {
+  background-color: #3E813B;
   height: 100vh;
-  
+
 }
 
 .login_button {
   border-radius: 20px;
   border-color: transparent;
-  height:50px; 
-  margin:auto;
-  width:60%;
+  height: 50px;
+  margin: auto;
+  width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   font-weight: bold;
-  font-size:large;
+  font-size: large;
 }
 
 .login_button:hover {
   margin: auto;
   width: 60%;
   background-color: #c5d8c4;
-  
+
 }
 
-.login-center{
+.login-center {
   margin: auto;
   width: 50%;
-  text-align:center;
+  text-align: center;
   margin: 0;
   position: absolute;
   top: 45%;
@@ -308,27 +314,27 @@ p.solid {
 
 }
 
-.login-text{
-  color:white;
-  text-align:center;
-  
+.login-text {
+  color: white;
+  text-align: center;
+
 }
 
-.logo{
+.logo {
   width: 40%;
-  margin-right:2vw;
+  margin-right: 2vw;
 }
 
-.logocentro{
+.logocentro {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   font-weight: bold;
-  font-size:large; 
+  font-size: large;
 }
 
-.box2{
+.box2 {
   width: 12vw;
   margin-right: 2.5vw;
 }
