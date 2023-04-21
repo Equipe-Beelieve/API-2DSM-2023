@@ -5,6 +5,7 @@ import './App.css';
 import NavBar from './components/NavBar';
 import Login from './components/Login';
 import api from './services/api';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const [log, setLog] = useState(Boolean)
@@ -26,7 +27,7 @@ function App() {
   
   return (
   <>
-  
+  <ToastContainer/>
   <Outlet />
   </>
   )

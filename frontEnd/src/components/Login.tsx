@@ -5,6 +5,8 @@ import { redirect, useNavigate } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
 import logo from '../images/logo.png'
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 function Login(){
@@ -24,8 +26,7 @@ function Login(){
                 navegate("/listaPedidos")
             }
             else{
-                console.log(res)
-                navegate('/')
+                toast.error('Login ou senha incorretos', {position: 'bottom-left', autoClose: 2500, className: 'flash-login', hideProgressBar: true, pauseOnHover: false})
             }
         })
 
@@ -35,7 +36,6 @@ function Login(){
         let situacao = await verificaLogado()
         setLogado(situacao.logado)
     }
-
 
     useEffect(()=>{
         veLogado()
@@ -47,6 +47,7 @@ function Login(){
         }
 
     }, [])
+
     return(
         <>
         
@@ -61,9 +62,9 @@ function Login(){
         <img className="logo" src={logo} alt="logo"/></div>
         <br></br>
             <h3 className='login-text'>Login:</h3>
-            <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
+            <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} required/>
             <h3 className='login-text'>Senha:</h3>
-            <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
+            <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} required/>
             <p></p>
             <input type="submit" className="login_button" />
         </form>

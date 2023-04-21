@@ -281,7 +281,6 @@ p.solid {
   height:50px; 
   margin:auto;
   width:60%;
-  alignment:center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -293,7 +292,6 @@ p.solid {
 .login_button:hover {
   margin: auto;
   width: 60%;
-  alignment:center;
   background-color: #c5d8c4;
   
 }
@@ -322,7 +320,6 @@ p.solid {
 }
 
 .logocentro{
-  alignment:center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -334,4 +331,8 @@ p.solid {
 .box2{
   width: 12vw;
   margin-right: 2.5vw;
+}
+
+.flash-login {
+  --toastify-icon-color-error: #3e813b;
 }
