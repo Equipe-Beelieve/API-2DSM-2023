@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import api from '../services/api';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
 import logo from '../images/logo.png'
@@ -26,7 +26,7 @@ function Login(){
                 navegate("/listaPedidos")
             }
             else{
-                toast.error('Login ou senha incorretos', {position: 'bottom-left', autoClose: 2500, className: 'flash-login', hideProgressBar: true, pauseOnHover: false})
+                toast.error('Login ou senha incorretos', {position: 'bottom-left', autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false})
             }
         })
 

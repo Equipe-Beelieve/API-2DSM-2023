@@ -42,7 +42,7 @@ function NavBar(){
                         <Link className="nav-item nav-link" to={'/listaProdutos'}>Produtos</Link>
                         <Link className="nav-item nav-link" to={'/listaUsuario'}>Usuarios</Link>
                     </div> 
-                    <button className='loggout' onClick={loggout}>LOGGOUT</button>
+                    <button className='loggout' onClick={loggout}>SAIR</button>
                 </nav>
             )
         }

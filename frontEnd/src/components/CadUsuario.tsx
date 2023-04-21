@@ -6,6 +6,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
 import { Usuarios } from './ListaUsuario'
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
+
 
 function CadUsuario() {
 
@@ -27,7 +31,6 @@ function CadUsuario() {
         try {
         const pegar = await api.get('/pegarLogin');
           setLogins(pegar.data.logins);
-          console.log(pegar.data.logins)
           
         } catch(erro) {
             console.log(erro)
@@ -35,11 +38,12 @@ function CadUsuario() {
     }
 
     //================== SUBMIT DE FORMULÁRIO ==================   
-    async function CadUsuario(evento:any){
+    async function cadastroUsuario(evento:any){
         evento.preventDefault();
-        if (loginExistente.includes(evento.target.elements.for_login.value)) {
-            alert('Login já cadastrado')
-            setLogin('')
+        await fetchLogin()
+        if (loginExistente.some(usuario => usuario.us_login === login)) {
+            toast.error('Login já cadastrado', {position: 'bottom-left', autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false})
+        
         } else {
             const post = {nome, senha, funcao, login}
             navegate('/listaUsuario')
@@ -54,7 +58,7 @@ function CadUsuario() {
             let resultado = await verificaLogado()
             //setLogado(resultado)
             if (resultado.logado){
-                fetchLogin()
+                await fetchLogin()
                 if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente'){
                     navegate('/listaPedidos')
                 }
@@ -64,6 +68,7 @@ function CadUsuario() {
             }
         }
         veLogado()
+        
     }, [])
         
    
@@ -73,7 +78,7 @@ function CadUsuario() {
         <>
         <NavBar />
         <div className="divFornecedor">
-        <form onSubmit={CadUsuario}>
+        <form onSubmit={cadastroUsuario}>
             <h1>Cadastro de Usuario</h1>                
                 <div className="grid-container poscentralized">
                     <div className="box">

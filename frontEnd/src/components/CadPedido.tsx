@@ -41,6 +41,7 @@ function CadPedido(){
             const resposta = await api.get('/cadastroPedido')
             console.log(resposta.data)
             setFornecedores(resposta.data.razaoSocial) //pegando os dados da resposta
+            console.log(fornecedores)
         }
         catch(error){
             console.log(error)
