@@ -314,7 +314,7 @@ function CadPedido() {
         <>
             <NavBar />
             <div className="divFornecedor">
-                <h1>Cadastro de Pedidos</h1>
+                <h1 className='mainTitle'>Cadastro de Pedidos</h1>
                 <form onSubmit={cadastroPedido}>
 
                     <div className="poscentralized grid-container">

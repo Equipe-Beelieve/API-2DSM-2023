@@ -38,7 +38,7 @@ function CadProduto() {
             <NavBar />
             <div className='divFornecedor'>
                 <form onSubmit={cadastroProduto}>
-                    <h1>Cadastro de Produtos</h1>
+                    <h1 className='mainTitle'>Cadastro de Produtos</h1>
 
                     <div className="grid-container poscentralized">
                         <div className="box">
@@ -62,7 +62,7 @@ function CadProduto() {
                             </table>
                         </div>
 
-                        <div className="box">
+                        <div className="box2">
                             <table>
                                 <thead>
                                     <tr>
@@ -86,10 +86,13 @@ function CadProduto() {
                             </table>
                         </div>
                     </div>
-                    <input className="confirm_button" type="submit" value="Confirmar" />
-                    <button className="cancel_button">
-                        <Link to={"/listaProdutos"}>Cancelar</Link>
-                    </button>
+                    <div className="grid-container poscentralized">
+                        <input className="confirm_button" type="submit" value="Confirmar" />
+                        <div className='button_margin'><button className="cancel_button">
+                            <Link to={"/listaProdutos"}>Cancelar</Link>
+                        </button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </>

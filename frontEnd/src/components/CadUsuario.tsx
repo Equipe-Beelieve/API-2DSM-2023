@@ -89,7 +89,7 @@ function CadUsuario() {
             <NavBar />
             <div className="divFornecedor">
                 <form onSubmit={cadastroUsuario}>
-                    <h1>Cadastro de Usuario</h1>
+                    <h1 className='mainTitle'>Cadastro de Usuario</h1>
 
                     <div className="grid-container poscentralized">
                         <div className="box">

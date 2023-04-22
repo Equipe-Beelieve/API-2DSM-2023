@@ -207,7 +207,7 @@ function CadFornecedor() {
         <NavBar />
         <div className="divFornecedor">
             <center>
-                <h1>Cadastro de Fornecedores</h1>
+                <h1 className='mainTitle'>Cadastro de Fornecedores</h1>
             </center>
             
             <form onSubmit={cadastraFornecedor}>

@@ -5,8 +5,8 @@
 }
 
 .mainTitle {
-  font-size: 35px;
-  margin-top: 5vh;
+  font-size: 2vw;
+  margin-top: 4vh;
   font-weight: bold;
 }
 
@@ -236,6 +236,7 @@ p.solid {
   border-radius: 20px;
   border-color: transparent;
   width: 150px;
+  margin-top: 2vh;
 }
 
 .cancel_button:hover {
@@ -253,8 +254,9 @@ p.solid {
   background: #B4D892;
   border-radius: 20px;
   border-color: transparent;
-  margin-right: 2vw;
+  margin-right: 3vw;
   width: 150px;
+  margin-top: 2vh;
 }
 
 .confirm_button:hover {
@@ -266,8 +268,8 @@ p.solid {
 }
 
 .navbar_itens {
-  /* position: relative; */
-  /* margin-left: 31vw; */
+  position: relative;
+  margin-right: 1vw;
   display: flex;
 }
 
@@ -349,4 +351,10 @@ p.solid {
 
 .flash {
   --toastify-icon-color-error: #3e813b;
+}
+
+.button_margin{
+  display: table-cell;
+  padding-left: 1.2vw;
+  padding-right: 2vw;
 }
