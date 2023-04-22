@@ -94,11 +94,13 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 | :--:   | :----------------   |
 | **01** | Cadastro de produto | 
 | **02** | Cadastro de usuário |
-| **03** | Deve haver diferentes níveis de acesso (usuário comum e usuário administrador) |
+| **03** | Deve haver diferentes níveis de acesso (Conferentes, Gerentes e Administrador) |
 | **04** | Listagem de produtos cadastrados |
 | **05** | Listagem de usuários cadastrados |
 
 <h4>Entrega</h4>
+<img src="docs/imagens/demo_sprint2.gif" alt="Demonstração da entrega da segunda sprint">
+
 
 <h3>Sprint 3</h3>
 
