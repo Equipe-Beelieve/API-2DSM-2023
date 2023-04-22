@@ -20,7 +20,6 @@ function CadFornecedor() {
     const [controleCnpj, setControleCnpj] = useState(0)
 
     const [logado, setLogado] = useState(Boolean)
-    
 
     const navegate = useNavigate()
     const cnpjRef = useRef(null)
@@ -31,21 +30,25 @@ function CadFornecedor() {
     //================== SUBMIT DE FORMULÁRIO ==================   
     async function cadastraFornecedor(evento:any){
         let regexCep = /^\d{5}\-\d{3}$/
-        let regexCnpj = /^\d{2}\.\d{3}\d{3}\/\d{4}\-\d{2}$/
-        
+        let regexCnpj = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/
+        let erroCep = false
+        let erroCnpj = false
+
         if (!regexCnpj.test(cnpj)){
             toast.error('O CNPJ deve ser: XX.XXX.XXX/XXXX-XX', {position: 'bottom-left', autoClose: 5000,
             className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+            erroCnpj = true
       
         }
         if (!regexCep.test(cep)){
             toast.error("O CEP deve ser: XXXXX-XX", {position: 'bottom-left', autoClose: 5000,
             className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
-
+            erroCep = true
         }
         
         if (!regexCnpj.test(cnpj) || !regexCep.test(cep)){
-            apagaTudo()
+            if (erroCnpj){setCnpj('')}
+            if (erroCep){setCep('')}
             evento.preventDefault()
         }
         else{

@@ -7,6 +7,7 @@ import { redirect } from 'react-router-dom';
 import { Fornecedor } from './ListaFornecedor';
 import { Produto } from './ListaProdutos';
 import verificaLogado from '../funcoes/verificaLogado';
+import { toast } from 'react-toastify';
 
 function CadPedido() {
 
@@ -95,6 +96,8 @@ function CadPedido() {
                 setPrecoUnitario('R$' + valor + '/' + unidade)
             }
             else if (valor.slice(-1) !== 'g' && valor.slice(-1) !== 't' && valor[0] !== 'R') {
+                toast.error('Preço unitário deve ser condizente com a unidade do produto.', {position: 'bottom-left',
+                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
                 setPrecoUnitario('')
             }
             else {
@@ -102,6 +105,10 @@ function CadPedido() {
             }
         }
         else {
+            if (precoUnitario !== ''){
+                toast.error('Produto deve ser preenchido antes.', {position: 'bottom-left', autoClose: 2500,
+                className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+            }
             setPrecoUnitario('')
 
         }
@@ -134,6 +141,11 @@ function CadPedido() {
                 return;
             }
         }
+        if(produto !== ''){
+            toast.error('Produto deve estar cadastrado.', {position: 'bottom-left', autoClose: 2500,
+            className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+        }
+        
         setUnidade('')
         setProduto('')
     }
@@ -144,6 +156,10 @@ function CadPedido() {
                 setRazaoSocial(evento.target.value)
                 return;
             }
+        }
+        if (razaoSocial !== ''){
+            toast.error('Fornecedor deve estar cadastrado.', {position: 'bottom-left', autoClose: 2500,
+            className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
         }
         setRazaoSocial('')
     }
@@ -179,6 +195,8 @@ function CadPedido() {
                 setQuantidade(valor + ' ' + unidade)
             }
             else if (valor.slice(-1) !== 't' && valor.slice(-1) !== 'g') {
+                toast.error('Quantidade deve ser condizente com a unidade do produto.', {position: 'bottom-left',
+                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
                 setQuantidade('')
             }
             else {
@@ -186,6 +204,10 @@ function CadPedido() {
             }
         }
         else {
+            if(quantidade !== ''){
+                toast.error('Produto deve ser preenchido antes.', {position: 'bottom-left', autoClose: 2500,
+                className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+            }
             setQuantidade('')
         }
         setTemVirgula(false)

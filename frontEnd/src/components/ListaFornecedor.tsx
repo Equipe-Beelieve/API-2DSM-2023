@@ -68,11 +68,11 @@ function ListaFornecedor(){
         <div className='mainContent'>
             <div className="titleRegister">
                 <h1 className="mainTitle">FORNECEDORES</h1>
-                    <button id="register">
-                        <Link to={'/cadastroFornecedor'}>
-                            <img className="cadastro" src={cadastro} alt=""/>
-                        </Link>
-                    </button>
+                <button id="register">
+                    <Link to={'/cadastroFornecedor'} id='linkBotaoCadastro'>
+                        <img className="cadastro" src={cadastro} alt=""/>
+                    </Link>
+                </button>
             </div>
             
             {fornecedores.map((fornecedor, index) => (

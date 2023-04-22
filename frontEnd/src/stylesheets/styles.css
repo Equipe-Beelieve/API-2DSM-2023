@@ -51,12 +51,10 @@
   color: #FFFFFF;
   background-color: #3E813B;
   width: 20%;
-
+  
   border: none;
   border-radius: 10px;
 
-  font-size: 24px;
-  font-weight: 700;
 }
 
 #register a,
@@ -76,7 +74,7 @@
 /*Título e botão de cadastro */
 .titleRegister {
   margin: 5vh 0;
-
+  
   width: 80%;
 
   display: flex;
@@ -91,8 +89,9 @@
 }
 
 .titleRegister #register {
-  align-self: flex-end;
+  align-self: center;
   margin-left: 5vw;
+  
 }
 
 
@@ -272,7 +271,13 @@ p.solid {
   display: flex;
 }
 
+#linkBotaoCadastro{
+  display: flex;
+  justify-content: center;
+}
+
 .cadastro {
+  align-self: center;
   width: 70%;
 }
 
