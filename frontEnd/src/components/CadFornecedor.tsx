@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import api from '../services/api'
 import { Link, useNavigate } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
+import { toast } from 'react-toastify';
 
 function CadFornecedor() {
 
@@ -19,18 +20,42 @@ function CadFornecedor() {
     const [controleCnpj, setControleCnpj] = useState(0)
 
     const [logado, setLogado] = useState(Boolean)
+    
+
     const navegate = useNavigate()
+    const cnpjRef = useRef(null)
+    const cepRef = useRef(null)
+    
 
     
     //================== SUBMIT DE FORMULÁRIO ==================   
     async function cadastraFornecedor(evento:any){
-        evento.preventDefault();
-        const post = {cnpj, cep, estado, cidade, bairro, numero, ruaAvenida, razaoSocial, nomeFantasia}
-        console.log({razaoSocial, nomeFantasia,cnpj, cidade, cep, estado, bairro, ruaAvenida, numero})
-        navegate('/listaFornecedor')
-        await api.post('/cadastroFornecedor', 
-        {post}
-        );
+        let regexCep = /^\d{5}\-\d{3}$/
+        let regexCnpj = /^\d{2}\.\d{3}\d{3}\/\d{4}\-\d{2}$/
+        
+        if (!regexCnpj.test(cnpj)){
+            toast.error('O CNPJ deve ser: XX.XXX.XXX/XXXX-XX', {position: 'bottom-left', autoClose: 5000,
+            className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+      
+        }
+        if (!regexCep.test(cep)){
+            toast.error("O CEP deve ser: XXXXX-XX", {position: 'bottom-left', autoClose: 5000,
+            className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+
+        }
+        
+        if (!regexCnpj.test(cnpj) || !regexCep.test(cep)){
+            apagaTudo()
+            evento.preventDefault()
+        }
+        else{
+            const post = {cnpj, cep, estado, cidade, bairro, numero, ruaAvenida, razaoSocial, nomeFantasia}
+            console.log('foi')
+            navegate('/listaFornecedor')
+            await api.post('/cadastroFornecedor', 
+            {post}
+            );
+        } 
     }
     
     //================== MASCARAS DE FORMULÁRIO ==================
@@ -38,7 +63,9 @@ function CadFornecedor() {
     function trataCnpj(evento:any){
         let valor = evento.target.value
         if(isNaN(valor[valor.length-1]) && valor[valor.length-1] !== '.' && valor[valor.length-1] !== '-' && valor[valor.length-1] !== '/' && valor[valor.length-1] !== undefined){
-            console.log(valor[valor.length-1])
+            setCnpj(cnpj)
+        }
+        else if (valor.length !== 3 && valor.length !== 7 && valor.length !== 11 && valor.length !== 16 && isNaN(valor.slice(-1))){
             setCnpj(cnpj)
         }
         else{
@@ -56,6 +83,11 @@ function CadFornecedor() {
             else if(valor.length === 3 && valor[valor.length-1] !== '.'){
                 setCnpj(cnpj + '.' + valor[valor.length-1])
                 setControleCnpj(2)
+            }
+            else if (valor.length > 3 && valor[2] !== '.'){
+
+                setCnpj('')
+                toast.warning('Siga o padrão: XX.XXX.XXX/XXXX-XX para o CNPJ', {position: 'bottom-left', autoClose: 2500, className: 'flash-login', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
             }
             else if (valor.length<6){
                 setCnpj(valor)
@@ -124,7 +156,31 @@ function CadFornecedor() {
         }
     }
 
+    function carretFim(ref:any){
+        ref.current.setSelectionRange(-1, -1)
+    }
 
+    function impedeSeta(evento:any){
+        if(evento.keyCode === 37 || evento.keyCode === 39){
+            evento.preventDefault();
+        }
+    }
+
+    //================== APAGA TUDO ==================
+
+    function apagaTudo(){
+        setRazaoSocial('')
+        setNomeFantasia('')
+        setCnpj('')
+        setCidade('')
+        setCep('')
+        setEstado('')
+        setBairro('')
+        setRuaAvenida('')
+        setNumero('')
+    }
+
+    //================== USE EFFECT ==================
 
     useEffect(()=>{
         async function veLogado(){
@@ -162,7 +218,7 @@ function CadFornecedor() {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input className="input_form" type="text" id="for_razao_social" name="for_razao_social"
+                                    <td><input className="input_form" maxLength={40} type="text" id="for_razao_social" name="for_razao_social"
                                         required
                                         value={razaoSocial}
                                         onChange={(e) => setRazaoSocial(e.target.value)} />
@@ -181,7 +237,7 @@ function CadFornecedor() {
                             <tbody>
                                 <tr>
                                     <td><input className="input_form" type="text" id="for_nome_fantasia"
-                                        name="for_nome_fantasia" required
+                                        name="for_nome_fantasia" maxLength={40} required
                                         value={nomeFantasia}
                                         onChange={(e) => setNomeFantasia(e.target.value)} />
                                     </td>
@@ -201,9 +257,12 @@ function CadFornecedor() {
                                     <td><input className="input_form" type="text" placeholder="00.000.000/0000-00"
                                         minLength={18}
                                         maxLength={18}
+                                        ref={cnpjRef}
                                         id="for_cnpj"
                                         name="for_cnpj" required
-                                        value={cnpj} onChange={trataCnpj} />
+                                        value={cnpj} onChange={trataCnpj}
+                                        onClick={() => carretFim(cnpjRef)}
+                                        onKeyDown={impedeSeta} />
                                     </td>
                                 </tr>
                             </tbody>
@@ -220,7 +279,7 @@ function CadFornecedor() {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input className="input_form" type="text" id="end_cidade" name="end_cidade" required
+                                    <td><input className="input_form" maxLength={40} type="text" id="end_cidade" name="end_cidade" required
                                         value={cidade}
                                         onChange={(a) => setCidade(a.target.value)} />
                                     </td>
@@ -240,7 +299,10 @@ function CadFornecedor() {
                                     <td><input className="input_form" type="text" placeholder="00000-000"
                                         id="end_cep" name="end_cep" minLength={9} maxLength={9} required
                                         value={cep}
-                                        onChange={trataCep} /></td>
+                                        ref={cepRef}
+                                        onChange={trataCep}
+                                        onClick={() => carretFim(cepRef)}
+                                        onKeyDown={impedeSeta} /></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -302,7 +364,7 @@ function CadFornecedor() {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input className="input_form" type="text" id="end_bairro" name="end_bairro" required
+                                    <td><input className="input_form" maxLength={40} type="text" id="end_bairro" name="end_bairro" required
                                         value={bairro} onChange={(e) => setBairro(e.target.value)} />
                                     </td>
                                 </tr>
@@ -318,7 +380,7 @@ function CadFornecedor() {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input className="input_form" type="text" id="end_rua_avenida" name="end_rua_avenida"
+                                    <td><input className="input_form" maxLength={40} type="text" id="end_rua_avenida" name="end_rua_avenida"
                                         required
                                         value={ruaAvenida}
                                         onChange={(e => setRuaAvenida(e.target.value))} />
@@ -344,7 +406,7 @@ function CadFornecedor() {
                         </table>
                     </div>
                 </div>
-                <input className="confirm_button" type="submit" value="Confirmar" />
+                <input className="confirm_button" type="submit" value="Cadastrar" />
                 <button className="cancel_button">
                     <Link to={'/listaFornecedor'}>Cancelar</Link>
                 </button>
