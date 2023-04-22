@@ -79,7 +79,7 @@ function ListaPedidos(){
                 <button>Finalizado</button>
                 {(funcao === 'Administrador' || funcao === 'Gerente') &&
                 <button id="register">
-                    <Link to={'/cadastroPedido'}>
+                    <Link to={'/cadastroPedido'} id='linkBotaoCadastro'>
                         <img className="cadastro" src={cadastro} alt=""/>
                     </Link>
                 </button>

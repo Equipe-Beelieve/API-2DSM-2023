@@ -60,7 +60,7 @@ function ListaProdutos(){
             <div className = "titleRegister">
                 <h1 className = "mainTitle">PRODUTOS</h1>
                     <button id = "register">
-                        <Link to = {'/cadastroProduto'}>
+                        <Link to = {'/cadastroProduto'} id='linkBotaoCadastro'>
                             <img className = "cadastro" src={cadastro} alt="" />
                         </Link>
                     </button>
