@@ -136,7 +136,5 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conexao.end()
         return produtos
     }
-
-    
 }
 

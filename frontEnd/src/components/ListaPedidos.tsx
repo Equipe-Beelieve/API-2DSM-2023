@@ -31,6 +31,10 @@ function ListaPedidos(){
             console.log(erro)
         }
     }
+
+    function selecionaPedido(id:number) {
+        navegate(`/recebePedido/${id}`)
+    }
     // async function veLogado(){
     //     let resultado = await verificaLogado()
     //     console.log(`RARARAGAGAULAAA ${resultado}`)
@@ -87,18 +91,18 @@ function ListaPedidos(){
                 
             </div>
             {pedidos.map((pedido, index) =>(
-                <div className='listaOut' key={index}>
-                <div className="listaIn">
-                    <h1>Pedido nº{pedido.ped_codigo} - {pedido.ped_descricao} ({pedido.ped_razao_social})</h1>
-                    <div className="listColumns">
-                        <div className="column1">
-                            <p>Peso: {pedido.ped_produto_massa}</p>
-                            <p>Valor total: {pedido.ped_valor_total}</p>
-                            <p>Data de entrega: {pedido.ped_data_entrega}</p>
+                <div className='listaOut' key={index} onClick={() =>{selecionaPedido(pedido.ped_codigo)}}>
+                    <div className="listaIn">
+                        <h1>Pedido nº{pedido.ped_codigo} - {pedido.ped_descricao} ({pedido.ped_razao_social})</h1>
+                        <div className="listColumns">
+                            <div className="column1">
+                                <p>Peso: {pedido.ped_produto_massa}</p>
+                                <p>Valor total: {pedido.ped_valor_total}</p>
+                                <p>Data de entrega: {pedido.ped_data_entrega}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             ))
 
             }
