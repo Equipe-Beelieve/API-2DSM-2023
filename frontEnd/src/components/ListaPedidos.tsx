@@ -104,7 +104,6 @@ function ListaPedidos(){
                     </div>
                 </div>
             ))
-
             }
         </div>
 
