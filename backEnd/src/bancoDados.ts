@@ -5,6 +5,7 @@ import Fornecedor from './Fornecedor.js'
 import Pedido from './Pedido.js'
 import Usuario from './Usuario.js'
 import Produto from './Produto.js'
+import NotaFiscal from './NotaFiscal.js';
 
 export default class bancoDados { //clase que contém, a princípio, tudo envolvendo banco de dados
     private conexao: mysql.Connection //atributo que tem o tipo "conexão com MySQL"
@@ -18,8 +19,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
                 database: 'api', //base de dados do api
                 port: 3306
             })
-            console.log('Conexão com o banco de dados estabelecida')
-            //o método tenta se conectar com o banco na sua máquina utilizando as informações passadas e exibe uma mensagem no terminal se obtiver êxito
+            //o método tenta se conectar com o banco na sua máquina utilizando as informações passadas
         } catch(erro) {
             console.log('Erro na conexão com o banco de dados', erro)
             //caso encontre algum erro ele exibe a mensagem e o erro em seguida
@@ -39,12 +39,12 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         return linha[0]
     }
 
-    async pegarValor(valor:string, tabela:string, campo:string, condicao:any) {
+    async pegarCodigo(codigo:string, tabela:string, campo:string, condicao:any): Promise<number> {
         await this.conectar()
-        let [consulta] = await this.conexao.query(`SELECT ${valor} FROM ${tabela} WHERE ${campo} = ?`, [condicao]) as Array<any>
+        let [consulta] = await this.conexao.query(`SELECT ${codigo} FROM ${tabela} WHERE ${campo} = ?`, [condicao]) as Array<any>
         let linha = consulta[0]
         console.log(`pegarValor : ${linha}`)
-        return linha[valor]
+        return linha[codigo]
     }
 
 
@@ -78,7 +78,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async inserirEndereco(endereco:Endereco) {
         await this.conexao.query('INSERT INTO endereco_fornecedor(end_cep, end_estado, end_cidade, end_bairro, end_rua_avenida, end_numero) VALUES(?, ?, ?, ?, ?, ?)', [endereco['cep'], endereco['estado'], endereco['cidade'], endereco['bairro'], endereco['rua_avenida'], endereco['numero']])
-        let end_codigo = await this.pegarValor('end_codigo', 'endereco_fornecedor', 'end_cep', endereco['cep'])
+        let end_codigo = await this.pegarCodigo('end_codigo', 'endereco_fornecedor', 'end_cep', endereco['cep'])
         return end_codigo
     }
 
@@ -135,6 +135,12 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         let [produtos, meta] = await this.conexao.query('SELECT prod_codigo, prod_descricao, prod_unidade_medida FROM produto')
         await this.conexao.end()
         return produtos
+    }
+
+    async inserirNF(nf:NotaFiscal) { 
+        await this.conectar()
+        await this.conexao.query('INSERT INTO nota_fiscal(nf_razao_social, nf_data_emissao, nf_data_entrega, nf_transportadora, nf_produto_massa, nf_tipo_frete, nf_produto_descricao, for_codigo, nf_valor_total, nf_valor_unidade, ped_codigo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [nf['razao_social'], nf['data_pedido'], nf['data_entrega'], nf['transportadora'], nf['produto_massa'], nf['tipo_frete'], nf['descricao'], nf['codigo_fornecedor'], nf['valor_total'], nf['valor_unidade'], nf['codigo_pedido']]) 
+        await this.conexao.end()
     }
 }
 

@@ -1,4 +1,3 @@
-import axios from "axios"
 import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import NavBar from "./NavBar"
@@ -19,6 +18,7 @@ function RecebimentoPedido(){
     const [precoUnitario, setPrecoUnitario] = useState('')
     const [precoTotal, setPrecoTotal] = useState('')
     const [dataEntrega, setDataEntrega] = useState('')
+    const [dataEmissao, setDataEmissao] = useState('')
     const [tipoFrete, setTipoFrete] = useState('')
 
     const [unidade, setUnidade] = useState('')
@@ -169,10 +169,11 @@ function RecebimentoPedido(){
     async function confirmaVoltaListagem(){
         if (produto !== '' &&  dataEntrega !== '' && razaoSocial !== '' && precoUnitario !== '' &&
             quantidade !== '' && precoTotal !== '' && tipoFrete !== '' && transportadora !== '' && condicaoPagamento){
-                const post = {id, produto,  dataEntrega, razaoSocial, precoUnitario,
+                const post = {id, produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario,
                 quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento }
-                await api.post('/postNota', {post})
                 navegate('/listaPedidos')
+                await api.post('/postNota', {post})
+                
             }
         else{
             toast.error('Preencha todos os campos', {position: 'bottom-left', autoClose: 2500,
@@ -185,7 +186,7 @@ function RecebimentoPedido(){
         if (produto !== '' &&  dataEntrega !== '' && razaoSocial !== '' && precoUnitario !== '' &&
             quantidade !== '' && precoTotal !== '' && tipoFrete !== '' &&
             transportadora !== '' && condicaoPagamento){
-                const post = {id, produto,  dataEntrega, razaoSocial, precoUnitario,
+                const post = {id, produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario,
                 quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento }
                 await api.post('/postNota', {post})
                 navegate(`/quantitativa/${id}`)
@@ -375,6 +376,22 @@ function RecebimentoPedido(){
                         <table>
                             <thead>
                                 <tr>
+                                    <th>Data de emissão :</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input className="input_form" type="date" value={dataEmissao}
+                                    onChange={(e) => {setDataEmissao(e.target.value)}} required/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="box">
+                        <table>
+                            <thead>
+                                <tr>
                                     <th>Data de entrega :</th>
                                 </tr>
                             </thead>
@@ -387,6 +404,7 @@ function RecebimentoPedido(){
                             </tbody>
                         </table>
                     </div>
+                    
 
                 </div>
                 <div className="grid-container poscentralized">

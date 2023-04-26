@@ -8,6 +8,7 @@ import Usuario from "./Usuario.js";
 import cors from 'cors'
 import session from 'express-session';
 import Produto from "./Produto.js";
+import NotaFiscal from "./NotaFiscal.js";
 
 declare module 'express-session' {
     export interface SessionData {
@@ -42,7 +43,8 @@ app.use(express.static('public'));
 
 const bd = new bancoDados() //criando uma instância do bd para utilizar os métodos
 
-
+//================================== Rotas de Funções ==================================
+//========================= Conferir sessão =========================
 app.get('/confereLogado', async(req,res)=>{
     //console.log(req.session.funcao)
     if (req.session.funcao){
@@ -53,6 +55,7 @@ app.get('/confereLogado', async(req,res)=>{
     }
 })
 
+//========================= Autenticação de login =========================
 app.post('/login', async(req,res)=>{
     let login = req.body
     let usuario = await bd.dadosUsuario(login)
@@ -79,6 +82,7 @@ app.post('/login', async(req,res)=>{
     // }
 })
 
+//========================= Loggout =========================
 app.get('/loggout', async (req,res) =>{
     
     req.session.destroy((err)=>{
@@ -91,14 +95,15 @@ app.get('/loggout', async (req,res) =>{
     })
 })
 
+//========================= Logins existentes (evitar repetição) =========================
+app.get('/pegarLogin', async (req, res) => {
+    let logins = await bd.pegarLogin();
+    // let loginsSimples = logins.map((login: Record<string, string>) => login.us_login); // transformando a array de objetos em uma array simples
+    res.send({logins});
+});
 
-//========================= Listagem de Pedidos =========================
-app.get('/listaPedido', async (req,res) =>{
-    let tabelaPedidos = await bd.pegarListaPedidos()
-    let funcao = req.session.funcao
-    res.send({tabelaPedidos, funcao})
-})
 
+//================================== Rotas de Cadastro ==================================
 //========================= Cadastro de Pedidos =========================
 app.get('/cadastroPedido', async (req, res) => {
     let razaoSocial = await bd.pegarRazaoSocial()
@@ -113,27 +118,13 @@ app.post('/postCadastroPedido', async (req,res) => {
 
 });
 
-
-//========================= Listagem de Fornecedores =========================
-app.get("/listaFornecedores", async (req, res) => {
-    let tabelaFornecedores = await bd.pegarListaFornecedores()
-    res.send({tabelaFornecedores})
-})
-
 //========================= Cadastro de Fornecedores =========================
 app.post('/cadastroFornecedor', async (req, res) => {
     let {cnpj, cep, estado, cidade, bairro, ruaAvenida, numero, razaoSocial, nomeFantasia} = req.body.post
     let endereco = new Endereco(cep, estado, cidade, bairro, ruaAvenida, numero)
     let fornecedor = new Fornecedor(cnpj, endereco, razaoSocial, nomeFantasia)
     await bd.inserirFornecedor(fornecedor, endereco)
-})   
-
-
-//========================= Listagem de Usuarios =========================
-app.get('/listarUsuario', async (req, res) => {
-    let tabelaUsuario = await bd.listarUsuario()
-    res.send({tabelaUsuario});
-});
+})
 
 //========================= Cadastro de Usuarios =========================
 app.post('/cadastroUsuario', async (req,res) => {
@@ -143,19 +134,6 @@ app.post('/cadastroUsuario', async (req,res) => {
     await bd.inserirUsuario(usuario) 
 });
 
-// metodo para verificar os logins ja existentes, afim de evitar repetição
-app.get('/pegarLogin', async (req, res) => {
-    let logins = await bd.pegarLogin();
-    // let loginsSimples = logins.map((login: Record<string, string>) => login.us_login); // transformando a array de objetos em uma array simples
-    res.send({logins});
-});
-
-//========================= Listagem de Produtos =========================
-app.get('/listaProdutos', async (req, res) => {
-    let tabelaProdutos = await bd.listarProdutos()
-    res.send({tabelaProdutos})
-})
-
 //========================= Cadastro de Produtos =========================
 app.post('/cadastroProduto', async (req, res) => {
     let {descricao, unidadeMedida} = req.body.post
@@ -164,10 +142,43 @@ app.post('/cadastroProduto', async (req, res) => {
 })
 
 
+//================================== Rotas de Listagem ==================================
+//========================= Listagem de Pedidos =========================
+app.get('/listaPedido', async (req,res) =>{
+    let tabelaPedidos = await bd.pegarListaPedidos()
+    let funcao = req.session.funcao
+    res.send({tabelaPedidos, funcao})
+})
+
+//========================= Listagem de Fornecedores =========================
+app.get("/listaFornecedores", async (req, res) => {
+    let tabelaFornecedores = await bd.pegarListaFornecedores()
+    res.send({tabelaFornecedores})
+})
+
+//========================= Listagem de Usuarios =========================
+app.get('/listarUsuario', async (req, res) => {
+    let tabelaUsuario = await bd.listarUsuario()
+    res.send({tabelaUsuario});
+});
+
+//========================= Listagem de Produtos =========================
+app.get('/listaProdutos', async (req, res) => {
+    let tabelaProdutos = await bd.listarProdutos()
+    res.send({tabelaProdutos})
+})
+
+
+//================================== Rotas de etapas de recebimento ==================================
+//========================= Inserção da nota fiscal =========================
+app.post('/postNota', async (req, res) => {
+    let {id, produto,  dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento} = req.body.post
+    let codigoFornecedor = await bd.pegarCodigo('for_codigo', 'fornecedor', 'for_razao_social', razaoSocial)
+    let nf = new NotaFiscal(produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, codigoFornecedor, id)
+    await bd.inserirNF(nf)
+})
+
+
 app.listen(8080, () => {
     console.log(`servidor rodando em http://localhost:8080`);
 });
-
-//npm install - instala as dependências
-//npx tsc - compilar o código 
-//ts-node-esm - executar arquivos .ts
