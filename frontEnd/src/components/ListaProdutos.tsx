@@ -5,6 +5,7 @@ import api from '../services/api';
 import { Link, useNavigate } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
+import unidecode from 'unidecode';
 
 export interface Produto {
     prod_codigo: number
@@ -18,6 +19,9 @@ function ListaProdutos(){
     const [renderizou, setRenderizou] = useState(false)
     const navegate = useNavigate()
 
+    const [busca, setBusca] = useState('') //state para armazenar o termo da busca do usuário
+    const [produtosBuscados, setProdutosBuscados] = useState<Produto[]>([]) //state para armazenar os resultados correspondentes da busca
+
     async function getProdutos(){
         try {
             const response = await api.get('/listaProdutos')
@@ -28,11 +32,27 @@ function ListaProdutos(){
         }
     }
 
+    function buscarProdutos(produtos:Produto[], busca:string) { // função que filtra os pedidos de acordo com o termo da busca
+        let buscaMinusc = busca.toLowerCase() //normalizando o texto para a busca não ser Case sensitive e nem precisar dos acentos corretos
+        let buscaNormalizada = unidecode(buscaMinusc)
+        return produtos.filter((produto) => {
+            const nomeProduto = unidecode(produto.prod_descricao.toLowerCase()).includes(buscaNormalizada) //cada variável testa a ocorrência em um campo específico
+            const codigoProduto = produto.prod_codigo.toLocaleString().includes(buscaNormalizada)
+            return nomeProduto || codigoProduto //retorna os pedidos cujo a busca se encaixe em pelo menos um campo definido
+        })
+    }
+
+    function atualizarBusca(busca:string) {
+        const buscaProdutos = buscarProdutos(produtos, busca)
+        setProdutosBuscados(buscaProdutos)
+    }
+
     useEffect(()=>{
         async function veLogado(){
             let resultado = await verificaLogado()
             if (resultado.logado){
                 getProdutos()
+                atualizarBusca(busca)
                 if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente'){
                     navegate('/listaPedidos')
                 }
@@ -40,7 +60,7 @@ function ListaProdutos(){
                 navegate('/')
             }
         } veLogado()
-    },[])
+    },[busca, produtos])
 
     useEffect(()=>{ // Garante uma segunda renderização para que nenhum pedido fique fora
         if (!renderizou){
@@ -65,7 +85,13 @@ function ListaProdutos(){
                         </Link>
                     </button>
             </div>
-            {produtos.map((produto, index)=>(
+            <div>
+                <input type="text"
+                value = {busca}
+                onChange = {(evento) => setBusca(evento.target.value)}
+                onKeyUp= {(evento) => atualizarBusca(busca)} />
+            </div>
+            {produtosBuscados.map((produto, index)=>(
                 <div className = "listaOut" key = {index}>
                     <div className = "listaIn">
                         <h1>

@@ -5,6 +5,7 @@ import api from '../services/api';
 import { Link, useNavigate } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
+import unidecode from 'unidecode';
 
 
 export interface Fornecedor {
@@ -21,6 +22,9 @@ function ListaFornecedor(){
     const [renderizou, setRenderizou] = useState(false)
     const navegate = useNavigate()
 
+    const [busca, setBusca] = useState('') //state para armazenar o termo da busca do usuário
+    const [fornecedoresBuscados, setFornecedoresBuscados] = useState<Fornecedor[]>([]) //state para armazenar os resultados correspondentes da busca
+
     async function getFornecedores() {
         try {
             const response = await api.get('/listaFornecedores')
@@ -31,6 +35,21 @@ function ListaFornecedor(){
         }
     }
 
+    function buscarFornecedores(fornecedores:Fornecedor[], busca:string) { // função que filtra os pedidos de acordo com o termo da busca
+        let buscaMinusc = busca.toLowerCase() //normalizando o texto para a busca não ser Case sensitive e nem precisar dos acentos corretos
+        let buscaNormalizada = unidecode(buscaMinusc)
+        return fornecedores.filter((fornecedor) => {
+            const razaoSocial = unidecode(fornecedor.for_razao_social.toLowerCase()).includes(buscaNormalizada) //cada variável testa a ocorrência em um campo específico
+            const codigoFornecedor = fornecedor.for_codigo.toLocaleString().includes(buscaNormalizada)
+            const nomeFantasia = unidecode(fornecedor.for_nome_fantasia.toLowerCase()).includes(buscaNormalizada)
+            return razaoSocial || codigoFornecedor || nomeFantasia //retorna os pedidos cujo a busca se encaixe em pelo menos um campo definido
+        })
+    }
+
+    function atualizarBusca(busca:string) {
+        const buscaFornecedores = buscarFornecedores(fornecedores, busca)
+        setFornecedoresBuscados(buscaFornecedores)
+    }
 
     useEffect(()=>{
         async function veLogado(){
@@ -38,6 +57,7 @@ function ListaFornecedor(){
             //setLogado(resultado)
             if (resultado.logado){
                 getFornecedores();
+                atualizarBusca(busca)
                 if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente'){
                     navegate('/listaPedidos')
                 }
@@ -50,7 +70,7 @@ function ListaFornecedor(){
         veLogado()
         
         
-    }, []) //Aciona as funções apenas quando a página é renderizada
+    }, [fornecedores, busca]) //Aciona as funções apenas quando a página é renderizada
     
     useEffect(()=>{ // Garante uma segunda renderização para que nenhum pedido fique fora
         if (!renderizou){
@@ -74,8 +94,13 @@ function ListaFornecedor(){
                     </Link>
                 </button>
             </div>
-            
-            {fornecedores.map((fornecedor, index) => (
+            <div>
+                <input type="text"
+                value = {busca}
+                onChange = {(evento) => setBusca(evento.target.value)}
+                onKeyUp= {(evento) => atualizarBusca(busca)} />
+            </div>
+            {fornecedoresBuscados.map((fornecedor, index) => (
                 <div className='listaOut' key={index}>
                     <div className="listaIn">
                         <h1>Fornecedor nº{fornecedor.for_codigo}</h1>

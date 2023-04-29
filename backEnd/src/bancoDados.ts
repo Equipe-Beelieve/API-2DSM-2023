@@ -15,7 +15,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: '1123', //sua senha
+                password: '', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -36,6 +36,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     async pegarLinha(tabela:string, campo:string, condicao:any) {
         await this.conectar()
         let linha = await this.conexao.query(`SELECT * FROM ${tabela} WHERE ${campo} = ${condicao}` )
+        await this.conexao.end()
         return linha[0]
     }
 
@@ -43,7 +44,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conectar()
         let [consulta] = await this.conexao.query(`SELECT ${codigo} FROM ${tabela} WHERE ${campo} = ?`, [condicao]) as Array<any>
         let linha = consulta[0]
-        console.log(`pegarValor : ${linha}`)
+        await this.conexao.end()
         return linha[codigo]
     }
 

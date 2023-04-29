@@ -14,7 +14,7 @@ function NavBar(){
         if (dadoUsuario.data.logado){
             setLogado(true)
             setFuncao(dadoUsuario.data.funcao)
-            console.log(funcao)
+            //console.log(funcao)
         }
         else{
             setLogado(false)
