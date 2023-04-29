@@ -14,6 +14,7 @@ interface Pedido {
     ped_descricao:string
     ped_valor_total:string
     ped_data_entrega:string
+    ped_status:string
 }
 
 function ListaPedidos(){
@@ -99,6 +100,7 @@ function ListaPedidos(){
                                 <p>Peso: {pedido.ped_produto_massa}</p>
                                 <p>Valor total: {pedido.ped_valor_total}</p>
                                 <p>Data de entrega: {pedido.ped_data_entrega}</p>
+                                <p>Estado do pedido: {pedido.ped_status}</p>
                             </div>
                         </div>
                     </div>

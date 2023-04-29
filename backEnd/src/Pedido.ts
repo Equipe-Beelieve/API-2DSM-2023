@@ -9,6 +9,7 @@ export default class Pedido { //classe com os atributos de um pedido
     private data_entrega:string
     private data_pedido:string
     private condicao_pagamento:string
+    private status = "A caminho"
 
     constructor(descricao:string, data_pedido:string, data_entrega:string, razao_social:string, valor_unidade:string, produto_massa:string, valor_total:string,  tipo_frete:string, transportadora:string,  condicao_pagamento:string) {
         this.razao_social = razao_social
@@ -25,5 +26,8 @@ export default class Pedido { //classe com os atributos de um pedido
 
     get pegarDescricao(){
         return this.descricao
+    }
+    public set mudarStatus(valor: string){
+        this.status = valor
     }
 }
