@@ -25,6 +25,8 @@ function ListaPedidos(){
     const [busca, setBusca] = useState('') //state para armazenar o termo da busca do usuário
     const [pedidosBuscados, setPedidosBuscados] = useState<Pedido[]>([]) //state para armazenar os resultados correspondentes da busca
 
+    const [filtroStatus, setFiltroStatus] = useState('')
+
     async function getPedidos() {
         try{
             const response = await api.get('/listaPedido')
@@ -45,10 +47,37 @@ function ListaPedidos(){
     //     setLogado(resultado)
     // }
 
+    function filtrarStatus(pedidos:Pedido[]) { //essa função faz uma pré-filtragem dos pedidos pelo status dele e envia esse array pra funnção de busca trabalhar em cima
+        if(!filtroStatus){
+            return pedidos
+
+        } else {
+            if(filtroStatus === 'A caminho') {
+                return pedidos.filter((pedido) => {
+                    return pedido.ped_status.includes('A caminho')
+                })
+            } else if(filtroStatus === 'Em análise') {
+                return pedidos.filter((pedido) => {
+                    const analise_quant = pedido.ped_status.includes('Análise Quantitativa')
+                    const analise_quali = pedido.ped_status.includes('Análise Qualitativa')
+                    return analise_quant || analise_quali
+                })
+            } else if (filtroStatus === 'Finalizado'){
+                return pedidos.filter((pedido) => {
+                    const aprovado = pedido.ped_status.includes('Aprovado')
+                    const recusado = pedido.ped_status.includes('Recusado')
+                    return aprovado || recusado
+                })
+            }
+        }
+        return pedidos
+    }
+
     function buscarPedidos(pedidos:Pedido[], busca:string) { // função que filtra os pedidos de acordo com o termo da busca
         let buscaMinusc = busca.toLowerCase() //normalizando o texto para a busca não ser Case sensitive e nem precisar dos acentos corretos
         let buscaNormalizada = unidecode(buscaMinusc)
-        return pedidos.filter((pedido) => {
+        let pedidosFiltrados = filtrarStatus(pedidos)
+        return pedidosFiltrados.filter((pedido) => {
             const razaoSocial = unidecode(pedido.ped_razao_social.toLowerCase()).includes(buscaNormalizada) //cada variável testa a ocorrência em um campo específico
             const numeroPedido = pedido.ped_codigo.toLocaleString().includes(buscaNormalizada)
             const nomeProduto = unidecode(pedido.ped_descricao.toLowerCase()).includes(buscaNormalizada)
@@ -99,9 +128,10 @@ function ListaPedidos(){
         </center>
         <div className="mainContent">
             <div className="state">
-                <button>A caminho</button>
-                <button>Em análise</button>
-                <button>Finalizado</button>
+                {/* aqui o código confere se o botão de filtro clicado já estava ativo e passa uma string vazia (desativa o filtro), se for o caso */}
+                <button onClick = {(evento) => setFiltroStatus(filtroStatus === 'A caminho' ? '' : 'A caminho')}>A caminho</button> 
+                <button onClick = {(evento) => setFiltroStatus(filtroStatus === 'Em análise' ? '' : 'Em análise')}>Em análise</button>
+                <button onClick = {(evento) => setFiltroStatus(filtroStatus === 'Finalizado' ? '' : 'Finalizado')}>Finalizado</button>
                 {(funcao === 'Administrador' || funcao === 'Gerente') &&
                 <button id="register">
                     <Link to={'/cadastroPedido'} id='linkBotaoCadastro'>
