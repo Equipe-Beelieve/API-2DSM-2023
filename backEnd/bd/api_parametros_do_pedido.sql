@@ -27,10 +27,9 @@ DROP TABLE IF EXISTS `parametros_do_pedido`;
 CREATE TABLE `parametros_do_pedido` (
   `prod_codigo` int NOT NULL,
   `ped_codigo` int NOT NULL,
-  `umidade` varchar(3) DEFAULT NULL,
-  `pureza` varchar(3) DEFAULT NULL,
-  `massa` varchar(10) DEFAULT NULL,
-  `avaria` varchar(100) DEFAULT NULL,
+  `tipo` varchar(20) DEFAULT NULL,
+  `descricao` varchar(100) DEFAULT NULL,
+  `valor` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`prod_codigo`,`ped_codigo`),
   KEY `fk_pedido_parametro` (`ped_codigo`),
   CONSTRAINT `fk_pedido_parametro` FOREIGN KEY (`ped_codigo`) REFERENCES `pedido` (`ped_codigo`),

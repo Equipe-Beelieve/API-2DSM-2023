@@ -1,13 +1,16 @@
 import Pedido from "./Pedido.js";
 
 export default class NotaFiscal extends Pedido {
-    private codigo_fornecedor:number
+    // private codigo_fornecedor:number
     private codigo_pedido:number
+    private codigo_fornecedor:number
+    private unidade:string
 
-    constructor(descricao:string, data_pedido:string, data_entrega:string, razao_social:string, valor_unidade:string, produto_massa:string, valor_total:string,  tipo_frete:string, transportadora:string,  condicao_pagamento:string, codigo_fornecedor:number, codigo_pedido:number) {
+    constructor(descricao:string, data_pedido:string, data_entrega:string, razao_social:string, valor_unidade:string, produto_massa:string, valor_total:string,  tipo_frete:string, transportadora:string,  condicao_pagamento:string, codigo_fornecedor:number, unidade:string, codigo_pedido:number) {
         super(descricao, data_pedido, data_entrega, razao_social, valor_unidade, produto_massa, valor_total, tipo_frete, transportadora, condicao_pagamento)
-        this.codigo_fornecedor = codigo_fornecedor
         this.codigo_pedido = codigo_pedido
+        this.codigo_fornecedor = codigo_fornecedor
+        this.unidade = unidade
     }
 
 }

@@ -170,12 +170,67 @@ app.get('/listaProdutos', async (req, res) => {
 
 
 //================================== Rotas de etapas de recebimento ==================================
+
+//========================= Confere Status ==============================
+
+app.post('/confereStatus', async (req, res) =>{
+    let {id, acessando} = req.body
+    console.log(id, acessando)
+    let status = await bd.pegaStatus(id)
+    console.log(status)
+    if (acessando === 'Nota Fiscal' && status !== 'A caminho'){
+        let dados = await bd.pegaNf(id)
+        res.send(dados)
+    }
+    else if (acessando === 'Análise Quantitativa' && status !== 'Análise Quantitativa'){
+        if(status !== 'A caminho'){
+            let dados = await bd.pegaAnaliseQuantitativa(id)
+            res.send(dados)
+        }
+        else{
+            res.send("não permitir")
+        }
+    }
+    else if (acessando === 'Análise Qualitativa' && status !== 'Análise Qualitativa'){
+        if (status !== 'A caminho' && status !== 'Análise Quantitativa'){
+            let dados = await bd.pegaAnaliseQualitativa(id)
+            res.send(dados)
+        }
+        else{
+            res.send("não permitir")
+        }
+    }
+    else if (status !== 'Recusado' && status !== 'Aceito'){
+        res.send("Primeira vez")
+    }
+    else {
+        res.send('Revisão')
+    }
+})
+
 //========================= Inserção da nota fiscal =========================
 app.post('/postNota', async (req, res) => {
-    let {id, produto,  dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento} = req.body.post
+    let {id, unidade, produto,  dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento} = req.body.post
+    console.log(`unidadePost: ${unidade}`)
     let codigoFornecedor = await bd.pegarCodigo('for_codigo', 'fornecedor', 'for_razao_social', razaoSocial)
-    let nf = new NotaFiscal(produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, codigoFornecedor, id)
+    let nf = new NotaFiscal(produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, codigoFornecedor, unidade, id)
     await bd.inserirNF(nf)
+})
+
+app.post('/updateNota', async (req,res) => {
+    let {id, unidade, produto,  dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento} = req.body.post
+    let codigoFornecedor = await bd.pegarCodigo('for_codigo', 'fornecedor', 'for_razao_social', razaoSocial)
+    let nf = new NotaFiscal(produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, codigoFornecedor, unidade, id)
+    await bd.updateNF(nf)
+
+
+})
+//========================= Análise Quantitativa =========================
+
+app.post('/postQuantitativa',async (req, res) => {
+    let {id, pesagem} = req.body.post
+    await bd.inserirAnaliseQuantitativa(id, pesagem)
+
 })
 
 
