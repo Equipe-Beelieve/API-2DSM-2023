@@ -9,6 +9,7 @@ import cors from 'cors'
 import session from 'express-session';
 import Produto from "./Produto.js";
 import NotaFiscal from "./NotaFiscal.js";
+import AnaliseQualitativa from "./Analisequalitativa.js";
 
 declare module 'express-session' {
     export interface SessionData {
@@ -235,9 +236,12 @@ app.post('/postQuantitativa',async (req, res) => {
 
 })
 
-//========================= Inserção da análise qualitativa =========================
-app.post('/postAnaliseQlt', async (req, res) => {
-    
+//========================= Análise Qualitativa =========================
+app.post('/postQualitativa', async (req, res) => {
+    let {laudo, avaria, umidade} = req.body.post
+    let analiseQualitativa = new AnaliseQualitativa(laudo, avaria, umidade)
+
+    await bd.inserirAnaliseQualitativa(analiseQualitativa)
 })
 
 app.listen(8080, () => {

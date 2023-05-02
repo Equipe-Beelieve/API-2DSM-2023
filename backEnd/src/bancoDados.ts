@@ -6,6 +6,7 @@ import Pedido from './Pedido.js'
 import Usuario from './Usuario.js'
 import Produto from './Produto.js'
 import NotaFiscal from './NotaFiscal.js';
+import AnaliseQualitativa from './Analisequalitativa.js';
 
 export default class bancoDados { //clase que contém, a princípio, tudo envolvendo banco de dados
     private conexao: mysql.Connection //atributo que tem o tipo "conexão com MySQL"
@@ -15,7 +16,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'root', //sua senha
+                password: '', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -240,9 +241,12 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         return dado[0]
     }
 
-    async inserirAnaliseQlt(){
+    async inserirAnaliseQualitativa(analiseQualitativa: AnaliseQualitativa){
         await this.conectar()
-        await this.conexao.query('')
+        await this.conexao.query('INSERT INTO analise_qualitativa(laudo, avaria,' + 
+            'umidade, regras_recebimento) VALUES(?, ?, ?, ?)',
+        [analiseQualitativa['laudo'], analiseQualitativa['avaria'], analiseQualitativa['umidade'], 
+        analiseQualitativa['regras_recebimento']])
 
         await this.conexao.end()
     }
