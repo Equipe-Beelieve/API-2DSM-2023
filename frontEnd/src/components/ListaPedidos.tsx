@@ -38,8 +38,22 @@ function ListaPedidos(){
         }
     }
 
-    function selecionaPedido(id:number) {
-        navegate(`/recebePedido/${id}`)
+    function selecionaPedido(id:number, status:string) {
+        if (status === 'A caminho'){
+            navegate(`/recebePedido/${id}`)
+        }
+        else if (status === 'Análise Quantitativa'){
+            navegate(`/analiseQuant/${id}`)
+        }
+        else if (status === 'Análise Qualitativa'){
+            navegate('/listaPedidos')
+        }
+        else if (status === 'Recusado'){
+            navegate('/listaPedidos')
+        }
+        else{
+            navegate('/listaPedidos')
+        }
     }
     // async function veLogado(){
     //     let resultado = await verificaLogado()
@@ -148,7 +162,7 @@ function ListaPedidos(){
                 onKeyUp= {(evento) => atualizarBusca(busca)} />
             </div>
             {pedidosBuscados.map((pedido, index) =>(
-                <div className='listaOut' key={index} onClick={() =>{selecionaPedido(pedido.ped_codigo)}}>
+                <div className='listaOut' key={index} onClick={() =>{selecionaPedido(pedido.ped_codigo, pedido.ped_status)}}>
                     <div className="listaIn">
                         <h1>Pedido nº{pedido.ped_codigo} - {pedido.ped_descricao} ({pedido.ped_razao_social})</h1>
                         <div className="listColumns">

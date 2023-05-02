@@ -15,7 +15,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: '', //sua senha
+                password: 'root', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -46,10 +46,16 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async pegarCodigo(codigo:string, tabela:string, campo:string, condicao:any): Promise<number> {
         await this.conectar()
-        let [consulta] = await this.conexao.query(`SELECT ${codigo} FROM ${tabela} WHERE ${campo} = ?`, [condicao]) as Array<any>
+        let [consulta] = await this.conexao.query(`SELECT ${codigo} FROM ${tabela} WHERE ${campo} = "${condicao}"`) as Array<any>
         let linha = consulta[0]
         await this.conexao.end()
-        return linha[codigo]
+        console.log(linha)
+        if (linha){
+            return linha[codigo]
+        }
+        else{
+            return 0
+        }
     }
 
 
@@ -169,8 +175,69 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async inserirNF(nf:NotaFiscal) { 
         await this.conectar()
-        await this.conexao.query('INSERT INTO nota_fiscal(nf_razao_social, nf_data_emissao, nf_data_entrega, nf_transportadora, nf_produto_massa, nf_tipo_frete, nf_produto_descricao, for_codigo, nf_valor_total, nf_valor_unidade, ped_codigo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [nf['razao_social'], nf['data_pedido'], nf['data_entrega'], nf['transportadora'], nf['produto_massa'], nf['tipo_frete'], nf['descricao'], nf['codigo_fornecedor'], nf['valor_total'], nf['valor_unidade'], nf['codigo_pedido']]) 
+        console.log(`CODIGOPEDIDO: ${nf['codigo_pedido']}`)
+        if (nf['codigo_fornecedor'] !== 0){
+            await this.conexao.query('INSERT INTO nota_fiscal(nf_razao_social, nf_data_emissao, nf_data_entrega, nf_transportadora, nf_produto_massa, nf_tipo_frete, nf_produto_descricao, nf_valor_total, nf_valor_unidade, for_codigo, nf_condicao_pagamento, nf_unidade, ped_codigo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+            [nf['razao_social'], nf['data_pedido'], nf['data_entrega'], nf['transportadora'], nf['produto_massa'], nf['tipo_frete'], nf['descricao'], nf['valor_total'], nf['valor_unidade'], nf['codigo_fornecedor'], nf['condicao_pagamento'], nf['unidade'], nf['codigo_pedido']]) 
+        }
+        else{
+            await this.conexao.query('INSERT INTO nota_fiscal(nf_razao_social, nf_data_emissao, nf_data_entrega, nf_transportadora, nf_produto_massa, nf_tipo_frete, nf_produto_descricao, nf_valor_total, nf_valor_unidade, for_codigo, nf_condicao_pagamento, nf_unidade, ped_codigo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+            [nf['razao_social'], nf['data_pedido'], nf['data_entrega'], nf['transportadora'], nf['produto_massa'], nf['tipo_frete'], nf['descricao'], nf['valor_total'], nf['valor_unidade'], null, nf['condicao_pagamento'], nf['unidade'],  nf['codigo_pedido']]) 
+        }
         await this.conexao.end()
+        await this.mudaStatus(nf['codigo_pedido'], 'Análise Quantitativa')
+    }
+    async updateNF(nf:NotaFiscal) { 
+        await this.conectar()
+        if (nf['codigo_fornecedor'] !== 0){
+            await this.conexao.query(`UPDATE nota_fiscal SET nf_razao_social = '${nf['razao_social']}', nf_data_emissao = '${nf['data_pedido'].slice(0, 10)}', nf_data_entrega = '${nf['data_entrega'].slice(0, 10)}', nf_transportadora = '${nf['transportadora']}', nf_produto_massa = '${nf['produto_massa']}', nf_tipo_frete = '${nf['tipo_frete']}', nf_produto_descricao = '${nf['descricao']}', nf_valor_total = '${nf['valor_total']}', nf_valor_unidade = '${nf['valor_unidade']}', for_codigo = ${nf['codigo_fornecedor']}, nf_condicao_pagamento = '${nf['condicao_pagamento']}', nf_unidade = '${nf['unidade']}'  WHERE ped_codigo = ${nf['codigo_pedido']}`)
+        }
+        else{
+            await this.conexao.query(`UPDATE nota_fiscal SET nf_razao_social = '${nf['razao_social']}', nf_data_emissao = '${nf['data_pedido'].slice(0, 10)}', nf_data_entrega = '${nf['data_entrega'].slice(0, 10)}', nf_transportadora = '${nf['transportadora']}', nf_produto_massa = '${nf['produto_massa']}', nf_tipo_frete = '${nf['tipo_frete']}', nf_produto_descricao = '${nf['descricao']}', nf_valor_total = '${nf['valor_total']}', nf_valor_unidade = '${nf['valor_unidade']}', nf_condicao_pagamento = '${nf['condicao_pagamento']}', nf_unidade = '${nf['unidade']}'  WHERE ped_codigo = ${nf['codigo_pedido']}`)
+
+        }
+        await this.conexao.end()
+    }
+
+    async mudaStatus(codigo:number, status:string){
+        await this.conectar()
+        await this.conexao.query(`UPDATE pedido SET ped_status = '${status}' WHERE ped_codigo = ${codigo}`)
+        await this.conexao.end()
+    }
+
+    async inserirAnaliseQuantitativa(id:string, pesagem:string){
+        await this.conectar()
+        let prod_codigo = await this.conexao.query(`SELECT prod_codigo FROM produto WHERE prod_descricao = (SELECT ped_descricao FROM pedido WHERE ped_codigo=${id})`)
+        await this.conexao.query(`INSERT INTO parametro_do_pedido(prod_codigo, ped_codigo, tipo, descricao, valor) VALUES(${prod_codigo}, ${id}, "Análise Quantitativa", "Pesagem", "${pesagem}"`)
+        await this.conexao.end()
+    }
+
+    async pegaStatus(id:string){
+        await this.conectar()
+        let [dado] = await this.conexao.query(`SELECT ped_status FROM pedido WHERE ped_codigo = ${id}`) as Array<any>
+        await this.conexao.end()
+        return dado[0].ped_status
+    }
+
+    async pegaNf(id:string){
+        await this.conectar()
+        let [dado] = await this.conexao.query(`SELECT * FROM nota_fiscal WHERE ped_codigo = ${id}`) as Array<any>
+        await this.conexao.end()
+        return dado[0]
+    }
+
+    async pegaAnaliseQuantitativa(id:string){
+        await this.conectar()
+        let [dado] = await this.conexao.query(`Select valor FROM parametros_do_pedido WHERE ped_codigo = ${id} and tipo = "Análise Quantitativa"`) as Array<any>
+        await this.conexao.end()
+        return dado[0]
+    }
+
+    async pegaAnaliseQualitativa(id:string){
+        await this.conectar()
+        let [dado] = await this.conexao.query(`Select tipo, descricao, valor FROM parametros_do_pedido WHERE ped_codigo =${id} and tipo <> "Análise Quantitativa"`) as Array<any>
+        await this.conexao.end()
+        return dado[0]
     }
 
     async inserirAnaliseQlt(){

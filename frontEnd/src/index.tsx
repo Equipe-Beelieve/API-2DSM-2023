@@ -68,7 +68,7 @@ const router = createBrowserRouter([
         element: <CadUsuario/>
       },
       {
-        path: "/analiseQuant",
+        path: "/analiseQuant/:id",
         element: <AnaliseQuant/>
       }
     ]
