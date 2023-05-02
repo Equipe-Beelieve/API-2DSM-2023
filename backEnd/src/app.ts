@@ -112,8 +112,10 @@ app.get('/cadastroPedido', async (req, res) => {
 })
 
 app.post('/postCadastroPedido', async (req,res) => {
-    let {produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento} = req.body.post
-    let pedido = new Pedido(produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento)
+    let {produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, 
+        quantidade, precoTotal, frete, transportadora, condicaoPagamento} = req.body.post
+    let pedido = new Pedido(produto, dataPedido, dataEntrega, razaoSocial, 
+        precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento)
     await bd.inserirPedido(pedido) //método da clase bancoDados para inserir na tabela pedido
 
 });
@@ -172,12 +174,23 @@ app.get('/listaProdutos', async (req, res) => {
 //================================== Rotas de etapas de recebimento ==================================
 //========================= Inserção da nota fiscal =========================
 app.post('/postNota', async (req, res) => {
-    let {id, produto,  dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento} = req.body.post
+    let {id, produto,  dataEmissao, dataEntrega, razaoSocial, precoUnitario, 
+        quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento} = req.body.post
     let codigoFornecedor = await bd.pegarCodigo('for_codigo', 'fornecedor', 'for_razao_social', razaoSocial)
-    let nf = new NotaFiscal(produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, codigoFornecedor, id)
+    let nf = new NotaFiscal(produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario, 
+        quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, codigoFornecedor, id)
     await bd.inserirNF(nf)
 })
 
+//========================= Inserção da análise qualitativa =========================
+app.post('/postAnaliseQlt', async (req, res) => {
+    let {id, produto,  dataEmissao, dataEntrega, razaoSocial, precoUnitario, 
+        quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento} = req.body.post
+    let codigoFornecedor = await bd.pegarCodigo('for_codigo', 'fornecedor', 'for_razao_social', razaoSocial)
+    let nf = new NotaFiscal(produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario, 
+        quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, codigoFornecedor, id)
+    await bd.inserirNF(nf)
+})
 
 app.listen(8080, () => {
     console.log(`servidor rodando em http://localhost:8080`);
