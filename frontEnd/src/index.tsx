@@ -40,6 +40,10 @@ const router = createBrowserRouter([
         element: <CadPedido/>
       },
       {
+        path: "/cadastroPedido/:id",
+        element: <CadPedido/>
+      },
+      {
         path: "/recebePedido/:id",
         element: <RecebimentoPedido/>
       },

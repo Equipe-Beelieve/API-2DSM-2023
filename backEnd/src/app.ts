@@ -118,6 +118,12 @@ app.post('/postCadastroPedido', async (req,res) => {
 
 });
 
+app.post('/updatePedido', async (req,res) => {
+    let {id, produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento} = req.body.post
+    let pedido = new Pedido(produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento)
+    await bd.updatePedido(pedido, id)
+});
+
 //========================= Cadastro de Fornecedores =========================
 app.post('/cadastroFornecedor', async (req, res) => {
     let {cnpj, cep, estado, cidade, bairro, ruaAvenida, numero, razaoSocial, nomeFantasia} = req.body.post
@@ -182,6 +188,10 @@ app.post('/confereStatus', async (req, res) =>{
         let dados = await bd.pegaNf(id)
         res.send(dados)
     }
+    else if (acessando === 'Relatório de Compras' && status !== undefined){
+        let dados = await bd.pegaRelatorioCompras(id)
+        res.send(dados)
+    }
     else if (acessando === 'Análise Quantitativa' && status !== 'Análise Quantitativa'){
         if(status !== 'A caminho'){
             let dados = await bd.pegaAnaliseQuantitativa(id)
@@ -207,6 +217,7 @@ app.post('/confereStatus', async (req, res) =>{
         res.send('Revisão')
     }
 })
+
 
 //========================= Inserção da nota fiscal =========================
 app.post('/postNota', async (req, res) => {
