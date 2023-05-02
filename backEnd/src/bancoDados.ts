@@ -241,13 +241,25 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         return dado[0]
     }
 
+    async pegaRelatorioCompras(id:string){
+        await this.conectar()
+        let [dado] = await this.conexao.query(`Select ped_razao_social, ped_transportadora, ped_tipo_frete, ped_produto_massa, ped_descricao, ped_valor_unidade, ped_valor_total, ped_data_entrega, ped_data_pedido, ped_condicao_pagamento FROM pedido WHERE ped_codigo =${id}`) as Array<any>
+        await this.conexao.end()
+        return dado[0]
+    }
+
+    async updatePedido(pedido:Pedido, id:string){
+        await this.conectar()
+        await this.conexao.query(`UPDATE pedido SET ped_razao_social = '${pedido['razao_social']}', ped_transportadora = '${pedido['transportadora']}', ped_tipo_frete = '${pedido['tipo_frete']}', ped_produto_massa = '${pedido['produto_massa']}', ped_descricao = '${pedido['descricao']}', ped_valor_unidade = '${pedido['valor_unidade']}', ped_valor_total = '${pedido['valor_total']}', ped_data_entrega = '${pedido['data_entrega']}', ped_data_pedido = '${pedido['data_pedido']}', ped_condicao_pagamento = '${pedido['condicao_pagamento']}' WHERE ped_codigo = ${id}`)
+        await this.conexao.end()
+    }
+
     async inserirAnaliseQualitativa(analiseQualitativa: AnaliseQualitativa){
         await this.conectar()
         await this.conexao.query('INSERT INTO analise_qualitativa(laudo, avaria,' + 
             'umidade, regras_recebimento) VALUES(?, ?, ?, ?)',
         [analiseQualitativa['laudo'], analiseQualitativa['avaria'], analiseQualitativa['umidade'], 
         analiseQualitativa['regras_recebimento']])
-
         await this.conexao.end()
     }
 }

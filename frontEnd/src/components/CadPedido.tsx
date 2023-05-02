@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import api from '../services/api';
 import NavBar from "./NavBar";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { redirect } from 'react-router-dom';
 import { Fornecedor } from './ListaFornecedor';
 import { Produto } from './ListaProdutos';
@@ -29,10 +29,11 @@ function CadPedido() {
     const [frete, setFrete] = useState('')
     const [transportadora, setTransportadora] = useState('')
     const [condicaoPagamento, setCondicaoPagamento] = useState('')
-
-
+    
+    const {id} = useParams()
     const [logado, setLogado] = useState(Boolean)
     const navegate = useNavigate()
+    const [mudanca, setMudanca] = useState("")
 
     // ===================== Ligações com o Backend =====================
 
@@ -229,7 +230,45 @@ function CadPedido() {
 
     // ===================== UseEffect =====================
 
+    async function veStatus() {
+        let status = await api.post('/confereStatus', {id:id, acessando:'Relatório de Compras'})
+        let dado = status.data
+        if (status.data === 'Primeira vez'){
+            setMudanca('Primeira vez')
+        }
+        else if (status.data === 'Revisaão'){
+            setMudanca('Revisão')
+        }
+        else {
+            setMudanca('Edição')
+            setProduto(dado.ped_descricao)
+            setDataPedido(dado.ped_data_pedido.slice(0,10))
+            setDataEntrega(dado.ped_data_entrega.slice(0,10))
+            setRazaoSocial(dado.ped_razao_social)
+            setPrecoUnitario(dado.ped_valor_unidade)
+            setQuantidade(dado.ped_produto_massa)
+            setPrecoTotal(dado.ped_valor_total)
+            setFrete(dado.ped_tipo_frete)
+            setTransportadora(dado.ped_transportadora)
+            setCondicaoPagamento(dado.ped_condicao_pagamento)
+            if(quantidade.slice(-1) === 'g'){
+                setUnidade('kg')
+            }
+            else{
+                setUnidade("t")
+            }
+        }
+        console.log(status.data)
+    }
+    useEffect(() =>{
+        if (id){
+            veStatus()
+        }
+    },[])
+
     useEffect(() => {
+        
+        
         async function veLogado() {
             let resultado = await verificaLogado()
             //setLogado(resultado)
@@ -304,262 +343,535 @@ function CadPedido() {
 
     }
 
+    async function editarPedido() {
+        if (unidade === 'kg') {
+            setPrecoUnitario(precoUnitario.slice(2, -3))
+            setPrecoTotal(precoTotal.slice(3))
+            setQuantidade(quantidade.slice(0, -3))
+        }
+        else {
+            setPrecoUnitario(precoUnitario.slice(2, -2))
+            setPrecoTotal(precoTotal.slice(3))
+            setQuantidade(quantidade.slice(0, -2))
+        }
+        const post = {id, produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento }
+        navegate("/listaPedidos")
+        await api.post('/updatePedido', { post })
+    }
+
+
     function redirecionarPedido() {
         navegate("/listaPedidos")
     }
 
     // ===================== HTML =====================  
 
-    return (
-        <>
-            <NavBar />
-            <div className="divFornecedor">
-                <h1 className='mainTitle'>Cadastro de Pedidos</h1>
-                <form onSubmit={cadastroPedido}>
-
-                    <div className="poscentralized grid-container">
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Produto:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input list='datalistProduto' type='text' className="input_form" name="produto" id="produto"
-                                            required
-                                            value={produto}
-                                            onChange={(e) => { setProduto(e.target.value) }}
-                                            onBlur={trataDatalistProduto} />
-                                            <datalist id='datalistProduto'>
+    if (mudanca !== "Revisão"){
+        return (
+            <>
+                <NavBar />
+                <div className="divFornecedor">
+                    <h1 className='mainTitle'>Cadastro de Pedidos</h1>
+                    <form onSubmit={cadastroPedido}>
+    
+                        <div className="poscentralized grid-container">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Produto:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                            {mudanca === 'Primeira vez' &&
+                                                <>
+                                                <input list='datalistProduto' type='text' className="input_form" name="produto" id="produto"
+                                                required
+                                                value={produto}
+                                                onChange={(e) => { setProduto(e.target.value); } }
+                                                onBlur={trataDatalistProduto} /><datalist id='datalistProduto'>
+                                                    <option value=""></option>
+                                                    {produtos.map((produto, index) => (
+                                                        <option value={produto.prod_descricao} key={index}>{produto.prod_descricao}</option>
+                                                    ))}
+                                                </datalist>
+                                                </>
+                                            }
+                                            {mudanca === 'Edição' &&
+                                                 <input list='datalistProduto' type='text' className="input_form" name="produto" id="produto"
+                                                 required
+                                                 value={produto} readOnly/>                   
+                                            }
+    
+    
+    
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data do Pedido:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="date" id="dataPedido" name="dataPedido" required
+                                                value={dataPedido}
+                                                onChange={(e) => { setDataPedido(e.target.value) }} />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data de Entrega:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="date" id="dataEntrega" name="dataEntrega" required
+                                                value={dataEntrega}
+                                                onChange={(e) => { setDataEntrega(e.target.value) }} />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+    
+                        <div className="poscentralized grid-container">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Razão Social(fornecedor):</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type='text' list='datalistFornecedor' className="input_form" id="razaoSocial" name="razaoSocial" required
+                                                    value={razaoSocial}
+                                                    onChange={(e) => { setRazaoSocial(e.target.value) }}
+                                                    onBlur={trataDatalistFornecedor} />
+                                                <datalist id='datalistFornecedor'>
+                                                    <option value=""></option>
+                                                    {fornecedores.map((fornecedor, index) => (
+                                                        <option value={fornecedor.for_razao_social} key={index}>{fornecedor.for_razao_social}</option>
+                                                    ))
+                                                    }
+                                                </datalist>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+    
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Preço Unitário:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" id="precoUnitario" name="precoUnitario"
+                                                required
+                                                value={precoUnitario}
+                                                onChange={trataPrecoUnitario}
+                                                onBlur={blurPrecoUnitario}
+                                                onSelect={selectPrecoUnitario} />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Quantidade:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" id="quantidade" name="quantidade" required
+                                                value={quantidade}
+                                                onChange={trataQuantidade}
+                                                onBlur={blurQuantidade}
+                                                onSelect={selectQuantidade} />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+    
+                        <div className="poscentralized grid-container">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Preço Total:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" id="precoTotal" name="precoTotal" required readOnly
+                                                value={precoTotal}
+                                                onChange={(e) => { setPrecoTotal(e.target.value) }} />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo de Frete:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><select className="input_form" id="frete" name="frete" required
+                                                value={frete}
+                                                onChange={(e) => { setFrete(e.target.value) }}>
                                                 <option value=""></option>
-                                                {produtos.map((produto, index) => (
-                                                    <option value={produto.prod_descricao} key={index}>{produto.prod_descricao}</option>
-                                                ))}
-                                            </datalist>
-
-
-
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                                <option value="Barco">Barco</option>
+                                                <option value="Trem">Trem</option>
+                                                <option value="Caminhão">Caminhão</option>
+                                                <option value="Avião">Avião</option>
+                                            </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Transportadora:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" id="condicaoPagamento" name="transportadora"
+                                                required
+                                                value={transportadora}
+                                                onChange={(e) => { setTransportadora(e.target.value) }} />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Data do Pedido:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="date" id="dataPedido" name="dataPedido" required
-                                            value={dataPedido}
-                                            onChange={(e) => { setDataPedido(e.target.value) }} />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Data de Entrega:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="date" id="dataEntrega" name="dataEntrega" required
-                                            value={dataEntrega}
-                                            onChange={(e) => { setDataEntrega(e.target.value) }} />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div className="poscentralized grid-container">
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Razão Social(fornecedor):</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <input type='text' list='datalistFornecedor' className="input_form" id="razaoSocial" name="razaoSocial" required
-                                                value={razaoSocial}
-                                                onChange={(e) => { setRazaoSocial(e.target.value) }}
-                                                onBlur={trataDatalistFornecedor} />
-                                            <datalist id='datalistFornecedor'>
+    
+                        <div className="poscentralized grid-container">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Condição de Pagamento:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
+                                                value={condicaoPagamento}
+                                                onChange={(e) => { setCondicaoPagamento(e.target.value) }}>
                                                 <option value=""></option>
-                                                {fornecedores.map((fornecedor, index) => (
-                                                    <option value={fornecedor.for_razao_social} key={index}>{fornecedor.for_razao_social}</option>
-                                                ))
-                                                }
-                                            </datalist>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                                <option value="00/100">00/100</option>
+                                                <option value="10/90">10/90</option>
+                                                <option value="20/80">20/80</option>
+                                                <option value="30/70">30/70</option>
+                                                <option value="40/60">40/60</option>
+                                                <option value="50/50">50/50</option>
+                                                <option value="60/40">60/40</option>
+                                                <option value="70/30">70/30</option>
+                                                <option value="80/20">80/20</option>
+                                                <option value="90/10">90/10</option>
+                                                <option value="100/00">100/00</option>
+                                            </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
                         </div>
-
-
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Preço Unitário:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text" id="precoUnitario" name="precoUnitario"
-                                            required
-                                            value={precoUnitario}
-                                            onChange={trataPrecoUnitario}
-                                            onBlur={blurPrecoUnitario}
-                                            onSelect={selectPrecoUnitario} />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+    
+                        
+                        {mudanca === 'Primeira vez' &&
+                            <>
+                            <button type="button" onClick={redirecionarPedido} className="cancel_button">Cancelar</button>
+                            <button type="button" onClick={cadastroPedido} className="confirm_button">Cadastrar</button>
+                            </>
+                        }
+                        {mudanca === 'Edição' &&
+                            <>
+                            <button type="button" onClick={redirecionarPedido} className="cancel_button">Cancelar</button>
+                            <button type="button" onClick={editarPedido} className="confirm_button">Editar</button>
+                            </>
+                        }
+                    </form>
+                </div>
+            </>
+    
+        )
+    }
+    else{
+        return (
+            <>
+                <NavBar />
+                <div className="divFornecedor">
+                    <h1 className='mainTitle'>Cadastro de Pedidos</h1>
+                    <form onSubmit={cadastroPedido}>
+    
+                        <div className="poscentralized grid-container">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Produto:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                            
+                                                <>
+                                                <input list='datalistProduto' type='text' className="input_form" name="produto" id="produto"
+                                                required readOnly
+                                                value={produto}
+                                                onChange={(e) => { setProduto(e.target.value); } }
+                                                onBlur={trataDatalistProduto} /><datalist id='datalistProduto'>
+                                                    <option value=""></option>
+                                                    {produtos.map((produto, index) => (
+                                                        <option value={produto.prod_descricao} key={index}>{produto.prod_descricao}</option>
+                                                    ))}
+                                                </datalist>
+                                                </>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data do Pedido:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="date" id="dataPedido" name="dataPedido" required
+                                                value={dataPedido}
+                                                onChange={(e) => { setDataPedido(e.target.value) }} readOnly />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data de Entrega:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="date" id="dataEntrega" name="dataEntrega" required
+                                                value={dataEntrega}
+                                                onChange={(e) => { setDataEntrega(e.target.value) }} readOnly />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Quantidade:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text" id="quantidade" name="quantidade" required
-                                            value={quantidade}
-                                            onChange={trataQuantidade}
-                                            onBlur={blurQuantidade}
-                                            onSelect={selectQuantidade} />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+    
+                        <div className="poscentralized grid-container">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Razão Social(fornecedor):</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type='text' list='datalistFornecedor' className="input_form" id="razaoSocial" name="razaoSocial" required
+                                                    value={razaoSocial}
+                                                    onChange={(e) => { setRazaoSocial(e.target.value) }}
+                                                    onBlur={trataDatalistFornecedor} readOnly />
+                                                <datalist id='datalistFornecedor'>
+                                                    <option value=""></option>
+                                                    {fornecedores.map((fornecedor, index) => (
+                                                        <option value={fornecedor.for_razao_social} key={index}>{fornecedor.for_razao_social}</option>
+                                                    ))
+                                                    }
+                                                </datalist>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+    
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Preço Unitário:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" id="precoUnitario" name="precoUnitario"
+                                                required
+                                                value={precoUnitario}
+                                                onChange={trataPrecoUnitario}
+                                                onBlur={blurPrecoUnitario}
+                                                onSelect={selectPrecoUnitario} readOnly/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Quantidade:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" id="quantidade" name="quantidade" required readOnly
+                                                value={quantidade}
+                                                onChange={trataQuantidade}
+                                                onBlur={blurQuantidade}
+                                                onSelect={selectQuantidade} />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-
-                    <div className="poscentralized grid-container">
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Preço Total:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text" id="precoTotal" name="precoTotal" required readOnly
-                                            value={precoTotal}
-                                            onChange={(e) => { setPrecoTotal(e.target.value) }} />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+    
+                        <div className="poscentralized grid-container">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Preço Total:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" id="precoTotal" name="precoTotal" required readOnly
+                                                value={precoTotal}
+                                                onChange={(e) => { setPrecoTotal(e.target.value) }}/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo de Frete:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><select className="input_form" id="frete" name="frete" required
+                                                value={frete}
+                                                onChange={(e) => { setFrete(e.target.value) }} disabled>
+                        
+                                            </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Transportadora:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" id="condicaoPagamento" name="transportadora"
+                                                required
+                                                value={transportadora}
+                                                onChange={(e) => { setTransportadora(e.target.value) }} readOnly/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Tipo de Frete:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><select className="input_form" id="frete" name="frete" required
-                                            value={frete}
-                                            onChange={(e) => { setFrete(e.target.value) }}>
-                                            <option value=""></option>
-                                            <option value="Barco">Barco</option>
-                                            <option value="Trem">Trem</option>
-                                            <option value="Caminhão">Caminhão</option>
-                                            <option value="Avião">Avião</option>
-                                        </select>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+    
+                        <div className="poscentralized grid-container">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Condição de Pagamento:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required disabled
+                                                value={condicaoPagamento}
+                                                onChange={(e) => { setCondicaoPagamento(e.target.value) }}>
+                                            </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
                         </div>
-
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Transportadora:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text" id="condicaoPagamento" name="transportadora"
-                                            required
-                                            value={transportadora}
-                                            onChange={(e) => { setTransportadora(e.target.value) }} />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div className="poscentralized grid-container">
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Condição de Pagamento:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
-                                            value={condicaoPagamento}
-                                            onChange={(e) => { setCondicaoPagamento(e.target.value) }}>
-                                            <option value=""></option>
-                                            <option value="00/100">00/100</option>
-                                            <option value="10/90">10/90</option>
-                                            <option value="20/80">20/80</option>
-                                            <option value="30/70">30/70</option>
-                                            <option value="40/60">40/60</option>
-                                            <option value="50/50">50/50</option>
-                                            <option value="60/40">60/40</option>
-                                            <option value="70/30">70/30</option>
-                                            <option value="80/20">80/20</option>
-                                            <option value="90/10">90/10</option>
-                                            <option value="100/00">100/00</option>
-                                        </select>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-
-
-                    <input className="confirm_button" type="submit" value="Confirmar" />
-                    <button className="cancel_button" onClick={redirecionarPedido}>Cancelar</button>
-                </form>
-            </div>
-        </>
-
-    )
+                        <button type="button" onClick={redirecionarPedido} className="cancel_button">Voltar</button>
+                        
+                    </form>
+                </div>
+            </>
+    
+        )
+    }
+    
 }
 
 export default CadPedido
