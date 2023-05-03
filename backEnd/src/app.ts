@@ -248,13 +248,13 @@ app.post('/postQuantitativa',async (req, res) => {
 })
 
 //========================= Análise Qualitativa =========================
-app.post('/postQualitativa', async (req, res) => {
-    let {laudo, avaria, umidade} = req.body.post
-    let analiseQualitativa = new AnaliseQualitativa(laudo, avaria, umidade)
+// app.post('/postQualitativa', async (req, res) => {
+//     let {id, tipo, descricao, valor} = req.body.post
+//     let analiseQualitativa = new AnaliseQualitativa(tipo, descricao, valor)
 
-    await bd.inserirAnaliseQualitativa(analiseQualitativa)
-})
+//     await bd.inserirAnaliseQualitativa(id, analiseQualitativa)
+// })
 
-app.listen(8080, () => {
-    console.log(`servidor rodando em http://localhost:8080`);
+app.listen(8000, () => {
+    console.log(`servidor rodando em http://localhost:8000`);
 });
