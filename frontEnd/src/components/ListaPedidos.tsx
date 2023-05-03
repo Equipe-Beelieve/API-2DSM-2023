@@ -134,6 +134,7 @@ function ListaPedidos(){
         }
     },[renderizou])
 
+
     return(
         <>
         <NavBar />
@@ -162,8 +163,7 @@ function ListaPedidos(){
                 onKeyUp= {(evento) => atualizarBusca(busca)} />
             </div>
             {pedidosBuscados.map((pedido, index) =>(
-                <div className='listaOut' key={index} onClick={() =>{selecionaPedido(pedido.ped_codigo, pedido.ped_status)}}>
-                    <div className="listaIn">
+                    <div className="listaIn" key={index} onClick={() =>{selecionaPedido(pedido.ped_codigo, pedido.ped_status)}}>
                         <h1>Pedido nº{pedido.ped_codigo} - {pedido.ped_descricao} ({pedido.ped_razao_social})</h1>
                         <div className="listColumns">
                             <div className="column1">
@@ -172,7 +172,6 @@ function ListaPedidos(){
                                 <p>Data de entrega: {pedido.ped_data_entrega}</p>
                                 <p>Estado do pedido: {pedido.ped_status}</p>
                             </div>
-                        </div>
                     </div>
                 </div>
             ))

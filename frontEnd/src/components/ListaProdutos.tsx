@@ -92,8 +92,7 @@ function ListaProdutos(){
                 onKeyUp= {(evento) => atualizarBusca(busca)} />
             </div>
             {produtosBuscados.map((produto, index)=>(
-                <div className = "listaOut" key = {index}>
-                    <div className = "listaIn">
+                    <div className = "listaIn" key = {index}>
                         <h1>
                             Produto nº{produto.prod_codigo}
                         </h1>
@@ -103,7 +102,7 @@ function ListaProdutos(){
                                 <p>Unidade de medida: {produto.prod_unidade_medida}</p>
                             </div>
                         </div>
-                    </div>
+
 
                 </div>
             ))

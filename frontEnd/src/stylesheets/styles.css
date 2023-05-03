@@ -95,32 +95,21 @@
 }
 
 
-.listaOut {
-  background-color: #D9D9D9;
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2vh 0;
-  padding: 1.5vh 0;
-  cursor: pointer;
-  /* padding-top: 2vh;
-  padding-bottom: 2vh;
-  padding-left: 2vw;
-  margin-left: 35%;
-  margin-bottom: 1%; */
-}
-
 .listaIn {
   background-color: #C0C0C0;
 
-  width: 98%;
+  margin: 2vh 0;
+  cursor: pointer;
+  width: 80%;
   padding-top: 1%;
   padding-left: 1%;
   padding-bottom: 0.5%;
   padding-right: 1%;
 
   font-weight: bold;
+  border-style: solid;
+  border-color: #D9D9D9;
+  border-width: 1vw;
 }
 
 /*Colunas para os campos de listagem*/
@@ -350,6 +339,50 @@ p.solid {
   margin-right: 2.5vw;
 }
 
+.box3 {
+  margin-left: 27%;
+  justify-content: space-between;
+  width: 45%;
+  background-color: #FFEF78;
+  border-radius: 7px;
+}
+
+
+.box3 .mainTitle {
+  align-items: center;
+  font-size: 2vw;
+  margin-top: 4vh;
+  font-weight: bold;
+}
+
+.box3 a{
+  text-decoration: none;
+  color: #000000;
+}
+
+.box3 .minimo .input_form{
+  width: 205px;
+  background-color: #C0C0C0;
+  border-color: transparent;
+}
+
+.box3 .minimo span{
+  background-color: #C0C0C0;
+  width: 70px;
+}
+
+.box3 .avaria .input_form{
+  background-color: #C0C0C0;
+  border-color: transparent;
+  width: 75px;
+}
+
+.box3 .avaria span{
+  background-color: #C0C0C0;
+  border-color: transparent;
+  width: 79px;
+}
+
 .flash {
   --toastify-icon-color-error: #3e813b;
 }
@@ -369,3 +402,4 @@ p.solid {
 	vertical-align: baseline;
   text-decoration: none;
 }
+

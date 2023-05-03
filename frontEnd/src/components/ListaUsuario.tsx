@@ -101,8 +101,7 @@ function ListaUsuario(){
                 onKeyUp= {(evento) => atualizarBusca(busca)} />
             </div>
             {usuariosBuscados.map((usuario, index) => (
-                <div className='listaOut' key={index}>
-                    <div className="listaIn">
+                    <div className="listaIn" key={index}>
                         <h1>
                             Matricula nº{usuario.us_matricula}
                         </h1>
@@ -117,7 +116,6 @@ function ListaUsuario(){
                             </div>
                         </div>
                     </div>
-                </div>
             ))
             }
         </div>
