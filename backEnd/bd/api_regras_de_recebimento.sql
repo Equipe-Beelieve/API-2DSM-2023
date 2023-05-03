@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `api` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `api`;
--- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
 -- Host: localhost    Database: api
 -- ------------------------------------------------------
--- Server version	8.0.32
+-- Server version	8.0.33
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,10 +26,13 @@ DROP TABLE IF EXISTS `regras_de_recebimento`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `regras_de_recebimento` (
   `reg_codigo` int NOT NULL AUTO_INCREMENT,
-  `reg_umidade` varchar(3) DEFAULT NULL,
-  `reg_pureza` varchar(3) DEFAULT NULL,
-  `reg_avaria` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`reg_codigo`)
+  `reg_tipo` varchar(50) DEFAULT NULL,
+  `reg_valor` varchar(100) DEFAULT NULL,
+  `reg_obrigatoriedade` varchar(3) DEFAULT NULL,
+  `prod_codigo` int NOT NULL,
+  PRIMARY KEY (`reg_codigo`),
+  KEY `fk_produto_codigo` (`prod_codigo`),
+  CONSTRAINT `fk_produto_codigo` FOREIGN KEY (`prod_codigo`) REFERENCES `produto` (`prod_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-29 17:49:00
+-- Dump completed on 2023-05-03 17:51:01
