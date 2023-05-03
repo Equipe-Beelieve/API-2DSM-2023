@@ -242,18 +242,19 @@ app.post('/updateNota', async (req,res) => {
 //========================= Análise Quantitativa =========================
 
 app.post('/postQuantitativa',async (req, res) => {
-    let {id, pesagem} = req.body.post
+    let {id, pesagem} = req.body
     await bd.inserirAnaliseQuantitativa(id, pesagem)
 
 })
 
 //========================= Análise Qualitativa =========================
-// app.post('/postQualitativa', async (req, res) => {
-//     let {id, tipo, descricao, valor} = req.body.post
-//     let analiseQualitativa = new AnaliseQualitativa(tipo, descricao, valor)
+app.post('/postQualitativa', async (req, res) => {
+    let {id, tipo, descricao, valor} = req.body
+    console.log(req.body)
+    let analiseQualitativa = new AnaliseQualitativa(tipo, descricao, valor)
 
-//     await bd.inserirAnaliseQualitativa(id, analiseQualitativa)
-// })
+    await bd.inserirAnaliseQualitativa(id, analiseQualitativa)
+})
 
 app.listen(8000, () => {
     console.log(`servidor rodando em http://localhost:8000`);
