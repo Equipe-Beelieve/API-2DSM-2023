@@ -249,9 +249,9 @@ app.post('/postQuantitativa',async (req, res) => {
 
 //========================= Análise Qualitativa =========================
 app.post('/postQualitativa', async (req, res) => {
-    let {id, tipo, descricao, valor} = req.body
+    let {id, tipo, valor, avaria} = req.body
     console.log(req.body)
-    let analiseQualitativa = new AnaliseQualitativa(tipo, descricao, valor)
+    let analiseQualitativa = new AnaliseQualitativa(tipo, valor, avaria)
 
     await bd.inserirAnaliseQualitativa(id, analiseQualitativa)
 })

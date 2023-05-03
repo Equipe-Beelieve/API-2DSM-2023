@@ -16,9 +16,9 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'api', //sua senha
+                password: '', //sua senha
                 database: 'api', //base de dados do api
-                port: 3308
+                port: 3306
             })
             //o método tenta se conectar com o banco na sua máquina utilizando as informações passadas
         } catch(erro) {
@@ -209,7 +209,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     async inserirAnaliseQuantitativa(id:string, pesagem:string){
         await this.conectar()
         let [prod_codigo] = await this.conexao.query(`SELECT prod_codigo FROM produto WHERE prod_descricao = (SELECT ped_descricao FROM pedido WHERE ped_codigo=${id})`) as Array<any>
-        await this.conexao.query(`INSERT INTO parametros_do_pedido(prod_codigo, ped_codigo, tipo, descricao, valor) VALUES(${prod_codigo[0].prod_codigo}, ${id}, "Análise Quantitativa", "Pesagem", "${pesagem}")`)
+        await this.conexao.query(`INSERT INTO parametros_do_pedido(regra_tipo, regra_valor, prod_codigo, ped_codigo) VALUES("Análise Quantitativa", "${pesagem}", ${prod_codigo[0].prod_codigo}, ${id})`)
         await this.conexao.end()
     }
 
@@ -256,8 +256,13 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     async inserirAnaliseQualitativa(id: string, analiseQualitativa: AnaliseQualitativa){
         await this.conectar()
         let [prod_codigo] = await this.conexao.query(`SELECT prod_codigo FROM produto WHERE prod_descricao = (SELECT ped_descricao FROM pedido WHERE ped_codigo=${id})`)  as Array<any>
-        await this.conexao.query(`INSERT INTO parametros_do_pedido(prod_codigo, ped_codigo, tipo, descricao, valor) VALUES(${prod_codigo[0].prod_codigo}, ${id}, ?, ?, ?)`,
-        [analiseQualitativa['tipo'], analiseQualitativa['descricao'], analiseQualitativa['valor']])
+        await this.conexao.query(`INSERT INTO parametros_do_pedido(regra_tipo, regra_valor, prod_codigo, ped_codigo) VALUES(?, ?, ${prod_codigo[0].prod_codigo}, ${id})`,
+        [analiseQualitativa['tipo'], analiseQualitativa['valor']])
+        if(analiseQualitativa['avaria'] != undefined && analiseQualitativa['avaria'] != ''){
+            let [par_codigo] = await this.conexao.query(`SELECT par_codigo FROM parametros_do_pedido WHERE par_codigo = (SELECT LAST_INSERT_ID())`)  as Array<any>
+            await this.conexao.query(`INSERT INTO avaria_comentario(av_comentario, par_codigo) VALUES(?, ${par_codigo[0].par_codigo})`,
+            analiseQualitativa['avaria'])
+        }
         await this.conexao.end()
     }
 }

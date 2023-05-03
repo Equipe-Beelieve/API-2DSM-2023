@@ -1,11 +1,11 @@
 export default class AnaliseQualitativa{
     private tipo: string
-    private descricao: string
     private valor: string
+    private avaria: string
 
-    constructor(tipo: string, descricao: string, valor: string){
+    constructor(tipo: string, valor: string, avaria: string){
         this.tipo = tipo
-        this.descricao = descricao
         this.valor = valor
+        this.avaria = avaria
     }
 }
