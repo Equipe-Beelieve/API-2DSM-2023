@@ -86,6 +86,38 @@ function CadProduto() {
                             </table>
                         </div>
                     </div>
+
+                    <div className='box3'>
+                        <h1 className='mainTitle'>Regras de Recebimento</h1>
+                        <br /><br />
+                        <div className='minimo'>
+                            <label>Tipo de Regra:</label>
+                            <select className='input_form' name="unidadeMedida" id="unidadeMedida" disabled>
+                                <option value=""></option>
+                                <option value="minimo" selected>Minimo de <br /> Conformidade</option>
+                            </select>
+
+                            <label>Limitação:</label>
+                            <span>2 regras</span>
+                            <label>Obrigatória:</label>
+                            <input type="checkbox" className='checkbox' />
+                            <br /><br />
+                        </div>
+                        <div className='avaria'>
+                            <label>Tipo de Regra:</label>
+                            <select className='input_form' name="unidadeMedida" id="unidadeMedida" disabled>
+                                <option value=""></option>
+                                <option value="avaria" selected>Avarias</option>
+                            </select>
+                            <label>Limitação:</label>
+                            <span>Não deve Haver</span>
+                            <label>Obrigatória:</label>
+                            <input type="checkbox" className='checkbox' />
+                            <br /><br />
+                        </div>
+
+                        <a href="">Adicionar mais regras</a>
+                    </div>
                     <div className="grid-container poscentralized">
                         <input className="confirm_button" type="submit" value="Confirmar" />
                         <div className='button_margin'><button className="cancel_button">
