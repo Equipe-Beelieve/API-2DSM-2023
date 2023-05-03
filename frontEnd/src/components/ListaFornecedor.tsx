@@ -101,8 +101,7 @@ function ListaFornecedor(){
                 onKeyUp= {(evento) => atualizarBusca(busca)} />
             </div>
             {fornecedoresBuscados.map((fornecedor, index) => (
-                <div className='listaOut' key={index}>
-                    <div className="listaIn">
+                    <div className="listaIn" key={index}>
                         <h1>Fornecedor nº{fornecedor.for_codigo}</h1>
                         <div className="listColumns">
                             <div className="column1_for">
@@ -112,7 +111,6 @@ function ListaFornecedor(){
                             <div className="column2">
                                 <p>CNPJ: {fornecedor.for_cnpj}</p>
                                 <p>CEP: {fornecedor.end_cep}</p>
-                            </div>
                         </div>
                     </div>
                 </div>
