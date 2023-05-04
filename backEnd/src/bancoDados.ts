@@ -169,7 +169,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         return prod_cod
     }
 
-    async inserirRegrasRecebimento(tipo_regra:string, valor:string, obrigatoriedade:string, codigo_produto:number) {
+    async inserirRegrasRecebimento(tipo_regra:string, valor:string, obrigatoriedade:boolean, codigo_produto:number) {
         await this.conectar()
         await this.conexao.query('INSERT INTO regras_de_recebimento(reg_tipo, reg_valor, reg_obrigatoriedade, prod_codigo) VALUES(?, ?, ?, ?)', [tipo_regra, valor, obrigatoriedade, codigo_produto])
         await this.conexao.end()

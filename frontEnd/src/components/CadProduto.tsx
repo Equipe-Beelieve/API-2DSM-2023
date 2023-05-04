@@ -3,6 +3,7 @@ import api from '../services/api'
 import NavBar from './NavBar'
 import { Link, redirect, useNavigate } from 'react-router-dom'
 import verificaLogado from '../funcoes/verificaLogado'
+import ListaProdutos from './ListaProdutos'
 
 interface Regra{
     tipo:string,
@@ -14,7 +15,9 @@ function CadProduto() {
 
     const [descricao, setDescricao] = useState('')
     const [unidadeMedida, setUnidadeMedida] = useState('')
-    const [regras, setRegras] = useState<Regra[]>([{tipo:'Mínimo de conformidade', valor:'', obrigatoriedade:true}, {tipo:'Avaria', valor:'Não deve haver', obrigatoriedade:true}])
+    const [regras, setRegras] = useState<Regra[]>([{tipo:'Mínimo de conformidade', valor:'', obrigatoriedade:true},
+    {tipo:'Avaria', valor:'Não deve haver', obrigatoriedade:true},
+    {tipo:'', valor:'', obrigatoriedade:false}])
     const [render, setRender] = useState(0)
 
     const navigate = useNavigate()
@@ -50,6 +53,9 @@ function CadProduto() {
         console.log(regras[id].obrigatoriedade)
     }
 
+    function redirecionarProduto(){
+        navigate('/listaProdutos')
+    }
 
     useEffect(() => {
         async function veLogado() {
@@ -67,11 +73,12 @@ function CadProduto() {
 
     async function cadastroProduto(evento: any) {
         evento.preventDefault()
+        let regra = [regras[2]]
         //dados de teste/modelo dos dados de inserção de regra de recebimento
         /* const regrasRecebimento = [{tipo: 'umidade', valor:'<10%', obrigatoriedade:'sim'}, 
         {tipo: 'avarias', valor:'não deve haver', obrigatoriedade:'não'}, 
         {tipo: 'pureza', valor:'>=90%', obrigatoriedade:'sim'}] */ 
-        const post = { descricao, unidadeMedida}
+        const post = { descricao, unidadeMedida, regra}
         navigate('/listaProdutos')
         await api.post('/cadastroProduto', { post })
     }
@@ -188,10 +195,9 @@ function CadProduto() {
                         <a href="">Adicionar mais regras</a>
                     </div>
                     <div className="grid-container poscentralized">
-                        <input className="confirm_button" type="submit" value="Confirmar" />
-                        <div className='button_margin'><button className="cancel_button">
-                            <Link to={"/listaProdutos"}>Cancelar</Link>
-                        </button>
+                        <button type='button' onClick={cadastroProduto}>Cadastrar</button>
+                        <div className='button_margin'>
+                            <button className="cancel_button" onClick={redirecionarProduto}>Cancelar</button>
                         </div>
                     </div>
                 </form>

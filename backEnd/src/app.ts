@@ -146,8 +146,10 @@ app.post('/cadastroUsuario', async (req,res) => {
 
 //========================= Cadastro de Produtos =========================
 app.post('/cadastroProduto', async (req, res) => {
-    let {descricao, unidadeMedida, regrasRecebimento} = req.body.post
-    //console.log(regrasRecebimento)
+    let regrasRecebimento = req.body.post.regra
+    let descricao = req.body.post.descricao
+    let unidadeMedida = req.body.post.unidadeMedida
+    console.log(regrasRecebimento)
     let produto = new Produto(descricao, unidadeMedida)
     let codigoProduto = await bd.inserirProduto(produto)
     regrasRecebimento.forEach(async (regra:Regra) => {
