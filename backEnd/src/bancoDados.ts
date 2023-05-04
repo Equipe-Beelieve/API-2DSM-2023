@@ -259,6 +259,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     async updatePedido(pedido:Pedido, id:string){
         await this.conectar()
         await this.conexao.query(`UPDATE pedido SET ped_razao_social = '${pedido['razao_social']}', ped_transportadora = '${pedido['transportadora']}', ped_tipo_frete = '${pedido['tipo_frete']}', ped_produto_massa = '${pedido['produto_massa']}', ped_descricao = '${pedido['descricao']}', ped_valor_unidade = '${pedido['valor_unidade']}', ped_valor_total = '${pedido['valor_total']}', ped_data_entrega = '${pedido['data_entrega']}', ped_data_pedido = '${pedido['data_pedido']}', ped_condicao_pagamento = '${pedido['condicao_pagamento']}' WHERE ped_codigo = ${id}`)
+        await this.conexao.end()
     }
 
     async inserirAnaliseQualitativa(id: string, analiseQualitativa: AnaliseQualitativa){
