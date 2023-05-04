@@ -403,3 +403,20 @@ p.solid {
   text-decoration: none;
 }
 
+/* botão */
+.lista_button {
+  border-radius: 5px;
+  border-color: transparent;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: large;
+}
+
+.lista_button:focus {
+  background:#3e813b;
+  color:white;
+}
