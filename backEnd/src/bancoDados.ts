@@ -1,5 +1,5 @@
 import * as mysql from 'mysql2/promise' //importando os módulos necessários
-import { RowDataPacket } from 'mysql2'; //é responsável por reconhecer o tipo de dados retorndos por determinada consulta 
+import { RowDataPacket, OkPacket } from 'mysql2'; //é responsável por reconhecer o tipo de dados retorndos por determinada consulta 
 import Endereco from './Endereco.js'
 import Fornecedor from './Fornecedor.js'
 import Pedido from './Pedido.js'
@@ -163,7 +163,15 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async inserirProduto(produto:Produto) { 
         await this.conectar()
-        await this.conexao.query('INSERT INTO produto(prod_descricao, prod_unidade_medida) VALUES(?, ?)', [produto['descricao'], produto['unidade_medida']]) 
+        let [insert, fields]:[mysql.OkPacket, mysql.FieldPacket[]] = await this.conexao.query('INSERT INTO produto(prod_descricao, prod_unidade_medida) VALUES(?, ?)', [produto['descricao'], produto['unidade_medida']]) 
+        let prod_cod = insert.insertId
+        await this.conexao.end()
+        return prod_cod
+    }
+
+    async inserirRegrasRecebimento(tipo_regra:string, valor:string, obrigatoriedade:string, codigo_produto:number) {
+        await this.conectar()
+        await this.conexao.query('INSERT INTO regras_de_recebimento(reg_tipo, reg_valor, reg_obrigatoriedade, prod_codigo) VALUES(?, ?, ?, ?)', [tipo_regra, valor, obrigatoriedade, codigo_produto])
         await this.conexao.end()
     }
 

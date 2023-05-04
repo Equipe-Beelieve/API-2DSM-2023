@@ -10,6 +10,7 @@ import session from 'express-session';
 import Produto from "./Produto.js";
 import NotaFiscal from "./NotaFiscal.js";
 import AnaliseQualitativa from "./Analisequalitativa.js";
+import Regra from "./RegraRecebimento.js";
 
 declare module 'express-session' {
     export interface SessionData {
@@ -145,9 +146,17 @@ app.post('/cadastroUsuario', async (req,res) => {
 
 //========================= Cadastro de Produtos =========================
 app.post('/cadastroProduto', async (req, res) => {
-    let {descricao, unidadeMedida} = req.body.post
+    let {descricao, unidadeMedida, regrasRecebimento} = req.body.post
+    //console.log(regrasRecebimento)
     let produto = new Produto(descricao, unidadeMedida)
-    await bd.inserirProduto(produto)
+    let codigoProduto = await bd.inserirProduto(produto)
+    regrasRecebimento.forEach(async (regra:Regra) => {
+        const tipoRegra = regra.tipo
+        const descricaoRegra = regra.valor
+        const obrigatoriedade = regra.obrigatoriedade
+        await bd.inserirRegrasRecebimento(tipoRegra,  descricaoRegra, obrigatoriedade,  codigoProduto)
+    });
+    
 })
 
 
@@ -181,7 +190,6 @@ app.get('/listaProdutos', async (req, res) => {
 //================================== Rotas de etapas de recebimento ==================================
 
 //========================= Confere Status ==============================
-
 app.post('/confereStatus', async (req, res) =>{
     let {id, acessando} = req.body
     console.log(id, acessando)
@@ -256,6 +264,6 @@ app.post('/postQualitativa', async (req, res) => {
     await bd.inserirAnaliseQualitativa(id, analiseQualitativa)
 })
 
-app.listen(8000, () => {
-    console.log(`servidor rodando em http://localhost:8000`);
+app.listen(8080, () => {
+    console.log(`servidor rodando em http://localhost:8080`);
 });

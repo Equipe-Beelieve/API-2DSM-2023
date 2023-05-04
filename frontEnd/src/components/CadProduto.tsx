@@ -28,7 +28,11 @@ function CadProduto() {
 
     async function cadastroProduto(evento: any) {
         evento.preventDefault()
-        const post = { descricao, unidadeMedida }
+        //dados de teste/modelo dos dados de inserção de regra de recebimento
+        /* const regrasRecebimento = [{tipo: 'umidade', valor:'<10%', obrigatoriedade:'sim'}, 
+        {tipo: 'avarias', valor:'não deve haver', obrigatoriedade:'não'}, 
+        {tipo: 'pureza', valor:'>=90%', obrigatoriedade:'sim'}] */ 
+        const post = { descricao, unidadeMedida}
         navigate('/listaProdutos')
         await api.post('/cadastroProduto', { post })
     }
