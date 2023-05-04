@@ -14,6 +14,9 @@
   ],
   "strictPropertyInitialization": false, //tive que desativar para conseguir utilizar os métodos que utilizam banco de dados
   },
+  "ts-node": {
+    "esm": true,
+  },
   "include": [
     "src/**/*"
 , "out/app.js"  ]

@@ -9,6 +9,7 @@ import cors from 'cors'
 import session from 'express-session';
 import Produto from "./Produto.js";
 import NotaFiscal from "./NotaFiscal.js";
+import AnaliseQualitativa from "./Analisequalitativa.js";
 import Regra from "./RegraRecebimento.js";
 
 declare module 'express-session' {
@@ -113,8 +114,10 @@ app.get('/cadastroPedido', async (req, res) => {
 })
 
 app.post('/postCadastroPedido', async (req,res) => {
-    let {produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento} = req.body.post
-    let pedido = new Pedido(produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento)
+    let {produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, 
+        quantidade, precoTotal, frete, transportadora, condicaoPagamento} = req.body.post
+    let pedido = new Pedido(produto, dataPedido, dataEntrega, razaoSocial, 
+        precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento)
     await bd.inserirPedido(pedido) //método da clase bancoDados para inserir na tabela pedido
 
 });
@@ -247,11 +250,19 @@ app.post('/updateNota', async (req,res) => {
 //========================= Análise Quantitativa =========================
 
 app.post('/postQuantitativa',async (req, res) => {
-    let {id, pesagem} = req.body.post
+    let {id, pesagem} = req.body
     await bd.inserirAnaliseQuantitativa(id, pesagem)
 
 })
 
+//========================= Análise Qualitativa =========================
+app.post('/postQualitativa', async (req, res) => {
+    let {id, tipo, valor, avaria} = req.body
+    console.log(req.body)
+    let analiseQualitativa = new AnaliseQualitativa(tipo, valor, avaria)
+
+    await bd.inserirAnaliseQualitativa(id, analiseQualitativa)
+})
 
 app.listen(8080, () => {
     console.log(`servidor rodando em http://localhost:8080`);
