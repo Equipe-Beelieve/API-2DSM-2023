@@ -274,5 +274,11 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         }
         await this.conexao.end()
     }
+
+    async deletePedido(id: string) {
+        await this.conectar()
+        await this.conexao.query(`DELETE FROM pedido WHERE ped_codigo = ${id}`)
+        await this.conexao.end()
+      }
 }
 
