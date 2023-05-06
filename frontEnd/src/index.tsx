@@ -9,8 +9,8 @@ import reportWebVitals from './reportWebVitals';
 import CadFornecedor from './components/CadFornecedor';
 
 
-import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
-import NavBar from './components/NavBar';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+//import NavBar from './components/NavBar';
 import ListaPedidos from './components/ListaPedidos';
 import CadPedido from './components/CadPedido';
 import ListaFornecedor from './components/ListaFornecedor';
@@ -21,6 +21,7 @@ import ListaProdutos from './components/ListaProdutos';
 import CadUsuario from './components/CadUsuario';
 import RecebimentoPedido from './components/RecebimentoPedido';
 import AnaliseQuant from './components/AnaliseQuant';
+import AnaliseQuali from './components/AnaliseQuali';
 
 
 const router = createBrowserRouter([
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
       {
         path: "/analiseQuant/:id",
         element: <AnaliseQuant/>
+      },
+      {
+        path: "/analiseQuali/:id",
+        element: <AnaliseQuali/>
       }
     ]
   }

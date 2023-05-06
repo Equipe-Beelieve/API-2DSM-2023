@@ -251,15 +251,25 @@ app.post('/updateNota', async (req,res) => {
 })
 //========================= Análise Quantitativa =========================
 
-app.post('/postQuantitativa',async (req, res) => {
+app.post('/postQuantitativa', async (req, res) => {
     let {id, pesagem} = req.body
     await bd.inserirAnaliseQuantitativa(id, pesagem)
 
 })
 
 //========================= Análise Qualitativa =========================
-app.post('/postQualitativa', async (req, res) => {
-    let {id, tipo, valor, avaria} = req.body
+app.get('/analiseQuali/:id', async (req, res) => {
+    let id = req.params.id
+    let pedido = await bd.pegaRelatorioCompras(id)
+    let produto = pedido.pegarDescricao.toString()
+    let codigoProduto = await bd.pegarCodigo('prod_codigo', 'produto', 'prod_descricao', produto)
+    let regras = await bd.pegaRegraRecebimento(codigoProduto.toString())
+    res.send(regras)
+})
+
+app.post('/postQualitativa/:id', async (req, res) => {
+    let id = req.params.id
+    let {tipo, valor, avaria} = req.body
     console.log(req.body)
     let analiseQualitativa = new AnaliseQualitativa(tipo, valor, avaria)
 
