@@ -17,7 +17,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'root', //sua senha
+                password: 'Meusequel@d0', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -51,7 +51,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         let [consulta] = await this.conexao.query(`SELECT ${codigo} FROM ${tabela} WHERE ${campo} = "${condicao}"`) as Array<any>
         let linha = consulta[0]
         await this.conexao.end()
-        console.log(linha)
+        //console.log(linha)
         if (linha){
             return linha[codigo]
         }
@@ -120,8 +120,8 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     }
 
     async inserirFornecedor(fornecedor:Fornecedor, endereco:Endereco) {
-        await this.conectar()
         let end_codigo = await this.inserirEndereco(endereco)
+        await this.conectar()
         await this.conexao.query('INSERT INTO fornecedor(for_cnpj, end_codigo, for_razao_social, for_nome_fantasia)'+
             'VALUES(?, ?, ?, ?)', [fornecedor['cnpj'], end_codigo, fornecedor['razao_social'], fornecedor['nome_fantasia']])
         await this.conexao.end()
@@ -240,11 +240,19 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         return dado[0]
     }
 
-    async pegaRelatorioCompras(id:string){
+    async pegaRelatorioCompras(id:string):Promise<Pedido> {
         await this.conectar()
         let [dado] = await this.conexao.query(`Select ped_razao_social, ped_transportadora, ped_tipo_frete, ped_produto_massa, ped_descricao, ped_valor_unidade, ped_valor_total, ped_data_entrega, ped_data_pedido, ped_condicao_pagamento FROM pedido WHERE ped_codigo =${id}`) as Array<any>
         await this.conexao.end()
-        return dado[0]
+        const [pedido] = dado.map((linha:any) => new Pedido(linha.ped_descricao, linha.ped_data_pedido, linha.ped_data_entrega, linha.ped_razao_social, linha.ped_valor_unidade, linha.ped_produto_massa, linha.ped_valor_total, linha.ped_tipo_frete, linha.ped_transportadora, linha.ped_condicao_pagamento))
+        return pedido
+    }
+
+    async pegaRegraRecebimento(id:string) {
+        await this.conectar()
+        let [regras, meta] = await this.conexao.query(`SELECT reg_codigo, reg_tipo, reg_valor, reg_obrigatoriedade FROM regras_de_recebimento WHERE prod_codigo = ${id}`)
+        await this.conexao.end()
+        return regras
     }
 
     
@@ -261,6 +269,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         }
         await this.conexao.end()
     }
+
 
 
     //===================== UPDATE =====================
@@ -297,6 +306,14 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conexao.end()
     }
 
+
+//===================== Delete =====================
+
+    async deletePedido(id: string) {
+        await this.conectar()
+        await this.conexao.query(`DELETE FROM pedido WHERE ped_codigo = ${id}`)
+        await this.conexao.end()
+      }
 
 }
 
