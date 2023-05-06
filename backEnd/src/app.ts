@@ -272,13 +272,15 @@ app.get('/analiseQuali/:id', async (req, res) => {
     res.send(regras)
 })
 
-app.post('/postQualitativa/:id', async (req, res) => {
-    let id = req.params.id
-    let {tipo, valor, avaria} = req.body
-    console.log(req.body)
-    let analiseQualitativa = new AnaliseQualitativa(tipo, valor, avaria)
-
-    await bd.inserirAnaliseQualitativa(id, analiseQualitativa)
+app.post('/postQualitativa', async (req, res) => {
+    let {id, analises} = req.body.post
+    //console.log(analises)
+    analises.forEach(async (analise:AnaliseQualitativa) => {
+        await bd.inserirAnaliseQualitativa(id, analise)
+    })
+    
+    //let analiseQualitativa = new AnaliseQualitativa(tipo, valor, avaria)
+    //await bd.inserirAnaliseQualitativa(id, analiseQualitativa)
 })
 
 app.post('/updateQualitativa', async (req, res) =>{
