@@ -264,6 +264,9 @@ function CadPedido() {
         if (id){
             veStatus()
         }
+        else{
+            setMudanca('Primeira vez')
+        }
     },[])
 
     useEffect(() => {

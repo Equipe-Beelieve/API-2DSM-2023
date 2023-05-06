@@ -257,6 +257,11 @@ app.post('/postQuantitativa',async (req, res) => {
 
 })
 
+app.post('/updateQuantitativa', async (req, res) => {
+    let {id, pesagem} = req.body
+    await bd.updateQuantitativa(id, pesagem)
+})
+
 //========================= Análise Qualitativa =========================
 app.post('/postQualitativa', async (req, res) => {
     let {id, tipo, valor, avaria} = req.body
@@ -264,6 +269,12 @@ app.post('/postQualitativa', async (req, res) => {
     let analiseQualitativa = new AnaliseQualitativa(tipo, valor, avaria)
 
     await bd.inserirAnaliseQualitativa(id, analiseQualitativa)
+})
+
+app.post('/updateQualitativa', async (req, res) =>{
+    let {id, qualitativa} = req.body
+    console.log(qualitativa)
+    await bd.updateQualitativa(id, qualitativa)
 })
 
 app.listen(8080, () => {

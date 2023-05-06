@@ -3,6 +3,7 @@ import { RowDataPacket, OkPacket } from 'mysql2'; //é responsável por reconhec
 import Endereco from './Endereco.js'
 import Fornecedor from './Fornecedor.js'
 import Pedido from './Pedido.js'
+import Qualitativa from './RegraRecebimento.js'
 import Usuario from './Usuario.js'
 import Produto from './Produto.js'
 import NotaFiscal from './NotaFiscal.js';
@@ -196,17 +197,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conexao.end()
         await this.mudaStatus(nf['codigo_pedido'], 'Análise Quantitativa')
     }
-    async updateNF(nf:NotaFiscal) { 
-        await this.conectar()
-        if (nf['codigo_fornecedor'] !== 0){
-            await this.conexao.query(`UPDATE nota_fiscal SET nf_razao_social = '${nf['razao_social']}', nf_data_emissao = '${nf['data_pedido'].slice(0, 10)}', nf_data_entrega = '${nf['data_entrega'].slice(0, 10)}', nf_transportadora = '${nf['transportadora']}', nf_produto_massa = '${nf['produto_massa']}', nf_tipo_frete = '${nf['tipo_frete']}', nf_produto_descricao = '${nf['descricao']}', nf_valor_total = '${nf['valor_total']}', nf_valor_unidade = '${nf['valor_unidade']}', for_codigo = ${nf['codigo_fornecedor']}, nf_condicao_pagamento = '${nf['condicao_pagamento']}', nf_unidade = '${nf['unidade']}'  WHERE ped_codigo = ${nf['codigo_pedido']}`)
-        }
-        else{
-            await this.conexao.query(`UPDATE nota_fiscal SET nf_razao_social = '${nf['razao_social']}', nf_data_emissao = '${nf['data_pedido'].slice(0, 10)}', nf_data_entrega = '${nf['data_entrega'].slice(0, 10)}', nf_transportadora = '${nf['transportadora']}', nf_produto_massa = '${nf['produto_massa']}', nf_tipo_frete = '${nf['tipo_frete']}', nf_produto_descricao = '${nf['descricao']}', nf_valor_total = '${nf['valor_total']}', nf_valor_unidade = '${nf['valor_unidade']}', nf_condicao_pagamento = '${nf['condicao_pagamento']}', nf_unidade = '${nf['unidade']}'  WHERE ped_codigo = ${nf['codigo_pedido']}`)
-
-        }
-        await this.conexao.end()
-    }
+    
 
     async mudaStatus(codigo:number, status:string){
         await this.conectar()
@@ -256,11 +247,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         return dado[0]
     }
 
-    async updatePedido(pedido:Pedido, id:string){
-        await this.conectar()
-        await this.conexao.query(`UPDATE pedido SET ped_razao_social = '${pedido['razao_social']}', ped_transportadora = '${pedido['transportadora']}', ped_tipo_frete = '${pedido['tipo_frete']}', ped_produto_massa = '${pedido['produto_massa']}', ped_descricao = '${pedido['descricao']}', ped_valor_unidade = '${pedido['valor_unidade']}', ped_valor_total = '${pedido['valor_total']}', ped_data_entrega = '${pedido['data_entrega']}', ped_data_pedido = '${pedido['data_pedido']}', ped_condicao_pagamento = '${pedido['condicao_pagamento']}' WHERE ped_codigo = ${id}`)
-        await this.conexao.end()
-    }
+    
 
     async inserirAnaliseQualitativa(id: string, analiseQualitativa: AnaliseQualitativa){
         await this.conectar()
@@ -274,5 +261,42 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         }
         await this.conexao.end()
     }
+
+
+    //===================== UPDATE =====================
+
+    async updatePedido(pedido:Pedido, id:string){
+        await this.conectar()
+        await this.conexao.query(`UPDATE pedido SET ped_razao_social = '${pedido['razao_social']}', ped_transportadora = '${pedido['transportadora']}', ped_tipo_frete = '${pedido['tipo_frete']}', ped_produto_massa = '${pedido['produto_massa']}', ped_descricao = '${pedido['descricao']}', ped_valor_unidade = '${pedido['valor_unidade']}', ped_valor_total = '${pedido['valor_total']}', ped_data_entrega = '${pedido['data_entrega']}', ped_data_pedido = '${pedido['data_pedido']}', ped_condicao_pagamento = '${pedido['condicao_pagamento']}' WHERE ped_codigo = ${id}`)
+        await this.conexao.end()
+    }
+
+    async updateNF(nf:NotaFiscal) { 
+        await this.conectar()
+        if (nf['codigo_fornecedor'] !== 0){
+            await this.conexao.query(`UPDATE nota_fiscal SET nf_razao_social = '${nf['razao_social']}', nf_data_emissao = '${nf['data_pedido'].slice(0, 10)}', nf_data_entrega = '${nf['data_entrega'].slice(0, 10)}', nf_transportadora = '${nf['transportadora']}', nf_produto_massa = '${nf['produto_massa']}', nf_tipo_frete = '${nf['tipo_frete']}', nf_produto_descricao = '${nf['descricao']}', nf_valor_total = '${nf['valor_total']}', nf_valor_unidade = '${nf['valor_unidade']}', for_codigo = ${nf['codigo_fornecedor']}, nf_condicao_pagamento = '${nf['condicao_pagamento']}', nf_unidade = '${nf['unidade']}'  WHERE ped_codigo = ${nf['codigo_pedido']}`)
+        }
+        else{
+            await this.conexao.query(`UPDATE nota_fiscal SET nf_razao_social = '${nf['razao_social']}', nf_data_emissao = '${nf['data_pedido'].slice(0, 10)}', nf_data_entrega = '${nf['data_entrega'].slice(0, 10)}', nf_transportadora = '${nf['transportadora']}', nf_produto_massa = '${nf['produto_massa']}', nf_tipo_frete = '${nf['tipo_frete']}', nf_produto_descricao = '${nf['descricao']}', nf_valor_total = '${nf['valor_total']}', nf_valor_unidade = '${nf['valor_unidade']}', nf_condicao_pagamento = '${nf['condicao_pagamento']}', nf_unidade = '${nf['unidade']}'  WHERE ped_codigo = ${nf['codigo_pedido']}`)
+
+        }
+        await this.conexao.end()
+    }
+
+    async updateQuantitativa(id:string, pesagem:string){
+        await this.conectar()
+        await this.conexao.query(`Update parametros_do_pedido SET regra_valor = ${pesagem} WHERE regra_tipo = 'Análise Quantitativa' and ped_codigo = ${id}`)
+        await this.conexao.end()
+    }
+
+    async updateQualitativa(id:string, analise:any){
+        await this.conectar()
+        analise.forEach(async (linha:Qualitativa) => {
+            await this.conexao.query(`Update parametros_do_pedido SET regra_valor = '${linha.valor}' WHERE regra_tipo = '${linha.tipo} and ped_codigo = ${id}`)
+        })
+        await this.conexao.end()
+    }
+
+
 }
 
