@@ -266,9 +266,6 @@ function CadPedido() {
         } else {
             setMudanca('Primeira vez')
         }
-        else{
-            setMudanca('Primeira vez')
-        }
     },[])
 
     useEffect(() => {

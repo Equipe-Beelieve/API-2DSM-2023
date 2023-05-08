@@ -170,6 +170,14 @@ app.get('/listaPedido', async (req,res) =>{
     res.send({tabelaPedidos, funcao})
 })
 
+//========================= deleta Pedidos =========================
+
+app.post('/deletePedido', async (req, res) => {
+    let { post } = req.body;
+    await bd.deletePedido(post);
+    console.log(post);
+  });
+  
 //========================= Listagem de Fornecedores =========================
 app.get("/listaFornecedores", async (req, res) => {
     let tabelaFornecedores = await bd.pegarListaFornecedores()

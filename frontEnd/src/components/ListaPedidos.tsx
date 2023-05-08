@@ -17,6 +17,7 @@ interface Pedido {
 }
 
 function ListaPedidos(){
+    const [id, setId] = useState(null);
     const [pedidos, setPedido] = useState<Pedido[]>([])
     const [funcao, setFuncao] = useState('')
     const [renderizou, setRenderizou] = useState(false)
@@ -37,6 +38,37 @@ function ListaPedidos(){
             console.log(erro)
         }
     }
+
+    async function getIdPedido() {
+        try {
+          const response = await api.get('/listaPedido');
+          const id = response.data.tabelaPedidos[0].ped_codigo;
+          console.log(id);
+          return id;
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      
+      async function deletePedido(id: number) {
+        try {
+          const post = (id); 
+          await api.post('/deletePedido', { post });
+          console.log(post);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      
+
+      async function deletaPedido() {
+        try {
+          const id = await getIdPedido();
+          await deletePedido(id);
+        } catch (error) {
+          console.error(error);
+        }
+      }
 
     function selecionaPedido(id:number, status:string) {
         if (status === 'A caminho'){
@@ -171,6 +203,8 @@ function ListaPedidos(){
                                 <p>Valor total: {pedido.ped_valor_total}</p>
                                 <p>Data de entrega: {pedido.ped_data_entrega}</p>
                                 <p>Estado do pedido: {pedido.ped_status}</p>
+                                <button className='lista_button' onClick = {(evento) => deletaPedido()}>deleta pedido</button>
+
                             </div>
                     </div>
                 </div>
