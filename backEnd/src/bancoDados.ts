@@ -255,19 +255,18 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         return regras
     }
 
-    
-
     async inserirAnaliseQualitativa(id: string, analiseQualitativa: AnaliseQualitativa){
         await this.conectar()
         let [prod_codigo] = await this.conexao.query(`SELECT prod_codigo FROM produto WHERE prod_descricao = (SELECT ped_descricao FROM pedido WHERE ped_codigo=${id})`)  as Array<any>
-        await this.conexao.query(`INSERT INTO parametros_do_pedido(regra_tipo, regra_valor, prod_codigo, ped_codigo) VALUES(?, ?, ${prod_codigo[0].prod_codigo}, ${id})`,
+        let [insert, fields]:[mysql.OkPacket, mysql.FieldPacket[]] = await this.conexao.query(`INSERT INTO parametros_do_pedido(regra_tipo, regra_valor, prod_codigo, ped_codigo) VALUES(?, ?, ${prod_codigo[0].prod_codigo}, ${id})`,
         [analiseQualitativa['tipo'], analiseQualitativa['valor']])
-        if(analiseQualitativa['avaria'] != undefined && analiseQualitativa['avaria'] != ''){
-            let [par_codigo] = await this.conexao.query(`SELECT par_codigo FROM parametros_do_pedido WHERE par_codigo = (SELECT LAST_INSERT_ID())`)  as Array<any>
-            await this.conexao.query(`INSERT INTO avaria_comentario(av_comentario, par_codigo) VALUES(?, ${par_codigo[0].par_codigo})`,
-            analiseQualitativa['avaria'])
+
+        if(analiseQualitativa['avaria'] !== undefined && analiseQualitativa['avaria'] != ''){    
+        //let [par_codigo] = await this.conexao.query(`SELECT par_codigo FROM parametros_do_pedido WHERE par_codigo = (SELECT LAST_INSERT_ID())`)  as Array<any>
+            let par_codigo = insert.insertId
+            await this.conexao.query(`INSERT INTO avaria_comentario(av_comentario, par_codigo) VALUES(?, ${par_codigo})`,
+            [analiseQualitativa['avaria']])
         }
-        await this.conexao.end()
     }
 
 

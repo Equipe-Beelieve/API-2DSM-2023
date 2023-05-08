@@ -122,7 +122,7 @@
 }
 
 .listColumns .column1 {
-  width: 40%;
+  width: 50%;
 }
 
 .listColumns .column1_for {
@@ -419,4 +419,40 @@ p.solid {
 .lista_button:focus {
   background:#3e813b;
   color:white;
+}
+
+.anaq1 {
+  background-color: #D9D9D9;
+  margin: 2vh 0;
+  width: 30vw;
+  padding-top: 1%;
+  padding-left: 1%;
+  padding-bottom: 1%;
+  padding-right: 1%;
+  font-weight: 500;
+}
+
+.anaq2 {
+  background-color: #5D5D5D;
+  color: white;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  width: 20vw;
+  display: inline;
+  margin-right: 2vw;
+} 
+
+.input_form2 {
+  background-color: #C0C0C0;
+  border-color: transparent;
+  width:45%;
+  padding-top: 0.6vh;
+  padding-bottom: 0.6vh;
+}
+
+.uni_quant{
+  font-weight: bold;
+  font-size: 2.5vh;
 }
