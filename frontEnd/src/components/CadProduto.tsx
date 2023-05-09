@@ -143,9 +143,21 @@ function CadProduto() {
     //======================== Mascaras ========================
 
     //OnBlur
+
+    function blurConformidade(evento:any, id:number){
+        let valor = evento.target.value
+        if (valor.slice(-1) !== 's' && valor.length !== 0) {
+            valor = valor + ' regras'
+            let regra = regras
+            regra[id].valor = valor
+            if (!evento.target.selected) {
+                setRender(render + 1)
+            }
+        }
+    }
+
     function blurPureza(evento: any, id: number) {
         let valor = evento.target.value
-        console.log(valor.length)
         if (valor[0] !== '>' && valor.slice(-1) !== '%' && valor.length !== 0) {
             valor = '>' + valor + '%'
             let regra = regras
@@ -174,6 +186,19 @@ function CadProduto() {
     }
 
     //OnSelect
+
+    function selectConformidade(evento:any, id:number){
+        let valor = evento.target.value
+        console.log(valor.slice(-7,-1))
+        if(valor.slice(-7, -1) === ' regra' && valor.length > 0){
+            valor = valor.slice(0, -7)
+            let regra = regras
+            regra[id].valor = valor
+            setRegras(regra)
+            setRender(render + 1)
+        }
+    }
+
     function selectPureza(evento: any, id: number) {
         let valor = evento.target.value
         if (valor[0] === '>' && valor.slice(-1) === '%') {
@@ -250,7 +275,7 @@ function CadProduto() {
             })
 
             if (controle) {
-                const post = { descricao, unidadeMedida, regras }
+                const post = { descricao, unidadeMedida, regras}
                 navigate('/listaProdutos')
                 await api.post('/cadastroProduto', { post })
             }
@@ -343,9 +368,12 @@ function CadProduto() {
                                         </select>
 
                                         <label className='limitacao'>Limitação:</label>
-                                        <input type="text" />
+                                        <input type="text" value={regras[id].valor}
+                                        onChange={(e) =>{mudaParametro(e, id)}}
+                                        onBlur={(e) => {blurConformidade(e, id)}}
+                                        onSelect={(e) => {selectConformidade(e, id)}}/>
                                         <label className='obrigacao'>Obrigatória:</label>
-                                        <input type="checkbox" className='checkbox' />
+                                        <input type="checkbox" className='checkbox'  checked={regras[id].obrigatoriedade} disabled/>
                                         <br /><br />
                                     </div>
                                 }
@@ -357,9 +385,9 @@ function CadProduto() {
                                             <option value="avaria" selected>Avarias</option>
                                         </select>
                                         <label className='limitacao'>Limitação:</label>
-                                        <input type="text" />
+                                        <input type="text" value={regras[id].valor} readOnly/>
                                         <label className='obrigacao'>Obrigatória:</label>
-                                        <input type="checkbox" className='checkbox' />
+                                        <input type="checkbox" className='checkbox' checked={regras[id].obrigatoriedade} disabled/>
                                         <br /><br />
                                     </div>
                                 }

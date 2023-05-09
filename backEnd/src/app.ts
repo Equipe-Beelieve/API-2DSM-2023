@@ -146,7 +146,8 @@ app.post('/cadastroUsuario', async (req,res) => {
 
 //========================= Cadastro de Produtos =========================
 app.post('/cadastroProduto', async (req, res) => {
-    let regrasRecebimento = req.body.post.regra
+    let regrasRecebimento = req.body.post.regras
+    console.log(req.body.post.regras)
     let descricao = req.body.post.descricao
     let unidadeMedida = req.body.post.unidadeMedida
     console.log(regrasRecebimento)
