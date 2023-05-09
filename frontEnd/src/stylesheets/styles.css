@@ -340,9 +340,9 @@ p.solid {
 }
 
 .box3 {
-  margin-left: 27%;
+  margin-left: 18%;
   justify-content: space-between;
-  width: 45%;
+  width: 63%;
   background-color: #FFEF78;
   border-radius: 7px;
 }
@@ -352,6 +352,7 @@ p.solid {
   align-items: center;
   font-size: 2vw;
   margin-top: 4vh;
+  margin-left: 1%;
   font-weight: bold;
 }
 
@@ -360,27 +361,141 @@ p.solid {
   color: #000000;
 }
 
-.box3 .minimo .input_form{
-  width: 205px;
-  background-color: #C0C0C0;
-  border-color: transparent;
+.box3 .minimo .tipo-regra{
+  margin-left: -3%;
+  font-weight: bold;
 }
 
-.box3 .minimo span{
+.box3 .minimo .input_form{
+  width: 232px;
+  font-weight: bold;
+  margin-left: 1%;
   background-color: #C0C0C0;
-  width: 70px;
+  border-color: transparent;
+  padding: 7px;
+  text-align: center;
+}
+
+.box3 .minimo .limitacao{
+  margin-left: 4%;
+  font-weight: bold;
+}
+
+.box3 .minimo input{
+  margin-left: 1%;
+  background-color: #C0C0C0;
+  width: 127px;
+  text-align: center;
+  border-color: transparent;
+  font-weight: bold;
+  margin-left: 1%;
+  padding: 7px;
+}
+
+.box3 .minimo .obrigacao{
+  margin-left: 3%;
+  font-weight: bold;
+}
+
+.box3 .minimo .checkbox{
+  outline-color: #C0C0C0;
+  accent-color: #C0C0C0;
+  padding: 7px;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-left: -4%;
+}
+
+.box3 .avaria .tipo-regra{
+  margin-left: -3%;
+  font-weight: bold;
 }
 
 .box3 .avaria .input_form{
   background-color: #C0C0C0;
   border-color: transparent;
-  width: 75px;
+  width: 232px;
+  padding: 7px;
+  align-items: center;
+  text-align: center;
+  margin-left: 1%;
+  font-weight: bold;
 }
 
-.box3 .avaria span{
+.box3 .avaria .limitacao{
+  margin-left: 4%;
+  font-weight: bold;
+}
+
+.box3 .avaria input{
+  background-color: #c0c0c0bb;
+  border-color: transparent;
+  width: 127px;
+  text-align: center;
+  margin-left: 1%;
+  padding: 7px;
+  border: none;
+  font-weight: bold;
+}
+
+.box3 .avaria .obrigacao{
+  margin-left: 3%;
+  font-weight: bold;
+}
+
+.box3 .avaria .checkbox{
+  margin-left: -4%;
+  outline-color: #C0C0C0;
+  accent-color: #C0C0C0;
+  padding: 7px;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.box3 .personalizada .limitacao{
+  margin-left: 4%;
+  font-weight: bold;
+}
+
+.box3 .personalizada .tipo-regra{
+  margin-left: -3%;
+  font-weight: bold;
+}
+
+.box3 .personalizada .input_form{
   background-color: #C0C0C0;
   border-color: transparent;
-  width: 79px;
+  width: 232px;
+  padding: 7px;
+  align-items: center;
+  text-align: center;
+  margin-left: 1%;
+  font-weight: bold;
+}
+
+.box3 .personalizada input{
+  background-color: #C0C0C0;
+  border-color: transparent;
+  width: 127px;
+  text-align: center;
+  margin-left: 1%;
+  padding: 7px;
+  border: none;
+  font-weight: bold;
+}
+
+.box3 .personalizada .obrigacao{
+  margin-left: 3%;
+  font-weight: bold;
+}
+
+.box3 .personalizada .checkbox{
+  margin-left: -4%;
+  outline-color: #C0C0C0;
+  accent-color: #C0C0C0;
+  padding: 7px;
+  font-weight: bold;
+  border-radius: 8px;
 }
 
 .flash {
