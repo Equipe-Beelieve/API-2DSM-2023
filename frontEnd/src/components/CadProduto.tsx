@@ -6,116 +6,177 @@ import verificaLogado from '../funcoes/verificaLogado'
 import ListaProdutos from './ListaProdutos'
 import { toast } from 'react-toastify'
 
-interface Regra{
-    tipo:string,
-    valor:string,
-    obrigatoriedade:boolean
+interface Regra {
+    tipo: string,
+    valor: string,
+    obrigatoriedade: boolean
 }
 
 function CadProduto() {
 
     const [descricao, setDescricao] = useState('')
     const [unidadeMedida, setUnidadeMedida] = useState('')
-    const [regras, setRegras] = useState<Regra[]>([{tipo:'Mínimo de conformidade', valor:'', obrigatoriedade:true},
-    {tipo:'Avaria', valor:'Não deve haver', obrigatoriedade:true},
-    {tipo:'', valor:'', obrigatoriedade:false}])
+    const [regras, setRegras] = useState<Regra[]>([{ tipo: 'Mínimo de conformidade', valor: '', obrigatoriedade: true },
+    { tipo: 'Avaria', valor: 'Não deve haver', obrigatoriedade: true }])
 
     const [render, setRender] = useState(0)
-   
+
 
     const navigate = useNavigate()
 
+    // ======================= Adicionar Regras ==========================
+
+    function addRegra() {
+        let regra = regras
+        regra.push({ tipo: '', valor: '', obrigatoriedade: false })
+        setRegras(regra)
+        console.log(regras)
+        setRender(render + 1)
+
+        return (
+            <>
+                {regras.map((valor, id) =>
+                    <>
+                        {id > 1 &&
+                            <div className='avaria'>
+                                <label>Tipo:</label>
+                                <select className='input_form' value={regras[id].tipo} onChange={(e) => { mudaTipo(e, id) }}>
+                                    <option value=""></option>
+                                    <option value="Umidade" selected>Umidade</option>
+                                    <option value="Pureza">Pureza</option>
+                                    <option value="Personalizada">Personalizada</option>
+                                </select>
+
+                                <label>Regra:</label>
+                                {regras[id].tipo === "Umidade" &&
+                                    <input type='text' className='input_form'
+                                        value={regras[id].valor}
+                                        onChange={(e) => { mudaParametro(e, id) }}
+                                        onBlur={(e) => { blurUmidade(e, id) }}
+                                        onSelect={(e) => { selectUmidade(e, id) }} />
+                                }
+                                {regras[id].tipo === "Pureza" &&
+                                    <input type='text' className='input_form'
+                                        value={regras[id].valor}
+                                        onChange={(e) => { mudaParametro(e, id) }}
+                                        onBlur={(e) => { blurPureza(e, id) }}
+                                        onSelect={(e) => { selectPureza(e, id) }} />
+                                }
+                                {regras[id].tipo === "Personalizada" &&
+                                    <input type='text' className='input_form'
+                                        value={regras[id].valor}
+                                        onChange={(e) => { mudaParametro(e, id) }} />
+                                }
+                                {regras[id].tipo === '' &&
+                                    <input type='text' className='input_form'
+                                        value={regras[id].valor}
+                                        onChange={(e) => { mudaParametro(e, id) }} />
+                                }
 
 
+                                <label>Obrigatoriedade:</label>
+                                <input type="checkbox" checked={regras[id].obrigatoriedade} onChange={(e) => { mudaObrigatoriedade(e, id) }} />
+                            </div>
+                        }
+                    </>
+                )}
+            </>
+        )
+    };
 
-//======================== Funções de mudança ========================   
 
-    function mudaTipo(e:any, id:number){
+    //======================== Funções de mudança ========================   
+
+    function mudaTipo(e: any, id: number) {
         let regra = regras
         regra[id].tipo = e.target.value
         regra[id].valor = ''
         setRegras(regra)
-        setRender(render+1)
+        setRender(render + 1)
         console.log(regras[id].tipo)
     }
 
-    function mudaParametro(e:any, id:number){
+    function mudaParametro(e: any, id: number) {
         let regra = regras
-        
-        if(regra[id].tipo !== "Personalizada" && regra[id].tipo !== "" && !isNaN(e.target.value)){
+
+        if (regra[id].tipo !== "Personalizada" && regra[id].tipo !== "" && !isNaN(e.target.value)) {
             regra[id].valor = e.target.value
         }
-        else if(regra[id].tipo === "Personalizada"){
+        else if (regra[id].tipo === "Personalizada") {
             regra[id].valor = e.target.value
         }
-        else if(regra[id].tipo === ""){
-            toast.error('Escolha o tipo primeiro', {position: 'bottom-left',
-            autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+        else if (regra[id].tipo === "") {
+            toast.error('Escolha o tipo primeiro', {
+                position: 'bottom-left',
+                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+            })
         }
-        else{
-            toast.error('Insira apenas números', {position: 'bottom-left',
-            autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+        else {
+            toast.error('Insira apenas números', {
+                position: 'bottom-left',
+                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+            })
         }
         setRegras(regra)
-        setRender(render+1)
+        setRender(render + 1)
         console.log(regras[id].valor)
     }
 
-    function mudaObrigatoriedade(e:any, id:number){
+    function mudaObrigatoriedade(e: any, id: number) {
         let regra = regras
         console.log(e.target.checked)
-        if(e.target.checked === true){
+        if (e.target.checked === true) {
             regra[id].obrigatoriedade = true
         }
-        else{
+        else {
             regra[id].obrigatoriedade = false
         }
         setRegras(regra)
-        setRender(render+1)
+        setRender(render + 1)
         console.log(regras[id].obrigatoriedade)
     }
 
-    function redirecionarProduto(){
+    function redirecionarProduto() {
         navigate('/listaProdutos')
     }
 
-//======================== Mascaras ========================
+    //======================== Mascaras ========================
 
     //OnBlur
-    function blurPureza(evento:any, id:number){
+    function blurPureza(evento: any, id: number) {
         let valor = evento.target.value
         console.log(valor.length)
-        if(valor[0] !== '>' && valor.slice(-1) !== '%' && valor.length !== 0){
+        if (valor[0] !== '>' && valor.slice(-1) !== '%' && valor.length !== 0) {
             valor = '>' + valor + '%'
             let regra = regras
             regra[id].valor = valor
             console.log(regra)
             setRegras(regra)
-            if(!evento.target.selected){
-                setRender(render+1)
+            if (!evento.target.selected) {
+                setRender(render + 1)
             }
         }
-        
+
 
     }
-    function blurUmidade(evento:any, id:number){
+    function blurUmidade(evento: any, id: number) {
         let valor = evento.target.value
-        if(valor[0] !== '>' && valor.slice(-1) !== '%' && valor.length !== 0){
+        if (valor[0] !== '>' && valor.slice(-1) !== '%' && valor.length !== 0) {
             valor = '<' + valor + '%'
             let regra = regras
             regra[id].valor = valor
             console.log(regra)
             setRegras(regra)
-            if(!evento.target.selected){
+            if (!evento.target.selected) {
                 setRender(render + 1)
             }
         }
     }
 
-   //OnSelect
-   function selectPureza(evento:any, id:number){
+    //OnSelect
+    function selectPureza(evento: any, id: number) {
         let valor = evento.target.value
-        if(valor[0] === '>' && valor.slice(-1) === '%'){
+        if (valor[0] === '>' && valor.slice(-1) === '%') {
             valor = valor.slice(1, -1)
             console.log(valor)
             let regra = regras
@@ -126,9 +187,9 @@ function CadProduto() {
         }
     }
 
-    function selectUmidade(evento:any, id:number){
+    function selectUmidade(evento: any, id: number) {
         let valor = evento.target.value
-        if(valor[0] === '<' && valor.slice(-1) === '%'){
+        if (valor[0] === '<' && valor.slice(-1) === '%') {
             valor = valor.slice(1, -1)
             console.log(valor)
             let regra = regras
@@ -141,7 +202,7 @@ function CadProduto() {
 
 
 
-//======================== Use Effect ========================
+    //======================== Use Effect ========================
 
     useEffect(() => {
         async function veLogado() {
@@ -153,59 +214,63 @@ function CadProduto() {
             else if (!resultado.logado) {
                 navigate('/')
             }
-            
+
         }
         veLogado()
     }, [render, regras])
 
-//======================== Submit ========================
+    //======================== Submit ========================
 
     async function cadastroProduto(evento: any) {
         let controle = true
-        if(unidadeMedida === '' || descricao === ''){
-            toast.error('Preencha todos os campos', {position: 'bottom-left',
-            autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+        if (unidadeMedida === '' || descricao === '') {
+            toast.error('Preencha todos os campos', {
+                position: 'bottom-left',
+                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+            })
         }
-        else{
+        else {
             //Confere se todas as regras estão preenchidas e há no máximo 1 regra de umidade e 1 de pureza
-            let contadorTipo = {Pureza:0, Umidade:0}
-            regras.forEach((regra:Regra) => {
+            let contadorTipo = { Pureza: 0, Umidade: 0 }
+            regras.forEach((regra: Regra) => {
                 console.log(regra)
-                if(regra.tipo === '' || regra.valor === "" || contadorTipo.Pureza>1 || contadorTipo.Umidade>1){
+                if (regra.tipo === '' || regra.valor === "" || contadorTipo.Pureza > 1 || contadorTipo.Umidade > 1) {
                     controle = false
-                    
+
                 }
                 //Contador de regras de umidade e pureza:
-                else{
-                    if(regra.tipo === 'Pureza'){
+                else {
+                    if (regra.tipo === 'Pureza') {
                         contadorTipo.Pureza += 1
                     }
-                    else if(regra.tipo === 'Umidade'){
+                    else if (regra.tipo === 'Umidade') {
                         contadorTipo.Umidade += 1
                     }
                 }
             })
-            
-            if(controle){
-                const post = {descricao, unidadeMedida, regras}
+
+            if (controle) {
+                const post = { descricao, unidadeMedida, regras }
                 navigate('/listaProdutos')
                 await api.post('/cadastroProduto', { post })
             }
-            else{
-                toast.error('Preencha todas as regras adicionadas', {position: 'bottom-left',
-                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
-                
+            else {
+                toast.error('Preencha todas as regras adicionadas', {
+                    position: 'bottom-left',
+                    autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                })
+
             }
         }
-        
+
 
 
 
         //dados de teste/modelo dos dados de inserção de regra de recebimento
         /* const regrasRecebimento = [{tipo: 'umidade', valor:'<10%', obrigatoriedade:'sim'}, 
         {tipo: 'avarias', valor:'não deve haver', obrigatoriedade:'não'}, 
-        {tipo: 'pureza', valor:'>=90%', obrigatoriedade:'sim'}] */ 
-        
+        {tipo: 'pureza', valor:'>=90%', obrigatoriedade:'sim'}] */
+
 
     }
 
@@ -266,90 +331,91 @@ function CadProduto() {
                     <div className='box3'>
                         <h1 className='mainTitle'>Regras de Recebimento</h1>
                         <br /><br />
-            
+
                         {regras.map((valor, id) =>
                             <>
-                            {id === 0 && 
-                                <div className='minimo'>
-                                    <label className='tipo-regra'>Tipo de Regra:</label>
-                                    <select className='input_form' name="unidadeMedida" id="unidadeMedida" disabled>
-                                        <option value=""></option>
-                                        <option value="minimo" selected>Minimo de Conformidade</option>
-                                    </select>
+                                {id === 0 &&
+                                    <div className='minimo'>
+                                        <label className='tipo-regra'>Tipo de Regra:</label>
+                                        <select className='input_form' name="unidadeMedida" id="unidadeMedida" disabled>
+                                            <option value=""></option>
+                                            <option value="minimo" selected>Minimo de Conformidade</option>
+                                        </select>
 
-                                    <label className='limitacao'>Limitação:</label>
-                                    <input type="text" />
-                                    <label className='obrigacao'>Obrigatória:</label>
-                                    <input type="checkbox" className='checkbox' />
-                                    <br /><br />
-                                </div> 
-                            }
-                            {id === 1 && 
-                                <div className='avaria'>
-                                    <label className='tipo-regra'>Tipo de Regra:</label>
-                                    <select className='input_form' name="unidadeMedida" id="unidadeMedida" disabled>
-                                        <option value=""></option>
-                                        <option value="avaria" selected>Avarias</option>
-                                    </select>
-                                    <label className='limitacao'>Limitação:</label>
-                                    <input type="text" />
-                                    <label className='obrigacao'>Obrigatória:</label>
-                                    <input type="checkbox" className='checkbox' />
-                                    <br /><br />
-                                </div>
-                            }
-                            {id > 1 &&
-                                <div className='personalizada'>
-                                    <label className='tipo-regra'>Tipo de Regra:</label>
-                                    <select className='input_form' value={regras[id].tipo} onChange={(e) => {mudaTipo(e, id)}}>
-                                        <option value=""></option>
-                                        <option value="Umidade" selected>Umidade</option>
-                                        <option value="Pureza">Pureza</option>
-                                        <option value="Personalizada">Personalizada</option>
-                                    </select>
+                                        <label className='limitacao'>Limitação:</label>
+                                        <input type="text" />
+                                        <label className='obrigacao'>Obrigatória:</label>
+                                        <input type="checkbox" className='checkbox' />
+                                        <br /><br />
+                                    </div>
+                                }
+                                {id === 1 &&
+                                    <div className='avaria'>
+                                        <label className='tipo-regra'>Tipo de Regra:</label>
+                                        <select className='input_form' name="unidadeMedida" id="unidadeMedida" disabled>
+                                            <option value=""></option>
+                                            <option value="avaria" selected>Avarias</option>
+                                        </select>
+                                        <label className='limitacao'>Limitação:</label>
+                                        <input type="text" />
+                                        <label className='obrigacao'>Obrigatória:</label>
+                                        <input type="checkbox" className='checkbox' />
+                                        <br /><br />
+                                    </div>
+                                }
+                                {id > 1 &&
+                                    <div className='personalizada'>
+                                        <label className='tipo-regra'>Tipo de Regra:</label>
+                                        <select className='input_form' value={regras[id].tipo} onChange={(e) => { mudaTipo(e, id) }}>
+                                            <option value=""></option>
+                                            <option value="Umidade" selected>Umidade</option>
+                                            <option value="Pureza">Pureza</option>
+                                            <option value="Personalizada">Personalizada</option>
+                                        </select>
 
-                                    <label className='limitacao'>Limitacao:</label>
-                                    {regras[id].tipo === "Umidade" &&
-                                        <input type='text' 
-                                        value={regras[id].valor} 
-                                        onChange={(e) => {mudaParametro(e, id)}} 
-                                        onBlur={(e) => {blurUmidade(e, id)}}
-                                        onSelect={(e) => {selectUmidade(e, id)}}/>
-                                    }
-                                    {regras[id].tipo === "Pureza" &&
-                                        <input type='text' 
-                                        value={regras[id].valor} 
-                                        onChange={(e) => {mudaParametro(e, id)}} 
-                                        onBlur={(e) => {blurPureza(e, id)}}
-                                        onSelect={(e) => {selectPureza(e, id)}}/>
-                                    }
-                                    {regras[id].tipo === "Personalizada" &&
-                                        <input type='text'
-                                        value={regras[id].valor} 
-                                        onChange={(e) => {mudaParametro(e, id)}}/>
-                                    }
-                                    {regras[id].tipo === '' &&
-                                        <input type='text' 
-                                        value={regras[id].valor} 
-                                        onChange={(e) => {mudaParametro(e, id)}}/>
-                                    }
-                                    
+                                        <label className='limitacao'>Limitacao:</label>
+                                        {regras[id].tipo === "Umidade" &&
+                                            <input type='text'
+                                                value={regras[id].valor}
+                                                onChange={(e) => { mudaParametro(e, id) }}
+                                                onBlur={(e) => { blurUmidade(e, id) }}
+                                                onSelect={(e) => { selectUmidade(e, id) }} />
+                                        }
+                                        {regras[id].tipo === "Pureza" &&
+                                            <input type='text'
+                                                value={regras[id].valor}
+                                                onChange={(e) => { mudaParametro(e, id) }}
+                                                onBlur={(e) => { blurPureza(e, id) }}
+                                                onSelect={(e) => { selectPureza(e, id) }} />
+                                        }
+                                        {regras[id].tipo === "Personalizada" &&
+                                            <input type='text'
+                                                value={regras[id].valor}
+                                                onChange={(e) => { mudaParametro(e, id) }} />
+                                        }
+                                        {regras[id].tipo === '' &&
+                                            <input type='text'
+                                                value={regras[id].valor}
+                                                onChange={(e) => { mudaParametro(e, id) }} />
+                                        }
 
-                                    <label className='obrigacao'>Obrigatória:</label>
-                                    <input type="checkbox" className='checkbox' checked={regras[id].obrigatoriedade} onChange={(e) => {mudaObrigatoriedade(e, id)}}/>
-                                </div>
-                            }
-                            </>  
+
+                                        <label className='obrigacao'>Obrigatória:</label>
+                                        <input type="checkbox" className='checkbox' checked={regras[id].obrigatoriedade} onChange={(e) => { mudaObrigatoriedade(e, id) }} />
+                                        <br /><br />
+                                    </div>
+                                }
+                            </>
                         )}
                         <br />
-        
-                        <a href="">Adicionar mais regras</a>
+                        <button type='button' className='adicionarRegra' onClick={addRegra}>Adicionar mais uma</button>
+
                     </div>
                     <div className="grid-container poscentralized">
-                        
+
                         <div className='button_margin'>
                             <button className="cancel_button" onClick={redirecionarProduto}>Cancelar</button>
-                            
+
                         </div>
                         <button className='confirm_button' type='button' onClick={cadastroProduto}>Cadastrar</button>
                     </div>
