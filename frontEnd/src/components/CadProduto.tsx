@@ -271,36 +271,36 @@ function CadProduto() {
                             <>
                             {id === 0 && 
                                 <div className='minimo'>
-                                    <label>Tipo de Regra:</label>
+                                    <label className='tipo-regra'>Tipo de Regra:</label>
                                     <select className='input_form' name="unidadeMedida" id="unidadeMedida" disabled>
                                         <option value=""></option>
-                                        <option value="minimo" selected>Minimo de <br /> Conformidade</option>
+                                        <option value="minimo" selected>Minimo de Conformidade</option>
                                     </select>
 
-                                    <label>Limitação:</label>
-                                    <span>2 regras</span>
-                                    <label>Obrigatória:</label>
+                                    <label className='limitacao'>Limitação:</label>
+                                    <input type="text" />
+                                    <label className='obrigacao'>Obrigatória:</label>
                                     <input type="checkbox" className='checkbox' />
                                     <br /><br />
                                 </div> 
                             }
                             {id === 1 && 
                                 <div className='avaria'>
-                                    <label>Tipo de Regra:</label>
+                                    <label className='tipo-regra'>Tipo de Regra:</label>
                                     <select className='input_form' name="unidadeMedida" id="unidadeMedida" disabled>
                                         <option value=""></option>
                                         <option value="avaria" selected>Avarias</option>
                                     </select>
-                                    <label>Limitação:</label>
-                                    <span>Não deve Haver</span>
-                                    <label>Obrigatória:</label>
+                                    <label className='limitacao'>Limitação:</label>
+                                    <input type="text" />
+                                    <label className='obrigacao'>Obrigatória:</label>
                                     <input type="checkbox" className='checkbox' />
                                     <br /><br />
                                 </div>
                             }
                             {id > 1 &&
-                                <div className='avaria'>
-                                    <label>Tipo:</label>
+                                <div className='personalizada'>
+                                    <label className='tipo-regra'>Tipo de Regra:</label>
                                     <select className='input_form' value={regras[id].tipo} onChange={(e) => {mudaTipo(e, id)}}>
                                         <option value=""></option>
                                         <option value="Umidade" selected>Umidade</option>
@@ -308,39 +308,40 @@ function CadProduto() {
                                         <option value="Personalizada">Personalizada</option>
                                     </select>
 
-                                    <label>Regra:</label>
+                                    <label className='limitacao'>Limitacao:</label>
                                     {regras[id].tipo === "Umidade" &&
-                                        <input type='text' className='input_form' 
+                                        <input type='text' 
                                         value={regras[id].valor} 
                                         onChange={(e) => {mudaParametro(e, id)}} 
                                         onBlur={(e) => {blurUmidade(e, id)}}
                                         onSelect={(e) => {selectUmidade(e, id)}}/>
                                     }
                                     {regras[id].tipo === "Pureza" &&
-                                        <input type='text' className='input_form' 
+                                        <input type='text' 
                                         value={regras[id].valor} 
                                         onChange={(e) => {mudaParametro(e, id)}} 
                                         onBlur={(e) => {blurPureza(e, id)}}
                                         onSelect={(e) => {selectPureza(e, id)}}/>
                                     }
                                     {regras[id].tipo === "Personalizada" &&
-                                        <input type='text' className='input_form' 
+                                        <input type='text'
                                         value={regras[id].valor} 
                                         onChange={(e) => {mudaParametro(e, id)}}/>
                                     }
                                     {regras[id].tipo === '' &&
-                                        <input type='text' className='input_form' 
+                                        <input type='text' 
                                         value={regras[id].valor} 
                                         onChange={(e) => {mudaParametro(e, id)}}/>
                                     }
                                     
 
-                                    <label>Obrigatoriedade:</label>
-                                    <input type="checkbox" checked={regras[id].obrigatoriedade} onChange={(e) => {mudaObrigatoriedade(e, id)}}/>
+                                    <label className='obrigacao'>Obrigatória:</label>
+                                    <input type="checkbox" className='checkbox' checked={regras[id].obrigatoriedade} onChange={(e) => {mudaObrigatoriedade(e, id)}}/>
                                 </div>
                             }
                             </>  
                         )}
+                        <br />
         
                         <a href="">Adicionar mais regras</a>
                     </div>
