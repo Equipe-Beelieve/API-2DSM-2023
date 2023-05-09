@@ -530,14 +530,14 @@ function RecebimentoPedido(){
                     </div>
                     {mudanca === 'Primeira vez' &&
                         <>
-                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
+                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button3">Cancelar</button>
                         <button type="button" onClick={confirmaVoltaListagem} className="confirm_button">Confirmar e voltar para a home</button>
                         <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar e continuar</button>
                         </>
                     }
                     {mudanca === 'Edição' &&
                         <>
-                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
+                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button3">Cancelar</button>
                         <button type="button" onClick={editarVoltaListagem} className="confirm_button">Editar</button>
                         </>
                     }
@@ -609,8 +609,9 @@ function RecebimentoPedido(){
                             </table>
                         </div>
                     </div>
-                    <div className="grid-container poscentralized">
+                    <div className="grid-container-5 poscentralized">
                         <div className="box">
+                            
                             <table>
                                 <thead>
                                     <tr>
@@ -619,7 +620,8 @@ function RecebimentoPedido(){
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input className="input_form" type="text" value={quantidade}
+                                        <td><input className="input_form2" type="text" 
+                                        value={quantidade}
                                         onChange={trataQuantidade}
                                         onBlur={blurQuantidade}
                                         onSelect={selectQuantidade} required readOnly/>
@@ -753,7 +755,7 @@ function RecebimentoPedido(){
                             </table>
                         </div>
                     </div>  
-                    <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Voltar</button>
+                    <button type="button" onClick={cancelaVoltaListagem} className="cancel_button2">Voltar</button>
                 </form>
             </div>
             </>
