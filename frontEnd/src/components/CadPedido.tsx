@@ -236,7 +236,7 @@ function CadPedido() {
         if (status.data === 'Primeira vez'){
             setMudanca('Primeira vez')
         }
-        else if (status.data === 'Revisaão'){
+        else if (status.data === 'Revisão'){
             setMudanca('Revisão')
         }
         else {
@@ -269,8 +269,6 @@ function CadPedido() {
     },[])
 
     useEffect(() => {
-        
-        
         async function veLogado() {
             let resultado = await verificaLogado()
             //setLogado(resultado)
@@ -325,9 +323,7 @@ function CadPedido() {
 
 
     // ===================== Submit =====================
-
-    async function cadastroPedido(evento: any) {
-
+    async function cadastroPedido() {
         if (unidade === 'kg') {
             setPrecoUnitario(precoUnitario.slice(2, -3))
             setPrecoTotal(precoTotal.slice(3))
@@ -361,6 +357,15 @@ function CadPedido() {
         await api.post('/updatePedido', { post })
     }
 
+    async function estadoPedido(evento:any) {
+        evento.preventDefault()
+        if(mudanca === 'Primeira vez') {
+            cadastroPedido()
+        } 
+        else if(mudanca === 'Edição') {
+            editarPedido()
+        }
+    }
 
     function redirecionarPedido() {
         navegate("/listaPedidos")
@@ -374,7 +379,7 @@ function CadPedido() {
                 <NavBar />
                 <div className="divFornecedor">
                     <h1 className='mainTitle'>Cadastro de Pedidos</h1>
-                    <form onSubmit={cadastroPedido}>
+                    <form onSubmit={estadoPedido}>
     
                         <div className="poscentralized grid-container">
                             <div className="box">
@@ -624,13 +629,13 @@ function CadPedido() {
                         {mudanca === 'Primeira vez' &&
                             <>
                             <button type="button" onClick={redirecionarPedido} className="cancel_button">Cancelar</button>
-                            <button type="button" onClick={cadastroPedido} className="confirm_button">Cadastrar</button>
+                            <button type="submit" className="confirm_button">Cadastrar</button>
                             </>
                         }
                         {mudanca === 'Edição' &&
                             <>
                             <button type="button" onClick={redirecionarPedido} className="cancel_button">Cancelar</button>
-                            <button type="button" onClick={editarPedido} className="confirm_button">Editar</button>
+                            <button type="submit" className="confirm_button">Editar</button>
                             </>
                         }
                     </form>
