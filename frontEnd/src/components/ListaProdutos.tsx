@@ -87,6 +87,7 @@ function ListaProdutos(){
             </div>
             <div>
                 <input type="text"
+                placeholder='Digite o nome do produto'
                 value = {busca}
                 onChange = {(evento) => setBusca(evento.target.value)}
                 onKeyUp= {(evento) => atualizarBusca(busca)} />

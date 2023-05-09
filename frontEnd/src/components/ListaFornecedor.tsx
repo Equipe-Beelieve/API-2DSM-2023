@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import cadastro from '../images/cadastro.png'
+import cadastro from '../images/cadastro.png';
+import pesquisa from '../images/pesquisa.png';
 import api from '../services/api';
 import { Link, useNavigate } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
@@ -95,11 +96,17 @@ function ListaFornecedor(){
                 </button>
             </div>
             <div>
-                <input type="text"
+                <div className="pesquisa">
+                <img className="pesquisa2" src={pesquisa} alt=""/>
+                <input type="text" className="termo-pesquisa"  
+                placeholder='Digite o nome do fornecedor'
                 value = {busca}
                 onChange = {(evento) => setBusca(evento.target.value)}
-                onKeyUp= {(evento) => atualizarBusca(busca)} />
-            </div>
+                onKeyUp= {(evento) => atualizarBusca(busca)} 
+                />
+                
+                </div>
+                </div>
             {fornecedoresBuscados.map((fornecedor, index) => (
                     <div className="listaIn" key={index}>
                         <h1>Fornecedor nº{fornecedor.for_codigo}</h1>

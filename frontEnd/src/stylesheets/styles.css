@@ -602,9 +602,22 @@ p.solid {
   margin-top:10vw;
 }
 
-.input_form2 {
-  background-color: #C0C0C0;
-  border-color: transparent;
-  width: 200px;
-  margin-top:2vw;
+.pesquisa {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  
+}
+.termo-pesquisa {
+  width: 100%;
+  border: 3px solid gray;
+  background-color: lightgray;
+  padding: 5px;
+  border-radius: 5px;
+  
+}
+.pesquisa2 {
+  background-color:gray;
+  border-radius:5px;
+  width: 3%;
 }
