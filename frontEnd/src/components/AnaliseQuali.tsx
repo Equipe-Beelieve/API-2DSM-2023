@@ -3,6 +3,7 @@ import api from '../services/api';
 import { useNavigate, useParams } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
+import { toast } from 'react-toastify';
 
 interface Regra {
     reg_codigo:number
@@ -20,6 +21,7 @@ interface Analise {
 function AnaliseQuali() {
     const [regras, setRegras] = useState<Regra[]>([])
     const [analises, setAnalises] = useState<Analise[]>([])
+    const [laudo, setLaudo] = useState('não')
     const {id} = useParams()
 
     const navigate = useNavigate()
@@ -91,14 +93,35 @@ function AnaliseQuali() {
         setAnalises(analiseNova)
     }
 
+    function validaAnalises(acao:string) {
+        const analisesNumericas = analises.filter((analise) => {
+            return analise.tipo !== 'Avaria' && analise.tipo !== 'Personalizada'
+        })
+        if(acao === 'Continuar'){
+            if(analisesNumericas.every((analise) => analise.valor !== 'false')){
+                confirmaContinua()
+            } else {
+                toast.error('Preencha todas as análises.', {position: 'bottom-left', autoClose: 2500,
+                className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+            }
+        } else if(acao === 'Voltar'){
+            if(analisesNumericas.every((analise) => analise.valor !== 'false')){
+                confirmaVoltaListagem()
+            } else {
+                toast.error('Preencha todas as análises.', {position: 'bottom-left', autoClose: 2500,
+                className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+            }
+        } 
+    }
+
     async function confirmaVoltaListagem(){
-            const post = {id, analises}
-            navigate('/listaPedidos')
-            await api.post('/postQualitativa', {post})  
+        const post = {id, analises, laudo}
+        navigate('/listaPedidos')
+        await api.post('/postQualitativa', {post})  
     }
 
     async function confirmaContinua() {
-        const post = {analises}
+        const post = {id, analises, laudo}
         await api.post('/postQualitativa', { post })
         navigate(`/`) //substituir pela rota do relatório final, quando pronta        
     }
@@ -108,7 +131,7 @@ function AnaliseQuali() {
     }
 
     function estado() {
-        console.log(analises)
+        console.log(analises, laudo)
     }
 
 
@@ -129,7 +152,11 @@ function AnaliseQuali() {
     return (
         <>
         <NavBar/>
-        <form action="">
+        <form >
+            <div>
+                <input type="text" value={'Laudo'} readOnly/> <input type="text" value={'Deve haver'} readOnly/>
+                <input type="checkbox" onChange={(evento) => setLaudo(laudo === 'sim' ? 'não' : 'sim')}/>
+            </div>
         {regras.map((regra, index) => {
             if(regra.reg_tipo === 'Avaria') {
                 return (
@@ -151,15 +178,15 @@ function AnaliseQuali() {
                 return (
                     <div key={index}>
                         <input type="text" value={regra.reg_tipo} readOnly/> <input type="text" value={regra.reg_valor} readOnly/>
-                        <input type="text" onChange={(evento) => manipularRegra(index, evento.target.value)}/>
+                        <input type="text" onChange={(evento) => manipularRegra(index, evento.target.value)} required/>
                     </div>
                 )
             }
         })
         }
             <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
-            <button type="button" onClick={confirmaVoltaListagem} className="confirm_button">Confirmar e voltar para a home</button>
-            <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar e continuar</button>
+            <button type="button" onClick={(evento) => validaAnalises('Voltar')} className="confirm_button">Confirmar e voltar para a home</button>
+            <button type="button" onClick={(evento) => validaAnalises('Continuar')} className="confirm_button">Confirmar e continuar</button>
         </form>
         <button onClick={(evento) => estado()}>ANALISES</button>
         </>

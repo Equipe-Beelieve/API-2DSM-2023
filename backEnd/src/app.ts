@@ -281,8 +281,9 @@ app.get('/analiseQuali/:id', async (req, res) => {
 })
 
 app.post('/postQualitativa', async (req, res) => {
-    let {id, analises} = req.body.post
+    let {id, analises, laudo} = req.body.post
     //console.log(analises)
+    await bd.laudoNF(id, laudo)
     analises.forEach(async (analise:AnaliseQualitativa) => {
         await bd.inserirAnaliseQualitativa(id, analise)
     })
