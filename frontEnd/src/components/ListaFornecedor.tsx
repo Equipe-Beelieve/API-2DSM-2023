@@ -17,7 +17,7 @@ export interface Fornecedor {
     end_cep: string;
 }
 
-function ListaFornecedor(){
+function ListaFornecedor() {
     const [fornecedores, setFornecedores] = useState<Fornecedor[]>([])
     const [logado, setLogado] = useState(Boolean)
     const [renderizou, setRenderizou] = useState(false)
@@ -36,7 +36,7 @@ function ListaFornecedor(){
         }
     }
 
-    function buscarFornecedores(fornecedores:Fornecedor[], busca:string) { // função que filtra os pedidos de acordo com o termo da busca
+    function buscarFornecedores(fornecedores: Fornecedor[], busca: string) { // função que filtra os pedidos de acordo com o termo da busca
         let buscaMinusc = busca.toLowerCase() //normalizando o texto para a busca não ser Case sensitive e nem precisar dos acentos corretos
         let buscaNormalizada = unidecode(buscaMinusc)
         return fornecedores.filter((fornecedor) => {
@@ -47,67 +47,64 @@ function ListaFornecedor(){
         })
     }
 
-    function atualizarBusca(busca:string) {
+    function atualizarBusca(busca: string) {
         const buscaFornecedores = buscarFornecedores(fornecedores, busca)
         setFornecedoresBuscados(buscaFornecedores)
     }
 
-    useEffect(()=>{
-        async function veLogado(){
+    useEffect(() => {
+        async function veLogado() {
             let resultado = await verificaLogado()
             //setLogado(resultado)
-            if (resultado.logado){
+            if (resultado.logado) {
                 getFornecedores();
                 atualizarBusca(busca)
-                if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente'){
+                if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente') {
                     navegate('/listaPedidos')
                 }
 
             }
-            else{
+            else {
                 navegate('/')
             }
         }
         veLogado()
-        
-        
+
+
     }, [fornecedores, busca]) //Aciona as funções apenas quando a página é renderizada
-    
-    useEffect(()=>{ // Garante uma segunda renderização para que nenhum pedido fique fora
-        if (!renderizou){
+
+    useEffect(() => { // Garante uma segunda renderização para que nenhum pedido fique fora
+        if (!renderizou) {
             getFornecedores()
             console.log('FOI 1')
             setRenderizou(true)
-        }else{
+        } else {
             console.log('FOI 2')
             return;
-        }}, [renderizou])
+        }
+    }, [renderizou])
 
-    return(
+    return (
         <>
-        <NavBar />
-        <div className='mainContent'>
-            <div className="titleRegister">
-                <h1 className="mainTitle">FORNECEDORES</h1>
-                <button id="register">
-                    <Link to={'/cadastroFornecedor'} id='linkBotaoCadastro'>
-                        <img className="cadastro" src={cadastro} alt=""/>
-                    </Link>
-                </button>
-            </div>
-            <div>
-                <div className="pesquisa">
-                <img className="pesquisa2" src={pesquisa} alt=""/>
-                <input type="text" className="termo-pesquisa"  
-                placeholder='Digite o nome do fornecedor'
-                value = {busca}
-                onChange = {(evento) => setBusca(evento.target.value)}
-                onKeyUp= {(evento) => atualizarBusca(busca)} 
-                />
-                
+            <NavBar />
+            <div className='mainContent'>
+                <div className="titleRegister">
+                    <h1 className="mainTitle">FORNECEDORES</h1>
+                    <button id="register">
+                        <Link to={'/cadastroFornecedor'} id='linkBotaoCadastro'>
+                            <img className="cadastro" src={cadastro} alt="" />
+                        </Link>
+                    </button>
                 </div>
+                <div>
+                        <input type="text" className="termo-pesquisa" id="imagem-pesquisa"
+                            placeholder='Digite o nome do fornecedor'
+                            value={busca}
+                            onChange={(evento) => setBusca(evento.target.value)}
+                            onKeyUp={(evento) => atualizarBusca(busca)}
+                        />
                 </div>
-            {fornecedoresBuscados.map((fornecedor, index) => (
+                {fornecedoresBuscados.map((fornecedor, index) => (
                     <div className="listaIn" key={index}>
                         <h1>Fornecedor nº{fornecedor.for_codigo}</h1>
                         <div className="listColumns">
@@ -118,12 +115,12 @@ function ListaFornecedor(){
                             <div className="column2">
                                 <p>CNPJ: {fornecedor.for_cnpj}</p>
                                 <p>CEP: {fornecedor.end_cep}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))
-            }
-        </div>
+                ))
+                }
+            </div>
         </>
     )
 }
