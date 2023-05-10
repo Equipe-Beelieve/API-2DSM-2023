@@ -39,6 +39,7 @@ function CadProduto() {
                     <>
                         {id > 1 &&
                             <div className='avaria'>
+
                                 <label>Tipo:</label>
                                 <select className='input_form' value={regras[id].tipo} onChange={(e) => { mudaTipo(e, id) }}>
                                     <option value=""></option>
@@ -76,6 +77,7 @@ function CadProduto() {
 
                                 <label>Obrigatoriedade:</label>
                                 <input type="checkbox" checked={regras[id].obrigatoriedade} onChange={(e) => { mudaObrigatoriedade(e, id) }} />
+
                             </div>
                         }
                     </>
@@ -84,6 +86,14 @@ function CadProduto() {
         )
     };
 
+
+    // ======================== Deletar Regras ===========================
+
+    function deleteRegra(id: number) {
+        const updatedRegras = [...regras];
+        updatedRegras.splice(id, 1);
+        setRegras(updatedRegras);
+    }
 
     //======================== Funções de mudança ========================   
 
@@ -144,7 +154,7 @@ function CadProduto() {
 
     //OnBlur
 
-    function blurConformidade(evento:any, id:number){
+    function blurConformidade(evento: any, id: number) {
         let valor = evento.target.value
         if (valor.slice(-1) !== 's' && valor.length !== 0) {
             valor = valor + ' regras'
@@ -187,10 +197,10 @@ function CadProduto() {
 
     //OnSelect
 
-    function selectConformidade(evento:any, id:number){
+    function selectConformidade(evento: any, id: number) {
         let valor = evento.target.value
-        console.log(valor.slice(-7,-1))
-        if(valor.slice(-7, -1) === ' regra' && valor.length > 0){
+        console.log(valor.slice(-7, -1))
+        if (valor.slice(-7, -1) === ' regra' && valor.length > 0) {
             valor = valor.slice(0, -7)
             let regra = regras
             regra[id].valor = valor
@@ -275,7 +285,7 @@ function CadProduto() {
             })
 
             if (controle) {
-                const post = { descricao, unidadeMedida, regras}
+                const post = { descricao, unidadeMedida, regras }
                 navigate('/listaProdutos')
                 await api.post('/cadastroProduto', { post })
             }
@@ -369,11 +379,11 @@ function CadProduto() {
 
                                         <label className='limitacao'>Limitação:</label>
                                         <input type="text" value={regras[id].valor}
-                                        onChange={(e) =>{mudaParametro(e, id)}}
-                                        onBlur={(e) => {blurConformidade(e, id)}}
-                                        onSelect={(e) => {selectConformidade(e, id)}}/>
+                                            onChange={(e) => { mudaParametro(e, id) }}
+                                            onBlur={(e) => { blurConformidade(e, id) }}
+                                            onSelect={(e) => { selectConformidade(e, id) }} />
                                         <label className='obrigacao'>Obrigatória:</label>
-                                        <input type="checkbox" className='checkbox'  checked={regras[id].obrigatoriedade} disabled/>
+                                        <input type="checkbox" className='checkbox' checked={regras[id].obrigatoriedade} disabled />
                                         <br /><br />
                                     </div>
                                 }
@@ -385,14 +395,17 @@ function CadProduto() {
                                             <option value="avaria" selected>Avarias</option>
                                         </select>
                                         <label className='limitacao'>Limitação:</label>
-                                        <input type="text" value={regras[id].valor} readOnly/>
+                                        <input type="text" value={regras[id].valor} readOnly />
                                         <label className='obrigacao'>Obrigatória:</label>
-                                        <input type="checkbox" className='checkbox' checked={regras[id].obrigatoriedade} disabled/>
+                                        <input type="checkbox" className='checkbox' checked={regras[id].obrigatoriedade} disabled />
                                         <br /><br />
                                     </div>
                                 }
                                 {id > 1 &&
                                     <div className='personalizada'>
+
+                                        <button onClick={() => deleteRegra(id)}>Delete</button>
+
                                         <label className='tipo-regra'>Tipo de Regra:</label>
                                         <select className='input_form' value={regras[id].tipo} onChange={(e) => { mudaTipo(e, id) }}>
                                             <option value=""></option>
