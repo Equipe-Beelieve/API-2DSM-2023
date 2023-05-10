@@ -207,7 +207,7 @@ function RecebimentoPedido(){
             transportadora !== '' && condicaoPagamento){
                 const post = {id, unidade, produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario,
                 quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento }
-                navegate(`/quantitativa/${id}`)
+                navegate(`/analiseQuant/${id}`)
                 await api.post('/postNota', {post})
                 }
         else{
