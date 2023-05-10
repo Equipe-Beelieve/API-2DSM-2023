@@ -291,12 +291,17 @@ app.get('/analiseQuali/:id', async (req, res) => {
 
 app.post('/postQualitativa', async (req, res) => {
     let {id, analises, laudo} = req.body.post
-    console.log(id)
+    //console.log(id)
     await bd.laudoNF(id, laudo)
-    analises.forEach(async (analise:AnaliseQualitativa) => {
-        await bd.inserirAnaliseQualitativa(id, analise)
-    })
-    
+    try {
+        analises.forEach(async (analise:AnaliseQualitativa) => {
+            await bd.inserirAnaliseQualitativa(id, analise)
+        })
+    } catch (erro) {
+        console.log(erro)
+    } finally {
+        await bd.desconectar()
+    }
     //let analiseQualitativa = new AnaliseQualitativa(tipo, valor, avaria)
     //await bd.inserirAnaliseQualitativa(id, analiseQualitativa)
 })
