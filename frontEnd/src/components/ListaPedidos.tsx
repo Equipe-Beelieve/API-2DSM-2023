@@ -127,7 +127,8 @@ function ListaPedidos(){
             const razaoSocial = unidecode(pedido.ped_razao_social.toLowerCase()).includes(buscaNormalizada) //cada variável testa a ocorrência em um campo específico
             const numeroPedido = pedido.ped_codigo.toLocaleString().includes(buscaNormalizada)
             const nomeProduto = unidecode(pedido.ped_descricao.toLowerCase()).includes(buscaNormalizada)
-            return razaoSocial || numeroPedido || nomeProduto //retorna os pedidos cujo a busca se encaixe em pelo menos um campo definido
+            const statusPedido = unidecode(pedido.ped_status.toLowerCase()).includes(buscaNormalizada)
+            return razaoSocial || numeroPedido || nomeProduto || statusPedido //retorna os pedidos cujo a busca se encaixe em pelo menos um campo definido
         })
     }
 

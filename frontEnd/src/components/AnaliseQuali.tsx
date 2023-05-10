@@ -109,6 +109,7 @@ function AnaliseQuali() {
         const analiseNova = [...analises]
         analiseNova[index].valor = analiseRegra.valor
         setAnalises(analiseNova)
+
     }
 
     function validaAnalises(acao:string) {
@@ -116,7 +117,7 @@ function AnaliseQuali() {
             return analise.tipo !== 'Avaria' && analise.tipo !== 'Personalizada'
         })
         if(acao === 'Continuar'){
-            if(analisesNumericas.every((analise) => analise.valor !== 'false')){
+            if(analisesNumericas.every((analise) => analise.valor !== 'false' && analise.valor !== '')){
                 confirmaContinua()
             } else {
                 toast.error('Preencha todas as análises.', {position: 'bottom-left', autoClose: 2500,
@@ -212,7 +213,7 @@ function AnaliseQuali() {
                         return (
                             <div key={index}>
                                 <input type="text" value={regra.reg_tipo} readOnly/> <input type="text" value={regra.reg_valor} readOnly/>
-                                <input type="text" onChange={(evento) => manipularRegra(index, evento.target.value)} required/>
+                                <input type="number" onChange={(evento) => manipularRegra(index, evento.target.value)} required/>
                             </div>
                         )
                     }
