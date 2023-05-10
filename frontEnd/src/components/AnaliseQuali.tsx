@@ -39,10 +39,15 @@ function AnaliseQuali() {
                         valor: 'false',
                         avaria: ''
                     }
-                } else {
+                } else if (regra.reg_tipo === 'Personalizada'){
                     return {
                         tipo: regra.reg_tipo,
                         valor: 'false',  
+                    }
+                } else {
+                    return {
+                        tipo: regra.reg_tipo,
+                        valor: '',  
                     }
                 }
             })
@@ -117,14 +122,14 @@ function AnaliseQuali() {
             return analise.tipo !== 'Avaria' && analise.tipo !== 'Personalizada'
         })
         if(acao === 'Continuar'){
-            if(analisesNumericas.every((analise) => analise.valor !== 'false' && analise.valor !== '')){
+            if(analisesNumericas.every((analise) => analise.valor !== '')){
                 confirmaContinua()
             } else {
                 toast.error('Preencha todas as análises.', {position: 'bottom-left', autoClose: 2500,
                 className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
             }
         } else if(acao === 'Voltar'){
-            if(analisesNumericas.every((analise) => analise.valor !== 'false')){
+            if(analisesNumericas.every((analise) => analise.valor !== '')){
                 confirmaVoltaListagem()
             } else {
                 toast.error('Preencha todas as análises.', {position: 'bottom-left', autoClose: 2500,
@@ -194,6 +199,7 @@ function AnaliseQuali() {
                     {mudanca === 'Edição' &&
                         <button type='button' onClick={irRegularizacao}>Relatório Final</button>
                     }
+                
                     <button type='button' onClick={irQuantitativa}>Análise Quantitativa</button>
                     <div>
                         <input type="text" value={'Laudo'} readOnly/> <input type="text" value={'Deve haver'} readOnly/>
@@ -220,7 +226,7 @@ function AnaliseQuali() {
                             return (
                                 <div key={index}>
                                     <input type="text" value={regra.reg_tipo} readOnly/> <input type="text" value={regra.reg_valor} readOnly/>
-                                    <input type="number" onChange={(evento) => manipularRegra(index, evento.target.value)} required/>
+                                    <input type="text" onChange={(evento) => manipularRegra(index, evento.target.value)} required/>
                                 </div>
                             )
                         }
@@ -273,7 +279,7 @@ function AnaliseQuali() {
                             return (
                                 <div key={index}>
                                     <input type="text" value={regra.reg_tipo} readOnly/> <input type="text" value={regra.reg_valor} readOnly/>
-                                    <input type="number" onChange={(evento) => manipularRegra(index, evento.target.value)} required/>
+                                    <input type="text" onChange={(evento) => manipularRegra(index, evento.target.value)} required/>
                                 </div>
                             )
                         }
