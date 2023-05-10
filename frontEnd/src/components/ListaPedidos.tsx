@@ -110,9 +110,11 @@ function ListaPedidos(){
                 })
             } else if (filtroStatus === 'Finalizado'){
                 return pedidos.filter((pedido) => {
-                    const aprovado = pedido.ped_status.includes('Aprovado')
-                    const recusado = pedido.ped_status.includes('Recusado')
-                    return aprovado || recusado
+                    // const aprovado = pedido.ped_status.includes('Aprovado')
+                    // const recusado = pedido.ped_status.includes('Recusado')
+                    // return aprovado || recusado
+                    const finalizado = pedido.ped_status.includes('Finalizado')
+                    return finalizado
                 })
             }
         }
@@ -206,6 +208,16 @@ function ListaPedidos(){
                                 <p>Estado do pedido: {pedido.ped_status}</p>
                                 <hr />
                                 <p>Revisão:</p>
+                                {pedido.ped_status === 'Finalizado' &&
+                                    <>
+                                    <button type='button' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Cadastro do Pedido</button>
+                                    <button type='button' onClick={() => { navegate(`/recebePedido/${pedido.ped_codigo}`); } }>Nota Fiscal</button>
+                                    <button type='button' onClick={() => { navegate(`/analiseQuant/${pedido.ped_codigo}`); } }>Análise Quantitativa</button>
+                                    <button type='button' onClick={() => { navegate(`/analiseQuali/${pedido.ped_codigo}`); } }>Análise Qualitativa</button>
+                                    <hr />
+                                    <button type='button' disabled>Relatório Final</button>
+                                    </>
+                                }
                                 {pedido.ped_status === 'Análise Qualitativa' &&
                                     <>
                                     <button type='button' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Cadastro do Pedido</button>

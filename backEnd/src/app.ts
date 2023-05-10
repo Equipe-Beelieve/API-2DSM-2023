@@ -232,7 +232,8 @@ app.post('/confereStatus', async (req, res) =>{
             res.send("não permitir")
         }
     }
-    else if (status !== 'Recusado' && status !== 'Aceito'){
+    //else if (status !== 'Recusado' && status !== 'Aceito'){ DESCOMENTAR APÓS A IMPLEMENTAÇÃO DO RELATÓRIO FINAL
+    else if (status !== 'Finalizada'){
         res.send("Primeira vez")
     }
     else {
@@ -295,6 +296,7 @@ app.post('/postQualitativa', async (req, res) => {
     await bd.laudoNF(id, laudo)
     analises.forEach(async (analise:AnaliseQualitativa) => {
         await bd.inserirAnaliseQualitativa(id, analise)
+        await bd.mudaFinalizado(id)
     })
     
     //let analiseQualitativa = new AnaliseQualitativa(tipo, valor, avaria)

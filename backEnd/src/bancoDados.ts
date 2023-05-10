@@ -236,7 +236,8 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async pegaAnaliseQualitativa(id:string){
         await this.conectar()
-        let [dado] = await this.conexao.query(`Select regra_tipo, regra_valor FROM parametros_do_pedido WHERE ped_codigo =${id} and regra_tipo <> "Análise Quantitativa"`) as Array<any>
+        let [dado] = await this.conexao.query(`Select regra_tipo, regra_valor FROM parametros_do_pedido WHERE ped_codigo =${id} and regra_tipo <> "Análise Quantitativa" and regra_tipo <> "Mínimo de conformidade"`) as Array<any>
+        console.log(dado[0])
         await this.conexao.end()
         return dado[0]
     }
@@ -261,15 +262,25 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         let [prod_codigo] = await this.conexao.query(`SELECT prod_codigo FROM produto WHERE prod_descricao = (SELECT ped_descricao FROM pedido WHERE ped_codigo=${id})`)  as Array<any>
         let [insert, fields]:[mysql.OkPacket, mysql.FieldPacket[]] = await this.conexao.query(`INSERT INTO parametros_do_pedido(regra_tipo, regra_valor, prod_codigo, ped_codigo) VALUES(?, ?, ${prod_codigo[0].prod_codigo}, ${id})`,
         [analiseQualitativa['tipo'], analiseQualitativa['valor']])
-
+        
         if(analiseQualitativa['avaria'] !== undefined && analiseQualitativa['avaria'] != ''){    
         //let [par_codigo] = await this.conexao.query(`SELECT par_codigo FROM parametros_do_pedido WHERE par_codigo = (SELECT LAST_INSERT_ID())`)  as Array<any>
             let par_codigo = insert.insertId
             await this.conexao.query(`INSERT INTO avaria_comentario(av_comentario, par_codigo) VALUES(?, ${par_codigo})`,
             [analiseQualitativa['avaria']])
         }
+
     }
 
+    //!!!!!!!!!!!!!!! APAGAR NA PRÓXIMA SPRINT !!!!!!!!!!!!!!!
+    
+    async mudaFinalizado(id:string){
+        await this.conectar()
+        await this.conexao.query(`UPDATE pedido SET ped_status = 'Finalizado' WHERE ped_codigo = ${id}`)
+        await this.conexao.end()
+    }
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     //Confere unidade
     async condereUnidade(id:string){

@@ -542,8 +542,7 @@ function RecebimentoPedido(){
                     {mudanca === 'Primeira vez' &&
                         <>
                         <button type="button" onClick={cancelaVoltaListagem} className="cancel_button3">Cancelar</button>
-                        <button type="button" onClick={confirmaVoltaListagem} className="confirm_button">Confirmar e voltar para a home</button>
-                        <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar e continuar</button>
+                        <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar</button>
                         </>
                     }
                     {mudanca === 'Edição' &&
@@ -567,6 +566,8 @@ function RecebimentoPedido(){
                     <br />
                     <h2>RECEBIMENTO DO PEDIDO: {id}</h2>
                     <h3>Insira a nota fiscal</h3>
+                    <button type='button' onClick={irCadastroPedido}>Cadastro dos Pedidos</button>
+                    <button type='button' onClick={irQuantitativa}>Análise Quantitativa</button>
                     <div className="grid-container poscentralized">
                         <div className="box">
                             <table>

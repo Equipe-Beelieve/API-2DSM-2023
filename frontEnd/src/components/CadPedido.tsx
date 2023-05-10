@@ -659,6 +659,7 @@ function CadPedido() {
                 <NavBar />
                 <div className="divFornecedor">
                     <h1 className='mainTitle'>Cadastro de Pedidos</h1>
+                    <button type='button' onClick={irRecebimento}>Nota Fiscal</button>
                     <form onSubmit={cadastroPedido}>
     
                         <div className="poscentralized grid-container">

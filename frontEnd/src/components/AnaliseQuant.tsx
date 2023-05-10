@@ -167,9 +167,10 @@ function AnaliseQuant(){
                 {mudanca === 'Primeira vez' &&
                     <>
                     <div className='mesmalinha'>
+                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
                         <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar e continuar</button>
                     </div>
-                    <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
+                    
                     </>
                 }
                 {mudanca === 'Edição' &&
@@ -196,6 +197,8 @@ function AnaliseQuant(){
                     <h1 className="mainTitle">ANÁLISE QUANTITATIVA</h1>
                 
                 </div>
+                <button type='button' onClick={irQualitativa}>Análise Qualitativa</button>
+                <button type='button' onClick={irNotaFiscal}>Nota Fiscal</button>
                 <div className="uni_quant">Unidade: {tipoPeso}
                 </div>
                 <div className='anaq1'>
