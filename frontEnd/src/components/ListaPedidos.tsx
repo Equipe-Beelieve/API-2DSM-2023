@@ -196,7 +196,7 @@ function ListaPedidos(){
                 onKeyUp= {(evento) => atualizarBusca(busca)} />
             </div>
             {pedidosBuscados.map((pedido, index) =>(
-                    <div className="listaIn" key={index} onClick={() =>{selecionaPedido(pedido.ped_codigo, pedido.ped_status)}}>
+                    <div className="listaIn" key={index}>
                         <h1>Pedido nº{pedido.ped_codigo} - {pedido.ped_descricao} ({pedido.ped_razao_social})</h1>
                         <div className="listColumns">
                             <div className="column1">
@@ -204,7 +204,33 @@ function ListaPedidos(){
                                 <p>Valor total: {pedido.ped_valor_total}</p>
                                 <p>Data de entrega: {pedido.ped_data_entrega}</p>
                                 <p>Estado do pedido: {pedido.ped_status}</p>
-                                <button className='lista_button' onClick = {(evento) => deletaPedido()}>deleta pedido</button>
+                                <hr />
+                                <p>Revisão:</p>
+                                {pedido.ped_status === 'Análise Qualitativa' &&
+                                    <>
+                                    <button type='button' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Cadastro do Pedido</button>
+                                    <button type='button' onClick={() => { navegate(`/recebePedido/${pedido.ped_codigo}`); } }>Nota Fiscal</button>
+                                    <button type='button' onClick={() => { navegate(`/analiseQuant/${pedido.ped_codigo}`); } }>Análise Quantitativa</button>
+                                    <hr />
+                                    <button type='button' onClick={() => { navegate(`/analiseQuali/${pedido.ped_codigo}`); } }>Análise Qualitativa</button>
+                                    </>
+                                }
+                                {pedido.ped_status === 'Análise Quantitativa' &&
+                                    <>
+                                    <button type='button' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Cadastro do Pedido</button>
+                                    <button type='button' onClick={() => { navegate(`/recebePedido/${pedido.ped_codigo}`); } }>Nota Fiscal</button>
+                                    <hr />
+                                    <button type='button' onClick={() => { navegate(`/analiseQuant/${pedido.ped_codigo}`); } }>Análise Quantitativa</button>
+                                    </>
+                                }
+                                {pedido.ped_status === 'A caminho' &&
+                                    <>
+                                    <button type='button' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Cadastro do Pedido</button>
+                                    <hr />
+                                    <button type='button' onClick={() => { navegate(`/recebePedido/${pedido.ped_codigo}`); } }>Recebimento do Pedido</button>
+                                    </>
+                                }
+                                
 
                             </div>
                     </div>
