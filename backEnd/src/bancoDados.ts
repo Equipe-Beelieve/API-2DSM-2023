@@ -17,7 +17,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'fatec', //sua senha
+                password: 'root', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -229,14 +229,14 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async pegaAnaliseQuantitativa(id:string){
         await this.conectar()
-        let [dado] = await this.conexao.query(`Select valor FROM parametros_do_pedido WHERE ped_codigo = ${id} and tipo = "Análise Quantitativa"`) as Array<any>
+        let [dado] = await this.conexao.query(`Select regra_valor FROM parametros_do_pedido WHERE ped_codigo = ${id} and regra_tipo = "Análise Quantitativa"`) as Array<any>
         await this.conexao.end()
         return dado[0]
     }
 
     async pegaAnaliseQualitativa(id:string){
         await this.conectar()
-        let [dado] = await this.conexao.query(`Select tipo, descricao, valor FROM parametros_do_pedido WHERE ped_codigo =${id} and tipo <> "Análise Quantitativa"`) as Array<any>
+        let [dado] = await this.conexao.query(`Select regra_tipo, regra_valor FROM parametros_do_pedido WHERE ped_codigo =${id} and regra_tipo <> "Análise Quantitativa"`) as Array<any>
         await this.conexao.end()
         return dado[0]
     }
@@ -251,7 +251,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async pegaRegraRecebimento(id:string) {
         await this.conectar()
-        let [regras, meta] = await this.conexao.query(`SELECT reg_codigo, reg_tipo, reg_valor, reg_obrigatoriedade FROM regras_de_recebimento WHERE prod_codigo = ${id}`)
+        let [regras, meta] = await this.conexao.query(`SELECT reg_codigo, reg_tipo, reg_valor, reg_obrigatoriedade FROM regras_de_recebimento WHERE prod_codigo = ${id} and reg_tipo <> 'Mínimo de conformidade'`)
         await this.conexao.end()
         return regras
     }
@@ -276,7 +276,14 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conectar()
         let [unidade, meta] = await this.conexao.query(`SELECT ped_produto_massa FROM pedido WHERE ped_codigo = ${id}`) as Array<any>
         await this.conexao.end()
-        return unidade
+        console.log(unidade)
+        if(unidade[0].ped_produto_massa.slice(-1) === 't'){
+            unidade[0].ped_produto_massa = 't'
+        }
+        else{
+            unidade[0].ped_produto_massa = unidade.ped_produto_massa.slice(-2, -1)
+        }
+        return unidade[0]
     }
 
 
@@ -308,7 +315,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async updateQuantitativa(id:string, pesagem:string){
         await this.conectar()
-        await this.conexao.query(`Update parametros_do_pedido SET regra_valor = ${pesagem} WHERE regra_tipo = 'Análise Quantitativa' and ped_codigo = ${id}`)
+        await this.conexao.query(`Update parametros_do_pedido SET regra_valor = '${pesagem}' WHERE regra_tipo = 'Análise Quantitativa' and ped_codigo = ${id}`)
         await this.conexao.end()
     }
 

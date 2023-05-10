@@ -268,13 +268,14 @@ app.post('/postQuantitativa', async (req, res) => {
 })
 
 app.post('/updateQuantitativa', async (req, res) => {
-    let {id, pesagem} = req.body
+    let {id, pesagem} = req.body.post
     await bd.updateQuantitativa(id, pesagem)
 })
 
 app.post('/confereUnidade', async (req, res)=>{
     let id = req.body.post
-    let unidade = bd.condereUnidade(id)
+    let unidade = await bd.condereUnidade(id)
+    console.log(`AQQQQQ ${unidade.ped_produto_massa}`)
     res.send(unidade)
 })
 

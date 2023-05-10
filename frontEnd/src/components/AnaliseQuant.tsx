@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import api from '../services/api';
 import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from './NavBar';
+import { toast } from 'react-toastify';
 
 interface Pedido{
     ped_produto_massa:string
@@ -19,8 +20,8 @@ function AnaliseQuant(){
         try {
             let post = id
             const response = await api.post('/confereUnidade', {post})
-            console.log(response.data)
-            setPeso(response.data)
+            let dado = response.data.ped_produto_massa
+            setPeso(dado)
             }
             catch (erro) {
             console.log(erro)
@@ -39,6 +40,7 @@ function AnaliseQuant(){
         }
         else {
             setMudanca('Edição')
+            setPesagem(dado.regra_valor)
             
         }
         console.log(status.data)
@@ -48,9 +50,7 @@ function AnaliseQuant(){
     const navegate = useNavigate()
 
     async function confiraTipoPeso(){
-        const valor = peso
-        let final = valor.slice(-1);
-        if (final === 't'){
+        if (peso.slice(-1) === 't'){
             setTipoPeso('Toneladas')
         }
         else{
@@ -58,7 +58,44 @@ function AnaliseQuant(){
         }
     }
 
-      // ====================== Botões ======================
+    // ====================== Mascara ======================
+
+    function blurPesagem (evento:any){
+        let valor = evento.target.value
+        if(tipoPeso === 'Toneladas'){
+            valor = valor + ' t'
+        }
+        else{
+            valor = valor + ' kg'
+        }
+        setPesagem(valor)
+    }
+
+    function selectPesagem(evento:any){
+        let valor = evento.target.value
+        if(tipoPeso === 'Toneladas' && valor.slice(-1) === 't'){
+            valor = valor.slice(0, -2)
+        }
+        else if(tipoPeso === 'Quilogramas' && valor.slice(-1) === 'g'){
+            valor = valor.slice(0, -3)
+        }
+        setPesagem(valor)
+    }
+
+    function mudaPesagem(evento:any){
+        console.log(evento.target.value)
+        if(!isNaN(evento.target.value)){
+            setPesagem(evento.target.value)
+        }
+        else{
+            toast.error('Insira apenas números', {
+                position: 'bottom-left',
+                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+            })
+        }
+    }
+
+    // ====================== Botões ======================
 
     async function confirmaVoltaListagem(){
         const post = {id, pesagem}
@@ -68,13 +105,30 @@ function AnaliseQuant(){
 
     async function confirmaContinua() {
         const post = {id, pesagem}
+        navegate(`/analiseQuali/${id}`)  
         await api.post('/postQuantitativa', { post })
-        navegate(`/analiseQuali/${id}`)       
+             
+    }
+
+    function irQualitativa(){
+        navegate(`/analiseQuali/${id}`)
+    }
+
+    function irNotaFiscal(){
+        navegate(`/recebePedido/${id}`)
     }
 
     function cancelaVoltaListagem(){
         navegate('/listaPedidos')
     }
+
+    async function editaVolta(){
+        const post = {id, pesagem}
+        navegate('/listaPedidos')
+        await api.post('/updateQuantitativa', { post })
+    }
+
+    //==================== useEffect ====================
 
     useEffect(() => {
         getPeso()
@@ -82,30 +136,86 @@ function AnaliseQuant(){
         veStatus()
     },[])
 
-    return(
-        <>
-        <NavBar/>
-        <div className="mainContent">
-            <div className="titleRegister">
-                <h1 className="mainTitle">ANÁLISE QUANTITATIVA</h1>
-            
-            </div>
-            <div className="uni_quant">Unidade: {tipoPeso}
-            </div>
-            <div className='anaq1'>
-                <div className='anaq2'>
-                    Resultado da pesagem:
-                </div>
-                <input type="text" className='input_form2' value={pesagem} onChange={(e) => {setPesagem(e.target.value)}} required></input>
-            </div>
-                <div className='mesmalinha'>
-                    <button type="button" onClick={confirmaVoltaListagem} className="confirm_button">Confirmar e voltar para a home</button>
-                    <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar e continuar</button></div>
-                    <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
+    //==================== Render ====================
 
-        </div>
-        </>
-    )
+    if(mudanca !== 'Revisão'){
+        return(
+            <>
+            <NavBar/>
+            <div className="mainContent">
+                <div className="titleRegister">
+                    <h1 className="mainTitle">ANÁLISE QUANTITATIVA</h1>
+                
+                </div>
+                {mudanca === 'Edição' &&
+                    <button type='button' onClick={irQualitativa}>Análise Qualitativa</button>
+                }
+                <button type='button' onClick={irNotaFiscal}>Nota Fiscal</button>
+                
+                <div className="uni_quant">Unidade: {tipoPeso}
+                </div>
+                <div className='anaq1'>
+                    <div className='anaq2'>
+                        Resultado da pesagem:
+                    </div>
+                    <input type="text" className='input_form2' value={pesagem} 
+                    onChange={(e) => {mudaPesagem(e)}}
+                    onBlur={(e) =>{blurPesagem(e)}}
+                    onSelect={(e) =>{selectPesagem(e)}}
+                    required></input>
+                </div>
+                {mudanca === 'Primeira vez' &&
+                    <>
+                    <div className='mesmalinha'>
+                        <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar e continuar</button>
+                    </div>
+                    <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
+                    </>
+                }
+                {mudanca === 'Edição' &&
+                    <>
+                    <div className='mesmalinha'>
+                    
+                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
+                        <button type="button" onClick={editaVolta} className="confirm_button">Editar</button>
+
+                    </div>
+                    </>
+                }
+                
+            </div>
+            </>
+        )
+    }
+    else{
+        return(
+            <>
+            <NavBar/>
+            <div className="mainContent">
+                <div className="titleRegister">
+                    <h1 className="mainTitle">ANÁLISE QUANTITATIVA</h1>
+                
+                </div>
+                <div className="uni_quant">Unidade: {tipoPeso}
+                </div>
+                <div className='anaq1'>
+                    <div className='anaq2'>
+                        Resultado da pesagem:
+                    </div>
+                    <input type="text" className='input_form2' value={pesagem} readOnly></input>
+                </div>
+                
+                
+                <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Voltar</button>    
+            </div>
+            </>
+
+        )
+        
+            
+        
+    }
+    
 }
 
 export default AnaliseQuant
