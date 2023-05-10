@@ -17,7 +17,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: '', //sua senha
+                password: 'root', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -241,9 +241,9 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     async pegaAnaliseQualitativa(id:string){
         await this.conectar()
         let [dado] = await this.conexao.query(`Select regra_tipo, regra_valor FROM parametros_do_pedido WHERE ped_codigo =${id} and regra_tipo <> "Análise Quantitativa" and regra_tipo <> "Mínimo de conformidade"`) as Array<any>
-        console.log(dado[0])
+        console.log(dado)
         await this.conexao.end()
-        return dado[0]
+        return dado
     }
 
     async pegaRelatorioCompras(id:string):Promise<Pedido> {
@@ -266,14 +266,16 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         let [prod_codigo] = await this.conexao.query(`SELECT prod_codigo FROM produto WHERE prod_descricao = (SELECT ped_descricao FROM pedido WHERE ped_codigo=${id})`)  as Array<any>
         let [insert, fields]:[mysql.OkPacket, mysql.FieldPacket[]] = await this.conexao.query(`INSERT INTO parametros_do_pedido(regra_tipo, regra_valor, prod_codigo, ped_codigo) VALUES(?, ?, ${prod_codigo[0].prod_codigo}, ${id})`,
         [analiseQualitativa['tipo'], analiseQualitativa['valor']])
-        
+        await this.conexao.end()
         if(analiseQualitativa['avaria'] !== undefined && analiseQualitativa['avaria'] != ''){    
-        //let [par_codigo] = await this.conexao.query(`SELECT par_codigo FROM parametros_do_pedido WHERE par_codigo = (SELECT LAST_INSERT_ID())`)  as Array<any>
-            let par_codigo = insert.insertId
-            await this.conexao.query(`INSERT INTO avaria_comentario(av_comentario, par_codigo) VALUES(?, ${par_codigo})`,
-            [analiseQualitativa['avaria']])
+            await this.insereComentarioAvaria(insert.insertId, analiseQualitativa['avaria'])
         }
+    }
 
+    async insereComentarioAvaria(insertId:number, avaria:string){
+        await this.conectar()
+        await this.conexao.query(`INSERT INTO avaria_comentario(av_comentario, par_codigo) VALUES(?, ${insertId})`, [avaria])
+        await this.conexao.end()
     }
 
     //!!!!!!!!!!!!!!! APAGAR NA PRÓXIMA SPRINT !!!!!!!!!!!!!!!
