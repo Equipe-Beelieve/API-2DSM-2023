@@ -221,7 +221,14 @@ function RecebimentoPedido(){
         navegate('/listaPedidos')
     }
 
+    //====================== Botões de mudança de fase ======================
 
+    function irQuantitativa(){
+        navegate(`/analiseQuant/${id}`)
+    }
+    function irCadastroPedido(){
+        navegate(`/cadastroPedido/${id}`)
+    }
     
     // ====================== Use Effect ======================
 
@@ -312,6 +319,10 @@ function RecebimentoPedido(){
                     <br />
                     <h2>RECEBIMENTO DO PEDIDO: {id}</h2>
                     <h3>Insira a nota fiscal</h3>
+                    <button type='button' onClick={irCadastroPedido}>Cadastro dos Pedidos</button>
+                    {mudanca === 'Edição' &&
+                        <button type='button' onClick={irQuantitativa}>Análise Quantitativa</button>
+                    }
                     <div className="grid-container poscentralized">
                         <div className="box">
                             <table>

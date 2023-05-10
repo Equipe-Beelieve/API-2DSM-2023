@@ -371,6 +371,12 @@ function CadPedido() {
         navegate("/listaPedidos")
     }
 
+    // ===================== Botões de mudança de fase =====================  
+
+    function irRecebimento(){
+        navegate(`/recebePedido/${id}`)
+    }
+
     // ===================== HTML =====================  
 
     if (mudanca !== "Revisão"){
@@ -379,6 +385,9 @@ function CadPedido() {
                 <NavBar />
                 <div className="divFornecedor">
                     <h1 className='mainTitle'>Cadastro de Pedidos</h1>
+                    {mudanca === 'Edição' &&
+                        <button type='button' onClick={irRecebimento}>Nota Fiscal</button>
+                    }
                     <form onSubmit={estadoPedido}>
     
                         <div className="poscentralized grid-container">
