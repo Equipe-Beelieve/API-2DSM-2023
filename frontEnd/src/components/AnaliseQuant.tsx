@@ -13,16 +13,35 @@ function AnaliseQuant(){
     const [pesagem, setPesagem] = useState('')
     const [peso, setPeso] = useState('')
     const [tipoPeso, setTipoPeso] = useState('')
+    const [mudanca, setMudanca] = useState('')
 
     async function getPeso(){
         try {
-            const response = await api.get('/listaPedidos')
-            console.log(response.data.tabelaPedido)
-            setPeso(response.data.tabelaPedido)
+            let post = id
+            const response = await api.post('/confereUnidade', {post})
+            console.log(response.data)
+            setPeso(response.data)
             }
             catch (erro) {
             console.log(erro)
             }
+    }
+
+    async function veStatus() {
+        let status = await api.post('/confereStatus', {id:id, acessando:'Análise Quantitativa'})
+        let dado = status.data
+        console.log(dado)
+        if (status.data === 'Primeira vez'){
+            setMudanca('Primeira vez')
+        }
+        else if (status.data === 'Revisão'){
+            setMudanca('Revisão')
+        }
+        else {
+            setMudanca('Edição')
+            
+        }
+        console.log(status.data)
     }
 
     const {id} = useParams()
@@ -41,23 +60,27 @@ function AnaliseQuant(){
 
       // ====================== Botões ======================
 
-      async function confirmaVoltaListagem(){
+    async function confirmaVoltaListagem(){
         const post = {id, pesagem}
         navegate('/listaPedidos')
         await api.post('/postQuantitativa', {post})  
-}
+    }
 
     async function confirmaContinua() {
-    const post = {id, pesagem}
-    await api.post('/postQuantitativa', { post })
-    navegate(`/analiseQuali/${id}`)       
-}
+        const post = {id, pesagem}
+        await api.post('/postQuantitativa', { post })
+        navegate(`/analiseQuali/${id}`)       
+    }
 
     function cancelaVoltaListagem(){
-    navegate('/listaPedidos')
-}
+        navegate('/listaPedidos')
+    }
 
-
+    useEffect(() => {
+        getPeso()
+        confiraTipoPeso()
+        veStatus()
+    },[])
 
     return(
         <>

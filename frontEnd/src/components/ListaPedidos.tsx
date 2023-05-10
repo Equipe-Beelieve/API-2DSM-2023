@@ -78,7 +78,7 @@ function ListaPedidos(){
             navegate(`/analiseQuant/${id}`)
         }
         else if (status === 'Análise Qualitativa'){
-            navegate('/listaPedidos')
+            navegate(`/analiseQuali/${id}`)
         }
         else if (status === 'Recusado'){
             navegate('/listaPedidos')

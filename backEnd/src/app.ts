@@ -261,7 +261,8 @@ app.post('/updateNota', async (req,res) => {
 //========================= Análise Quantitativa =========================
 
 app.post('/postQuantitativa', async (req, res) => {
-    let {id, pesagem} = req.body
+    let {id, pesagem} = req.body.post
+    console.log(req.body)
     await bd.inserirAnaliseQuantitativa(id, pesagem)
 
 })
@@ -269,6 +270,12 @@ app.post('/postQuantitativa', async (req, res) => {
 app.post('/updateQuantitativa', async (req, res) => {
     let {id, pesagem} = req.body
     await bd.updateQuantitativa(id, pesagem)
+})
+
+app.post('/confereUnidade', async (req, res)=>{
+    let id = req.body.post
+    let unidade = bd.condereUnidade(id)
+    res.send(unidade)
 })
 
 //========================= Análise Qualitativa =========================
@@ -283,7 +290,7 @@ app.get('/analiseQuali/:id', async (req, res) => {
 
 app.post('/postQualitativa', async (req, res) => {
     let {id, analises, laudo} = req.body.post
-    //console.log(analises)
+    console.log(id)
     await bd.laudoNF(id, laudo)
     analises.forEach(async (analise:AnaliseQualitativa) => {
         await bd.inserirAnaliseQualitativa(id, analise)

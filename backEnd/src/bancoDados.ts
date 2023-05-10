@@ -209,6 +209,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conectar()
         let [prod_codigo] = await this.conexao.query(`SELECT prod_codigo FROM produto WHERE prod_descricao = (SELECT ped_descricao FROM pedido WHERE ped_codigo=${id})`) as Array<any>
         await this.conexao.query(`INSERT INTO parametros_do_pedido(regra_tipo, regra_valor, prod_codigo, ped_codigo) VALUES("Análise Quantitativa", "${pesagem}", ${prod_codigo[0].prod_codigo}, ${id})`)
+        await this.conexao.query(`UPDATE pedido SET ped_status = 'Análise Qualitativa' WHERE ped_codigo=${id}`)
         await this.conexao.end()
     }
 
@@ -269,6 +270,14 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         }
     }
 
+
+    //Confere unidade
+    async condereUnidade(id:string){
+        await this.conectar()
+        let [unidade, meta] = await this.conexao.query(`SELECT ped_produto_massa FROM pedido WHERE ped_codigo = ${id}`) as Array<any>
+        await this.conexao.end()
+        return unidade
+    }
 
 
     //===================== UPDATE =====================
