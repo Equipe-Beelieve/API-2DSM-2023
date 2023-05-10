@@ -95,7 +95,7 @@ function ListaUsuario(){
                 </button>
             </div>
             <div>
-                <input type="text"
+                <input type="text" className="termo-pesquisa" id="imagem-pesquisa"
                 placeholder='Digite o nome do usuario'
                 value = {busca}
                 onChange = {(evento) => setBusca(evento.target.value)}

@@ -602,27 +602,36 @@ p.solid {
   margin-top:10vw;
 }
 
-.pesquisa {
+/* .pesquisa {
   margin: auto;
-  width: 50%;
+  width: 70%;
   padding: 10px;
   
-}
+} */
 .termo-pesquisa {
-  width: 100%;
+  width: 65vw;
   border: 3px solid gray;
   background-color: lightgray;
   padding: 5px;
   border-radius: 5px;
   
 }
-.pesquisa2 {
+/* .pesquisa2 {
   background-color:gray;
   border-radius:5px;
   width: 3%;
-}
-
+} */
 .mesmalinha{
   display: inline;
   margin-left: 3vw;
+}
+#imagem-pesquisa {
+  background-image: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-512.png');
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 30px;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
 }
