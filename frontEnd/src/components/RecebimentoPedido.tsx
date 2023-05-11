@@ -207,8 +207,7 @@ function RecebimentoPedido(){
             transportadora !== '' && condicaoPagamento){
                 const post = {id, unidade, produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario,
                 quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento }
-                navegate(`/analiseQuant/${id}`)
-                await api.post('/postNota', {post})
+                await api.post('/postNota', {post}).then((response) => {navegate(`/analiseQuant/${id}`)})
                 }
         else{
             toast.error('Preencha todos os campos', {position: 'bottom-left', autoClose: 2500,

@@ -249,6 +249,7 @@ app.post('/postNota', async (req, res) => {
     let codigoFornecedor = await bd.pegarCodigo('for_codigo', 'fornecedor', 'for_razao_social', razaoSocial)
     let nf = new NotaFiscal(produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, codigoFornecedor, unidade, id)
     await bd.inserirNF(nf)
+    res.send('foi')
 })
 
 app.post('/updateNota', async (req,res) => {
