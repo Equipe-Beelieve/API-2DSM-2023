@@ -206,43 +206,45 @@ function ListaPedidos(){
                                 <p>Valor total: {pedido.ped_valor_total}</p>
                                 <p>Data de entrega: {pedido.ped_data_entrega}</p>
                                 <p>Estado do pedido: {pedido.ped_status}</p>
-                                <hr />
+                                <hr className='hr_pedido' />
                                 <p>Revisão:</p>
+                                <center>
                                 {pedido.ped_status === 'Finalizado' &&
                                     <>
-                                    <button type='button' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Cadastro do Pedido</button>
-                                    <button type='button' onClick={() => { navegate(`/recebePedido/${pedido.ped_codigo}`); } }>Nota Fiscal</button>
-                                    <button type='button' onClick={() => { navegate(`/analiseQuant/${pedido.ped_codigo}`); } }>Análise Quantitativa</button>
-                                    <button type='button' onClick={() => { navegate(`/analiseQuali/${pedido.ped_codigo}`); } }>Análise Qualitativa</button>
-                                    <hr />
-                                    <button type='button' disabled>Relatório Final</button>
+                                    <button type='button' className='ped_btn' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Cadastro do Pedido</button>
+                                    <button type='button' className='ped_btn' onClick={() => { navegate(`/recebePedido/${pedido.ped_codigo}`); } }>Nota Fiscal</button>
+                                    <button type='button' className='ped_btn' onClick={() => { navegate(`/analiseQuant/${pedido.ped_codigo}`); } }>Análise Quantitativa</button>
+                                    <button type='button' className='ped_btn' onClick={() => { navegate(`/analiseQuali/${pedido.ped_codigo}`); } }>Análise Qualitativa</button>
+                                    <hr className='hr_pedido' />
+                                    <button type='button' className='ped_btn2' disabled>Relatório Final</button>
+                                
                                     </>
                                 }
                                 {pedido.ped_status === 'Análise Qualitativa' &&
                                     <>
-                                    <button type='button' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Cadastro do Pedido</button>
-                                    <button type='button' onClick={() => { navegate(`/recebePedido/${pedido.ped_codigo}`); } }>Nota Fiscal</button>
-                                    <button type='button' onClick={() => { navegate(`/analiseQuant/${pedido.ped_codigo}`); } }>Análise Quantitativa</button>
-                                    <hr />
-                                    <button type='button' onClick={() => { navegate(`/analiseQuali/${pedido.ped_codigo}`); } }>Análise Qualitativa</button>
+                                    <button type='button' className='ped_btn' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Cadastro do Pedido</button>
+                                    <button type='button' className='ped_btn' onClick={() => { navegate(`/recebePedido/${pedido.ped_codigo}`); } }>Nota Fiscal</button>
+                                    <button type='button' className='ped_btn' onClick={() => { navegate(`/analiseQuant/${pedido.ped_codigo}`); } }>Análise Quantitativa</button>
+                                    <hr className='hr_pedido' />
+                                    <button type='button' className='ped_btn2' onClick={() => { navegate(`/analiseQuali/${pedido.ped_codigo}`); } }>Análise Qualitativa</button>
                                     </>
                                 }
                                 {pedido.ped_status === 'Análise Quantitativa' &&
                                     <>
-                                    <button type='button' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Cadastro do Pedido</button>
-                                    <button type='button' onClick={() => { navegate(`/recebePedido/${pedido.ped_codigo}`); } }>Nota Fiscal</button>
-                                    <hr />
-                                    <button type='button' onClick={() => { navegate(`/analiseQuant/${pedido.ped_codigo}`); } }>Análise Quantitativa</button>
+                                    <button type='button' className='ped_btn' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Cadastro do Pedido</button>
+                                    <button type='button' className='ped_btn' onClick={() => { navegate(`/recebePedido/${pedido.ped_codigo}`); } }>Nota Fiscal</button>
+                                    <hr className='hr_pedido' />
+                                    <button type='button' className='ped_btn2' onClick={() => { navegate(`/analiseQuant/${pedido.ped_codigo}`); } }>Análise Quantitativa</button>
                                     </>
                                 }
                                 {pedido.ped_status === 'A caminho' &&
                                     <>
-                                    <button type='button' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Cadastro do Pedido</button>
-                                    <hr />
-                                    <button type='button' onClick={() => { navegate(`/recebePedido/${pedido.ped_codigo}`); } }>Recebimento do Pedido</button>
+                                    <button type='button' className='ped_btn' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Revisão do Cadastro<p></p> de Pedidos</button>
+                                    <hr className='hr_pedido' />
+                                    <button type='button' className='ped_btn2' onClick={() => { navegate(`/recebePedido/${pedido.ped_codigo}`); } }>Receber Pedido</button>
                                     </>
                                 }
-                                
+                                </center>
 
                             </div>
                     </div>
