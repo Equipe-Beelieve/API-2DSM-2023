@@ -265,6 +265,7 @@ app.post('/postQuantitativa', async (req, res) => {
     let {id, pesagem} = req.body.post
     console.log(req.body)
     await bd.inserirAnaliseQuantitativa(id, pesagem)
+    res.send('foi')
 
 })
 

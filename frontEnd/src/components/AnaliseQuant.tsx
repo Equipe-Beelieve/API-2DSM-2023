@@ -29,22 +29,24 @@ function AnaliseQuant(){
     }
 
     async function veStatus() {
-        let status = await api.post('/confereStatus', {id:id, acessando:'Análise Quantitativa'})
-        let dado = status.data
-        console.log(dado)
-        if (status.data === 'Primeira vez'){
-            setMudanca('Primeira vez')
-        }
-        else if (status.data === 'Revisão'){
-            setMudanca('Revisão')
-        }
-        else {
-            setMudanca('Edição')
-            setPesagem(dado.regra_valor)
+        await api.post('/confereStatus', {id:id, acessando:'Análise Quantitativa'}).then((response) => {
+            let dado = response.data
+
+            if (response.data === 'Primeira vez'){
+                setMudanca('Primeira vez')
+            }
+            else if (response.data === 'Revisão'){
+                setMudanca('Revisão')
+            }
+            else {
+                setMudanca('Edição')
+                setPesagem(dado.regra_valor)
+
+            }
             
         }
-        console.log(status.data)
-    }
+        )}
+        
 
     const {id} = useParams()
     const navegate = useNavigate()
@@ -105,8 +107,8 @@ function AnaliseQuant(){
 
     async function confirmaContinua() {
         const post = {id, pesagem}
-        navegate(`/analiseQuali/${id}`)  
-        await api.post('/postQuantitativa', { post })
+          
+        await api.post('/postQuantitativa', { post }).then((response) =>{navegate(`/analiseQuali/${id}`)})
              
     }
 
@@ -134,7 +136,8 @@ function AnaliseQuant(){
         getPeso()
         confiraTipoPeso()
         veStatus()
-    },[])
+        console.log(mudanca)
+    },[mudanca])
 
     //==================== Render ====================
 
