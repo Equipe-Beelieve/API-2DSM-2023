@@ -269,7 +269,7 @@ function CadProduto() {
             let contadorTipo = { Pureza: 0, Umidade: 0 }
             regras.forEach((regra: Regra) => {
                 console.log(regra)
-                if (regra.tipo === '' || regra.valor === "" || contadorTipo.Pureza > 1 || contadorTipo.Umidade > 1) {
+                if (regra.tipo === '' || regra.valor === "") {
                     controle = false
 
                 }
@@ -299,8 +299,8 @@ function CadProduto() {
                 }
                 else{
                     const post = { descricao, unidadeMedida, regras }
-                    navigate('/listaProdutos')
-                    await api.post('/cadastroProduto', { post })
+                    
+                    await api.post('/cadastroProduto', { post }).then((resposta) => {navigate('/listaProdutos')})
                 }
                 
             }

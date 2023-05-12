@@ -53,13 +53,11 @@ function CadFornecedor() {
         }
         else{
             const post = {cnpj, cep, estado, cidade, bairro, numero, ruaAvenida, razaoSocial, nomeFantasia}
-            console.log('foi')
-            navegate('/listaFornecedor')
-            await api.post('/cadastroFornecedor', 
-            {post}
-            );
+            
+            await api.post('/cadastroFornecedor', {post}).then((resposta) => {navegate('/listaFornecedor')})
         } 
     }
+
     
     //================== MASCARAS DE FORMULÁRIO ==================
 
@@ -210,7 +208,7 @@ function CadFornecedor() {
                 <h1 className='mainTitle'>Cadastro de Fornecedores</h1>
             </center>
             
-            <form onSubmit={cadastraFornecedor}>
+            <form>
                 <div className="grid-container poscentralized">
                     <div className="box">
                         <table>
@@ -409,12 +407,8 @@ function CadFornecedor() {
                         </table>
                     </div>
                 </div>
-                <input className="confirm_button" type="submit" value="Cadastrar" />
-                <button className="cancel_button">
-                    <Link to={'/listaFornecedor'}>Cancelar</Link>
-                </button>
-
-
+                <button type='button' className="cancel_button" onClick={() => {navegate('/listaFornecedor')}}>Cancelar</button>
+                <button type='button' className="confirm_button" onClick={cadastraFornecedor}>Confirmar</button>
             </form>
         </div>
         </>

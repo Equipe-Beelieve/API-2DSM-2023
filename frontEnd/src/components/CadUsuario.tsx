@@ -56,8 +56,8 @@ function CadUsuario() {
 
         } else {
             const post = { nome, senha, funcao, login, cep, estado, cidade, endereco, numero, cpf }
-            navegate('/listaUsuario')
-            await api.post('/cadastroUsuario', { post });
+            
+            await api.post('/cadastroUsuario', { post }).then((resposta) => {navegate('/listaUsuario')})
         }
     }
 

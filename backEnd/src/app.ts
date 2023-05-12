@@ -111,6 +111,7 @@ app.get('/cadastroPedido', async (req, res) => {
     let razaoSocial = await bd.pegarRazaoSocial()
     let produtos = await bd.listarProdutos()
     res.send({razaoSocial, produtos});
+    res.send('Foi')
 })
 
 app.post('/postCadastroPedido', async (req,res) => {
@@ -119,7 +120,7 @@ app.post('/postCadastroPedido', async (req,res) => {
     let pedido = new Pedido(produto, dataPedido, dataEntrega, razaoSocial, 
         precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento)
     await bd.inserirPedido(pedido) //método da clase bancoDados para inserir na tabela pedido
-    res.send('foi')
+    res.send('Foi')
 });
 
 app.post('/updatePedido', async (req,res) => {
@@ -134,6 +135,7 @@ app.post('/cadastroFornecedor', async (req, res) => {
     let endereco = new Endereco(cep, estado, cidade, bairro, ruaAvenida, numero)
     let fornecedor = new Fornecedor(cnpj, endereco, razaoSocial, nomeFantasia)
     await bd.inserirFornecedor(fornecedor, endereco)
+    res.send('Foi')
 })
 
 //========================= Cadastro de Usuarios =========================
@@ -142,6 +144,7 @@ app.post('/cadastroUsuario', async (req,res) => {
     console.log(`nome: ${nome} | senha: ${senha} | funcao: ${funcao} | login: ${login}`)
     let usuario = new Usuario(nome, senha,funcao, login)
     await bd.inserirUsuario(usuario) 
+    res.send('Foi')
 });
 
 //========================= Cadastro de Produtos =========================
@@ -159,6 +162,7 @@ app.post('/cadastroProduto', async (req, res) => {
         const obrigatoriedade = regra.obrigatoriedade
         await bd.inserirRegrasRecebimento(tipoRegra,  descricaoRegra, obrigatoriedade,  codigoProduto)
     });
+    res.send('Foi')
     
 })
 
