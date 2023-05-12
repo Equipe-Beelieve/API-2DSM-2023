@@ -37,6 +37,7 @@ function AnaliseQuant(){
             }
             else if (dado.status === 'Revisão'){
                 setMudanca('Revisão')
+                setPesagem(dado.regra_valor)
             }
             else if (dado.status === 'Edição') {
                 setMudanca('Edição')
