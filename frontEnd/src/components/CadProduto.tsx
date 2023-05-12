@@ -285,11 +285,26 @@ function CadProduto() {
             })
 
             if (controle) {
-                const post = { descricao, unidadeMedida, regras }
-                navigate('/listaProdutos')
-                await api.post('/cadastroProduto', { post })
+                if(contadorTipo.Umidade > 1){
+                    toast.error('Não pode haver mais de uma regra de Umidade', {
+                        position: 'bottom-left',
+                        autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                    })
+                }
+                else if(contadorTipo.Pureza > 1){
+                    toast.error('Não pode haver mais de uma regra de Pureza', {
+                        position: 'bottom-left',
+                        autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                    })
+                }
+                else{
+                    const post = { descricao, unidadeMedida, regras }
+                    navigate('/listaProdutos')
+                    await api.post('/cadastroProduto', { post })
+                }
+                
             }
-            else {
+            else{
                 toast.error('Preencha todas as regras adicionadas', {
                     position: 'bottom-left',
                     autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
