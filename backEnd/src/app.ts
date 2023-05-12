@@ -111,7 +111,6 @@ app.get('/cadastroPedido', async (req, res) => {
     let razaoSocial = await bd.pegarRazaoSocial()
     let produtos = await bd.listarProdutos()
     res.send({razaoSocial, produtos});
-    res.send('Foi')
 })
 
 app.post('/postCadastroPedido', async (req,res) => {
