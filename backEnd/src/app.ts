@@ -206,46 +206,81 @@ app.get('/listaProdutos', async (req, res) => {
 //========================= Confere Status ==============================
 app.post('/confereStatus', async (req, res) =>{
     let {id, acessando} = req.body
-    console.log(id, acessando)
     let status = await bd.pegaStatus(id)
-    console.log(status)
-    if (acessando === 'Nota Fiscal' && status !== 'A caminho'){
+    console.log(acessando)
+    if (acessando === 'Nota Fiscal' && status !== 'A caminho' && status !== 'Finalizado'){
         let dados = await bd.pegaNf(id)
+        dados['status'] = 'Edição'
+        console.log(dados)
         res.send(dados)
     }
-    else if (acessando === 'Relatório de Compras' && status !== undefined){
-        let dados = await bd.pegaRelatorioCompras(id)
-        res.send(dados)
-    }
-    else if (acessando === 'Análise Quantitativa' && status !== 'Análise Quantitativa'){
-        if(status !== 'A caminho'){
-            let dados = await bd.pegaAnaliseQuantitativa(id)
+    else if (acessando === 'Relatório de Compras' && status !== 'Finalizado' ){
+        if(status !== undefined){
+            let dados = await bd.pegaRelatorioCompras(id)
+            dados['status'] = 'Edição'
             res.send(dados)
         }
         else{
-            res.send("não permitir")
+            res.send({status:"não permitir"})
+        }
+        
+    }
+    else if (acessando === 'Análise Quantitativa' && status !== 'Análise Quantitativa' && status !== 'Finalizado'){
+        if(status !== 'A caminho'){
+            let dados = await bd.pegaAnaliseQuantitativa(id)
+            dados['status'] = 'Edição'
+            res.send(dados)
+        }
+        else{
+            res.send({status:"não permitir"})
         }
     }
-    else if (acessando === 'Análise Qualitativa' && status !== 'Análise Qualitativa'){
+    else if (acessando === 'Análise Qualitativa' && status !== 'Análise Qualitativa' && status !== 'Finalizado'){
         if (status !== 'A caminho' && status !== 'Análise Quantitativa'){
             let analises = await bd.pegaAnaliseQualitativa(id)
             let laudo = await bd.pegaLaudoNF(id)
-            const dados = {
+            let dados = {
                 analises: analises,
-                laudo: laudo
+                laudo: laudo,
+                status:'Edição'
             }
             res.send(dados)
         }
         else{
-            res.send("não permitir")
+            res.send({status:"não permitir"})
         }
     }
     //else if (status !== 'Recusado' && status !== 'Aceito'){ DESCOMENTAR APÓS A IMPLEMENTAÇÃO DO RELATÓRIO FINAL
-    else if (status !== 'Finalizada'){
-        res.send("Primeira vez")
+    else if (status !== 'Finalizado'){
+        res.send({status:"Primeira vez"})
     }
     else {
-        res.send('Revisão')
+        if(acessando === 'Relatório de Compras'){
+            let dados = await bd.pegaRelatorioCompras(id)
+            dados['status'] = 'Revisão'
+            res.send(dados)
+        }
+        else if(acessando === 'Nota Fiscal'){
+            let dados = await await bd.pegaNf(id)
+            dados['status'] = 'Revisão'
+            console.log(dados)
+            res.send(dados)
+        }
+        else if(acessando === 'Análise Quantitativa'){
+            let dados = await bd.pegaAnaliseQuantitativa(id)
+            dados['status'] = 'Revisão'
+            res.send(dados)
+        }
+        else{
+            let analises = await bd.pegaAnaliseQualitativa(id)
+            let laudo = await bd.pegaLaudoNF(id)
+            let dados = {
+                analises: analises,
+                laudo: laudo,
+                status:'Revisão'
+            }
+            res.send(dados)
+        }
     }
 })
 

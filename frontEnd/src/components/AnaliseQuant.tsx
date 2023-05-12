@@ -31,17 +31,20 @@ function AnaliseQuant(){
     async function veStatus() {
         await api.post('/confereStatus', {id:id, acessando:'Análise Quantitativa'}).then((response) => {
             let dado = response.data
-
-            if (response.data === 'Primeira vez'){
+            console.log(dado)
+            if (dado.status === 'Primeira vez'){
                 setMudanca('Primeira vez')
             }
-            else if (response.data === 'Revisão'){
+            else if (dado.status === 'Revisão'){
                 setMudanca('Revisão')
             }
-            else {
+            else if (dado.status === 'Edição') {
                 setMudanca('Edição')
                 setPesagem(dado.regra_valor)
 
+            }
+            else{
+                navegate('/listaPedidos')
             }
             
         }

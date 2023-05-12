@@ -27,6 +27,7 @@ function RecebimentoPedido(){
     const [bdProduto, setBdProduto] = useState<Produto[]>([])
     const [temUnidade, setTemUnidade] = useState(false)
     const [temVirgula, setTemVirgula] = useState(false)
+    const [renderUm, setRenderUm] =useState(true)
     const navegate = useNavigate()
     
 
@@ -215,6 +216,53 @@ function RecebimentoPedido(){
         }
         
     }
+    async function veStatus() {
+        await api.post('/confereStatus', {id:id, acessando:'Nota Fiscal'}).then((resposta) => {
+            let dado = resposta.data
+            console.log(resposta)
+
+            if (dado.status === 'Primeira vez'){
+                setMudanca('Primeira vez')
+            }
+            else if (dado.status === 'Revisão'){
+                setMudanca('Revisão')
+                setRazaoSocial(dado.nf_razao_social)                    
+                setProduto(dado.nf_produto_descricao)
+                setTransportadora(dado.nf_transportadora)
+                setCondicaoPagamento(dado.nf_condicao_pagamento)
+                setQuantidade(dado.nf_produto_massa)
+                setPrecoUnitario(dado.nf_valor_unidade)
+                setPrecoTotal(dado.nf_valor_total)
+                setDataEntrega(dado.nf_data_entrega.slice(0, 10))
+                setDataEmissao(dado.nf_data_emissao.slice(0, 10))
+                setTipoFrete(dado.nf_tipo_frete)
+                setNfCodigo(dado.nf_codigo)
+                
+                setUnidade(dado.nf_unidade)
+                
+            }
+            else if (dado.status === 'Edição') {
+                setMudanca('Edição')
+                setRazaoSocial(dado.nf_razao_social)                    
+                setProduto(dado.nf_produto_descricao)
+                setTransportadora(dado.nf_transportadora)
+                setCondicaoPagamento(dado.nf_condicao_pagamento)
+                setQuantidade(dado.nf_produto_massa)
+                setPrecoUnitario(dado.nf_valor_unidade)
+                setPrecoTotal(dado.nf_valor_total)
+                setDataEntrega(dado.nf_data_entrega.slice(0, 10))
+                setDataEmissao(dado.nf_data_emissao.slice(0, 10))
+                setTipoFrete(dado.nf_tipo_frete)
+                setNfCodigo(dado.nf_codigo)
+                setUnidade(dado.nf_unidade)
+                
+            }
+            else{
+                navegate('/listaPedidos')
+            }
+        });
+        
+    }
 
     function cancelaVoltaListagem(){
         navegate('/listaPedidos')
@@ -246,33 +294,8 @@ function RecebimentoPedido(){
         }
         veLogado()
 
-        async function veStatus() {
-            let status = await api.post('/confereStatus', {id:id, acessando:'Nota Fiscal'})
-            let dado = status.data
-            if (status.data === 'Primeira vez'){
-                setMudanca('Primeira vez')
-            }
-            else if (status.data === 'Revisaão'){
-                setMudanca('Revisão')
-            }
-            else {
-                setMudanca('Edição')
-                setRazaoSocial(dado.nf_razao_social)                    
-                setProduto(dado.nf_produto_descricao)
-                setTransportadora(dado.nf_transportadora)
-                setCondicaoPagamento(dado.nf_condicao_pagamento)
-                setQuantidade(dado.nf_produto_massa)
-                setPrecoUnitario(dado.nf_valor_unidade)
-                setPrecoTotal(dado.nf_valor_total)
-                setDataEntrega(dado.nf_data_entrega.slice(0, 10))
-                setDataEmissao(dado.nf_data_emissao.slice(0, 10))
-                setTipoFrete(dado.nf_tipo_frete)
-                setNfCodigo(dado.nf_codigo)
-                setUnidade(dado.nf_unidade)
-            }
-            console.log(status.data)
-        }
-        veStatus()
+        
+
         if (precoUnitario !== '' && quantidade !== '') {
             let preco
             let quant
@@ -305,8 +328,12 @@ function RecebimentoPedido(){
             setQuantidade(quantidade.replace('t', 'kg'))
             setPrecoUnitario(precoUnitario.replace('t', 'kg'))
         }
+        console.log(`AAAAAAOOOOBA ${unidade}`)
     }, [precoUnitario, quantidade, unidade])
 
+    useEffect(() => {
+        veStatus()
+    }, [])
 
     if (mudanca !== 'Revisão'){
         return(
@@ -364,13 +391,28 @@ function RecebimentoPedido(){
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><select className="input_form" value={unidade}
-                                        onChange={(e) => {setUnidade(e.target.value)}} required>
-                                            <option value=""></option>
-                                            <option value="/t">Toneladas(t)</option>
-                                            <option value="/kg">Quilogramas(kg)</option>
-                                        </select>
-                                        <p></p>
+                                        <td>
+                                            {mudanca === 'Edição' && 
+                                                <select className="input_form" value={unidade}
+                                                onChange={(e) => {setUnidade(e.target.value)}} required>
+                                                    {unidade === '/kg' &&
+                                                       <option value='/kg'>Quilogramas(kg)</option>
+                                                    }
+                                                    {unidade === '/t' &&
+                                                       <option value='/t'>Toneladas(t)</option>
+                                                    }
+                                                    <option value="/t">Toneladas(t)</option>
+                                                    <option value="/kg">Quilogramas(kg)</option>
+                                                </select>
+                                            }
+                                            {mudanca === 'Primeira vez' &&
+                                                <select className="input_form" value={unidade}
+                                                    onChange={(e) => {setUnidade(e.target.value)}} required>
+                                                    <option value=""></option>
+                                                    <option value="/t">Toneladas(t)</option>
+                                                    <option value="/kg">Quilogramas(kg)</option>
+                                                </select>
+                                            }
                                         </td>
                                     </tr>
                                 </tbody>
@@ -477,15 +519,30 @@ function RecebimentoPedido(){
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><select className="input_form" id="frete" name="frete" required
-                                                value={tipoFrete}
-                                                onChange={(e) => { setTipoFrete(e.target.value) }}>
-                                                <option value=""></option>
-                                                <option value="Barco">Barco</option>
-                                                <option value="Trem">Trem</option>
-                                                <option value="Caminhão">Caminhão</option>
-                                                <option value="Avião">Avião</option>
-                                            </select>
+                                        <td>
+                                            {mudanca === 'Edição' &&
+                                                <select className="input_form" id="frete" name="frete" required
+                                                    value={tipoFrete}
+                                                    onChange={(e) => { setTipoFrete(e.target.value) }}>
+                                                    <option value={tipoFrete}>{tipoFrete}</option>
+                                                    <option value="Barco">Barco</option>
+                                                    <option value="Trem">Trem</option>
+                                                    <option value="Caminhão">Caminhão</option>
+                                                    <option value="Avião">Avião</option>
+                                                </select>
+                                            }
+                                            {mudanca === 'Primeira vez' &&
+                                                <select className="input_form" id="frete" name="frete" required
+                                                    value={tipoFrete}
+                                                    onChange={(e) => { setTipoFrete(e.target.value) }}>
+                                                    <option value=""></option>
+                                                    <option value="Barco">Barco</option>
+                                                    <option value="Trem">Trem</option>
+                                                    <option value="Caminhão">Caminhão</option>
+                                                    <option value="Avião">Avião</option>
+                                                </select>
+                                            }
+                                            
                                         </td>
                                     </tr>
                                 </tbody>
@@ -516,22 +573,44 @@ function RecebimentoPedido(){
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
+                                        <td>
+                                            {mudanca === 'Edição' &&
+                                                <select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
                                                 value={condicaoPagamento}
                                                 onChange={(e) => { setCondicaoPagamento(e.target.value) }}>
-                                                <option value=""></option>
-                                                <option value="00/100">00/100</option>
-                                                <option value="10/90">10/90</option>
-                                                <option value="20/80">20/80</option>
-                                                <option value="30/70">30/70</option>
-                                                <option value="40/60">40/60</option>
-                                                <option value="50/50">50/50</option>
-                                                <option value="60/40">60/40</option>
-                                                <option value="70/30">70/30</option>
-                                                <option value="80/20">80/20</option>
-                                                <option value="90/10">90/10</option>
-                                                <option value="100/00">100/00</option>
-                                            </select>
+                                                    <option value={condicaoPagamento}>{condicaoPagamento}</option>
+                                                    <option value="00/100">00/100</option>
+                                                    <option value="10/90">10/90</option>
+                                                    <option value="20/80">20/80</option>
+                                                    <option value="30/70">30/70</option>
+                                                    <option value="40/60">40/60</option>
+                                                    <option value="50/50">50/50</option>
+                                                    <option value="60/40">60/40</option>
+                                                    <option value="70/30">70/30</option>
+                                                    <option value="80/20">80/20</option>
+                                                    <option value="90/10">90/10</option>
+                                                    <option value="100/00">100/00</option>
+                                                </select>
+                                            }
+                                            {mudanca === 'Primeira vez' &&
+                                                <select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
+                                                value={condicaoPagamento}
+                                                onChange={(e) => { setCondicaoPagamento(e.target.value) }}>
+                                                    <option value=''></option>
+                                                    <option value="00/100">00/100</option>
+                                                    <option value="10/90">10/90</option>
+                                                    <option value="20/80">20/80</option>
+                                                    <option value="30/70">30/70</option>
+                                                    <option value="40/60">40/60</option>
+                                                    <option value="50/50">50/50</option>
+                                                    <option value="60/40">60/40</option>
+                                                    <option value="70/30">70/30</option>
+                                                    <option value="80/20">80/20</option>
+                                                    <option value="90/10">90/10</option>
+                                                    <option value="100/00">100/00</option>
+                                                </select>
+                                            }
+                                            
                                         </td>
                                     </tr>
                                 </tbody>
@@ -610,7 +689,8 @@ function RecebimentoPedido(){
                                 <tbody>
                                     <tr>
                                         <td><select className="input_form" value={unidade}
-                                        onChange={(e) => {setUnidade(e.target.value)}} required>
+                                        onChange={(e) => {setUnidade(e.target.value)}} disabled required>
+                                            <option value={unidade} selected>{unidade}</option>
         
                                         </select>
                                         <p></p>
@@ -724,8 +804,8 @@ function RecebimentoPedido(){
                                     <tr>
                                         <td><select className="input_form" id="frete" name="frete" required
                                                 value={tipoFrete}
-                                                onChange={(e) => { setTipoFrete(e.target.value) }}>
-                                                
+                                                onChange={(e) => { setTipoFrete(e.target.value) }} disabled>
+                                                <option value={tipoFrete} selected>{tipoFrete}</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -759,14 +839,17 @@ function RecebimentoPedido(){
                                     <tr>
                                         <td><select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
                                                 value={condicaoPagamento}
-                                                onChange={(e) => { setCondicaoPagamento(e.target.value) }}/>
+                                                onChange={(e) => { setCondicaoPagamento(e.target.value) }} disabled>
+                                                    <option value={condicaoPagamento} selected>{condicaoPagamento}</option>
+                                                </select>
+
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>  
-                    <button type="button" onClick={cancelaVoltaListagem} className="cancel_button2">Voltar</button>
+                    <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Voltar</button>
                 </form>
             </div>
             </>
