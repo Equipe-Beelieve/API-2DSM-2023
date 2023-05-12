@@ -106,7 +106,7 @@ function AnaliseQuant(){
     }
 
     async function confirmaContinua() {
-        if(pesagem !== ''){
+        if(pesagem !== '' && pesagem !== ' t' && pesagem !== ' kg'){
             const post = {id, pesagem}     
             await api.post('/postQuantitativa', { post }).then((response) =>{navegate(`/analiseQuali/${id}`)})
         }

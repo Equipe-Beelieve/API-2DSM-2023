@@ -298,7 +298,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             unidade[0].ped_produto_massa = 't'
         }
         else{
-            unidade[0].ped_produto_massa = unidade.ped_produto_massa.slice(-2, -1)
+            unidade[0].ped_produto_massa = unidade[0].ped_produto_massa.slice(-2, -1)
         }
         return unidade[0]
     }
