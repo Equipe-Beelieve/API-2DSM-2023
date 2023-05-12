@@ -416,9 +416,19 @@ function CadPedido() {
                                                 </>
                                             }
                                             {mudanca === 'Edição' &&
+                                                <>
                                                  <input list='datalistProduto' type='text' className="input_form" name="produto" id="produto"
                                                  required
-                                                 value={produto} readOnly/>                   
+                                                 value={produto} 
+                                                 onChange={(e) => { setProduto(e.target.value); } }
+                                                 onBlur={trataDatalistProduto} /><datalist id='datalistProduto'>
+                                                    <option value=""></option>
+                                                    {produtos.map((produto, index) => (
+                                                        <option value={produto.prod_descricao} key={index}>{produto.prod_descricao}</option>
+                                                    ))}
+                                                </datalist>
+                                                </>
+                                                                  
                                             }
     
     
