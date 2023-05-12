@@ -160,13 +160,13 @@ function AnaliseQuali() {
 
     }
 
-    function validaAnalises(acao: string) {
+    async function  validaAnalises(acao: string) {
         const analisesNumericas = analises.filter((analise) => {
             return analise.tipo !== 'Avaria' && analise.tipo !== 'Personalizada'
         })
         if (acao === 'Continuar') {
             if (analisesNumericas.every((analise) => analise.valor !== '')) {
-                confirmaContinua()
+                await confirmaContinua()
             } else {
                 toast.error('Preencha todas as análises.', {
                     position: 'bottom-left', autoClose: 2500,
@@ -175,7 +175,7 @@ function AnaliseQuali() {
             }
         } else if (acao === 'Voltar') {
             if (analisesNumericas.every((analise) => analise.valor !== '')) {
-                editaVolta()
+                await editaVolta()
             } else {
                 toast.error('Preencha todas as análises.', {
                     position: 'bottom-left', autoClose: 2500,
@@ -193,8 +193,8 @@ function AnaliseQuali() {
 
     async function confirmaContinua() {
         const post = { id, analises, laudo }
-        navigate(`/listaPedidos`) //substituir pela rota do relatório final, quando pronta
-        await api.post('/postQualitativa', { post })
+         //substituir listaPedidos pela rota do relatório final, quando pronta
+        await api.post('/postQualitativa', { post }).then((resposta) => {navigate(`/listaPedidos`)})
 
     }
 

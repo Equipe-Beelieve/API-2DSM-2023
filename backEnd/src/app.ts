@@ -265,7 +265,7 @@ app.post('/updateNota', async (req,res) => {
     let codigoFornecedor = await bd.pegarCodigo('for_codigo', 'fornecedor', 'for_razao_social', razaoSocial)
     let nf = new NotaFiscal(produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, codigoFornecedor, unidade, id)
     await bd.updateNF(nf)
-
+    res.send('Foi')
 
 })
 //========================= Análise Quantitativa =========================
@@ -274,13 +274,13 @@ app.post('/postQuantitativa', async (req, res) => {
     let {id, pesagem} = req.body.post
     console.log(req.body)
     await bd.inserirAnaliseQuantitativa(id, pesagem)
-    res.send('foi')
-
+    res.send('Foi')
 })
 
 app.post('/updateQuantitativa', async (req, res) => {
     let {id, pesagem} = req.body.post
     await bd.updateQuantitativa(id, pesagem)
+    res.send('Foi')
 })
 
 app.post('/confereUnidade', async (req, res)=>{
@@ -310,6 +310,7 @@ app.post('/postQualitativa', async (req, res) => {
             
         })
         await bd.mudaFinalizado(id)
+        res.send('Foi')
     } catch (erro) {
         console.log(erro)
     } finally {
@@ -327,6 +328,7 @@ app.post('/updateQualitativa', async (req, res) =>{
         analises.forEach(async (analise:AnaliseQualitativa) => {
             await bd.updateQualitativa(analise)
         })
+        res.send('Foi')
     } catch (error) {
         console.log(error)
     } finally {
