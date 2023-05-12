@@ -119,7 +119,7 @@ app.post('/postCadastroPedido', async (req,res) => {
     let pedido = new Pedido(produto, dataPedido, dataEntrega, razaoSocial, 
         precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento)
     await bd.inserirPedido(pedido) //método da clase bancoDados para inserir na tabela pedido
-
+    res.send('foi')
 });
 
 app.post('/updatePedido', async (req,res) => {

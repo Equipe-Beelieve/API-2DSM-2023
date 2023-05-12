@@ -335,8 +335,8 @@ function CadPedido() {
             setQuantidade(quantidade.slice(0, -2))
         }
         const post = { produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento }
-        navegate("/listaPedidos")
-        await api.post('/postCadastroPedido', { post })
+        
+        await api.post('/postCadastroPedido', { post }).then((resposta) => {navegate("/listaPedidos")})
 
 
     }
