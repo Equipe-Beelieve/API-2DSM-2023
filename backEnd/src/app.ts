@@ -225,7 +225,12 @@ app.post('/confereStatus', async (req, res) =>{
     }
     else if (acessando === 'Análise Qualitativa' && status !== 'Análise Qualitativa'){
         if (status !== 'A caminho' && status !== 'Análise Quantitativa'){
-            let dados = await bd.pegaAnaliseQualitativa(id)
+            let analises = await bd.pegaAnaliseQualitativa(id)
+            let laudo = await bd.pegaLaudoNF(id)
+            const dados = {
+                analises: analises,
+                laudo: laudo
+            }
             res.send(dados)
         }
         else{
@@ -312,9 +317,19 @@ app.post('/postQualitativa', async (req, res) => {
 })
 
 app.post('/updateQualitativa', async (req, res) =>{
-    let {id, qualitativa} = req.body
-    console.log(qualitativa)
-    await bd.updateQualitativa(id, qualitativa)
+    let {id, analises, laudo} = req.body.post
+    console.log(analises)
+    await bd.updateLaudoNF(id, laudo)
+    try {
+        analises.forEach(async (analise:AnaliseQualitativa) => {
+            await bd.updateQualitativa(analise)
+        })
+    } catch (error) {
+        console.log(error)
+    } finally {
+        ///await bd.desconectar()
+    }
+    
 })
 
 app.listen(8080, () => {

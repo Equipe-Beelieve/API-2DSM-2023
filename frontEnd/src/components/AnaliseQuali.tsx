@@ -13,9 +13,17 @@ interface Regra {
 }
 
 interface Analise {
-    regra_tipo?: string
-    regra_valor?: string
+    id?:number
+    tipo?: string
+    valor?: string
     avaria?: string
+}
+
+interface RevisaoAnalise {
+    par_codigo:number
+    regra_tipo:string
+    regra_valor:string
+    regra_avaria:string
 }
 
 function AnaliseQuali() {
@@ -32,6 +40,9 @@ function AnaliseQuali() {
             const response = await api.get(`/analiseQuali/${id}`)
             //console.log(response.data)
             const regras = response.data
+
+            regras.sort((a:Regra, b:Regra) => a.reg_tipo.localeCompare(b.reg_tipo))
+
             const padraoAnalises = regras.map((regra: Regra) => {
                 if (regra.reg_tipo === 'Avaria') {
                     return {
@@ -51,6 +62,7 @@ function AnaliseQuali() {
                     }
                 }
             })
+  
             setAnalises(padraoAnalises)
             setRegras(regras)
         } catch (erro) {
@@ -59,35 +71,51 @@ function AnaliseQuali() {
     }
 
     async function veStatus() {
-        let status = await api.post('/confereStatus', { id: id, acessando: 'Análise Qualitativa' })
-        let dado = status.data
-        console.log(dado)
-        if (status.data === 'Primeira vez') {
-            setMudanca('Primeira vez')
-        }
-        else if (status.data === 'Revisão') {
-            setMudanca('Revisão')
-        }
-        else {
-            setMudanca('Edição')
-            let listaAnalises: any = []
-            dado.map((analise: any, index: number) => {
-                let linha = analise
-                if (linha.regra_tipo === 'Avaria' && linha.avaria !== undefined) {
-                    listaAnalises.push({ regra_tipo: linha.regra_tipo, regra_valor: linha.regra_valor, avaria: linha.avaria })
-                }
-                else {
-                    listaAnalises.push({ regra_tipo: linha.regra_tipo, regra_valor: linha.regra_valor, avaria: '' })
-                }
-            })
-            console.log('OIIII')
-            console.log(listaAnalises)
+        await api.post('/confereStatus', { id: id, acessando: 'Análise Qualitativa' }).then((response) => {
+            const dados = response.data
+            console.log(dados)
 
-            setAnalises(listaAnalises)
-            console.log(analises)
-        }
+            //console.log(dadosAnalises)
+            if (response.data === 'Primeira vez') {
+                setMudanca('Primeira vez')
+            }
+            else if (response.data === 'Revisão') {
+                setMudanca('Revisão')
+            }
+            else {
+                const laudo = dados.laudo.nf_laudo
+                const analisesFeitas = dados.analises
+                analisesFeitas.sort((a:RevisaoAnalise, b:RevisaoAnalise) => a.regra_tipo.localeCompare(b.regra_tipo)) 
 
+                const dadosAnalises = analisesFeitas.map((dado:RevisaoAnalise) => {
+                    if(dado.regra_tipo === 'Avaria'){
+                        return {
+                            id: dado.par_codigo,
+                            tipo: dado.regra_tipo,
+                            valor: dado.regra_valor,
+                            avaria: dado.regra_avaria
+                        }
+                    } else if(dado.regra_tipo === 'Personalizada'){
+                        return {
+                            id: dado.par_codigo,
+                            tipo: dado.regra_tipo,
+                            valor: dado.regra_valor
+                        }
+                    } else {
+                        return {
+                            id: dado.par_codigo,
+                            tipo: dado.regra_tipo,
+                            valor: dado.regra_valor
+                        }
+                    }
+                })
 
+                setMudanca('Edição')
+                setAnalises(dadosAnalises)
+                setLaudo(laudo)
+                
+            }
+        })
     }
 
     function manipularAvaria(index: number, comentario: string) {
@@ -102,21 +130,21 @@ function AnaliseQuali() {
 
     function manipularCheckboxAvaria(index: number, check: boolean) {
         const analiseAvaria: Analise = {
-            regra_valor: check ? 'true' : 'false'
+            valor: check ? 'true' : 'false'
         }
 
         const analiseNova = [...analises]
-        analiseNova[index].regra_valor = analiseAvaria.regra_valor
+        analiseNova[index].valor = analiseAvaria.valor
         setAnalises(analiseNova)
 
     }
 
     function manipularRegraPersonalizada(index: number, check: boolean) {
         const analiseRegra: Analise = {
-            regra_valor: check ? 'true' : 'false'
+            valor: check ? 'true' : 'false'
         }
         const analiseNova = [...analises]
-        analiseNova[index].regra_valor = analiseRegra.regra_valor
+        analiseNova[index].valor = analiseRegra.valor
         setAnalises(analiseNova)
 
     }
@@ -127,17 +155,17 @@ function AnaliseQuali() {
         }
 
         const analiseNova = [...analises]
-        analiseNova[index].regra_valor = analiseRegra.valor
+        analiseNova[index].valor = analiseRegra.valor
         setAnalises(analiseNova)
 
     }
 
     function validaAnalises(acao: string) {
         const analisesNumericas = analises.filter((analise) => {
-            return analise.regra_tipo !== 'Avaria' && analise.regra_tipo !== 'Personalizada'
+            return analise.tipo !== 'Avaria' && analise.tipo !== 'Personalizada'
         })
         if (acao === 'Continuar') {
-            if (analisesNumericas.every((analise) => analise.regra_valor !== '')) {
+            if (analisesNumericas.every((analise) => analise.valor !== '')) {
                 confirmaContinua()
             } else {
                 toast.error('Preencha todas as análises.', {
@@ -146,8 +174,8 @@ function AnaliseQuali() {
                 })
             }
         } else if (acao === 'Voltar') {
-            if (analisesNumericas.every((analise) => analise.regra_valor !== '')) {
-                confirmaVoltaListagem()
+            if (analisesNumericas.every((analise) => analise.valor !== '')) {
+                editaVolta()
             } else {
                 toast.error('Preencha todas as análises.', {
                     position: 'bottom-left', autoClose: 2500,
@@ -157,10 +185,10 @@ function AnaliseQuali() {
         }
     }
 
-    async function confirmaVoltaListagem() {
-        const post = { id, analises, laudo }
-        navigate('/listaPedidos')
-        await api.post('/postQualitativa', { post })
+    async function editaVolta(){
+        const post = {id, analises, laudo}
+        //navigate(`/listaPedidos`)
+        await api.post('/updateQualitativa', { post })
     }
 
     async function confirmaContinua() {
@@ -175,7 +203,7 @@ function AnaliseQuali() {
     }
 
     function estado() {
-        console.log(analises, laudo)
+        console.log(analises)
     }
     //================== Botões ==================
     function irQuantitativa() {
@@ -193,7 +221,8 @@ function AnaliseQuali() {
         async function veLogado() {
             let resultado = await verificaLogado()
             if (resultado.logado) {
-                getRegras()
+                getRegras().then(() => veStatus())
+                
                 if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente') {
                     navigate('/listaPedidos')
                 }
@@ -202,7 +231,7 @@ function AnaliseQuali() {
             }
         }
         veLogado()
-        veStatus()
+        
     }, [])
 
 
@@ -222,14 +251,27 @@ function AnaliseQuali() {
                         <button className='button' type='button' onClick={irQuantitativa}>Análise Quantitativa</button>
                         <div className='laudo'>
                             <input className='tipo-laudo' type="text" value={'Laudo'} readOnly /> <input className='haver' type="text" value={'Deve haver'} readOnly />
-                            <input className='checkbox' type="checkbox" onChange={(evento) => setLaudo(laudo === 'sim' ? 'não' : 'sim')} />
+                            
+                            {laudo === 'sim' &&
+                                <input className='checkbox' type="checkbox" checked onChange={(evento) => setLaudo(laudo === 'sim' ? 'não' : 'sim')} />
+                            }
+                            {laudo === 'não' &&
+                                <input className='checkbox' type="checkbox" onChange={(evento) => setLaudo(laudo === 'não' ? 'sim' : 'não')} />
+                            }
+                            
                         </div>
                         {regras.map((regra, index) => {
                             if (regra.reg_tipo === 'Avaria') {
                                 return (
                                     <div className='regra-avaria' key={index}>
                                         <input className='tipo-avaria' type="text" value={regra.reg_tipo} readOnly /> <input className='regra-valor' type="text" value={regra.reg_valor} readOnly />
-                                        <input className='checkbox' type="checkbox" value={analises[index].regra_valor} onChange={(evento) => manipularCheckboxAvaria(index, evento.target.checked)} /> <br />
+                                        {analises[index].valor === 'true' &&
+                                            <><input className='checkbox' type="checkbox" checked value={analises[index].valor} onChange={(evento) => manipularCheckboxAvaria(index, evento.target.checked)} /><br /></>
+                                        }
+                                        {analises[index].valor === 'false' &&
+                                            <><input className='checkbox' type="checkbox" value={analises[index].valor} onChange={(evento) => manipularCheckboxAvaria(index, evento.target.checked)} /><br /></>
+                                        }
+
                                         <input className='descricao' type="text" placeholder='Descrição da Avaria' value={analises[index].avaria} onChange={(evento) => manipularAvaria(index, evento.target.value)} />
                                     </div>
                                 )
@@ -237,7 +279,14 @@ function AnaliseQuali() {
                                 return (
                                     <div className='regra-personalizar' key={index}>
                                         <input className='personalizar' type="text" value={regra.reg_tipo} readOnly /> <input className='regra-valor' type="text" value={regra.reg_valor} readOnly />
-                                        <input className='checkbox' type="checkbox" value={analises[index].regra_valor} onChange={(evento) => manipularRegraPersonalizada(index, evento.target.checked)} />
+
+                                        {analises[index].valor === 'true' &&
+                                            <input className='checkbox' type="checkbox" checked value={analises[index].valor} onChange={(evento) => manipularRegraPersonalizada(index, evento.target.checked)} />
+                                        }
+                                        {analises[index].valor === 'false' &&
+                                            <input className='checkbox' type="checkbox" value={analises[index].valor} onChange={(evento) => manipularRegraPersonalizada(index, evento.target.checked)} />
+                                        }
+                                        
                                     </div>
                                 )
 
@@ -245,15 +294,25 @@ function AnaliseQuali() {
                                 return (
                                     <div className='manipular' key={index}>
                                         <input className='tipo-regra' type="text" value={regra.reg_tipo} readOnly /> <input className='limitacao' type="text" value={regra.reg_valor} readOnly />
-                                        <input className='manipular-regra' type="text" placeholder='Insira um Número' value={analises[index].regra_valor} onChange={(evento) => manipularRegra(index, evento.target.value)} required />
+                                        <input className='manipular-regra' type="text" placeholder='Insira um Número' value={analises[index].valor} onChange={(evento) => manipularRegra(index, evento.target.value)} required />
                                     </div>
                                 )
                             }
                         })}
-                        <div className='mesmalinha'>
-                            <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
-                            <button type="button" onClick={(evento) => validaAnalises('Continuar')} className="confirm_button">Confirmar</button>
-                        </div>
+
+                        {mudanca === 'Primeira vez' &&
+                            <div className='mesmalinha'>
+                                <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
+                                <button type="button" onClick={(evento) => validaAnalises('Continuar')} className="confirm_button">Confirmar</button>
+                            </div>
+                        }
+                        
+                        {mudanca === 'Edição' &&
+                            <div className='mesmalinha'>
+                                <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
+                                <button type="button" onClick={(evento) => editaVolta()} className="confirm_button">Editar</button>
+                            </div>
+                        }
 
                     </div>
                 </form>
@@ -281,15 +340,15 @@ function AnaliseQuali() {
                                 return (
                                     <div key={index}>
                                         <input type="text" value={regra.reg_tipo} readOnly /> <input type="text" value={regra.reg_valor} readOnly />
-                                        <input type="checkbox" value={analises[index].regra_valor} onChange={(evento) => manipularCheckboxAvaria(index, evento.target.checked)} /> <br />
-                                        <input type="text" value={analises[index].regra_valor} onChange={(evento) => manipularAvaria(index, evento.target.value)} />
+                                        <input type="checkbox" value={analises[index].valor} onChange={(evento) => manipularCheckboxAvaria(index, evento.target.checked)} /> <br />
+                                        <input type="text" value={analises[index].valor} onChange={(evento) => manipularAvaria(index, evento.target.value)} />
                                     </div>
                                 )
                             } else if (regra.reg_tipo === 'Personalizada') {
                                 return (
                                     <div key={index}>
                                         <input type="text" value={regra.reg_tipo} readOnly /> <input type="text" value={regra.reg_valor} readOnly />
-                                        <input type="checkbox" value={analises[index].regra_valor} onChange={(evento) => manipularRegraPersonalizada(index, evento.target.checked)} />
+                                        <input type="checkbox" value={analises[index].valor} onChange={(evento) => manipularRegraPersonalizada(index, evento.target.checked)} />
                                     </div>
                                 )
 
@@ -297,7 +356,7 @@ function AnaliseQuali() {
                                 return (
                                     <div key={index}>
                                         <input type="text" value={regra.reg_tipo} readOnly /> <input type="text" value={regra.reg_valor} readOnly />
-                                        <input type="text" value={analises[index].regra_valor} onChange={(evento) => manipularRegra(index, evento.target.value)} required />
+                                        <input type="text" value={analises[index].valor} onChange={(evento) => manipularRegra(index, evento.target.value)} required />
                                     </div>
                                 )
                             }

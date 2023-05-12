@@ -240,7 +240,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async pegaAnaliseQualitativa(id:string){
         await this.conectar()
-        let [dado] = await this.conexao.query(`Select regra_tipo, regra_valor FROM parametros_do_pedido WHERE ped_codigo =${id} and regra_tipo <> "Análise Quantitativa" and regra_tipo <> "Mínimo de conformidade"`) as Array<any>
+        let [dado] = await this.conexao.query(`SELECT p.par_codigo, p.regra_tipo, p.regra_valor, a.av_comentario as regra_avaria FROM parametros_do_pedido p LEFT OUTER JOIN avaria_comentario a ON p.par_codigo = a.par_codigo WHERE p.ped_codigo = ${id} AND p.regra_tipo != 'Análise Quantitativa'`) as Array<any>
         console.log(dado)
         await this.conexao.end()
         return dado
@@ -330,18 +330,37 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conexao.end()
     }
 
+    async pegaLaudoNF(id:string){
+        await this.conectar()
+        let [laudo, meta] = await this.conexao.query(`SELECT nf_laudo FROM nota_fiscal WHERE ped_codigo = ${id}`) as Array<any>
+        await this.conexao.end()
+        return laudo[0]
+    }
+
+    async updateLaudoNF(id:string, laudo:string){
+        await this.conectar()
+        await this.conexao.query(`UPDATE nota_fiscal SET nf_laudo = '${laudo}' WHERE ped_codigo = ${id}`)
+    }
+
     async updateQuantitativa(id:string, pesagem:string){
         await this.conectar()
         await this.conexao.query(`Update parametros_do_pedido SET regra_valor = '${pesagem}' WHERE regra_tipo = 'Análise Quantitativa' and ped_codigo = ${id}`)
         await this.conexao.end()
     }
 
-    async updateQualitativa(id:string, analise:any){
+    async updateQualitativa(analise:any){
         await this.conectar()
-        analise.forEach(async (linha:Qualitativa) => {
-            await this.conexao.query(`Update parametros_do_pedido SET regra_valor = '${linha.valor}' WHERE regra_tipo = '${linha.tipo} and ped_codigo = ${id}`)
-        })
-        await this.conexao.end()
+        await this.conexao.query(`UPDATE parametros_do_pedido SET regra_valor = ? WHERE par_codigo = ?`, [analise['valor'], analise['id']])
+        if(analise['avaria'] !== undefined && analise['avaria'] !== '') {
+            let [av_comentario] = await this.conexao.query(`SELECT av_comentario FROM avaria_comentario WHERE par_codigo = ${analise['id']}`) as Array<any>
+            if(av_comentario.length > 0){
+                await this.conexao.query(`UPDATE avaria_comentario SET av_comentario = ? WHERE par_codigo = ?`, [analise['avaria'], analise['id']])
+            } else {
+                await this.conexao.query(`INSERT INTO avaria_comentario(av_comentario, par_codigo) VALUES(?, ?)`, [analise['avaria'], analise['id']])
+            }
+        } else if(analise['avaria'] === '') {
+            await this.conexao.query(`DELETE FROM avaria_comentario WHERE par_codigo = ?`, [analise['id']])
+        } 
     }
 
 //===================== Delete pedido =====================
