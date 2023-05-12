@@ -214,7 +214,7 @@ app.post('/confereStatus', async (req, res) =>{
         console.log(dados)
         res.send(dados)
     }
-    else if (acessando === 'Relatório de Compras' && status !== 'Finalizado' ){
+    else if (acessando === 'Relatório de Compras' && status !== 'Finalizado'){
         if(status !== undefined){
             let dados = await bd.pegaRelatorioCompras(id)
             dados['status'] = 'Edição'
