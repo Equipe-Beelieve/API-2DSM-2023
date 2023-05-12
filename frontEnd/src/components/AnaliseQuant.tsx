@@ -106,9 +106,17 @@ function AnaliseQuant(){
     }
 
     async function confirmaContinua() {
-        const post = {id, pesagem}
-          
-        await api.post('/postQuantitativa', { post }).then((response) =>{navegate(`/analiseQuali/${id}`)})
+        if(pesagem !== ''){
+            const post = {id, pesagem}     
+            await api.post('/postQuantitativa', { post }).then((response) =>{navegate(`/analiseQuali/${id}`)})
+        }
+        else{
+            toast.error('Preencha todos os campos', {
+                position: 'bottom-left',
+                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+            })
+        }
+        
              
     }
 
@@ -170,7 +178,7 @@ function AnaliseQuant(){
                 {mudanca === 'Primeira vez' &&
                     <>
                     <div className='mesmalinha'>
-                        <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar e continuar</button>
+                        <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar</button>
                     </div>
                     <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
                     </>
