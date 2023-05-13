@@ -182,20 +182,19 @@ function AnaliseQuant(){
                 {mudanca === 'Primeira vez' &&
                     <>
                     <div className='mesmalinha'>
+                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
                         <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar</button>
                     </div>
-                    <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
                     </>
                 }
                 {mudanca === 'Edição' &&
                     <>
                     <div className='mesmalinha'>
+                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
                         <button type="button" onClick={editaVolta} className="confirm_button">Editar</button>
                     </div>
-                    <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
                     </>
-                }
-                
+                }                
             </div>
             </>
         )

@@ -831,7 +831,7 @@ p.solid {
 
 .mesmalinha {
   display: inline;
-  margin-left: 3vw;
+  margin-left: 0vw;
 }
 
 #imagem-pesquisa {
@@ -859,6 +859,7 @@ p.solid {
   border: none;
   height: 6vh;
   width: 15vw;
+  margin-right: 1.5vw;
 }
 
 .hr_pedido {
