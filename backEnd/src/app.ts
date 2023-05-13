@@ -125,7 +125,19 @@ app.post('/postCadastroPedido', async (req,res) => {
 app.post('/updatePedido', async (req,res) => {
     let {id, produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento} = req.body.post
     let pedido = new Pedido(produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento)
-    await bd.updatePedido(pedido, id)
+    let status = await bd.pegaStatus(id)
+    let trocaUnidade = false
+    let unidade = ''
+    if (status !== 'Análise Quantitativa'){
+        let unidade = await bd.condereUnidade(id)
+        if (unidade.slice(-1) !== quantidade.slice(-1)){
+            trocaUnidade = true
+        } 
+        else{
+            trocaUnidade = false
+        }
+    }
+    await bd.updatePedido(pedido, id, trocaUnidade, unidade)
 });
 
 //========================= Cadastro de Fornecedores =========================

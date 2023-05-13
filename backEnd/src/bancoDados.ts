@@ -293,22 +293,33 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conectar()
         let [unidade, meta] = await this.conexao.query(`SELECT ped_produto_massa FROM pedido WHERE ped_codigo = ${id}`) as Array<any>
         await this.conexao.end()
-        console.log(unidade)
         if(unidade[0].ped_produto_massa.slice(-1) === 't'){
             unidade[0].ped_produto_massa = 't'
         }
         else{
             unidade[0].ped_produto_massa = unidade[0].ped_produto_massa.slice(-2, -1)
         }
+        console.log(`AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ${unidade[0]}`)
         return unidade[0]
     }
 
 
     //===================== UPDATE =====================
 
-    async updatePedido(pedido:Pedido, id:string){
+    async updatePedido(pedido:Pedido, id:string, trocaUnidade:boolean, unidade:string){
         await this.conectar()
         await this.conexao.query(`UPDATE pedido SET ped_razao_social = '${pedido['razao_social']}', ped_transportadora = '${pedido['transportadora']}', ped_tipo_frete = '${pedido['tipo_frete']}', ped_produto_massa = '${pedido['produto_massa']}', ped_descricao = '${pedido['descricao']}', ped_valor_unidade = '${pedido['valor_unidade']}', ped_valor_total = '${pedido['valor_total']}', ped_data_entrega = '${pedido['data_entrega']}', ped_data_pedido = '${pedido['data_pedido']}', ped_condicao_pagamento = '${pedido['condicao_pagamento']}' WHERE ped_codigo = ${id}`)
+        if(trocaUnidade){
+            let [pesagem] = await this.conexao.query(`SELECT regra_valor FROM parametros_do_pedido WHERE ped_codigo = ${id} and regra_tipo = 'Análise Quantitativa'`) as Array<any>
+            pesagem = pesagem[0].reg_valor
+            if(unidade === 't'){
+                pesagem = pesagem.slice(0, -2) + 't'
+            }
+            else{
+                pesagem = pesagem.slice(0, -1) + 'kg'
+            }
+            await this.conexao.query(`UPDATE parametros_do_pedido SET regra_valor = '${pesagem}' WHERE ped_codigo = ${id} and regra_tipo = 'Análise Quantitativa'`)
+        }
         await this.conexao.end()
     }
 
@@ -319,7 +330,6 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         }
         else{
             await this.conexao.query(`UPDATE nota_fiscal SET nf_razao_social = '${nf['razao_social']}', nf_data_emissao = '${nf['data_pedido'].slice(0, 10)}', nf_data_entrega = '${nf['data_entrega'].slice(0, 10)}', nf_transportadora = '${nf['transportadora']}', nf_produto_massa = '${nf['produto_massa']}', nf_tipo_frete = '${nf['tipo_frete']}', nf_produto_descricao = '${nf['descricao']}', nf_valor_total = '${nf['valor_total']}', nf_valor_unidade = '${nf['valor_unidade']}', nf_condicao_pagamento = '${nf['condicao_pagamento']}', nf_unidade = '${nf['unidade']}'  WHERE ped_codigo = ${nf['codigo_pedido']}`)
-
         }
         await this.conexao.end()
     }
