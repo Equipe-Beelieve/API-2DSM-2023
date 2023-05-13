@@ -187,7 +187,6 @@ function AnaliseQuant(){
                         <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
                         <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar</button>
                     </div>
-                    
                     </>
                 }
                 {mudanca === 'Edição' &&
@@ -196,10 +195,8 @@ function AnaliseQuant(){
                         <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
                         <button type="button" onClick={editaVolta} className="confirm_button">Editar</button>
                     </div>
-                    
                     </>
-                }
-                
+                }                
             </div>
             </>
         )

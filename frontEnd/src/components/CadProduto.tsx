@@ -383,7 +383,7 @@ function CadProduto() {
                         </div>
                     </div>
 
-                    <div className='box3'>
+                    <div className='box3 shadow'>
                         <h1 className='mainTitle'>Regras de Recebimento</h1>
                         <br /><br />
 
@@ -398,12 +398,12 @@ function CadProduto() {
                                         </select>
 
                                         <label className='limitacao'>Limitação:</label>
-                                        <input type="text" value={regras[id].valor}
+                                        <input className='input_formLimit' type="text" value={regras[id].valor}
                                             onChange={(e) => { mudaParametro(e, id) }}
                                             onBlur={(e) => { blurConformidade(e, id) }}
                                             onSelect={(e) => { selectConformidade(e, id) }} />
                                         <label className='obrigacao'>Obrigatória:</label>
-                                        <input type="checkbox" className='checkbox' checked={regras[id].obrigatoriedade} disabled />
+                                        <input type="checkbox" className='checkboxzin' checked={regras[id].obrigatoriedade} disabled />
                                         <br /><br />
                                     </div>
                                 }
@@ -415,9 +415,9 @@ function CadProduto() {
                                             <option value="avaria" selected>Avarias</option>
                                         </select>
                                         <label className='limitacao'>Limitação:</label>
-                                        <input type="text" value={regras[id].valor} readOnly />
+                                        <input className='input_formLimit' type="text" value={regras[id].valor} readOnly />
                                         <label className='obrigacao'>Obrigatória:</label>
-                                        <input type="checkbox" className='checkbox' checked={regras[id].obrigatoriedade} disabled />
+                                        <input type="checkbox" className='checkboxzin' checked={regras[id].obrigatoriedade} disabled />
                                         <br /><br />
                                     </div>
                                 }
@@ -436,33 +436,33 @@ function CadProduto() {
 
                                         <label className='limitacao'>Limitacao:</label>
                                         {regras[id].tipo === "Umidade" &&
-                                            <input type='text'
+                                            <input className='input_formLimit' type='text'
                                                 value={regras[id].valor}
                                                 onChange={(e) => { mudaParametro(e, id) }}
                                                 onBlur={(e) => { blurUmidade(e, id) }}
                                                 onSelect={(e) => { selectUmidade(e, id) }} />
                                         }
                                         {regras[id].tipo === "Pureza" &&
-                                            <input type='text'
+                                            <input className='input_formLimit' type='text'
                                                 value={regras[id].valor}
                                                 onChange={(e) => { mudaParametro(e, id) }}
                                                 onBlur={(e) => { blurPureza(e, id) }}
                                                 onSelect={(e) => { selectPureza(e, id) }} />
                                         }
                                         {regras[id].tipo === "Personalizada" &&
-                                            <input type='text'
+                                            <input className='input_formLimit' type='text'
                                                 value={regras[id].valor}
                                                 onChange={(e) => { mudaParametro(e, id) }} />
                                         }
                                         {regras[id].tipo === '' &&
-                                            <input type='text'
+                                            <input className='input_formLimit' type='text'
                                                 value={regras[id].valor}
                                                 onChange={(e) => { mudaParametro(e, id) }} />
                                         }
 
 
                                         <label className='obrigacao'>Obrigatória:</label>
-                                        <input type="checkbox" className='checkbox' checked={regras[id].obrigatoriedade} onChange={(e) => { mudaObrigatoriedade(e, id) }} />
+                                        <input type="checkbox" className='checkboxzin' checked={regras[id].obrigatoriedade} onChange={(e) => { mudaObrigatoriedade(e, id) }} />
                                         <br /><br />
                                     </div>
                                 }
