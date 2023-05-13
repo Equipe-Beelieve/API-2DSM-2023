@@ -139,6 +139,22 @@ function CadPedido() {
             if (produto === produtos[i].prod_descricao) {
                 setProduto(evento.target.value)
                 setUnidade(produtos[i].prod_unidade_medida)
+                if(precoUnitario !== ''){
+                    if(precoUnitario.slice(-1) === 't' && unidade === 'kg'){
+                        setPrecoUnitario(precoUnitario.slice(0, -1) + unidade)
+                    }
+                    else if (precoUnitario.slice(-1) === 'g' && unidade === 't'){
+                        setPrecoUnitario(precoUnitario.slice(0, -2) + unidade)
+                    }
+                }
+                if(quantidade !== ''){
+                    if(quantidade.slice(-1) === 't' && unidade === 'kg'){
+                        setPrecoUnitario(quantidade.slice(0, -1) + unidade)
+                    }
+                    else if (quantidade.slice(-1) === 'g' && unidade === 't'){
+                        setPrecoUnitario(quantidade.slice(0, -2) + unidade)
+                    }
+                }
                 return;
             }
         }
@@ -246,7 +262,7 @@ function CadPedido() {
                 setFrete(dado.tipo_frete)
                 setTransportadora(dado.transportadora)
                 setCondicaoPagamento(dado.condicao_pagamento)
-                if(quantidade.slice(-1) === 'g'){
+                if(dado.produto_massa.slice(-1) === 'g'){
                     setUnidade('kg')
                 }
                 else{
@@ -265,7 +281,7 @@ function CadPedido() {
                 setFrete(dado.tipo_frete)
                 setTransportadora(dado.transportadora)
                 setCondicaoPagamento(dado.condicao_pagamento)
-                if(quantidade.slice(-1) === 'g'){
+                if(dado.produto_massa.slice(-1) === 'g'){
                     setUnidade('kg')
                 }
                 else{
@@ -336,6 +352,8 @@ function CadPedido() {
             setQuantidade(quantidade.replace('t', 'kg'))
             setPrecoUnitario(precoUnitario.replace('t', 'kg'))
         }
+
+
     }, [navegate, precoUnitario, quantidade, render, unidade]) //Aciona as funções apenas quando a página é renderizada
 
 

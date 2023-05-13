@@ -19,9 +19,11 @@ function AnaliseQuant(){
     async function getPeso(){
         try {
             let post = id
-            const response = await api.post('/confereUnidade', {post})
-            let dado = response.data.ped_produto_massa
-            setPeso(dado)
+            await api.post('/confereUnidade', {post}).then((resposta) => {
+                let dado = resposta.data
+                console.log(dado)
+                setPeso(dado)
+            })
             }
             catch (erro) {
             console.log(erro)
@@ -182,17 +184,19 @@ function AnaliseQuant(){
                 {mudanca === 'Primeira vez' &&
                     <>
                     <div className='mesmalinha'>
+                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
                         <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar</button>
                     </div>
-                    <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
+                    
                     </>
                 }
                 {mudanca === 'Edição' &&
                     <>
                     <div className='mesmalinha'>
+                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
                         <button type="button" onClick={editaVolta} className="confirm_button">Editar</button>
                     </div>
-                    <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
+                    
                     </>
                 }
                 

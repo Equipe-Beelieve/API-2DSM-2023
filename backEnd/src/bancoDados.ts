@@ -17,7 +17,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: '', //sua senha
+                password: 'root', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -297,10 +297,11 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             unidade[0].ped_produto_massa = 't'
         }
         else{
-            unidade[0].ped_produto_massa = unidade[0].ped_produto_massa.slice(-2, -1)
+            console.log(`UNIDADEEEE ${unidade[0].ped_produto_massa.slice(-2)}`)
+            unidade[0].ped_produto_massa = unidade[0].ped_produto_massa.slice(-2)
         }
-        console.log(`AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ${unidade[0]}`)
-        return unidade[0]
+        console.log(unidade[0].ped_produto_massa)
+        return unidade[0].ped_produto_massa
     }
 
 
@@ -311,13 +312,18 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conexao.query(`UPDATE pedido SET ped_razao_social = '${pedido['razao_social']}', ped_transportadora = '${pedido['transportadora']}', ped_tipo_frete = '${pedido['tipo_frete']}', ped_produto_massa = '${pedido['produto_massa']}', ped_descricao = '${pedido['descricao']}', ped_valor_unidade = '${pedido['valor_unidade']}', ped_valor_total = '${pedido['valor_total']}', ped_data_entrega = '${pedido['data_entrega']}', ped_data_pedido = '${pedido['data_pedido']}', ped_condicao_pagamento = '${pedido['condicao_pagamento']}' WHERE ped_codigo = ${id}`)
         if(trocaUnidade){
             let [pesagem] = await this.conexao.query(`SELECT regra_valor FROM parametros_do_pedido WHERE ped_codigo = ${id} and regra_tipo = 'Análise Quantitativa'`) as Array<any>
-            pesagem = pesagem[0].reg_valor
-            if(unidade === 't'){
+            pesagem = pesagem[0].regra_valor
+            console.log(`A unidade é ${unidade} || A pesagem é ${pesagem}`)
+            if(pesagem.slice(-1) === 'g'){
+                console.log(`BBBBBBBBBBBB ${pesagem.slice(0,-2)}`)
                 pesagem = pesagem.slice(0, -2) + 't'
             }
             else{
+                console.log(`BBBBBBBBBBBB ${pesagem}`)
                 pesagem = pesagem.slice(0, -1) + 'kg'
+
             }
+            console.log(`QQQQQQQQQQQQQQQQQ ${pesagem}`)
             await this.conexao.query(`UPDATE parametros_do_pedido SET regra_valor = '${pesagem}' WHERE ped_codigo = ${id} and regra_tipo = 'Análise Quantitativa'`)
         }
         await this.conexao.end()

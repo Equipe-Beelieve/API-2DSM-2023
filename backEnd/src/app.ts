@@ -128,8 +128,9 @@ app.post('/updatePedido', async (req,res) => {
     let status = await bd.pegaStatus(id)
     let trocaUnidade = false
     let unidade = ''
-    if (status !== 'Análise Quantitativa'){
+    if (status !== 'Análise Quantitativa' && status !== 'A caminho'){
         let unidade = await bd.condereUnidade(id)
+        console.log(unidade)
         if (unidade.slice(-1) !== quantidade.slice(-1)){
             trocaUnidade = true
         } 
@@ -138,6 +139,7 @@ app.post('/updatePedido', async (req,res) => {
         }
     }
     await bd.updatePedido(pedido, id, trocaUnidade, unidade)
+    res.send('Foi')
 });
 
 //========================= Cadastro de Fornecedores =========================
@@ -333,7 +335,6 @@ app.post('/updateQuantitativa', async (req, res) => {
 app.post('/confereUnidade', async (req, res)=>{
     let id = req.body.post
     let unidade = await bd.condereUnidade(id)
-    console.log(`AQQQQQ ${unidade.ped_produto_massa}`)
     res.send(unidade)
 })
 
