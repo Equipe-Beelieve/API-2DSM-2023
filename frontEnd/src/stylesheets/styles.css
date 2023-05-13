@@ -615,7 +615,7 @@ p.solid {
 }
 
 .laudo .descricao {
-  width: 500px;
+  width: 35.2vw;
   padding: 10px;
   height: 120px;
   white-space: pre-line;
@@ -623,9 +623,10 @@ p.solid {
   border-style: solid;
   font-weight: bold;
   text-align: start;
-  font-size: small;
+  font-size: medium;
   color: #000000;
   background-color: #C0C0C0;
+  border-width: 1px;
 }
 
 .manipular {
@@ -634,6 +635,7 @@ p.solid {
   margin-left: 17%;
   width: 51%;
   margin-top: 3%;
+  
 }
 
 .laudo .tipo-regra {
@@ -667,6 +669,7 @@ p.solid {
   width: 229px;
   padding: 6px;
   margin-left: 5%;
+  border-width: 1px;
 }
 
 #textoPreto {
