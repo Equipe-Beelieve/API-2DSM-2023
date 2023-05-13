@@ -231,35 +231,52 @@ function CadPedido() {
     // ===================== UseEffect =====================
 
     async function veStatus() {
-        let status = await api.post('/confereStatus', {id:id, acessando:'Relatório de Compras'})
-        let dado = status.data
-        if (status.data === 'Primeira vez'){
-            setMudanca('Primeira vez')
-        }
-        else if (status.data === 'Revisão'){
-            setMudanca('Revisão')
-        }
-        else {
-            setMudanca('Edição')
-            setProduto(dado.ped_descricao)
-            setDataPedido(dado.ped_data_pedido.slice(0,10))
-            setDataEntrega(dado.ped_data_entrega.slice(0,10))
-            setRazaoSocial(dado.ped_razao_social)
-            setPrecoUnitario(dado.ped_valor_unidade)
-            setQuantidade(dado.ped_produto_massa)
-            setPrecoTotal(dado.ped_valor_total)
-            setFrete(dado.ped_tipo_frete)
-            setTransportadora(dado.ped_transportadora)
-            setCondicaoPagamento(dado.ped_condicao_pagamento)
-            if(quantidade.slice(-1) === 'g'){
-                setUnidade('kg')
+        await api.post('/confereStatus', {id:id, acessando:'Relatório de Compras'}).then((resposta) => {
+            let dado  = resposta.data
+            console.log(dado)
+            if (dado.status === 'Revisão'){
+                setMudanca('Revisão')
+                setProduto(dado.descricao)
+                setDataPedido(dado.data_pedido.slice(0,10))
+                setDataEntrega(dado.data_entrega.slice(0,10))
+                setRazaoSocial(dado.razao_social)
+                setPrecoUnitario(dado.valor_unidade)
+                setQuantidade(dado.produto_massa)
+                setPrecoTotal(dado.valor_total)
+                setFrete(dado.tipo_frete)
+                setTransportadora(dado.transportadora)
+                setCondicaoPagamento(dado.condicao_pagamento)
+                if(quantidade.slice(-1) === 'g'){
+                    setUnidade('kg')
+                }
+                else{
+                    setUnidade("t")
+                }
+            }
+            else if(dado.status === 'Edição'){
+                setMudanca('Edição')
+                setProduto(dado.descricao)
+                setDataPedido(dado.data_pedido.slice(0,10))
+                setDataEntrega(dado.data_entrega.slice(0,10))
+                setRazaoSocial(dado.razao_social)
+                setPrecoUnitario(dado.valor_unidade)
+                setQuantidade(dado.produto_massa)
+                setPrecoTotal(dado.valor_total)
+                setFrete(dado.tipo_frete)
+                setTransportadora(dado.transportadora)
+                setCondicaoPagamento(dado.condicao_pagamento)
+                if(quantidade.slice(-1) === 'g'){
+                    setUnidade('kg')
+                }
+                else{
+                    setUnidade("t")
+                }
             }
             else{
-                setUnidade("t")
+                navegate('/listaPedidos')
             }
-        }
-        console.log(status.data)
-    }
+        });
+    };
     useEffect(() =>{
         if (id){
             veStatus()
@@ -567,27 +584,28 @@ function CadPedido() {
                             </div>
     
                             <div className="box">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Tipo de Frete:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><select className="input_form" id="frete" name="frete" required
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tipo de frete :</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <select className="input_form" id="frete" name="frete" required
                                                 value={frete}
                                                 onChange={(e) => { setFrete(e.target.value) }}>
-                                                <option value=""></option>
+                                                <option value={frete}>{frete}</option>
                                                 <option value="Barco">Barco</option>
                                                 <option value="Trem">Trem</option>
                                                 <option value="Caminhão">Caminhão</option>
                                                 <option value="Avião">Avião</option>
                                             </select>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                             </div>
     
                             <div className="box">
@@ -615,33 +633,34 @@ function CadPedido() {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Condição de Pagamento:</th>
+                                            <th>Condição de pagamento :</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
-                                                value={condicaoPagamento}
-                                                onChange={(e) => { setCondicaoPagamento(e.target.value) }}>
-                                                <option value=""></option>
-                                                <option value="00/100">00/100</option>
-                                                <option value="10/90">10/90</option>
-                                                <option value="20/80">20/80</option>
-                                                <option value="30/70">30/70</option>
-                                                <option value="40/60">40/60</option>
-                                                <option value="50/50">50/50</option>
-                                                <option value="60/40">60/40</option>
-                                                <option value="70/30">70/30</option>
-                                                <option value="80/20">80/20</option>
-                                                <option value="90/10">90/10</option>
-                                                <option value="100/00">100/00</option>
-                                            </select>
+                                            <td>
+                                                <select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
+                                                    value={condicaoPagamento}
+                                                    onChange={(e) => { setCondicaoPagamento(e.target.value) }}>
+                                                    <option value={condicaoPagamento}>{condicaoPagamento}</option>
+                                                    <option value="00/100">00/100</option>
+                                                    <option value="10/90">10/90</option>
+                                                    <option value="20/80">20/80</option>
+                                                    <option value="30/70">30/70</option>
+                                                    <option value="40/60">40/60</option>
+                                                    <option value="50/50">50/50</option>
+                                                    <option value="60/40">60/40</option>
+                                                    <option value="70/30">70/30</option>
+                                                    <option value="80/20">80/20</option>
+                                                    <option value="90/10">90/10</option>
+                                                    <option value="100/00">100/00</option>
+                                                </select>
+                                                   
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-    
                         </div>
     
                         
@@ -830,24 +849,24 @@ function CadPedido() {
                             </div>
     
                             <div className="box">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Tipo de Frete:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><select className="input_form" id="frete" name="frete" required
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tipo de frete :</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><select className="input_form" id="frete" name="frete" required
                                                 value={frete}
                                                 onChange={(e) => { setFrete(e.target.value) }} disabled>
-                        
+                                                <option value={frete} selected>{frete}</option>
                                             </select>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
     
                             <div className="box">
                                 <table>
@@ -874,21 +893,22 @@ function CadPedido() {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Condição de Pagamento:</th>
+                                            <th>Condição de pagamento :</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required disabled
-                                                value={condicaoPagamento}
-                                                onChange={(e) => { setCondicaoPagamento(e.target.value) }}>
-                                            </select>
+                                            <td><select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
+                                                    value={condicaoPagamento}
+                                                    onChange={(e) => { setCondicaoPagamento(e.target.value) }} disabled>
+                                                        <option value={condicaoPagamento} selected>{condicaoPagamento}</option>
+                                                    </select>
+
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
-    
+                            </div>    
                         </div>
                         <button type="button" onClick={redirecionarPedido} className="cancel_button">Voltar</button>
                         
