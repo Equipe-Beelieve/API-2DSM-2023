@@ -219,6 +219,7 @@ p.solid {
   background-color: #C0C0C0;
   border-color: transparent;
   width: 200px;
+  height: 35px;
 }
 
 .cancel_button {
@@ -340,11 +341,12 @@ p.solid {
 }
 
 .box3 {
-  margin-left: 18%;
+  margin-left: 13%;
   justify-content: space-between;
-  width: 63%;
+  width: 73%;
   background-color: #FFEF78;
   border-radius: 7px;
+  padding-top: 1vh;
 }
 
 
@@ -522,13 +524,13 @@ p.solid {
   border-color: transparent;
 }
 
-.info{
+.info {
   margin: 0;
   padding: 0;
   font-weight: bold;
 }
 
-.laudo{
+.laudo {
   display: flex;
   background-color: #D9D9D9;
   padding: 15px 0px;
@@ -540,17 +542,17 @@ p.solid {
   color: #000000;
 }
 
-.resultadoCheckbox{
+.resultadoCheckbox {
   font-weight: bold;
 }
 
-.divCheckbox{
+.divCheckbox {
   display: flex;
   gap: 5px;
   align-items: baseline;
 }
 
-.laudo .tipo-laudo{
+.laudo .tipo-laudo {
   background-color: #5D5D5D;
   color: #FFFFFF;
   font-weight: bold;
@@ -569,7 +571,7 @@ p.solid {
 
 }
 
-.laudo .checkbox{
+.laudo .checkbox {
 
   outline-color: #000000;
   accent-color: #000000;
@@ -587,7 +589,7 @@ p.solid {
   margin-top: 3%;
 }
 
-.laudo .tipo-avaria{
+.laudo .tipo-avaria {
   background-color: #5D5D5D;
   color: #FFFFFF;
   font-weight: bold;
@@ -596,7 +598,7 @@ p.solid {
   border-color: transparent;
 }
 
-.laudo .regra-valor{
+.laudo .regra-valor {
   background-color: #5D5D5D;
   color: #FFFFFF;
   font-weight: bold;
@@ -606,13 +608,13 @@ p.solid {
 
 }
 
-.laudo .checkbox{
+.laudo .checkbox {
 
   outline-color: #000000;
   accent-color: #000000;
 }
 
-.laudo .descricao{
+.laudo .descricao {
   width: 500px;
   padding: 10px;
   height: 120px;
@@ -634,7 +636,7 @@ p.solid {
   margin-top: 3%;
 }
 
-.laudo .tipo-regra{
+.laudo .tipo-regra {
   background-color: #5D5D5D;
   color: #FFFFFF;
   font-weight: bold;
@@ -644,7 +646,7 @@ p.solid {
 
 }
 
-.laudo .limitacao{
+.laudo .limitacao {
   background-color: #5D5D5D;
   color: #FFFFFF;
   font-weight: bold;
@@ -655,7 +657,7 @@ p.solid {
 
 }
 
-.laudo .manipular-regra{
+.laudo .manipular-regra {
   background-color: #C0C0C0;
 
   font-weight: bold;
@@ -667,11 +669,11 @@ p.solid {
   margin-left: 5%;
 }
 
-#textoPreto{
+#textoPreto {
   color: #000000;
 }
 
-.regra-personalizar{
+.regra-personalizar {
   background-color: #D9D9D9;
   padding: 9px;
   margin-left: 3%;
@@ -679,7 +681,7 @@ p.solid {
 
 }
 
-.laudo .personalizar{
+.laudo .personalizar {
   background-color: #5D5D5D;
   color: #FFFFFF;
   font-weight: bold;
@@ -689,7 +691,7 @@ p.solid {
   border-color: transparent;
 }
 
-.laudo .regra-valor{
+.laudo .regra-valor {
   background-color: #5D5D5D;
   color: #FFFFFF;
   font-weight: bold;
@@ -700,7 +702,7 @@ p.solid {
 
 }
 
-.laudo .checkbox{
+.laudo .checkbox {
 
   outline-color: #000000;
   accent-color: #000000;
@@ -869,12 +871,16 @@ p.solid {
 
 .addRegras {
   background: transparent;
-  border-top: none;
+  border: none;
+  /* border-top: none;
   border-left: none;
-  border-right: none;
+  border-right: none; */
   font-weight: bold;
   font-size: 0.8em;
   margin-bottom: 3vh;
+  margin-left: -6vw;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1.5px;
 }
 
 .lixeira {
@@ -886,4 +892,56 @@ p.solid {
   margin-top: 1.3vh;
   border: 1px solid #000000;
   width: 1.5vw;
+  cursor: pointer;
+}
+
+.checkboxzin {
+  position: relative;
+  opacity: 1;
+  cursor: pointer;
+  /* background-color: #FFEF78; */
+  border: none;
+}
+
+.checkboxzin::before {
+  content: "";
+  opacity: 1;
+  display: inline-block;
+  width: 2vw;
+  height: 4vh;
+  border: 3.5px solid lightgrey;
+  background-color: #FFEF78;
+  position: relative;
+  top: -1vh;
+}
+
+
+.checkboxzin:checked::before {
+  content: "\2714";
+}
+
+.box3 .minimo .input_formLimit {
+  background-color: #C0C0C0;
+  border-color: transparent;
+  width: 220px;
+  height: 35px;
+}
+
+.box3 .avaria .input_formLimit {
+  background-color: #C0C0C0;
+  border-color: transparent;
+  width: 220px;
+  height: 35px;
+}
+
+.box3 .personalizada .input_formLimit {
+  background-color: #C0C0C0;
+  border-color: transparent;
+  width: 220px;
+  height: 35px;
+}
+
+.shadow {
+  box-shadow: 2px 4px 1px 1px #00000000;
+  
 }
