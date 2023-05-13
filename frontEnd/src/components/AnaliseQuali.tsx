@@ -297,7 +297,8 @@ function AnaliseQuali() {
                         <button className='button' type='button' onClick={irQuantitativa}>Análise Quantitativa</button>
                         <p className='info'>Selecione o checkbox de resultado se a regra for cumprida</p>
                         <div className='laudo'>
-                            <input className='tipo-laudo' type="text" value={'Laudo'} readOnly /> <input className='haver' type="text" value={'Deve haver'} readOnly />
+                            <input className='tipo-laudo' type="text" value={'Laudo'} readOnly />
+                            <input className='haver' type="text" value={'Deve haver'} readOnly />
                             <div className='divCheckbox'>
                                 <span className='resultadoCheckbox'>Resultado:</span>
                                 {laudo === 'sim' &&
@@ -400,18 +401,26 @@ function AnaliseQuali() {
                         <button type='button' onClick={irQuantitativa}>Análise Quantitativa</button>
                         <div className='laudo'>
                             <input className='tipo-laudo' type="text" value={'Laudo'} readOnly /> <input className='haver' type="text" value={'Deve haver'} readOnly />
-                            {laudo === 'sim' &&
-                                <input className='checkbox' type="checkbox" checked readOnly />
-                            }
-                            {laudo === 'não' &&
-                                <input className='checkbox' type="checkbox" readOnly />
-                            }
+                            <div className='divCheckbox'>
+                                <span className='resultadoCheckbox'>Resultado:</span>
+                                {laudo === 'sim' &&
+                                    <input className='checkbox' type="checkbox" checked readOnly />
+                                }
+                                {laudo === 'não' &&
+                                    <input className='checkbox' type="checkbox" readOnly />
+                                }
+                            </div>
+                            
                         </div>
                         {regras.map((regra, index) => {
                             if (regra.reg_tipo === 'Avaria') {
                                 return (
-                                    <div className='regra-avaria' key={index}>
-                                        <input className='tipo-avaria' type="text" value={regra.reg_tipo} readOnly /> <input className='regra-valor' type="text" value={regra.reg_valor} readOnly />
+                                    <div className='laudo' key={index}>
+                                        <input className='tipo-avaria' type="text" value={regra.reg_tipo} readOnly /> 
+                                        <input className='regra-valor' type="text" value={regra.reg_valor} readOnly />
+                                        <div className='divCheckbox'>
+                                            <span className='resultadoCheckbox'>Resultado:</span>
+                                        </div>
                                         {analises[index].valor === 'true' &&
                                             <><input className='checkbox' type="checkbox" checked readOnly /> <br/> </>
                                         }
@@ -419,24 +428,31 @@ function AnaliseQuali() {
                                             <><input className='checkbox' type="checkbox" disabled /> <br/> </>
                                         }
                                         <input className='descricao' type="text" value={analises[index].avaria} readOnly />
+                                        
+                                        
                                     </div>
                                 )
                             } else if (regra.reg_tipo === 'Personalizada') {
                                 return (
-                                    <div className='regra-personalizar' key={index}>
-                                        <input className='personalizar' type="text" value={regra.reg_tipo} readOnly /> <input className='regra-valor' type="text" value={regra.reg_valor} readOnly />
-                                        {analises[index].valor === 'true' &&
-                                            <input className='checkbox' type="checkbox" checked readOnly />
-                                        }
-                                        {analises[index].valor === 'false' &&
-                                            <input className='checkbox' type="checkbox" disabled />
-                                        }
+                                    <div className='laudo' key={index}>
+                                        <input className='personalizar' type="text" value={regra.reg_tipo} readOnly /> 
+                                        <input className='regra-valor' type="text" value={regra.reg_valor} readOnly />
+                                        <div className='divCheckbox'>
+                                            <span className='resultadoCheckbox'>Resultado:</span>
+                                            {analises[index].valor === 'true' &&
+                                                <input className='checkbox' type="checkbox" checked readOnly />
+                                            }
+                                            {analises[index].valor === 'false' &&
+                                                <input className='checkbox' type="checkbox" disabled />
+                                            }
+                                        </div>
+                                        
                                     </div>
                                 )
 
                             } else {
                                 return (
-                                    <div className='manipular' key={index}>
+                                    <div className='laudo' key={index}>
                                         <input className='tipo-regra' type="text" value={regra.reg_tipo} readOnly /> <input className='limitacao' type="text" value={regra.reg_valor} readOnly />
                                         <input className='manipular-regra' type="text" value={analises[index].valor} readOnly />
                                     </div>
