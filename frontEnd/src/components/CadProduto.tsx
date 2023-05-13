@@ -5,6 +5,7 @@ import { Link, redirect, useNavigate } from 'react-router-dom'
 import verificaLogado from '../funcoes/verificaLogado'
 import ListaProdutos from './ListaProdutos'
 import { toast } from 'react-toastify'
+import lixeira from '../images/lixeira.png'
 
 interface Regra {
     tipo: string,
@@ -39,6 +40,10 @@ function CadProduto() {
                     <>
                         {id > 1 &&
                             <div className='avaria'>
+
+                                <button onClick={() => deleteRegra(id)}>
+                                    <img src=".\images\lixeira.png" alt="Lixeira" />
+                                </button>
 
                                 <label>Tipo:</label>
                                 <select className='input_form' value={regras[id].tipo} onChange={(e) => { mudaTipo(e, id) }}>
@@ -285,26 +290,26 @@ function CadProduto() {
             })
 
             if (controle) {
-                if(contadorTipo.Umidade > 1){
+                if (contadorTipo.Umidade > 1) {
                     toast.error('Não pode haver mais de uma regra de Umidade', {
                         position: 'bottom-left',
                         autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
                     })
                 }
-                else if(contadorTipo.Pureza > 1){
+                else if (contadorTipo.Pureza > 1) {
                     toast.error('Não pode haver mais de uma regra de Pureza', {
                         position: 'bottom-left',
                         autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
                     })
                 }
-                else{
+                else {
                     const post = { descricao, unidadeMedida, regras }
-                    
-                    await api.post('/cadastroProduto', { post }).then((resposta) => {navigate('/listaProdutos')})
+
+                    await api.post('/cadastroProduto', { post }).then((resposta) => { navigate('/listaProdutos') })
                 }
-                
+
             }
-            else{
+            else {
                 toast.error('Preencha todas as regras adicionadas', {
                     position: 'bottom-left',
                     autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
@@ -419,7 +424,7 @@ function CadProduto() {
                                 {id > 1 &&
                                     <div className='personalizada'>
 
-                                        <button onClick={() => deleteRegra(id)}>Delete</button>
+                                        <img src={lixeira} alt="Lixo" className='lixeira' onClick={() => deleteRegra(id)} />
 
                                         <label className='tipo-regra'>Tipo de Regra:</label>
                                         <select className='input_form' value={regras[id].tipo} onChange={(e) => { mudaTipo(e, id) }}>
@@ -464,7 +469,7 @@ function CadProduto() {
                             </>
                         )}
                         <br />
-                        <button type='button' className='adicionarRegra' onClick={addRegra}>Adicionar mais uma</button>
+                        <button type='button' className='addRegras' onClick={addRegra}>Adicionar mais uma</button>
 
                     </div>
                     <div className="grid-container poscentralized">

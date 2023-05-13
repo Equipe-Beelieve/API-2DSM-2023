@@ -74,7 +74,7 @@
 /*Título e botão de cadastro */
 .titleRegister {
   margin: 5vh 0;
-  
+
   width: 80%;
 
   display: flex;
@@ -91,7 +91,7 @@
 .titleRegister #register {
   align-self: center;
   margin-left: 5vw;
-  
+
 }
 
 
@@ -263,7 +263,7 @@ p.solid {
   display: flex;
 }
 
-#linkBotaoCadastro{
+#linkBotaoCadastro {
   display: flex;
   justify-content: center;
 }
@@ -356,17 +356,17 @@ p.solid {
   font-weight: bold;
 }
 
-.box3 a{
+.box3 a {
   text-decoration: none;
   color: #000000;
 }
 
-.box3 .minimo .tipo-regra{
+.box3 .minimo .tipo-regra {
   margin-left: -3%;
   font-weight: bold;
 }
 
-.box3 .minimo .input_form{
+.box3 .minimo .input_form {
   width: 232px;
   font-weight: bold;
   margin-left: 1%;
@@ -376,12 +376,12 @@ p.solid {
   text-align: center;
 }
 
-.box3 .minimo .limitacao{
+.box3 .minimo .limitacao {
   margin-left: 4%;
   font-weight: bold;
 }
 
-.box3 .minimo input{
+.box3 .minimo input {
   margin-left: 1%;
   background-color: #C0C0C0;
   width: 127px;
@@ -392,12 +392,12 @@ p.solid {
   padding: 7px;
 }
 
-.box3 .minimo .obrigacao{
+.box3 .minimo .obrigacao {
   margin-left: 3%;
   font-weight: bold;
 }
 
-.box3 .minimo .checkbox{
+.box3 .minimo .checkbox {
   outline-color: #C0C0C0;
   accent-color: #C0C0C0;
   padding: 7px;
@@ -406,12 +406,12 @@ p.solid {
   margin-left: -4%;
 }
 
-.box3 .avaria .tipo-regra{
+.box3 .avaria .tipo-regra {
   margin-left: -3%;
   font-weight: bold;
 }
 
-.box3 .avaria .input_form{
+.box3 .avaria .input_form {
   background-color: #C0C0C0;
   border-color: transparent;
   width: 232px;
@@ -422,12 +422,12 @@ p.solid {
   font-weight: bold;
 }
 
-.box3 .avaria .limitacao{
+.box3 .avaria .limitacao {
   margin-left: 4%;
   font-weight: bold;
 }
 
-.box3 .avaria input{
+.box3 .avaria input {
   background-color: #c0c0c0bb;
   border-color: transparent;
   width: 127px;
@@ -438,12 +438,12 @@ p.solid {
   font-weight: bold;
 }
 
-.box3 .avaria .obrigacao{
+.box3 .avaria .obrigacao {
   margin-left: 3%;
   font-weight: bold;
 }
 
-.box3 .avaria .checkbox{
+.box3 .avaria .checkbox {
   margin-left: -4%;
   outline-color: #C0C0C0;
   accent-color: #C0C0C0;
@@ -452,17 +452,17 @@ p.solid {
   border-radius: 8px;
 }
 
-.box3 .personalizada .limitacao{
+.box3 .personalizada .limitacao {
   margin-left: 4%;
   font-weight: bold;
 }
 
-.box3 .personalizada .tipo-regra{
+.box3 .personalizada .tipo-regra {
   margin-left: -3%;
   font-weight: bold;
 }
 
-.box3 .personalizada .input_form{
+.box3 .personalizada .input_form {
   background-color: #C0C0C0;
   border-color: transparent;
   width: 232px;
@@ -473,7 +473,7 @@ p.solid {
   font-weight: bold;
 }
 
-.box3 .personalizada input{
+.box3 .personalizada input {
   background-color: #C0C0C0;
   border-color: transparent;
   width: 127px;
@@ -484,12 +484,12 @@ p.solid {
   font-weight: bold;
 }
 
-.box3 .personalizada .obrigacao{
+.box3 .personalizada .obrigacao {
   margin-left: 3%;
   font-weight: bold;
 }
 
-.box3 .personalizada .checkbox{
+.box3 .personalizada .checkbox {
   margin-left: -4%;
   outline-color: #C0C0C0;
   accent-color: #C0C0C0;
@@ -498,12 +498,12 @@ p.solid {
   border-radius: 8px;
 }
 
-.titleRegister .mainTitle{
+.titleRegister .mainTitle {
   font-weight: bold;
   margin-left: 1%;
 }
 
-.button-relatorio{
+.button-relatorio {
   background-color: #5D5D5D;
   color: #FFFFFF;
   margin-left: -85%;
@@ -512,7 +512,7 @@ p.solid {
   border-color: transparent;
 }
 
-.button{
+.button {
   background-color: #5D5D5D;
   color: #FFFFFF;
   margin-left: -85%;
@@ -559,7 +559,7 @@ p.solid {
   border-color: transparent;
 }
 
-.laudo .haver{
+.laudo .haver {
   background-color: #5D5D5D;
   color: #FFFFFF;
   font-weight: bold;
@@ -575,7 +575,7 @@ p.solid {
   accent-color: #000000;
 }
 
-.regra-avaria{
+.regra-avaria {
   background-color: #D9D9D9;
   border: none;
   width: 60%;
@@ -626,7 +626,7 @@ p.solid {
   background-color: #C0C0C0;
 }
 
-.manipular{
+.manipular {
   background-color: #D9D9D9;
   padding: 9px;
   margin-left: 17%;
@@ -641,7 +641,7 @@ p.solid {
   text-align: center;
   padding: 6px;
   border-color: transparent;
-  
+
 }
 
 .laudo .limitacao{
@@ -710,19 +710,19 @@ p.solid {
   --toastify-icon-color-error: #3e813b;
 }
 
-.button_margin{
+.button_margin {
   display: table-cell;
   padding-left: 1.2vw;
   padding-right: 2vw;
 }
 
-.reset{
+.reset {
   margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
   text-decoration: none;
 }
 
@@ -740,8 +740,8 @@ p.solid {
 }
 
 .lista_button:focus {
-  background:#3e813b;
-  color:white;
+  background: #3e813b;
+  color: white;
 }
 
 .anaq1 {
@@ -765,39 +765,40 @@ p.solid {
   width: 20vw;
   display: inline;
   margin-right: 2vw;
-} 
+}
 
 .input_form2 {
   background-color: #C0C0C0;
   border-color: transparent;
-  width:45%;
+  width: 45%;
   padding-top: 0.6vh;
   padding-bottom: 0.6vh;
 }
 
-.uni_quant{
+.uni_quant {
   font-weight: bold;
   font-size: 2.5vh;
 }
 
- /* botão arrumar */
- .cancel_button3 {
+/* botão arrumar */
+.cancel_button3 {
   background: #FF6962;
   border-radius: 20px;
   border-color: transparent;
   width: 150px;
   margin-top: 2vh;
-  margin-right:3vw;
-  
+  margin-right: 3vw;
+
 }
- .cancel_button3:hover {
+
+.cancel_button3:hover {
   background: #ee2a20;
   border-radius: 20px;
   border-color: transparent;
   width: 150px;
   /* margin-top: 2vh;
    margin-right:3vw; */
-  
+
 }
 
 .cancel_button3 a,
@@ -806,8 +807,9 @@ p.solid {
   text-decoration: none;
   color: #000000;
 }
-.quickfix{
-  margin-top:10vw;
+
+.quickfix {
+  margin-top: 10vw;
 }
 
 /* .pesquisa {
@@ -822,13 +824,14 @@ p.solid {
   background-color: lightgray;
   padding: 5px;
   border-radius: 5px;
-  
+
 }
 
-.mesmalinha{
+.mesmalinha {
   display: inline;
   margin-left: 3vw;
 }
+
 #imagem-pesquisa {
   background-image: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-512.png');
   background-repeat: no-repeat;
@@ -840,7 +843,7 @@ p.solid {
   margin-bottom: 12px;
 }
 
-.ped_btn{
+.ped_btn {
   background-color: #D9D9D9;
   border: none;
   height: 6vh;
@@ -848,7 +851,7 @@ p.solid {
   margin-right: 1.5vw;
 }
 
-.ped_btn2{
+.ped_btn2 {
   background-color: #3E813B;
   color: white;
   border: none;
@@ -856,8 +859,31 @@ p.solid {
   width: 15vw;
 }
 
-.hr_pedido{
+.hr_pedido {
   width: 100%;
   border-width: 2px;
   border-color: #000000;
+}
+
+/* Regras de Recebimento */
+
+.addRegras {
+  background: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-weight: bold;
+  font-size: 0.8em;
+  margin-bottom: 3vh;
+}
+
+.lixeira {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  float: left;
+  margin-left: -4vw;
+  margin-top: 1.3vh;
+  border: 1px solid #000000;
+  width: 1.5vw;
 }
