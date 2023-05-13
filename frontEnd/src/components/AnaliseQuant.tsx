@@ -4,6 +4,7 @@ import api from '../services/api';
 import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from './NavBar';
 import { toast } from 'react-toastify';
+import teste from '../images/seta-esquerda.png'
 
 interface Pedido{
     ped_produto_massa:string
@@ -161,13 +162,13 @@ function AnaliseQuant(){
             <NavBar/>
             <div className="mainContent">
                 <div className="titleRegister">
+                <button type='button' onClick={irNotaFiscal} className="botaoteste4"><img src={teste} alt="" className="testea" />Nota Fiscal</button>
                     <h1 className="mainTitle">ANÁLISE QUANTITATIVA</h1>
                 
                 </div>
                 {mudanca === 'Edição' &&
                     <button type='button' onClick={irQualitativa}>Análise Qualitativa</button>
                 }
-                <button type='button' onClick={irNotaFiscal}>Nota Fiscal</button>
                 
                 <div className="uni_quant">Unidade: {tipoPeso}
                 </div>

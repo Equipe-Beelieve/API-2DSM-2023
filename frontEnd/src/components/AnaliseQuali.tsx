@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
 import { toast } from 'react-toastify';
+import teste from '../images/seta-esquerda.png'
 
 interface Regra {
     reg_codigo: number
@@ -288,13 +289,14 @@ function AnaliseQuali() {
                 <form >
                     <div className="mainContent">
                         <div className="titleRegister">
+                        <button className='botaoteste4' type='button' onClick={irQuantitativa}>
+                            <img src={teste} alt="" className="testea" />Análise Quantitativa</button>
                             <h1 className="mainTitle">ANÁLISE QUALITATIVA</h1>
                         </div>
                         {mudanca === 'Edição' &&
                             <button className='button-relatorio' type='button' onClick={irRegularizacao}>Relatório Final</button>
                         }
 
-                        <button className='button' type='button' onClick={irQuantitativa}>Análise Quantitativa</button>
                         <p className='info'>Selecione o checkbox de resultado se a regra for cumprida</p>
                         <div className='laudo'>
                             <input className='tipo-laudo' type="text" value={'Laudo'} readOnly />

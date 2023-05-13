@@ -946,3 +946,47 @@ p.solid {
   box-shadow: 2px 4px 1px 1px #00000000;
   
 }
+
+.testea{
+  width:40px;
+}
+
+.recebepedidot{
+  position:absolute;
+  margin-left:39%;
+}
+
+.arrumar{
+  margin-bottom: 3vh;
+}
+
+.arrumarporfavor3{
+  margin-top:3vh;
+}
+
+.botaoteste3{
+  background-color:gray;
+  color:white;
+  font-weight:bolder;
+  border-radius: 20px;
+  float:left;
+  margin-left:5vw;
+  background-size: 30px;
+  font-size: 20px;
+  border: 1px solid #ddd;
+  margin-right:-25%;
+}
+
+.botaoteste4{
+  background-color:gray;
+  color:white;
+  font-weight:bolder;
+  border-radius: 20px;
+  float:left;
+  background-size: 30px;
+  font-size: 20px;
+  border: 1px solid #ddd;
+  display:inline;
+  margin-left:-45%;
+  margin-right:25%;
+}

@@ -5,6 +5,7 @@ import { Produto } from "./ListaProdutos"
 import api from "../services/api"
 import { toast } from "react-toastify"
 import verificaLogado from "../funcoes/verificaLogado"
+import teste from '../images/seta-esquerda.png'
 
 function RecebimentoPedido(){
 
@@ -340,15 +341,18 @@ function RecebimentoPedido(){
         
             <>
             <NavBar/>
-            <div className="divFornecedor">
-                <form>
+
                     <br />
-                    <h2>RECEBIMENTO DO PEDIDO: {id}</h2>
-                    <h3>Insira a nota fiscal</h3>
-                    <button type='button' onClick={irCadastroPedido}>Cadastro dos Pedidos</button>
+                    <div className="divFornecedor">
+                <form>
+                <button type='button' onClick={irCadastroPedido} className="botaoteste3">
+                    <img src={teste} alt="" className="testea" />Cadastro dos Pedidos  </button>
                     {mudanca === 'Edição' &&
                         <button type='button' onClick={irQuantitativa}>Análise Quantitativa</button>
                     }
+                    <h2>RECEBIMENTO DO PEDIDO: {id}</h2>
+                    <h3>Insira a nota fiscal</h3>
+                
                     <div className="grid-container poscentralized">
                         <div className="box">
                             <table>
