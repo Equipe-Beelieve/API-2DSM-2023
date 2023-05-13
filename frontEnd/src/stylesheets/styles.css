@@ -244,7 +244,7 @@ p.solid {
   background: #B4D892;
   border-radius: 20px;
   border-color: transparent;
-  margin-right: 3vw;
+  margin-left: 3vw;
   width: 150px;
   margin-top: 2vh;
 }
@@ -522,12 +522,32 @@ p.solid {
   border-color: transparent;
 }
 
+.info{
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+}
+
 .laudo{
+  display: flex;
   background-color: #D9D9D9;
-  padding: 9px;
-  margin-left: 1%;
-  width: 35%;
-  margin-top: 3%;
+  padding: 15px 0px;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 700px;
+  margin-bottom: 3%;
+  color: #000000;
+}
+
+.resultadoCheckbox{
+  font-weight: bold;
+}
+
+.divCheckbox{
+  display: flex;
+  gap: 5px;
+  align-items: baseline;
 }
 
 .laudo .tipo-laudo{
@@ -546,11 +566,11 @@ p.solid {
   text-align: center;
   border-color: transparent;
   padding: 9px;
-  margin-left: 3%;
+
 }
 
 .laudo .checkbox{
-  margin-left: 3%;
+
   outline-color: #000000;
   accent-color: #000000;
 }
@@ -558,14 +578,16 @@ p.solid {
 .regra-avaria{
   background-color: #D9D9D9;
   border: none;
-  align-items: center;
-  width: 36%;
-  margin-left: 2%;
-  padding: 9px;
+  width: 60%;
+  display: flex;
+  padding: 15px;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
   margin-top: 3%;
 }
 
-.regra-avaria .tipo-avaria{
+.laudo .tipo-avaria{
   background-color: #5D5D5D;
   color: #FFFFFF;
   font-weight: bold;
@@ -574,33 +596,33 @@ p.solid {
   border-color: transparent;
 }
 
-.regra-avaria .regra-valor{
+.laudo .regra-valor{
   background-color: #5D5D5D;
   color: #FFFFFF;
   font-weight: bold;
   text-align: center;
   border-color: transparent;
   padding: 6px;
-  width: 232px;
-  margin-left: 4%;
+
 }
 
-.regra-avaria .checkbox{
-  margin-left: 3%;
+.laudo .checkbox{
+
   outline-color: #000000;
   accent-color: #000000;
 }
 
-.regra-avaria .descricao{
-  width: 507px;
+.laudo .descricao{
+  width: 500px;
   padding: 10px;
   height: 120px;
   white-space: pre-line;
-  margin-top: 2%;
+  border: #000000;
+  border-style: solid;
   font-weight: bold;
   text-align: start;
   font-size: small;
-  color: #00000068;
+  color: #000000;
   background-color: #C0C0C0;
 }
 
@@ -612,7 +634,7 @@ p.solid {
   margin-top: 3%;
 }
 
-.manipular .tipo-regra{
+.laudo .tipo-regra{
   background-color: #5D5D5D;
   color: #FFFFFF;
   font-weight: bold;
@@ -622,7 +644,7 @@ p.solid {
   
 }
 
-.manipular .limitacao{
+.laudo .limitacao{
   background-color: #5D5D5D;
   color: #FFFFFF;
   font-weight: bold;
@@ -630,19 +652,23 @@ p.solid {
   border-color: transparent;
   padding: 6px;
   width: 231px;
-  margin-left: 3%;
+
 }
 
-.manipular .manipular-regra{
+.laudo .manipular-regra{
   background-color: #C0C0C0;
-  color: #FFFFFF;
+
   font-weight: bold;
   text-align: center;
-  border-color: transparent;
-  color: #0000002c;
+  border-color: black;
+  color: hwb(0 0% 100%);
   width: 229px;
   padding: 6px;
   margin-left: 5%;
+}
+
+#textoPreto{
+  color: #000000;
 }
 
 .regra-personalizar{
@@ -650,10 +676,10 @@ p.solid {
   padding: 9px;
   margin-left: 3%;
   width: 37%;
-  margin-top: 3%;
+
 }
 
-.regra-personalizar .personalizar{
+.laudo .personalizar{
   background-color: #5D5D5D;
   color: #FFFFFF;
   font-weight: bold;
@@ -663,7 +689,7 @@ p.solid {
   border-color: transparent;
 }
 
-.regra-personalizar .regra-valor{
+.laudo .regra-valor{
   background-color: #5D5D5D;
   color: #FFFFFF;
   font-weight: bold;
@@ -671,11 +697,11 @@ p.solid {
   border-color: transparent;
   padding: 6px;
   width: 249px;
-  margin-left: 3%;
+
 }
 
-.regra-personalizar .checkbox{
-  margin-left: 2%;
+.laudo .checkbox{
+
   outline-color: #000000;
   accent-color: #000000;
 }

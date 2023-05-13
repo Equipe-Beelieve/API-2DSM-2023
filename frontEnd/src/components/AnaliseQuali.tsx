@@ -295,57 +295,73 @@ function AnaliseQuali() {
                         }
 
                         <button className='button' type='button' onClick={irQuantitativa}>Análise Quantitativa</button>
+                        <p className='info'>Selecione o checkbox de resultado se a regra for cumprida</p>
                         <div className='laudo'>
                             <input className='tipo-laudo' type="text" value={'Laudo'} readOnly /> <input className='haver' type="text" value={'Deve haver'} readOnly />
+                            <div className='divCheckbox'>
+                                <span className='resultadoCheckbox'>Resultado:</span>
+                                {laudo === 'sim' &&
+                                    <input className='checkbox' type="checkbox" checked onChange={(evento) => setLaudo(laudo === 'sim' ? 'não' : 'sim')} />
+                                }
+                                {laudo === 'não' &&
+                                    <input className='checkbox' type="checkbox" onChange={(evento) => setLaudo(laudo === 'não' ? 'sim' : 'não')} />
+                                }
+                            </div>
                             
-                            {laudo === 'sim' &&
-                                <input className='checkbox' type="checkbox" checked onChange={(evento) => setLaudo(laudo === 'sim' ? 'não' : 'sim')} />
-                            }
-                            {laudo === 'não' &&
-                                <input className='checkbox' type="checkbox" onChange={(evento) => setLaudo(laudo === 'não' ? 'sim' : 'não')} />
-                            }
                             
                         </div>
                         {regras.map((regra, index) => {
                             if (regra.reg_tipo === 'Avaria') {
                                 return (
-                                    <div className='regra-avaria' key={index}>
-                                        <input className='tipo-avaria' type="text" value={regra.reg_tipo} readOnly /> <input className='regra-valor' type="text" value={regra.reg_valor} readOnly />
-                                        {analises[index].valor === 'true' &&
-                                            <><input className='checkbox' type="checkbox" checked value={analises[index].valor} onChange={(evento) => manipularCheckboxAvaria(index, evento.target.checked)} /><br /></>
-                                        }
-                                        {analises[index].valor === 'false' &&
-                                            <><input className='checkbox' type="checkbox" value={analises[index].valor} onChange={(evento) => manipularCheckboxAvaria(index, evento.target.checked)} /><br /></>
-                                        }
+                                    <div className='laudo' key={index}>
+                                        <input className='tipo-avaria' type="text" value={regra.reg_tipo} readOnly /> 
+                                        <input className='regra-valor' type="text" value={regra.reg_valor} readOnly />
+                                        <div className='divCheckbox'>
+                                            <span className='resultadoCheckbox'>Resultado:</span>
+                                            {analises[index].valor === 'true' &&
+                                                <><input className='checkbox' type="checkbox" checked value={analises[index].valor} onChange={(evento) => manipularCheckboxAvaria(index, evento.target.checked)} /><br /></>
+                                            }
+                                            {analises[index].valor === 'false' &&
+                                                <><input className='checkbox' type="checkbox" value={analises[index].valor} onChange={(evento) => manipularCheckboxAvaria(index, evento.target.checked)} /><br /></>
+                                            }
+                                        </div>
+                                        
 
-                                        <input className='descricao' type="text" placeholder='Descrição da Avaria' value={analises[index].avaria} onChange={(evento) => manipularAvaria(index, evento.target.value)} />
+                                        <textarea className='descricao' placeholder='Descrição da Avaria' value={analises[index].avaria} onChange={(evento) => manipularAvaria(index, evento.target.value)} />
                                     </div>
                                 )
                             } else if (regra.reg_tipo === 'Personalizada') {
                                 return (
-                                    <div className='regra-personalizar' key={index}>
+                                    <div className='laudo' key={index}>
                                         <input className='personalizar' type="text" value={regra.reg_tipo} readOnly /> <input className='regra-valor' type="text" value={regra.reg_valor} readOnly />
 
-                                        {analises[index].valor === 'true' &&
-                                            <input className='checkbox' type="checkbox" checked value={analises[index].valor} onChange={(evento) => manipularRegraPersonalizada(index, evento.target.checked)} />
-                                        }
-                                        {analises[index].valor === 'false' &&
-                                            <input className='checkbox' type="checkbox" value={analises[index].valor} onChange={(evento) => manipularRegraPersonalizada(index, evento.target.checked)} />
-                                        }
+                                        <div className='divCheckbox'>
+                                            <span className='resultadoCheckbox'>Resultado:</span>
+                                            {analises[index].valor === 'true' &&
+                                                <><input className='checkbox' type="checkbox" checked value={analises[index].valor} onChange={(evento) => manipularCheckboxAvaria(index, evento.target.checked)} /><br /></>
+                                            }
+                                            {analises[index].valor === 'false' &&
+                                                <><input className='checkbox' type="checkbox" value={analises[index].valor} onChange={(evento) => manipularCheckboxAvaria(index, evento.target.checked)} /><br /></>
+                                            }
+                                        </div>
                                         
                                     </div>
                                 )
 
                             } else {
                                 return (
-                                    <div className='manipular' key={index}>
-                                        <input className='tipo-regra' type="text" value={regra.reg_tipo} readOnly /> <input className='limitacao' type="text" value={regra.reg_valor} readOnly />
-                                        <input className='manipular-regra' type="text" placeholder='Insira um Número' 
-                                        value={analises[index].valor} 
-                                        onChange={(evento) => manipularRegra(index, evento.target.value)}
-                                        onBlur={(evento) => blurRegra(index, evento.target.value)}
-                                        onFocus={(evento) => focusRegra(index, evento.target.value)} 
-                                        required />
+                                    <div className='laudo' key={index}>
+                                        <input className='tipo-regra' type="text" value={regra.reg_tipo} readOnly />
+                                        <input className='limitacao' type="text" value={regra.reg_valor} readOnly />
+                                        <div className='divCheckbox'>
+                                            <span className='resultadoCheckbox'>Resultado:</span>
+                                            <input className='manipular-regra' type="text" placeholder='Insira um Número' 
+                                            value={analises[index].valor} 
+                                            onChange={(evento) => manipularRegra(index, evento.target.value)}
+                                            onBlur={(evento) => blurRegra(index, evento.target.value)}
+                                            onFocus={(evento) => focusRegra(index, evento.target.value)} 
+                                            required />
+                                        </div>
                                     </div>
                                 )
                             }
@@ -366,6 +382,7 @@ function AnaliseQuali() {
                         }
 
                     </div>
+                    <br />
                 </form>
             </>
         )

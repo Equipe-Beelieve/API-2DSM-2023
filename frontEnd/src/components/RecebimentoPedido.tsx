@@ -841,7 +841,7 @@ function RecebimentoPedido(){
                                                 value={condicaoPagamento}
                                                 onChange={(e) => { setCondicaoPagamento(e.target.value) }} disabled>
                                                     <option value={condicaoPagamento} selected>{condicaoPagamento}</option>
-                                                </select>
+                                            </select>
 
                                         </td>
                                     </tr>

@@ -353,8 +353,10 @@ function CadPedido() {
             setQuantidade(quantidade.slice(0, -2))
         }
         const post = {id, produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento }
-        navegate("/listaPedidos")
-        await api.post('/updatePedido', { post })
+        
+        await api.post('/updatePedido', { post }).then((resposta) => {
+            navegate("/listaPedidos")
+        })
     }
 
     async function estadoPedido(evento:any) {
