@@ -362,13 +362,17 @@ function RecebimentoPedido() {
             <>
                 <NavBar />
                 <div className="mainContent">
-                    <div className="titleRegister">
+                    <div className="botoesNavegacao">
                         <button type='button' onClick={irCadastroPedido} className="botaoteste4">
-                            <img src={teste} alt="" className="testea" />Cadastro dos Pedidos</button>
+                            <img src={teste} alt="" className="testeaEsquerda" />Cadastro dos Pedidos</button>
                         <h1 className="mainTitle">RECEBIMENTO DO PEDIDO: {id}</h1>
-                        {/* {mudanca === 'Edição' &&} */}
+                        {mudanca === 'Edição' &&
                         <button type='button' onClick={irQuantitativa} className="botaoteste4">Análise Qualitativa
-                            <img src={teste} alt="" className="testea upsideDown" /></button>
+                            <img src={teste} alt="" className="testeaDireita" /></button>
+                        }
+                        {mudanca !== 'Edição' &&
+                            <div className='blocoInvisivel'> </div>
+                        }
                     </div>
                     <h3 className="txtAlg">Insira a nota fiscal</h3>
                 </div>
@@ -677,13 +681,14 @@ function RecebimentoPedido() {
                 <NavBar />
 
                 <div className="mainContent">
-                    <div className="titleRegister">
+                    <div className="botoesNavegacao">
                         <button type='button' onClick={irCadastroPedido} className="botaoteste4">
-                            <img src={teste} alt="" className="testea" />Cadastro dos Pedidos</button>
+                            <img src={teste} alt="" className="testeaEsquerda" />Cadastro dos Pedidos</button>
                         <h1 className="mainTitle">RECEBIMENTO DO PEDIDO: {id}</h1>
-                        {/* {mudanca === 'Edição' &&} */}
+                        
                         <button type='button' onClick={irQuantitativa} className="botaoteste4">Análise Qualitativa
-                            <img src={teste} alt="" className="testea upsideDown" /></button>
+                        <img src={teste} alt="" className="testeaDireita" /></button>
+                        
                     </div>
                     <h3 className="txtAlg">Insira a nota fiscal</h3>
                 </div>
