@@ -304,12 +304,7 @@ function RecebimentoPedido() {
         async function veLogado() {
             let resultado = await verificaLogado()
             //setLogado(resultado)
-            if (resultado.logado) {
-                if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente') {
-                    navegate('/listaPedidos')
-                }
-            }
-            else {
+            if (!resultado.logado) {
                 navegate('/')
             }
         }

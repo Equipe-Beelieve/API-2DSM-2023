@@ -270,10 +270,6 @@ function AnaliseQuali() {
             let resultado = await verificaLogado()
             if (resultado.logado) {
                 getRegras().then(() => veStatus())
-                
-                if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente') {
-                    navigate('/listaPedidos')
-                }
             } else {
                 navigate('/')
             }

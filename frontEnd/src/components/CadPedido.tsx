@@ -20,6 +20,7 @@ function CadPedido() {
     const [unidade, setUnidade] = useState('')
     const [render, setRender] = useState(false)
     const [temVirgula, setTemVirgula] = useState(false)
+    const [funcao, setFuncao] = useState('')
 
     const [produto, setProduto] = useState('')
     const [dataPedido, setDataPedido] = useState('')
@@ -322,7 +323,8 @@ function CadPedido() {
             if (resultado.logado) {
                 getFornecedor()
                 getProdutos()
-                if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente') {
+                setFuncao(resultado.funcao)
+                if (resultado.funcao !== 'Administrador' && resultado.funcao !== 'Gerente' && id === undefined) {
                     navegate('/listaPedidos')
                 }
             }
@@ -450,7 +452,7 @@ function CadPedido() {
 
     // ===================== HTML =====================  
 
-    if (mudanca !== "Revisão") {
+    if (mudanca !== "Revisão" && funcao !== 'Conferente') {
         return (
             <>
                 <NavBar />

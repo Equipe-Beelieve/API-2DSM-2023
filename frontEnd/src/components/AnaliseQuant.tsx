@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from './NavBar';
 import { toast } from 'react-toastify';
 import teste from '../images/seta-esquerda.png'
+import verificaLogado from '../funcoes/verificaLogado';
 
 interface Pedido {
     ped_produto_massa: string
@@ -149,6 +150,14 @@ function AnaliseQuant() {
     //==================== useEffect ====================
 
     useEffect(() => {
+        async function veLogado() {
+            let resultado = await verificaLogado()
+            //setLogado(resultado)
+            if (!resultado.logado) {
+                navegate('/')
+            }
+        }
+        veLogado()
         getPeso()
         confiraTipoPeso()
         veStatus()
