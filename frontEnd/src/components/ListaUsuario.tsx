@@ -86,7 +86,7 @@ function ListaUsuario(){
         <>
         <NavBar />
         <div className="mainContent">
-            <div className="titleRegister">
+            <div className="centralizaTitulo">
                 <h1 className="mainTitle">USUÁRIOS</h1>
                 <button id="register">
                         <Link to={'/cadastroUsuario'} id='linkBotaoCadastro'>

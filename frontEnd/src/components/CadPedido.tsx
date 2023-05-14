@@ -422,11 +422,16 @@ function CadPedido() {
             <>
                 <NavBar />
                 <div className="divFornecedor">
-                {mudanca === 'Edição' &&
-                        <button type='button' onClick={irRecebimento} className="botaoteste3">
-                            <img src={teste} alt="" className="testea" />Nota Fiscal</button>
-                    }
-                    <h1 className='mainTitle'>Cadastro de Pedidos</h1>
+                    
+                    <div className='botoesNavegacao'>
+                        <div className='blocoInvisivel'> </div>
+                        <h1 className='mainTitle'>Cadastro de Pedidos</h1>
+                        {mudanca === 'Edição' &&
+                            <button type='button' onClick={irRecebimento} className="botaoteste3">
+                            <img src={teste} alt="" className="testeaEsquerda" />Nota Fiscal</button>
+                        }
+                    </div>
+                    
                     <form onSubmit={estadoPedido}>
     
                         <div className="poscentralized grid-container">

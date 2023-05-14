@@ -88,7 +88,7 @@ function ListaFornecedor() {
         <>
             <NavBar />
             <div className='mainContent'>
-                <div className="titleRegister">
+                <div className="centralizaTitulo" >
                     <h1 className="mainTitle">FORNECEDORES</h1>
                     <button id="register">
                         <Link to={'/cadastroFornecedor'} id='linkBotaoCadastro'>
