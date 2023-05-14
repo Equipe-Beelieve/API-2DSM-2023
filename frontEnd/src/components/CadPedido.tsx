@@ -434,19 +434,11 @@ function CadPedido() {
             <>
                 <NavBar />
                 <div className="divFornecedor">
-                    
-                    <div className='botoesNavegacao'>
-                        <div className='blocoInvisivel'> </div>
-                        <h1 className='mainTitle'>Cadastro de Pedidos</h1>
-                        {mudanca === 'Edição' &&
-                            <button type='button' onClick={irRecebimento} className="botaoteste3">
-                            Nota Fiscal<img src={teste} alt="" className="testeaDireita" /></button>
-                        }
-                        {mudanca !== 'Edição' &&
-                            <div className='blocoInvisivel'> </div>
-                        }
-                    </div>
-                    
+                    {mudanca === 'Edição' &&
+                        <button type='button' onClick={irRecebimento} className="botaoteste5">
+                            <img src={teste} alt="" className="testea" />Nota Fiscal</button>
+                    }
+                    <h1 className='mainTitle'>Cadastro de Pedidos</h1>
                     <form onSubmit={estadoPedido}>
 
                         <div className="poscentralized grid-container">
@@ -729,12 +721,9 @@ function CadPedido() {
             <>
                 <NavBar />
                 <div className="divFornecedor">
-                    <div className='botoesNavegacao'>
-                        <div className='blocoInvisivel'> </div>
-                        <h1 className='mainTitle'>Cadastro de Pedidos</h1>
-                        <button type='button' onClick={irRecebimento} className="botaoteste3">
-                        Nota Fiscal<img src={teste} alt="" className="testeaDireita" /></button>
-                    </div>
+                    <h1 className='mainTitle'>Cadastro de Pedidos</h1>
+                    <button type='button' onClick={irRecebimento} className="botaoteste5">
+                        <img src={teste} alt="" className="testea" />Nota Fiscal</button>
                     <form onSubmit={cadastroPedido}>
 
                         <div className="poscentralized grid-container">
