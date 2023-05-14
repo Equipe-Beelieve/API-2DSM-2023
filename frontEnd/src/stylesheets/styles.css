@@ -999,3 +999,7 @@ p.solid {
   /* margin-left: -45%; */
   /* margin-right: 25%; */
 }
+
+.txtAlg {
+  text-align: center;
+}

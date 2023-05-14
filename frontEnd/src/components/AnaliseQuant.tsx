@@ -162,13 +162,14 @@ function AnaliseQuant() {
             <>
                 <NavBar />
                 <div className="mainContent">
-                    <div className="titleRegister">
-                        <button type='button' onClick={irNotaFiscal} className="botaoteste4"><img src={teste} alt="" className="testea" />Nota Fiscal</button>
-                        <h1 className="mainTitle">ANÁLISE QUANTITATIVA</h1>
-                        {mudanca === 'Edição' &&
-                            <button type='button' onClick={irQualitativa} className="botaoteste4">Análise Qualitativa<img src={teste} alt="" className="testea upsideDown" /></button>
-                        }
 
+                    <div className="titleRegister">
+                        <button type='button' onClick={irNotaFiscal} className="botaoteste4">
+                            <img src={teste} alt="" className="testea" />Nota Fiscal</button>
+                        <h1 className="mainTitle">ANÁLISE QUANTITATIVA</h1>
+                        {/* {mudanca === 'Edição' &&} */}
+                        <button type='button' onClick={irQualitativa} className="botaoteste4">Análise Qualitativa
+                            <img src={teste} alt="" className="testea upsideDown" /></button>
                     </div>
 
                     <div className="uni_quant">Unidade: {tipoPeso}
@@ -207,13 +208,16 @@ function AnaliseQuant() {
         return (
             <>
                 <NavBar />
+
                 <div className="mainContent">
                     <div className="titleRegister">
+                        <button type='button' onClick={irNotaFiscal} className="botaoteste4">
+                            <img src={teste} alt="" className="testea" />Nota Fiscal</button>
                         <h1 className="mainTitle">ANÁLISE QUANTITATIVA</h1>
-
+                        {/* {mudanca === 'Edição' &&} */}
+                        <button type='button' onClick={irQualitativa} className="botaoteste4">Análise Qualitativa
+                            <img src={teste} alt="" className="testea upsideDown" /></button>
                     </div>
-                    <button type='button' onClick={irQualitativa}>Análise Qualitativa</button>
-                    <button type='button' onClick={irNotaFiscal}>Nota Fiscal</button>
                     <div className="uni_quant">Unidade: {tipoPeso}
                     </div>
                     <div className='anaq1'>

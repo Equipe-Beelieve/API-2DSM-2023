@@ -361,11 +361,19 @@ function RecebimentoPedido() {
 
             <>
                 <NavBar />
+                <div className="mainContent">
+                    <div className="titleRegister">
+                        <button type='button' onClick={irCadastroPedido} className="botaoteste4">
+                            <img src={teste} alt="" className="testea" />Cadastro dos Pedidos</button>
+                        <h1 className="mainTitle">RECEBIMENTO DO PEDIDO: {id}</h1>
+                        {/* {mudanca === 'Edição' &&} */}
+                        <button type='button' onClick={irQuantitativa} className="botaoteste4">Análise Qualitativa
+                            <img src={teste} alt="" className="testea upsideDown" /></button>
+                    </div>
+                    <h3 className="txtAlg">Insira a nota fiscal</h3>
+                </div>
 
-                <br />
-                <div className="divFornecedor">
-
-                    <button type='button' onClick={irCadastroPedido} className="botaoteste4">
+                {/* <button type='button' onClick={irCadastroPedido} className="botaoteste4">
                         <img src={teste} alt="" className="testea" />Cadastro dos Pedidos  </button>
 
                     <h2>RECEBIMENTO DO PEDIDO: {id}</h2>
@@ -373,8 +381,9 @@ function RecebimentoPedido() {
                     {mudanca === 'Edição' &&
                         <button className="botaoteste4" type='button' onClick={irQuantitativa}>Análise Quantitativa<img src={teste} alt="" className="testea upsideDown" /></button>
                     }
-                    <h3>Insira a nota fiscal</h3>
+                    <h3>Insira a nota fiscal</h3> */}
 
+                <div className="divFornecedor">
                     <form>
                         <div className="grid-container poscentralized">
                             <div className="box">
@@ -666,13 +675,33 @@ function RecebimentoPedido() {
 
             <>
                 <NavBar />
+
+                <div className="mainContent">
+                    <div className="titleRegister">
+                        <button type='button' onClick={irCadastroPedido} className="botaoteste4">
+                            <img src={teste} alt="" className="testea" />Cadastro dos Pedidos</button>
+                        <h1 className="mainTitle">RECEBIMENTO DO PEDIDO: {id}</h1>
+                        {/* {mudanca === 'Edição' &&} */}
+                        <button type='button' onClick={irQuantitativa} className="botaoteste4">Análise Qualitativa
+                            <img src={teste} alt="" className="testea upsideDown" /></button>
+                    </div>
+                    <h3 className="txtAlg">Insira a nota fiscal</h3>
+                </div>
+                {/* <div>
+                    <div>
+                        <br />
+                        <button className="botaoteste4" type='button' onClick={irCadastroPedido}>
+                            <img src={teste} alt="" className="testea" />Cadastro dos Pedidos</button>
+                        <h2 className="txtAlg">RECEBIMENTO DO PEDIDO: {id}</h2>
+                        <h3 className="txtAlg">Insira a nota fiscal</h3>
+
+                        <button className="botaoteste4" type='button' onClick={irQuantitativa}>Análise Quantitativa
+                            <img src={teste} alt="" className="testea upsideDown" /></button>
+                    </div>
+                </div> */}
+
                 <div className="divFornecedor">
                     <form>
-                        <br />
-                        <h2>RECEBIMENTO DO PEDIDO: {id}</h2>
-                        <h3>Insira a nota fiscal</h3>
-                        <button type='button' onClick={irCadastroPedido}>Cadastro dos Pedidos</button>
-                        <button type='button' onClick={irQuantitativa}>Análise Quantitativa</button>
                         <div className="grid-container poscentralized">
                             <div className="box">
                                 <table>

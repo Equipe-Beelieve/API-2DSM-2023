@@ -30,8 +30,8 @@ function CadPedido() {
     const [frete, setFrete] = useState('')
     const [transportadora, setTransportadora] = useState('')
     const [condicaoPagamento, setCondicaoPagamento] = useState('')
-    
-    const {id} = useParams()
+
+    const { id } = useParams()
     const [logado, setLogado] = useState(Boolean)
     const navegate = useNavigate()
     const [mudanca, setMudanca] = useState("")
@@ -98,8 +98,10 @@ function CadPedido() {
                 setPrecoUnitario('R$' + valor + '/' + unidade)
             }
             else if (valor.slice(-1) !== 'g' && valor.slice(-1) !== 't' && valor[0] !== 'R') {
-                toast.error('Preço unitário deve ser condizente com a unidade do produto.', {position: 'bottom-left',
-                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+                toast.error('Preço unitário deve ser condizente com a unidade do produto.', {
+                    position: 'bottom-left',
+                    autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                })
                 setPrecoUnitario('')
             }
             else {
@@ -107,9 +109,11 @@ function CadPedido() {
             }
         }
         else {
-            if (precoUnitario !== ''){
-                toast.error('Produto deve ser preenchido antes.', {position: 'bottom-left', autoClose: 2500,
-                className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+            if (precoUnitario !== '') {
+                toast.error('Produto deve ser preenchido antes.', {
+                    position: 'bottom-left', autoClose: 2500,
+                    className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                })
             }
             setPrecoUnitario('')
 
@@ -140,30 +144,32 @@ function CadPedido() {
             if (produto === produtos[i].prod_descricao) {
                 setProduto(evento.target.value)
                 setUnidade(produtos[i].prod_unidade_medida)
-                if(precoUnitario !== ''){
-                    if(precoUnitario.slice(-1) === 't' && unidade === 'kg'){
+                if (precoUnitario !== '') {
+                    if (precoUnitario.slice(-1) === 't' && unidade === 'kg') {
                         setPrecoUnitario(precoUnitario.slice(0, -1) + unidade)
                     }
-                    else if (precoUnitario.slice(-1) === 'g' && unidade === 't'){
+                    else if (precoUnitario.slice(-1) === 'g' && unidade === 't') {
                         setPrecoUnitario(precoUnitario.slice(0, -2) + unidade)
                     }
                 }
-                if(quantidade !== ''){
-                    if(quantidade.slice(-1) === 't' && unidade === 'kg'){
+                if (quantidade !== '') {
+                    if (quantidade.slice(-1) === 't' && unidade === 'kg') {
                         setPrecoUnitario(quantidade.slice(0, -1) + unidade)
                     }
-                    else if (quantidade.slice(-1) === 'g' && unidade === 't'){
+                    else if (quantidade.slice(-1) === 'g' && unidade === 't') {
                         setPrecoUnitario(quantidade.slice(0, -2) + unidade)
                     }
                 }
                 return;
             }
         }
-        if(produto !== ''){
-            toast.error('Produto deve estar cadastrado.', {position: 'bottom-left', autoClose: 2500,
-            className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+        if (produto !== '') {
+            toast.error('Produto deve estar cadastrado.', {
+                position: 'bottom-left', autoClose: 2500,
+                className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+            })
         }
-        
+
         setUnidade('')
         setProduto('')
     }
@@ -175,9 +181,11 @@ function CadPedido() {
                 return;
             }
         }
-        if (razaoSocial !== ''){
-            toast.error('Fornecedor deve estar cadastrado.', {position: 'bottom-left', autoClose: 2500,
-            className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+        if (razaoSocial !== '') {
+            toast.error('Fornecedor deve estar cadastrado.', {
+                position: 'bottom-left', autoClose: 2500,
+                className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+            })
         }
         setRazaoSocial('')
     }
@@ -213,8 +221,10 @@ function CadPedido() {
                 setQuantidade(valor + ' ' + unidade)
             }
             else if (valor.slice(-1) !== 't' && valor.slice(-1) !== 'g') {
-                toast.error('Quantidade deve ser condizente com a unidade do produto.', {position: 'bottom-left',
-                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+                toast.error('Quantidade deve ser condizente com a unidade do produto.', {
+                    position: 'bottom-left',
+                    autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                })
                 setQuantidade('')
             }
             else {
@@ -222,9 +232,11 @@ function CadPedido() {
             }
         }
         else {
-            if(quantidade !== ''){
-                toast.error('Produto deve ser preenchido antes.', {position: 'bottom-left', autoClose: 2500,
-                className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+            if (quantidade !== '') {
+                toast.error('Produto deve ser preenchido antes.', {
+                    position: 'bottom-left', autoClose: 2500,
+                    className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                })
             }
             setQuantidade('')
         }
@@ -248,14 +260,14 @@ function CadPedido() {
     // ===================== UseEffect =====================
 
     async function veStatus() {
-        await api.post('/confereStatus', {id:id, acessando:'Relatório de Compras'}).then((resposta) => {
-            let dado  = resposta.data
+        await api.post('/confereStatus', { id: id, acessando: 'Relatório de Compras' }).then((resposta) => {
+            let dado = resposta.data
             console.log(dado)
-            if (dado.status === 'Revisão'){
+            if (dado.status === 'Revisão') {
                 setMudanca('Revisão')
                 setProduto(dado.descricao)
-                setDataPedido(dado.data_pedido.slice(0,10))
-                setDataEntrega(dado.data_entrega.slice(0,10))
+                setDataPedido(dado.data_pedido.slice(0, 10))
+                setDataEntrega(dado.data_entrega.slice(0, 10))
                 setRazaoSocial(dado.razao_social)
                 setPrecoUnitario(dado.valor_unidade)
                 setQuantidade(dado.produto_massa)
@@ -263,18 +275,18 @@ function CadPedido() {
                 setFrete(dado.tipo_frete)
                 setTransportadora(dado.transportadora)
                 setCondicaoPagamento(dado.condicao_pagamento)
-                if(dado.produto_massa.slice(-1) === 'g'){
+                if (dado.produto_massa.slice(-1) === 'g') {
                     setUnidade('kg')
                 }
-                else{
+                else {
                     setUnidade("t")
                 }
             }
-            else if(dado.status === 'Edição'){
+            else if (dado.status === 'Edição') {
                 setMudanca('Edição')
                 setProduto(dado.descricao)
-                setDataPedido(dado.data_pedido.slice(0,10))
-                setDataEntrega(dado.data_entrega.slice(0,10))
+                setDataPedido(dado.data_pedido.slice(0, 10))
+                setDataEntrega(dado.data_entrega.slice(0, 10))
                 setRazaoSocial(dado.razao_social)
                 setPrecoUnitario(dado.valor_unidade)
                 setQuantidade(dado.produto_massa)
@@ -282,25 +294,25 @@ function CadPedido() {
                 setFrete(dado.tipo_frete)
                 setTransportadora(dado.transportadora)
                 setCondicaoPagamento(dado.condicao_pagamento)
-                if(dado.produto_massa.slice(-1) === 'g'){
+                if (dado.produto_massa.slice(-1) === 'g') {
                     setUnidade('kg')
                 }
-                else{
+                else {
                     setUnidade("t")
                 }
             }
-            else{
+            else {
                 navegate('/listaPedidos')
             }
         });
     };
-    useEffect(() =>{
-        if (id){
+    useEffect(() => {
+        if (id) {
             veStatus()
         } else {
             setMudanca('Primeira vez')
         }
-    },[])
+    }, [])
 
     useEffect(() => {
         async function veLogado() {
@@ -371,8 +383,8 @@ function CadPedido() {
             setQuantidade(quantidade.slice(0, -2))
         }
         const post = { produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento }
-        
-        await api.post('/postCadastroPedido', { post }).then((resposta) => {navegate("/listaPedidos")})
+
+        await api.post('/postCadastroPedido', { post }).then((resposta) => { navegate("/listaPedidos") })
 
 
     }
@@ -388,19 +400,19 @@ function CadPedido() {
             setPrecoTotal(precoTotal.slice(3))
             setQuantidade(quantidade.slice(0, -2))
         }
-        const post = {id, produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento }
-        
+        const post = { id, produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento }
+
         await api.post('/updatePedido', { post }).then((resposta) => {
             navegate("/listaPedidos")
         })
     }
 
-    async function estadoPedido(evento:any) {
+    async function estadoPedido(evento: any) {
         evento.preventDefault()
-        if(mudanca === 'Primeira vez') {
+        if (mudanca === 'Primeira vez') {
             cadastroPedido()
-        } 
-        else if(mudanca === 'Edição') {
+        }
+        else if (mudanca === 'Edição') {
             editarPedido()
         }
     }
@@ -411,24 +423,24 @@ function CadPedido() {
 
     // ===================== Botões de mudança de fase =====================  
 
-    function irRecebimento(){
+    function irRecebimento() {
         navegate(`/recebePedido/${id}`)
     }
 
     // ===================== HTML =====================  
 
-    if (mudanca !== "Revisão"){
+    if (mudanca !== "Revisão") {
         return (
             <>
                 <NavBar />
                 <div className="divFornecedor">
-                {mudanca === 'Edição' &&
+                    {mudanca === 'Edição' &&
                         <button type='button' onClick={irRecebimento} className="botaoteste3">
                             <img src={teste} alt="" className="testea" />Nota Fiscal</button>
                     }
                     <h1 className='mainTitle'>Cadastro de Pedidos</h1>
                     <form onSubmit={estadoPedido}>
-    
+
                         <div className="poscentralized grid-container">
                             <div className="box">
                                 <table>
@@ -440,44 +452,44 @@ function CadPedido() {
                                     <tbody>
                                         <tr>
                                             <td>
-                                            {mudanca === 'Primeira vez' &&
-                                                <>
-                                                <input list='datalistProduto' type='text' className="input_form" name="produto" id="produto"
-                                                required
-                                                value={produto}
-                                                onChange={(e) => { setProduto(e.target.value); } }
-                                                onBlur={trataDatalistProduto} /><datalist id='datalistProduto'>
-                                                    <option value=""></option>
-                                                    {produtos.map((produto, index) => (
-                                                        <option value={produto.prod_descricao} key={index}>{produto.prod_descricao}</option>
-                                                    ))}
-                                                </datalist>
-                                                </>
-                                            }
-                                            {mudanca === 'Edição' &&
-                                                <>
-                                                 <input list='datalistProduto' type='text' className="input_form" name="produto" id="produto"
-                                                 required
-                                                 value={produto} 
-                                                 onChange={(e) => { setProduto(e.target.value); } }
-                                                 onBlur={trataDatalistProduto} /><datalist id='datalistProduto'>
-                                                    <option value=""></option>
-                                                    {produtos.map((produto, index) => (
-                                                        <option value={produto.prod_descricao} key={index}>{produto.prod_descricao}</option>
-                                                    ))}
-                                                </datalist>
-                                                </>
-                                                                  
-                                            }
-    
-    
-    
+                                                {mudanca === 'Primeira vez' &&
+                                                    <>
+                                                        <input list='datalistProduto' type='text' className="input_form" name="produto" id="produto"
+                                                            required
+                                                            value={produto}
+                                                            onChange={(e) => { setProduto(e.target.value); }}
+                                                            onBlur={trataDatalistProduto} /><datalist id='datalistProduto'>
+                                                            <option value=""></option>
+                                                            {produtos.map((produto, index) => (
+                                                                <option value={produto.prod_descricao} key={index}>{produto.prod_descricao}</option>
+                                                            ))}
+                                                        </datalist>
+                                                    </>
+                                                }
+                                                {mudanca === 'Edição' &&
+                                                    <>
+                                                        <input list='datalistProduto' type='text' className="input_form" name="produto" id="produto"
+                                                            required
+                                                            value={produto}
+                                                            onChange={(e) => { setProduto(e.target.value); }}
+                                                            onBlur={trataDatalistProduto} /><datalist id='datalistProduto'>
+                                                            <option value=""></option>
+                                                            {produtos.map((produto, index) => (
+                                                                <option value={produto.prod_descricao} key={index}>{produto.prod_descricao}</option>
+                                                            ))}
+                                                        </datalist>
+                                                    </>
+
+                                                }
+
+
+
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-    
+
                             <div className="box">
                                 <table>
                                     <thead>
@@ -495,7 +507,7 @@ function CadPedido() {
                                     </tbody>
                                 </table>
                             </div>
-    
+
                             <div className="box">
                                 <table>
                                     <thead>
@@ -514,7 +526,7 @@ function CadPedido() {
                                 </table>
                             </div>
                         </div>
-    
+
                         <div className="poscentralized grid-container">
                             <div className="box">
                                 <table>
@@ -542,8 +554,8 @@ function CadPedido() {
                                     </tbody>
                                 </table>
                             </div>
-    
-    
+
+
                             <div className="box">
                                 <table>
                                     <thead>
@@ -564,7 +576,7 @@ function CadPedido() {
                                     </tbody>
                                 </table>
                             </div>
-    
+
                             <div className="box">
                                 <table>
                                     <thead>
@@ -585,7 +597,7 @@ function CadPedido() {
                                 </table>
                             </div>
                         </div>
-    
+
                         <div className="poscentralized grid-container">
                             <div className="box">
                                 <table>
@@ -604,32 +616,32 @@ function CadPedido() {
                                     </tbody>
                                 </table>
                             </div>
-    
+
                             <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Tipo de frete :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <select className="input_form" id="frete" name="frete" required
-                                                value={frete}
-                                                onChange={(e) => { setFrete(e.target.value) }}>
-                                                <option value={frete}>{frete}</option>
-                                                <option value="Barco">Barco</option>
-                                                <option value="Trem">Trem</option>
-                                                <option value="Caminhão">Caminhão</option>
-                                                <option value="Avião">Avião</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo de frete :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <select className="input_form" id="frete" name="frete" required
+                                                    value={frete}
+                                                    onChange={(e) => { setFrete(e.target.value) }}>
+                                                    <option value={frete}>{frete}</option>
+                                                    <option value="Barco">Barco</option>
+                                                    <option value="Trem">Trem</option>
+                                                    <option value="Caminhão">Caminhão</option>
+                                                    <option value="Avião">Avião</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-    
+
                             <div className="box">
                                 <table>
                                     <thead>
@@ -649,7 +661,7 @@ function CadPedido() {
                                 </table>
                             </div>
                         </div>
-    
+
                         <div className="poscentralized grid-container">
                             <div className="box">
                                 <table>
@@ -677,42 +689,43 @@ function CadPedido() {
                                                     <option value="90/10">90/10</option>
                                                     <option value="100/00">100/00</option>
                                                 </select>
-                                                   
+
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-    
-                        
+
+
                         {mudanca === 'Primeira vez' &&
                             <>
-                            <button type="button" onClick={redirecionarPedido} className="cancel_button">Cancelar</button>
-                            <button type="submit" className="confirm_button">Cadastrar</button>
+                                <button type="button" onClick={redirecionarPedido} className="cancel_button">Cancelar</button>
+                                <button type="submit" className="confirm_button">Cadastrar</button>
                             </>
                         }
                         {mudanca === 'Edição' &&
                             <>
-                            <button type="button" onClick={redirecionarPedido} className="cancel_button">Cancelar</button>
-                            <button type="submit" className="confirm_button">Editar</button>
+                                <button type="button" onClick={redirecionarPedido} className="cancel_button">Cancelar</button>
+                                <button type="submit" className="confirm_button">Editar</button>
                             </>
                         }
                     </form>
                 </div>
             </>
-    
+
         )
     }
-    else{
+    else {
         return (
             <>
                 <NavBar />
                 <div className="divFornecedor">
                     <h1 className='mainTitle'>Cadastro de Pedidos</h1>
-                    <button type='button' onClick={irRecebimento}>Nota Fiscal</button>
+                    <button type='button' onClick={irRecebimento} className="botaoteste3">
+                        <img src={teste} alt="" className="testea" />Nota Fiscal</button>
                     <form onSubmit={cadastroPedido}>
-    
+
                         <div className="poscentralized grid-container">
                             <div className="box">
                                 <table>
@@ -724,25 +737,25 @@ function CadPedido() {
                                     <tbody>
                                         <tr>
                                             <td>
-                                            
+
                                                 <>
-                                                <input list='datalistProduto' type='text' className="input_form" name="produto" id="produto"
-                                                required readOnly
-                                                value={produto}
-                                                onChange={(e) => { setProduto(e.target.value); } }
-                                                onBlur={trataDatalistProduto} /><datalist id='datalistProduto'>
-                                                    <option value=""></option>
-                                                    {produtos.map((produto, index) => (
-                                                        <option value={produto.prod_descricao} key={index}>{produto.prod_descricao}</option>
-                                                    ))}
-                                                </datalist>
+                                                    <input list='datalistProduto' type='text' className="input_form" name="produto" id="produto"
+                                                        required readOnly
+                                                        value={produto}
+                                                        onChange={(e) => { setProduto(e.target.value); }}
+                                                        onBlur={trataDatalistProduto} /><datalist id='datalistProduto'>
+                                                        <option value=""></option>
+                                                        {produtos.map((produto, index) => (
+                                                            <option value={produto.prod_descricao} key={index}>{produto.prod_descricao}</option>
+                                                        ))}
+                                                    </datalist>
                                                 </>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-    
+
                             <div className="box">
                                 <table>
                                     <thead>
@@ -760,7 +773,7 @@ function CadPedido() {
                                     </tbody>
                                 </table>
                             </div>
-    
+
                             <div className="box">
                                 <table>
                                     <thead>
@@ -779,7 +792,7 @@ function CadPedido() {
                                 </table>
                             </div>
                         </div>
-    
+
                         <div className="poscentralized grid-container">
                             <div className="box">
                                 <table>
@@ -807,8 +820,8 @@ function CadPedido() {
                                     </tbody>
                                 </table>
                             </div>
-    
-    
+
+
                             <div className="box">
                                 <table>
                                     <thead>
@@ -823,13 +836,13 @@ function CadPedido() {
                                                 value={precoUnitario}
                                                 onChange={trataPrecoUnitario}
                                                 onBlur={blurPrecoUnitario}
-                                                onSelect={selectPrecoUnitario} readOnly/>
+                                                onSelect={selectPrecoUnitario} readOnly />
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-    
+
                             <div className="box">
                                 <table>
                                     <thead>
@@ -850,7 +863,7 @@ function CadPedido() {
                                 </table>
                             </div>
                         </div>
-    
+
                         <div className="poscentralized grid-container">
                             <div className="box">
                                 <table>
@@ -863,33 +876,33 @@ function CadPedido() {
                                         <tr>
                                             <td><input className="input_form" type="text" id="precoTotal" name="precoTotal" required readOnly
                                                 value={precoTotal}
-                                                onChange={(e) => { setPrecoTotal(e.target.value) }}/>
+                                                onChange={(e) => { setPrecoTotal(e.target.value) }} />
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-    
+
                             <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Tipo de frete :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><select className="input_form" id="frete" name="frete" required
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo de frete :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><select className="input_form" id="frete" name="frete" required
                                                 value={frete}
                                                 onChange={(e) => { setFrete(e.target.value) }} disabled>
                                                 <option value={frete} selected>{frete}</option>
                                             </select>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-    
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                             <div className="box">
                                 <table>
                                     <thead>
@@ -902,14 +915,14 @@ function CadPedido() {
                                             <td><input className="input_form" type="text" id="condicaoPagamento" name="transportadora"
                                                 required
                                                 value={transportadora}
-                                                onChange={(e) => { setTransportadora(e.target.value) }} readOnly/>
+                                                onChange={(e) => { setTransportadora(e.target.value) }} readOnly />
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-    
+
                         <div className="poscentralized grid-container">
                             <div className="box">
                                 <table>
@@ -921,26 +934,26 @@ function CadPedido() {
                                     <tbody>
                                         <tr>
                                             <td><select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
-                                                    value={condicaoPagamento}
-                                                    onChange={(e) => { setCondicaoPagamento(e.target.value) }} disabled>
-                                                        <option value={condicaoPagamento} selected>{condicaoPagamento}</option>
-                                                    </select>
+                                                value={condicaoPagamento}
+                                                onChange={(e) => { setCondicaoPagamento(e.target.value) }} disabled>
+                                                <option value={condicaoPagamento} selected>{condicaoPagamento}</option>
+                                            </select>
 
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>    
+                            </div>
                         </div>
                         <button type="button" onClick={redirecionarPedido} className="cancel_button">Voltar</button>
-                        
+
                     </form>
                 </div>
             </>
-    
+
         )
     }
-    
+
 }
 
 export default CadPedido
