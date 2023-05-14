@@ -390,79 +390,106 @@ function CadProduto() {
                         {regras.map((valor, id) =>
                             <>
                                 {id === 0 &&
+                                    <>
                                     <div className='minimo'>
-                                        <label className='tipo-regra'>Tipo de Regra:</label>
-                                        <select className='input_form' name="unidadeMedida" id="unidadeMedida" disabled>
-                                            <option value=""></option>
-                                            <option value="minimo" selected>Minimo de Conformidade</option>
-                                        </select>
-
-                                        <label className='limitacao'>Limitação:</label>
-                                        <input className='input_formLimit' type="text" value={regras[id].valor}
-                                            onChange={(e) => { mudaParametro(e, id) }}
-                                            onBlur={(e) => { blurConformidade(e, id) }}
-                                            onSelect={(e) => { selectConformidade(e, id) }} />
-                                        <label className='obrigacao'>Obrigatória:</label>
-                                        <input type="checkbox" className='checkboxzin' checked={regras[id].obrigatoriedade} disabled />
+                                        
+                                        <div className='flexCheckbox'>
+                                            <label className='tipo-regra'>Tipo de Regra:</label>
+                                            <select className='input_form' name="unidadeMedida" id="unidadeMedida" disabled>
+                                                <option value=""></option>
+                                                <option value="minimo" selected>Minimo de Conformidade</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div className='flexCheckbox'>
+                                            <label className='limitacao'>Limitação:</label>
+                                            <input className='input_formLimit' type="text" value={regras[id].valor}
+                                                onChange={(e) => { mudaParametro(e, id) } }
+                                                onBlur={(e) => { blurConformidade(e, id) } }
+                                                onSelect={(e) => { selectConformidade(e, id) } } />
+                                        </div>
+                                        
+                                        <div className='flexCheckbox'>
+                                            <label className='obrigacao'>Obrigatória:</label>
+                                            <input type="checkbox" className='checkboxzin' checked={regras[id].obrigatoriedade} disabled />
+                                        </div>
+                                        
                                         <br /><br />
-                                    </div>
+                                    </div></>
                                 }
                                 {id === 1 &&
-                                    <div className='avaria'>
-                                        <label className='tipo-regra'>Tipo de Regra:</label>
-                                        <select className='input_form' name="unidadeMedida" id="unidadeMedida" disabled>
-                                            <option value=""></option>
-                                            <option value="avaria" selected>Avarias</option>
-                                        </select>
-                                        <label className='limitacao'>Limitação:</label>
-                                        <input className='input_formLimit' type="text" value={regras[id].valor} readOnly />
-                                        <label className='obrigacao'>Obrigatória:</label>
-                                        <input type="checkbox" className='checkboxzin' checked={regras[id].obrigatoriedade} disabled />
+                                    <div className='minimo'>
+                                        <div className='flexCheckbox'>
+                                            <label className='tipo-regra'>Tipo de Regra:</label>
+                                            <select className='input_form' name="unidadeMedida" id="unidadeMedida" disabled>
+                                                <option value=""></option>
+                                                <option value="avaria" selected>Avarias</option>
+                                            </select>
+                                        </div>
+                                        <div className='flexCheckbox'>
+                                            <label className='limitacao'>Limitação:</label>
+                                            <input className='input_formLimit' type="text" value={regras[id].valor} readOnly />
+                                        </div>
+                                        <div className='flexCheckbox'>
+                                            <label className='obrigacao'>Obrigatória:</label>
+                                            <input type="checkbox" className='checkboxzin' checked={regras[id].obrigatoriedade} disabled />
+                                        </div>
+                                        
                                         <br /><br />
                                     </div>
                                 }
                                 {id > 1 &&
-                                    <div className='personalizada'>
-
+                                    <div className='minimo'>
+                                        
                                         <img src={lixeira} alt="Lixo" className='lixeira' onClick={() => deleteRegra(id)} />
+                                        
+                                        
+                                        <div className='flexCheckbox'>
+                                            <label className='tipo-regra'>Tipo de Regra:</label>
+                                            <select className='input_form' value={regras[id].tipo} onChange={(e) => { mudaTipo(e, id) }}>
+                                                <option value=""></option>
+                                                <option value="Umidade" selected>Umidade</option>
+                                                <option value="Pureza">Pureza</option>
+                                                <option value="Personalizada">Personalizada</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div className='flexCheckbox'>
+                                            <label className='limitacao'>Limitacao:</label>
+                                            {regras[id].tipo === "Umidade" &&
+                                                <input className='input_formLimit' type='text'
+                                                    value={regras[id].valor}
+                                                    onChange={(e) => { mudaParametro(e, id) }}
+                                                    onBlur={(e) => { blurUmidade(e, id) }}
+                                                    onSelect={(e) => { selectUmidade(e, id) }} />
+                                            }
+                                            {regras[id].tipo === "Pureza" &&
+                                                <input className='input_formLimit' type='text'
+                                                    value={regras[id].valor}
+                                                    onChange={(e) => { mudaParametro(e, id) }}
+                                                    onBlur={(e) => { blurPureza(e, id) }}
+                                                    onSelect={(e) => { selectPureza(e, id) }} />
+                                            }
+                                            {regras[id].tipo === "Personalizada" &&
+                                                <input className='input_formLimit' type='text'
+                                                    value={regras[id].valor}
+                                                    onChange={(e) => { mudaParametro(e, id) }} />
+                                            }
+                                            {regras[id].tipo === '' &&
+                                                <input className='input_formLimit' type='text'
+                                                    value={regras[id].valor}
+                                                    onChange={(e) => { mudaParametro(e, id) }} />
+                                            }
+                                        </div>
+                                        
 
-                                        <label className='tipo-regra'>Tipo de Regra:</label>
-                                        <select className='input_form' value={regras[id].tipo} onChange={(e) => { mudaTipo(e, id) }}>
-                                            <option value=""></option>
-                                            <option value="Umidade" selected>Umidade</option>
-                                            <option value="Pureza">Pureza</option>
-                                            <option value="Personalizada">Personalizada</option>
-                                        </select>
+                                        <div className='flexCheckbox'>
+                                            <label className='obrigacao'>Obrigatória:</label>
+                                            <input type="checkbox" className='checkboxzin' checked={regras[id].obrigatoriedade} onChange={(e) => { mudaObrigatoriedade(e, id) }} />
+                                        </div>
 
-                                        <label className='limitacao'>Limitacao:</label>
-                                        {regras[id].tipo === "Umidade" &&
-                                            <input className='input_formLimit' type='text'
-                                                value={regras[id].valor}
-                                                onChange={(e) => { mudaParametro(e, id) }}
-                                                onBlur={(e) => { blurUmidade(e, id) }}
-                                                onSelect={(e) => { selectUmidade(e, id) }} />
-                                        }
-                                        {regras[id].tipo === "Pureza" &&
-                                            <input className='input_formLimit' type='text'
-                                                value={regras[id].valor}
-                                                onChange={(e) => { mudaParametro(e, id) }}
-                                                onBlur={(e) => { blurPureza(e, id) }}
-                                                onSelect={(e) => { selectPureza(e, id) }} />
-                                        }
-                                        {regras[id].tipo === "Personalizada" &&
-                                            <input className='input_formLimit' type='text'
-                                                value={regras[id].valor}
-                                                onChange={(e) => { mudaParametro(e, id) }} />
-                                        }
-                                        {regras[id].tipo === '' &&
-                                            <input className='input_formLimit' type='text'
-                                                value={regras[id].valor}
-                                                onChange={(e) => { mudaParametro(e, id) }} />
-                                        }
-
-
-                                        <label className='obrigacao'>Obrigatória:</label>
-                                        <input type="checkbox" className='checkboxzin' checked={regras[id].obrigatoriedade} onChange={(e) => { mudaObrigatoriedade(e, id) }} />
+                                        
+                                        
                                         <br /><br />
                                     </div>
                                 }

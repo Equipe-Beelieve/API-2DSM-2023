@@ -372,9 +372,11 @@ p.solid {
 }
 
 .box3 {
-  margin-left: 13%;
-  justify-content: space-between;
-  width: 73%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: nowrap;
+  width: 1000px;
   background-color: #FFEF78;
   border-radius: 7px;
   padding-top: 1vh;
@@ -394,15 +396,24 @@ p.solid {
   color: #000000;
 }
 
-.box3 .minimo .tipo-regra {
-  margin-left: -3%;
+.flexCheckbox{
+  gap: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.minimo {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
   font-weight: bold;
 }
 
 .box3 .minimo .input_form {
   width: 232px;
   font-weight: bold;
-  margin-left: 1%;
+
   background-color: #C0C0C0;
   border-color: transparent;
   padding: 7px;
@@ -410,14 +421,14 @@ p.solid {
 }
 
 .box3 .minimo .limitacao {
-  margin-left: 4%;
+
   font-weight: bold;
 }
 
 .box3 .minimo input {
   margin-left: 1%;
   background-color: #C0C0C0;
-  width: 127px;
+
   text-align: center;
   border-color: transparent;
   font-weight: bold;
@@ -426,7 +437,7 @@ p.solid {
 }
 
 .box3 .minimo .obrigacao {
-  margin-left: 3%;
+
   font-weight: bold;
 }
 
@@ -439,8 +450,8 @@ p.solid {
   margin-left: -4%;
 }
 
-.box3 .avaria .tipo-regra {
-  margin-left: -3%;
+.tipo-regra {
+
   font-weight: bold;
 }
 
@@ -924,8 +935,8 @@ p.solid {
   background-repeat: no-repeat;
   background-color: transparent;
   float: left;
-  margin-left: -4vw;
-  margin-top: 1.3vh;
+  margin-right: 940px;
+
   border: 1px solid #000000;
   width: 1.5vw;
   cursor: pointer;
@@ -935,6 +946,7 @@ p.solid {
   position: relative;
   opacity: 1;
   cursor: pointer;
+  width: 15px;
   /* background-color: #FFEF78; */
   border: none;
 }
@@ -943,7 +955,7 @@ p.solid {
   content: "";
   opacity: 1;
   display: inline-block;
-  width: 2vw;
+  width: 25px;
   height: 4vh;
   border: 3.5px solid lightgrey;
   background-color: #FFEF78;
