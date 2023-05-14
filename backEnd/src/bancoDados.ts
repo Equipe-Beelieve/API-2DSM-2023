@@ -315,15 +315,18 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             pesagem = pesagem[0].regra_valor
             console.log(`A unidade é ${unidade} || A pesagem é ${pesagem}`)
             if(pesagem.slice(-1) === 'g'){
-                console.log(`BBBBBBBBBBBB ${pesagem.slice(0,-2)}`)
-                pesagem = pesagem.slice(0, -2) + 't'
+                pesagem = parseFloat(pesagem.slice(0, -2))
+                pesagem = pesagem / 1000
+                pesagem = pesagem.toString()
+                console.log(`Conversão ${pesagem}`)
+                pesagem = pesagem + ' t'
             }
             else{
-                console.log(`BBBBBBBBBBBB ${pesagem}`)
-                pesagem = pesagem.slice(0, -1) + 'kg'
-
+                pesagem = parseFloat(pesagem.slice(0, -1))
+                pesagem = pesagem * 1000
+                pesagem = pesagem.toString()
+                pesagem = pesagem + ' kg'
             }
-            console.log(`QQQQQQQQQQQQQQQQQ ${pesagem}`)
             await this.conexao.query(`UPDATE parametros_do_pedido SET regra_valor = '${pesagem}' WHERE ped_codigo = ${id} and regra_tipo = 'Análise Quantitativa'`)
         }
         await this.conexao.end()

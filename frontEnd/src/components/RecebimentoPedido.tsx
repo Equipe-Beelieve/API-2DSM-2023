@@ -365,7 +365,7 @@ function RecebimentoPedido() {
                     <div className="botoesNavegacao">
                         <button type='button' onClick={irCadastroPedido} className="botaoteste4">
                             <img src={teste} alt="" className="testeaEsquerda" />Cadastro dos Pedidos</button>
-                        <h1 className="mainTitle">RECEBIMENTO DO PEDIDO: {id}</h1>
+                        <h1 className="recebimentoTitulo">RECEBIMENTO DO PEDIDO: {id}</h1>
                         {mudanca === 'Edição' &&
                         <button type='button' onClick={irQuantitativa} className="botaoteste4">Análise Qualitativa
                             <img src={teste} alt="" className="testeaDireita" /></button>
@@ -374,7 +374,7 @@ function RecebimentoPedido() {
                             <div className='blocoInvisivel'> </div>
                         }
                     </div>
-                    <h3 className="txtAlg">Insira a nota fiscal</h3>
+                    <h4 className="txtAlg">Insira a nota fiscal</h4>
                 </div>
 
                 {/* <button type='button' onClick={irCadastroPedido} className="botaoteste4">

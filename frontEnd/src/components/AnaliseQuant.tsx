@@ -164,7 +164,7 @@ function AnaliseQuant() {
                 <div className="mainContent">
 
                     <div className="botoesNavegacao">
-                        <button type='button' onClick={irNotaFiscal} className="botaoteste5">
+                        <button type='button' onClick={irNotaFiscal} className="botaoteste5Esquerda">
                             <img src={teste} alt="" className="testeaEsquerda" />Nota Fiscal</button>
                         <h1 className="mainTitle">ANÁLISE QUANTITATIVA</h1>
                         {mudanca === 'Edição' &&

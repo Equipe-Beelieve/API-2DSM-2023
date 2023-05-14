@@ -9,6 +9,7 @@ import { Produto } from './ListaProdutos';
 import verificaLogado from '../funcoes/verificaLogado';
 import { toast } from 'react-toastify';
 import teste from '../images/seta-esquerda.png'
+import { Console } from 'console';
 
 function CadPedido() {
 
@@ -357,18 +358,36 @@ function CadPedido() {
             }
 
         }
-        if (((precoUnitario.slice(-1) === 'g' || quantidade.slice(-1) === 'g') && unidade === "t")) {
-            setQuantidade(quantidade.replace('kg', 't'))
-            setPrecoUnitario(precoUnitario.replace('kg', 't'))
-        }
-        if (((precoUnitario.slice(-1) === 't' || quantidade.slice(-1) === 't') && unidade === "kg")) {
-            setQuantidade(quantidade.replace('t', 'kg'))
-            setPrecoUnitario(precoUnitario.replace('t', 'kg'))
-        }
+        
 
 
     }, [navegate, precoUnitario, quantidade, render, unidade]) //Aciona as funções apenas quando a página é renderizada
 
+    useEffect(() => {
+        console.log('FOIIII')
+        if (((precoUnitario.slice(-1) === 'g' || quantidade.slice(-1) === 'g') && unidade === "t")) {
+            console.log(`precoUnitário ${precoUnitario.slice(2,-2)} || quantidade ${quantidade.slice(0, -2)}`)
+            let preco:any = precoUnitario.slice(2, -2)
+            let quant:any = quantidade.slice(0, -2)
+            preco = parseFloat(preco) / 1000
+            preco = preco.toString()
+            quant = parseFloat(quant) / 1000
+            quant = quant.toString()
+            setQuantidade(quant + ' t')
+            setPrecoUnitario('R$' + preco + '/t')
+        }
+        if (((precoUnitario.slice(-1) === 't' || quantidade.slice(-1) === 't') && unidade === "kg")) {
+            console.log(`precoUnitário ${precoUnitario.slice(2,-1)} || quantidade ${quantidade.slice(0, -1)}`)
+            let preco:any = precoUnitario.slice(2, -1)
+            let quant:any = quantidade.slice(0, -1)
+            preco = parseFloat(preco) * 1000
+            preco = preco.toString()
+            quant = parseFloat(quant) * 1000
+            quant = quant.toString()
+            setQuantidade(quant + ' kg')
+            setPrecoUnitario('R$' + preco + '/kg')
+        }
+    }, [produto, unidade])
 
     // ===================== Submit =====================
     async function cadastroPedido() {
@@ -439,7 +458,7 @@ function CadPedido() {
                         <div className='blocoInvisivel'> </div>
                         <h1 className='mainTitle'>Cadastro de Pedidos</h1>
                         {mudanca === 'Edição' &&
-                            <button type='button' onClick={irRecebimento} className="botaoteste3">
+                            <button type='button' onClick={irRecebimento} className="botaoteste5Direita">
                             Nota Fiscal<img src={teste} alt="" className="testeaDireita" /></button>
                         }
                         {mudanca !== 'Edição' &&
