@@ -363,6 +363,8 @@ function CadPedido() {
 
     }, [navegate, precoUnitario, quantidade, render, unidade]) //Aciona as funções apenas quando a página é renderizada
 
+
+    // ============== Mudança de unidade ==============
     useEffect(() => {
         console.log('FOIIII')
         if (((precoUnitario.slice(-1) === 'g' || quantidade.slice(-1) === 'g') && unidade === "t")) {
