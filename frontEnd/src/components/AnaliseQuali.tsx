@@ -288,10 +288,10 @@ function AnaliseQuali() {
                 <NavBar />
                 <form >
                     <div className="mainContent">
-                        <div className="titleRegister">
+                        <div className="titleRegister1">
                         <button className='botaoteste4' type='button' onClick={irQuantitativa}>
                             <img src={teste} alt="" className="testea" />Análise Quantitativa</button>
-                            <h1 className="mainTitle">ANÁLISE QUALITATIVA</h1>
+                            <h1 className="mainTitle1">ANÁLISE QUALITATIVA</h1>
                         </div>
                         {mudanca === 'Edição' &&
                             <button className='button-relatorio' type='button' onClick={irRegularizacao}>Relatório Final</button>
@@ -397,10 +397,12 @@ function AnaliseQuali() {
                 <form >
                     <div className="mainContent">
                         <div className="titleRegister">
+                        <button className='botaoteste4' type='button' onClick={irQuantitativa}>
+                        <img src={teste} alt="" className="testea" />Análise Quantitativa</button>
                             <h1 className="mainTitle">ANÁLISE QUALITATIVA</h1>
+                            <button className='botaoteste4' type='button' onClick={irRegularizacao}>Relatório Final
+                        <img src={teste} alt="" className="testea  upsideDown" /></button>
                         </div>
-                        <button type='button' onClick={irRegularizacao}>Relatório Final</button>
-                        <button type='button' onClick={irQuantitativa}>Análise Quantitativa</button>
                         <div className='laudo'>
                             <input className='tipo-laudo' type="text" value={'Laudo'} readOnly /> <input className='haver' type="text" value={'Deve haver'} readOnly />
                             <div className='divCheckbox'>
@@ -418,7 +420,7 @@ function AnaliseQuali() {
                             if (regra.reg_tipo === 'Avaria') {
                                 return (
                                     <div className='laudo' key={index}>
-                                        <input className='tipo-avaria' type="text" value={regra.reg_tipo} readOnly /> 
+                                        <input className='tipo-avaria1' type="text" value={regra.reg_tipo} readOnly /> 
                                         <input className='regra-valor' type="text" value={regra.reg_valor} readOnly />
                                         <div className='divCheckbox'>
                                             <span className='resultadoCheckbox'>Resultado:</span>
@@ -427,9 +429,9 @@ function AnaliseQuali() {
                                             <><input className='checkbox' type="checkbox" checked readOnly /> <br/> </>
                                         }
                                         {analises[index].valor === 'false' &&
-                                            <><input className='checkbox' type="checkbox" disabled /> <br/> </>
+                                            <><input className='checkbox' type="checkbox" disabled /> <p></p></>
                                         }
-                                        <input className='descricao' type="text" value={analises[index].avaria} readOnly />
+                                        <input className='descricao1' type="text" value={analises[index].avaria} readOnly />
                                         
                                         
                                     </div>

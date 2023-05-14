@@ -435,7 +435,7 @@ function CadPedido() {
                 <NavBar />
                 <div className="divFornecedor">
                     {mudanca === 'Edição' &&
-                        <button type='button' onClick={irRecebimento} className="botaoteste3">
+                        <button type='button' onClick={irRecebimento} className="botaoteste5">
                             <img src={teste} alt="" className="testea" />Nota Fiscal</button>
                     }
                     <h1 className='mainTitle'>Cadastro de Pedidos</h1>
@@ -722,7 +722,7 @@ function CadPedido() {
                 <NavBar />
                 <div className="divFornecedor">
                     <h1 className='mainTitle'>Cadastro de Pedidos</h1>
-                    <button type='button' onClick={irRecebimento} className="botaoteste3">
+                    <button type='button' onClick={irRecebimento} className="botaoteste5">
                         <img src={teste} alt="" className="testea" />Nota Fiscal</button>
                     <form onSubmit={cadastroPedido}>
 
