@@ -7,7 +7,7 @@ import { toast } from "react-toastify"
 import verificaLogado from "../funcoes/verificaLogado"
 import teste from '../images/seta-esquerda.png'
 
-function RecebimentoPedido(){
+function RecebimentoPedido() {
 
     //=================== Estados e Hooks ===================
 
@@ -28,11 +28,11 @@ function RecebimentoPedido(){
     const [bdProduto, setBdProduto] = useState<Produto[]>([])
     const [temUnidade, setTemUnidade] = useState(false)
     const [temVirgula, setTemVirgula] = useState(false)
-    const [renderUm, setRenderUm] =useState(true)
+    const [renderUm, setRenderUm] = useState(true)
     const navegate = useNavigate()
-    
 
-    const {id} = useParams()
+
+    const { id } = useParams()
 
     //=================== Tratamentos de Preço Unitário ===================
 
@@ -68,8 +68,10 @@ function RecebimentoPedido(){
                 setPrecoUnitario('R$' + valor + unidade)
             }
             else if (valor.slice(-1) !== 'g' && valor.slice(-1) !== 't' && valor[0] !== 'R') {
-                toast.error('Preço unitário deve ser condizente com a unidade selecionada.', {position: 'bottom-left',
-                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+                toast.error('Preço unitário deve ser condizente com a unidade selecionada.', {
+                    position: 'bottom-left',
+                    autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                })
                 setPrecoUnitario('')
             }
             else {
@@ -77,9 +79,11 @@ function RecebimentoPedido(){
             }
         }
         else {
-            if (precoUnitario !== ''){
-                toast.error('Selecione a unidade antes.', {position: 'bottom-left', autoClose: 2500,
-                className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+            if (precoUnitario !== '') {
+                toast.error('Selecione a unidade antes.', {
+                    position: 'bottom-left', autoClose: 2500,
+                    className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                })
             }
             setPrecoUnitario('')
 
@@ -129,7 +133,7 @@ function RecebimentoPedido(){
         }
     }
 
-    function blurQuantidade(evento:any){
+    function blurQuantidade(evento: any) {
         let valor = evento.target.value
         if (unidade !== '') {
             if (valor.slice(-1) !== 't' && valor.slice(-1) !== 'g'
@@ -138,8 +142,10 @@ function RecebimentoPedido(){
                 setQuantidade(valor + unidade)
             }
             else if (valor.slice(-1) !== 't' && valor.slice(-1) !== 'g') {
-                toast.error('Quantidade deve ser condizente com a unidade do produto.', {position: 'bottom-left',
-                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+                toast.error('Quantidade deve ser condizente com a unidade do produto.', {
+                    position: 'bottom-left',
+                    autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                })
                 setQuantidade('')
             }
             else {
@@ -147,15 +153,17 @@ function RecebimentoPedido(){
             }
         }
         else {
-            if(quantidade !== ''){
-                toast.error('Selecione a unidade antes.', {position: 'bottom-left', autoClose: 2500,
-                className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+            if (quantidade !== '') {
+                toast.error('Selecione a unidade antes.', {
+                    position: 'bottom-left', autoClose: 2500,
+                    className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                })
             }
             setQuantidade('')
         }
         setTemVirgula(false)
     }
-    
+
     function selectQuantidade(evento: any) {
         let valor = evento.target.value
         if (valor.slice(-1) === 't') {
@@ -171,63 +179,75 @@ function RecebimentoPedido(){
 
     // ====================== Botões ======================
 
-    async function confirmaVoltaListagem(){
-        if (produto !== '' &&  dataEntrega !== '' && razaoSocial !== '' && precoUnitario !== '' &&
-            quantidade !== '' && precoTotal !== '' && tipoFrete !== '' && transportadora !== '' && condicaoPagamento){
-                const post = {id, unidade, produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario,
-                quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento }
-                navegate('/listaPedidos')
-                await api.post('/postNota', {post})
-                
+    async function confirmaVoltaListagem() {
+        if (produto !== '' && dataEntrega !== '' && razaoSocial !== '' && precoUnitario !== '' &&
+            quantidade !== '' && precoTotal !== '' && tipoFrete !== '' && transportadora !== '' && condicaoPagamento) {
+            const post = {
+                id, unidade, produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario,
+                quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento
             }
-        else{
-            toast.error('Preencha todos os campos', {position: 'bottom-left', autoClose: 2500,
-            className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+            navegate('/listaPedidos')
+            await api.post('/postNota', { post })
+
         }
-        
+        else {
+            toast.error('Preencha todos os campos', {
+                position: 'bottom-left', autoClose: 2500,
+                className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+            })
+        }
+
     }
 
-    async function editarVoltaListagem(){
-        if (produto !== '' &&  dataEntrega !== '' && razaoSocial !== '' && precoUnitario !== '' &&
-            quantidade !== '' && precoTotal !== '' && tipoFrete !== '' && transportadora !== '' && condicaoPagamento){
-                const post = {id, unidade, produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario,
-                quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, nfCodigo }
-                navegate('/listaPedidos')
-                await api.post('/updateNota', {post})
-                
+    async function editarVoltaListagem() {
+        if (produto !== '' && dataEntrega !== '' && razaoSocial !== '' && precoUnitario !== '' &&
+            quantidade !== '' && precoTotal !== '' && tipoFrete !== '' && transportadora !== '' && condicaoPagamento) {
+            const post = {
+                id, unidade, produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario,
+                quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, nfCodigo
             }
-        else{
-            toast.error('Preencha todos os campos', {position: 'bottom-left', autoClose: 2500,
-            className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+            navegate('/listaPedidos')
+            await api.post('/updateNota', { post })
+
         }
-        
+        else {
+            toast.error('Preencha todos os campos', {
+                position: 'bottom-left', autoClose: 2500,
+                className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+            })
+        }
+
     }
 
     async function confirmaContinua() {
-        if (produto !== '' &&  dataEntrega !== '' && razaoSocial !== '' && precoUnitario !== '' &&
+        if (produto !== '' && dataEntrega !== '' && razaoSocial !== '' && precoUnitario !== '' &&
             quantidade !== '' && precoTotal !== '' && tipoFrete !== '' &&
-            transportadora !== '' && condicaoPagamento){
-                const post = {id, unidade, produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario,
-                quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento }
-                await api.post('/postNota', {post}).then((response) => {navegate(`/analiseQuant/${id}`)})
-                }
-        else{
-            toast.error('Preencha todos os campos', {position: 'bottom-left', autoClose: 2500,
-            className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+            transportadora !== '' && condicaoPagamento) {
+            const post = {
+                id, unidade, produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario,
+                quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento
+            }
+            await api.post('/postNota', { post }).then((response) => { navegate(`/analiseQuant/${id}`) })
         }
-        
+        else {
+            toast.error('Preencha todos os campos', {
+                position: 'bottom-left', autoClose: 2500,
+                className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+            })
+        }
+
     }
     async function veStatus() {
-        await api.post('/confereStatus', {id:id, acessando:'Nota Fiscal'}).then((resposta) => {
+        await api.post('/confereStatus', { id: id, acessando: 'Nota Fiscal' }).then((resposta) => {
             let dado = resposta.data
             console.log(resposta)
 
-            if (dado.status === 'Primeira vez'){
+            if (dado.status === 'Primeira vez') {
                 setMudanca('Primeira vez')
             }
-            else if (dado.status === 'Revisão'){
+            else if (dado.status === 'Revisão') {
                 setMudanca('Revisão')
-                setRazaoSocial(dado.nf_razao_social)                    
+                setRazaoSocial(dado.nf_razao_social)
                 setProduto(dado.nf_produto_descricao)
                 setTransportadora(dado.nf_transportadora)
                 setCondicaoPagamento(dado.nf_condicao_pagamento)
@@ -238,13 +258,13 @@ function RecebimentoPedido(){
                 setDataEmissao(dado.nf_data_emissao.slice(0, 10))
                 setTipoFrete(dado.nf_tipo_frete)
                 setNfCodigo(dado.nf_codigo)
-                
+
                 setUnidade(dado.nf_unidade)
-                
+
             }
             else if (dado.status === 'Edição') {
                 setMudanca('Edição')
-                setRazaoSocial(dado.nf_razao_social)                    
+                setRazaoSocial(dado.nf_razao_social)
                 setProduto(dado.nf_produto_descricao)
                 setTransportadora(dado.nf_transportadora)
                 setCondicaoPagamento(dado.nf_condicao_pagamento)
@@ -256,28 +276,28 @@ function RecebimentoPedido(){
                 setTipoFrete(dado.nf_tipo_frete)
                 setNfCodigo(dado.nf_codigo)
                 setUnidade(dado.nf_unidade)
-                
+
             }
-            else{
+            else {
                 navegate('/listaPedidos')
             }
         });
-        
+
     }
 
-    function cancelaVoltaListagem(){
+    function cancelaVoltaListagem() {
         navegate('/listaPedidos')
     }
 
     //====================== Botões de mudança de fase ======================
 
-    function irQuantitativa(){
+    function irQuantitativa() {
         navegate(`/analiseQuant/${id}`)
     }
-    function irCadastroPedido(){
+    function irCadastroPedido() {
         navegate(`/cadastroPedido/${id}`)
     }
-    
+
     // ====================== Use Effect ======================
 
     useEffect(() => {
@@ -295,7 +315,7 @@ function RecebimentoPedido(){
         }
         veLogado()
 
-        
+
 
         if (precoUnitario !== '' && quantidade !== '') {
             let preco
@@ -336,530 +356,533 @@ function RecebimentoPedido(){
         veStatus()
     }, [])
 
-    if (mudanca !== 'Revisão'){
-        return(
-        
-            <>
-            <NavBar/>
+    if (mudanca !== 'Revisão') {
+        return (
 
-                    <br />
-                    <div className="divFornecedor">
-                <form>
-                <button type='button' onClick={irCadastroPedido} className="botaoteste3">
-                    <img src={teste} alt="" className="testea" />Cadastro dos Pedidos  </button>
-                    {mudanca === 'Edição' &&
-                        <button type='button' onClick={irQuantitativa}>Análise Quantitativa</button>
-                    }
+            <>
+                <NavBar />
+
+                <br />
+                <div className="divFornecedor">
+
+                    <button type='button' onClick={irCadastroPedido} className="botaoteste4">
+                        <img src={teste} alt="" className="testea" />Cadastro dos Pedidos  </button>
+
                     <h2>RECEBIMENTO DO PEDIDO: {id}</h2>
-                    <h3>Insira a nota fiscal</h3>
-                
-                    <div className="grid-container poscentralized">
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Razão Social :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text" value={razaoSocial} 
-                                        onChange={(e) => {setRazaoSocial(e.target.value)}} required/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Produto :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text" value={produto}
-                                        onChange={(e)=>{setProduto(e.target.value)}} required/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Unidade :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            {mudanca === 'Edição' && 
-                                                <select className="input_form" value={unidade}
-                                                onChange={(e) => {setUnidade(e.target.value)}} required>
-                                                    {unidade === '/kg' &&
-                                                       <option value='/kg'>Quilogramas(kg)</option>
-                                                    }
-                                                    {unidade === '/t' &&
-                                                       <option value='/t'>Toneladas(t)</option>
-                                                    }
-                                                    <option value="/t">Toneladas(t)</option>
-                                                    <option value="/kg">Quilogramas(kg)</option>
-                                                </select>
-                                            }
-                                            {mudanca === 'Primeira vez' &&
-                                                <select className="input_form" value={unidade}
-                                                    onChange={(e) => {setUnidade(e.target.value)}} required>
-                                                    <option value=""></option>
-                                                    <option value="/t">Toneladas(t)</option>
-                                                    <option value="/kg">Quilogramas(kg)</option>
-                                                </select>
-                                            }
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div className="grid-container poscentralized">
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Quantidade :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text" value={quantidade}
-                                        onChange={trataQuantidade}
-                                        onBlur={blurQuantidade}
-                                        onSelect={selectQuantidade} required/>
-                                        <p></p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Preço Unitário :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text"
-                                        value={precoUnitario}
-                                        onChange={trataPrecoUnitario}
-                                        onBlur={blurPrecoUnitario}
-                                        onSelect={selectPrecoUnitario} required/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Preço Total :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text" value={precoTotal}
-                                        onChange={(e) => {setPrecoTotal(e.target.value)}} required readOnly/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Data de emissão :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="date" value={dataEmissao}
-                                        onChange={(e) => {setDataEmissao(e.target.value)}} required/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Data de entrega :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="date" value={dataEntrega}
-                                        onChange={(e) => {setDataEntrega(e.target.value)}} required/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        
-    
-                    </div>
-                    <div className="grid-container poscentralized">
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Tipo de frete :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            {mudanca === 'Edição' &&
-                                                <select className="input_form" id="frete" name="frete" required
-                                                    value={tipoFrete}
-                                                    onChange={(e) => { setTipoFrete(e.target.value) }}>
-                                                    <option value={tipoFrete}>{tipoFrete}</option>
-                                                    <option value="Barco">Barco</option>
-                                                    <option value="Trem">Trem</option>
-                                                    <option value="Caminhão">Caminhão</option>
-                                                    <option value="Avião">Avião</option>
-                                                </select>
-                                            }
-                                            {mudanca === 'Primeira vez' &&
-                                                <select className="input_form" id="frete" name="frete" required
-                                                    value={tipoFrete}
-                                                    onChange={(e) => { setTipoFrete(e.target.value) }}>
-                                                    <option value=""></option>
-                                                    <option value="Barco">Barco</option>
-                                                    <option value="Trem">Trem</option>
-                                                    <option value="Caminhão">Caminhão</option>
-                                                    <option value="Avião">Avião</option>
-                                                </select>
-                                            }
-                                            
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Transportadora :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text" value={transportadora}
-                                        onChange={(e) => {setTransportadora(e.target.value)}} required/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Condição de pagamento :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            {mudanca === 'Edição' &&
-                                                <select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
-                                                value={condicaoPagamento}
-                                                onChange={(e) => { setCondicaoPagamento(e.target.value) }}>
-                                                    <option value={condicaoPagamento}>{condicaoPagamento}</option>
-                                                    <option value="00/100">00/100</option>
-                                                    <option value="10/90">10/90</option>
-                                                    <option value="20/80">20/80</option>
-                                                    <option value="30/70">30/70</option>
-                                                    <option value="40/60">40/60</option>
-                                                    <option value="50/50">50/50</option>
-                                                    <option value="60/40">60/40</option>
-                                                    <option value="70/30">70/30</option>
-                                                    <option value="80/20">80/20</option>
-                                                    <option value="90/10">90/10</option>
-                                                    <option value="100/00">100/00</option>
-                                                </select>
-                                            }
-                                            {mudanca === 'Primeira vez' &&
-                                                <select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
-                                                value={condicaoPagamento}
-                                                onChange={(e) => { setCondicaoPagamento(e.target.value) }}>
-                                                    <option value=''></option>
-                                                    <option value="00/100">00/100</option>
-                                                    <option value="10/90">10/90</option>
-                                                    <option value="20/80">20/80</option>
-                                                    <option value="30/70">30/70</option>
-                                                    <option value="40/60">40/60</option>
-                                                    <option value="50/50">50/50</option>
-                                                    <option value="60/40">60/40</option>
-                                                    <option value="70/30">70/30</option>
-                                                    <option value="80/20">80/20</option>
-                                                    <option value="90/10">90/10</option>
-                                                    <option value="100/00">100/00</option>
-                                                </select>
-                                            }
-                                            
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    {mudanca === 'Primeira vez' &&
-                        <>
-                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button3">Cancelar</button>
-                        <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar</button>
-                        </>
-                    }
+
                     {mudanca === 'Edição' &&
-                        <>
-                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button3">Cancelar</button>
-                        <button type="button" onClick={editarVoltaListagem} className="confirm_button">Editar</button>
-                        </>
+                        <button className="botaoteste4" type='button' onClick={irQuantitativa}>Análise Quantitativa<img src={teste} alt="" className="testea upsideDown" /></button>
                     }
-                </form>
-            </div>
+                    <h3>Insira a nota fiscal</h3>
+
+                    <form>
+                        <div className="grid-container poscentralized">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Razão Social :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" value={razaoSocial}
+                                                onChange={(e) => { setRazaoSocial(e.target.value) }} required />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Produto :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" value={produto}
+                                                onChange={(e) => { setProduto(e.target.value) }} required />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Unidade :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                {mudanca === 'Edição' &&
+                                                    <select className="input_form" value={unidade}
+                                                        onChange={(e) => { setUnidade(e.target.value) }} required>
+                                                        {unidade === '/kg' &&
+                                                            <option value='/kg'>Quilogramas(kg)</option>
+                                                        }
+                                                        {unidade === '/t' &&
+                                                            <option value='/t'>Toneladas(t)</option>
+                                                        }
+                                                        <option value="/t">Toneladas(t)</option>
+                                                        <option value="/kg">Quilogramas(kg)</option>
+                                                    </select>
+                                                }
+                                                {mudanca === 'Primeira vez' &&
+                                                    <select className="input_form" value={unidade}
+                                                        onChange={(e) => { setUnidade(e.target.value) }} required>
+                                                        <option value=""></option>
+                                                        <option value="/t">Toneladas(t)</option>
+                                                        <option value="/kg">Quilogramas(kg)</option>
+                                                    </select>
+                                                }
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div className="grid-container poscentralized">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Quantidade :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" value={quantidade}
+                                                onChange={trataQuantidade}
+                                                onBlur={blurQuantidade}
+                                                onSelect={selectQuantidade} required />
+                                                <p></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Preço Unitário :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text"
+                                                value={precoUnitario}
+                                                onChange={trataPrecoUnitario}
+                                                onBlur={blurPrecoUnitario}
+                                                onSelect={selectPrecoUnitario} required />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Preço Total :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" value={precoTotal}
+                                                onChange={(e) => { setPrecoTotal(e.target.value) }} required readOnly />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data de emissão :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="date" value={dataEmissao}
+                                                onChange={(e) => { setDataEmissao(e.target.value) }} required />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data de entrega :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="date" value={dataEntrega}
+                                                onChange={(e) => { setDataEntrega(e.target.value) }} required />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                        <div className="grid-container poscentralized">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo de frete :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                {mudanca === 'Edição' &&
+                                                    <select className="input_form" id="frete" name="frete" required
+                                                        value={tipoFrete}
+                                                        onChange={(e) => { setTipoFrete(e.target.value) }}>
+                                                        <option value={tipoFrete}>{tipoFrete}</option>
+                                                        <option value="Barco">Barco</option>
+                                                        <option value="Trem">Trem</option>
+                                                        <option value="Caminhão">Caminhão</option>
+                                                        <option value="Avião">Avião</option>
+                                                    </select>
+                                                }
+                                                {mudanca === 'Primeira vez' &&
+                                                    <select className="input_form" id="frete" name="frete" required
+                                                        value={tipoFrete}
+                                                        onChange={(e) => { setTipoFrete(e.target.value) }}>
+                                                        <option value=""></option>
+                                                        <option value="Barco">Barco</option>
+                                                        <option value="Trem">Trem</option>
+                                                        <option value="Caminhão">Caminhão</option>
+                                                        <option value="Avião">Avião</option>
+                                                    </select>
+                                                }
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Transportadora :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" value={transportadora}
+                                                onChange={(e) => { setTransportadora(e.target.value) }} required />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Condição de pagamento :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                {mudanca === 'Edição' &&
+                                                    <select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
+                                                        value={condicaoPagamento}
+                                                        onChange={(e) => { setCondicaoPagamento(e.target.value) }}>
+                                                        <option value={condicaoPagamento}>{condicaoPagamento}</option>
+                                                        <option value="00/100">00/100</option>
+                                                        <option value="10/90">10/90</option>
+                                                        <option value="20/80">20/80</option>
+                                                        <option value="30/70">30/70</option>
+                                                        <option value="40/60">40/60</option>
+                                                        <option value="50/50">50/50</option>
+                                                        <option value="60/40">60/40</option>
+                                                        <option value="70/30">70/30</option>
+                                                        <option value="80/20">80/20</option>
+                                                        <option value="90/10">90/10</option>
+                                                        <option value="100/00">100/00</option>
+                                                    </select>
+                                                }
+                                                {mudanca === 'Primeira vez' &&
+                                                    <select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
+                                                        value={condicaoPagamento}
+                                                        onChange={(e) => { setCondicaoPagamento(e.target.value) }}>
+                                                        <option value=''></option>
+                                                        <option value="00/100">00/100</option>
+                                                        <option value="10/90">10/90</option>
+                                                        <option value="20/80">20/80</option>
+                                                        <option value="30/70">30/70</option>
+                                                        <option value="40/60">40/60</option>
+                                                        <option value="50/50">50/50</option>
+                                                        <option value="60/40">60/40</option>
+                                                        <option value="70/30">70/30</option>
+                                                        <option value="80/20">80/20</option>
+                                                        <option value="90/10">90/10</option>
+                                                        <option value="100/00">100/00</option>
+                                                    </select>
+                                                }
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {mudanca === 'Primeira vez' &&
+                            <>
+                                <button type="button" onClick={cancelaVoltaListagem} className="cancel_button3">Cancelar</button>
+                                <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar</button>
+                            </>
+                        }
+                        {mudanca === 'Edição' &&
+                            <>
+                                <button type="button" onClick={cancelaVoltaListagem} className="cancel_button3">Cancelar</button>
+                                <button type="button" onClick={editarVoltaListagem} className="confirm_button">Editar</button>
+                            </>
+                        }
+                    </form>
+                </div>
             </>
         )
     }
-    else{
-        return(
-        
+    else {
+        return (
+
             <>
-            <NavBar/>
-            <div className="divFornecedor">
-                <form>
-                    <br />
-                    <h2>RECEBIMENTO DO PEDIDO: {id}</h2>
-                    <h3>Insira a nota fiscal</h3>
-                    <button type='button' onClick={irCadastroPedido}>Cadastro dos Pedidos</button>
-                    <button type='button' onClick={irQuantitativa}>Análise Quantitativa</button>
-                    <div className="grid-container poscentralized">
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Razão Social :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text" value={razaoSocial} 
-                                        onChange={(e) => {setRazaoSocial(e.target.value)}} required readOnly/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <NavBar />
+                <div className="divFornecedor">
+                    <form>
+                        <br />
+                        <h2>RECEBIMENTO DO PEDIDO: {id}</h2>
+                        <h3>Insira a nota fiscal</h3>
+                        <button type='button' onClick={irCadastroPedido}>Cadastro dos Pedidos</button>
+                        <button type='button' onClick={irQuantitativa}>Análise Quantitativa</button>
+                        <div className="grid-container poscentralized">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Razão Social :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" value={razaoSocial}
+                                                onChange={(e) => { setRazaoSocial(e.target.value) }} required readOnly />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Produto :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" value={produto}
+                                                onChange={(e) => { setProduto(e.target.value) }} required readOnly />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Unidade :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><select className="input_form" value={unidade}
+                                                onChange={(e) => { setUnidade(e.target.value) }} disabled required>
+                                                <option value={unidade} selected>{unidade}</option>
+
+                                            </select>
+                                                <p></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Produto :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text" value={produto}
-                                        onChange={(e)=>{setProduto(e.target.value)}} required readOnly/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div className="grid-container-5 poscentralized">
+                            <div className="box">
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Quantidade :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form2" type="text"
+                                                value={quantidade}
+                                                onChange={trataQuantidade}
+                                                onBlur={blurQuantidade}
+                                                onSelect={selectQuantidade} required readOnly />
+                                                <p></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Preço Unitário :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text"
+                                                value={precoUnitario}
+                                                onChange={trataPrecoUnitario}
+                                                onBlur={blurPrecoUnitario}
+                                                onSelect={selectPrecoUnitario} required readOnly />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Preço Total :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" value={precoTotal}
+                                                onChange={(e) => { setPrecoTotal(e.target.value) }} required readOnly />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data de emissão :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="date" value={dataEmissao}
+                                                onChange={(e) => { setDataEmissao(e.target.value) }} required readOnly />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data de entrega :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="date" value={dataEntrega}
+                                                onChange={(e) => { setDataEntrega(e.target.value) }} required readOnly />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
                         </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Unidade :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><select className="input_form" value={unidade}
-                                        onChange={(e) => {setUnidade(e.target.value)}} disabled required>
-                                            <option value={unidade} selected>{unidade}</option>
-        
-                                        </select>
-                                        <p></p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div className="grid-container-5 poscentralized">
-                        <div className="box">
-                            
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Quantidade :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form2" type="text" 
-                                        value={quantidade}
-                                        onChange={trataQuantidade}
-                                        onBlur={blurQuantidade}
-                                        onSelect={selectQuantidade} required readOnly/>
-                                        <p></p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Preço Unitário :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text"
-                                        value={precoUnitario}
-                                        onChange={trataPrecoUnitario}
-                                        onBlur={blurPrecoUnitario}
-                                        onSelect={selectPrecoUnitario} required readOnly/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Preço Total :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text" value={precoTotal}
-                                        onChange={(e) => {setPrecoTotal(e.target.value)}} required readOnly/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Data de emissão :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="date" value={dataEmissao}
-                                        onChange={(e) => {setDataEmissao(e.target.value)}} required readOnly/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Data de entrega :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="date" value={dataEntrega}
-                                        onChange={(e) => {setDataEntrega(e.target.value)}} required readOnly/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        
-    
-                    </div>
-                    <div className="grid-container poscentralized">
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Tipo de frete :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><select className="input_form" id="frete" name="frete" required
+                        <div className="grid-container poscentralized">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo de frete :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><select className="input_form" id="frete" name="frete" required
                                                 value={tipoFrete}
                                                 onChange={(e) => { setTipoFrete(e.target.value) }} disabled>
                                                 <option value={tipoFrete} selected>{tipoFrete}</option>
                                             </select>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Transportadora :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input className="input_form" type="text" value={transportadora}
-                                        onChange={(e) => {setTransportadora(e.target.value)}} required readOnly/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Condição de pagamento :</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Transportadora :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" value={transportadora}
+                                                onChange={(e) => { setTransportadora(e.target.value) }} required readOnly />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Condição de pagamento :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><select className="input_form" name="condicaoPagamento" id="condicaoPagamento" required
                                                 value={condicaoPagamento}
                                                 onChange={(e) => { setCondicaoPagamento(e.target.value) }} disabled>
-                                                    <option value={condicaoPagamento} selected>{condicaoPagamento}</option>
+                                                <option value={condicaoPagamento} selected>{condicaoPagamento}</option>
                                             </select>
 
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>  
-                    <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Voltar</button>
-                </form>
-            </div>
+                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Voltar</button>
+                    </form>
+                </div>
             </>
         )
     }
-    
+
 }
 
 export default RecebimentoPedido

@@ -6,39 +6,39 @@ import NavBar from './NavBar';
 import { toast } from 'react-toastify';
 import teste from '../images/seta-esquerda.png'
 
-interface Pedido{
-    ped_produto_massa:string
+interface Pedido {
+    ped_produto_massa: string
 }
 
 
-function AnaliseQuant(){
+function AnaliseQuant() {
     const [pesagem, setPesagem] = useState('')
     const [peso, setPeso] = useState('')
     const [tipoPeso, setTipoPeso] = useState('')
     const [mudanca, setMudanca] = useState('')
 
-    async function getPeso(){
+    async function getPeso() {
         try {
             let post = id
-            await api.post('/confereUnidade', {post}).then((resposta) => {
+            await api.post('/confereUnidade', { post }).then((resposta) => {
                 let dado = resposta.data
                 console.log(dado)
                 setPeso(dado)
             })
-            }
-            catch (erro) {
+        }
+        catch (erro) {
             console.log(erro)
-            }
+        }
     }
 
     async function veStatus() {
-        await api.post('/confereStatus', {id:id, acessando:'Análise Quantitativa'}).then((response) => {
+        await api.post('/confereStatus', { id: id, acessando: 'Análise Quantitativa' }).then((response) => {
             let dado = response.data
             console.log(dado)
-            if (dado.status === 'Primeira vez'){
+            if (dado.status === 'Primeira vez') {
                 setMudanca('Primeira vez')
             }
-            else if (dado.status === 'Revisão'){
+            else if (dado.status === 'Revisão') {
                 setMudanca('Revisão')
                 setPesagem(dado.regra_valor)
             }
@@ -47,56 +47,57 @@ function AnaliseQuant(){
                 setPesagem(dado.regra_valor)
 
             }
-            else{
+            else {
                 navegate('/listaPedidos')
             }
-            
-        }
-        )}
-        
 
-    const {id} = useParams()
+        }
+        )
+    }
+
+
+    const { id } = useParams()
     const navegate = useNavigate()
 
-    async function confiraTipoPeso(){
-        if (peso.slice(-1) === 't'){
+    async function confiraTipoPeso() {
+        if (peso.slice(-1) === 't') {
             setTipoPeso('Toneladas')
         }
-        else{
+        else {
             setTipoPeso('Quilogramas')
         }
     }
 
     // ====================== Mascara ======================
 
-    function blurPesagem (evento:any){
+    function blurPesagem(evento: any) {
         let valor = evento.target.value
-        if(tipoPeso === 'Toneladas'){
+        if (tipoPeso === 'Toneladas') {
             valor = valor + ' t'
         }
-        else{
+        else {
             valor = valor + ' kg'
         }
         setPesagem(valor)
     }
 
-    function selectPesagem(evento:any){
+    function selectPesagem(evento: any) {
         let valor = evento.target.value
-        if(tipoPeso === 'Toneladas' && valor.slice(-1) === 't'){
+        if (tipoPeso === 'Toneladas' && valor.slice(-1) === 't') {
             valor = valor.slice(0, -2)
         }
-        else if(tipoPeso === 'Quilogramas' && valor.slice(-1) === 'g'){
+        else if (tipoPeso === 'Quilogramas' && valor.slice(-1) === 'g') {
             valor = valor.slice(0, -3)
         }
         setPesagem(valor)
     }
 
-    function mudaPesagem(evento:any){
+    function mudaPesagem(evento: any) {
         console.log(evento.target.value)
-        if(!isNaN(evento.target.value)){
+        if (!isNaN(evento.target.value)) {
             setPesagem(evento.target.value)
         }
-        else{
+        else {
             toast.error('Insira apenas números', {
                 position: 'bottom-left',
                 autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
@@ -106,41 +107,41 @@ function AnaliseQuant(){
 
     // ====================== Botões ======================
 
-    async function confirmaVoltaListagem(){
-        const post = {id, pesagem}
+    async function confirmaVoltaListagem() {
+        const post = { id, pesagem }
         navegate('/listaPedidos')
-        await api.post('/postQuantitativa', {post})  
+        await api.post('/postQuantitativa', { post })
     }
 
     async function confirmaContinua() {
-        if(pesagem !== '' && pesagem !== ' t' && pesagem !== ' kg'){
-            const post = {id, pesagem}     
-            await api.post('/postQuantitativa', { post }).then((response) =>{navegate(`/analiseQuali/${id}`)})
+        if (pesagem !== '' && pesagem !== ' t' && pesagem !== ' kg') {
+            const post = { id, pesagem }
+            await api.post('/postQuantitativa', { post }).then((response) => { navegate(`/analiseQuali/${id}`) })
         }
-        else{
+        else {
             toast.error('Preencha todos os campos', {
                 position: 'bottom-left',
                 autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
             })
         }
-        
-             
+
+
     }
 
-    function irQualitativa(){
+    function irQualitativa() {
         navegate(`/analiseQuali/${id}`)
     }
 
-    function irNotaFiscal(){
+    function irNotaFiscal() {
         navegate(`/recebePedido/${id}`)
     }
 
-    function cancelaVoltaListagem(){
+    function cancelaVoltaListagem() {
         navegate('/listaPedidos')
     }
 
-    async function editaVolta(){
-        const post = {id, pesagem}
+    async function editaVolta() {
+        const post = { id, pesagem }
         navegate('/listaPedidos')
         await api.post('/updateQuantitativa', { post })
     }
@@ -152,87 +153,87 @@ function AnaliseQuant(){
         confiraTipoPeso()
         veStatus()
         console.log(mudanca)
-    },[mudanca])
+    }, [mudanca])
 
     //==================== Render ====================
 
-    if(mudanca !== 'Revisão'){
-        return(
+    if (mudanca !== 'Revisão') {
+        return (
             <>
-            <NavBar/>
-            <div className="mainContent">
-                <div className="titleRegister">
-                <button type='button' onClick={irNotaFiscal} className="botaoteste4"><img src={teste} alt="" className="testea" />Nota Fiscal</button>
-                    <h1 className="mainTitle">ANÁLISE QUANTITATIVA</h1>
-                
-                </div>
-                {mudanca === 'Edição' &&
-                    <button type='button' onClick={irQualitativa}>Análise Qualitativa</button>
-                }
-                
-                <div className="uni_quant">Unidade: {tipoPeso}
-                </div>
-                <div className='anaq1'>
-                    <div className='anaq2'>
-                        Resultado da pesagem:
+                <NavBar />
+                <div className="mainContent">
+                    <div className="titleRegister">
+                        <button type='button' onClick={irNotaFiscal} className="botaoteste4"><img src={teste} alt="" className="testea" />Nota Fiscal</button>
+                        <h1 className="mainTitle">ANÁLISE QUANTITATIVA</h1>
+                        {mudanca === 'Edição' &&
+                            <button type='button' onClick={irQualitativa} className="botaoteste4">Análise Qualitativa<img src={teste} alt="" className="testea upsideDown" /></button>
+                        }
+
                     </div>
-                    <input type="text" className='input_form2' value={pesagem} 
-                    onChange={(e) => {mudaPesagem(e)}}
-                    onBlur={(e) =>{blurPesagem(e)}}
-                    onSelect={(e) =>{selectPesagem(e)}}
-                    required></input>
+
+                    <div className="uni_quant">Unidade: {tipoPeso}
+                    </div>
+                    <div className='anaq1'>
+                        <div className='anaq2'>
+                            Resultado da pesagem:
+                        </div>
+                        <input type="text" className='input_form2' value={pesagem}
+                            onChange={(e) => { mudaPesagem(e) }}
+                            onBlur={(e) => { blurPesagem(e) }}
+                            onSelect={(e) => { selectPesagem(e) }}
+                            required></input>
+                    </div>
+                    {mudanca === 'Primeira vez' &&
+                        <>
+                            <div className='mesmalinha'>
+                                <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
+                                <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar</button>
+                            </div>
+                        </>
+                    }
+                    {mudanca === 'Edição' &&
+                        <>
+                            <div className='mesmalinha'>
+                                <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
+                                <button type="button" onClick={editaVolta} className="confirm_button">Editar</button>
+                            </div>
+                        </>
+                    }
                 </div>
-                {mudanca === 'Primeira vez' &&
-                    <>
-                    <div className='mesmalinha'>
-                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
-                        <button type="button" onClick={confirmaContinua} className="confirm_button">Confirmar</button>
-                    </div>
-                    </>
-                }
-                {mudanca === 'Edição' &&
-                    <>
-                    <div className='mesmalinha'>
-                        <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
-                        <button type="button" onClick={editaVolta} className="confirm_button">Editar</button>
-                    </div>
-                    </>
-                }                
-            </div>
             </>
         )
     }
-    else{
-        return(
+    else {
+        return (
             <>
-            <NavBar/>
-            <div className="mainContent">
-                <div className="titleRegister">
-                    <h1 className="mainTitle">ANÁLISE QUANTITATIVA</h1>
-                
-                </div>
-                <button type='button' onClick={irQualitativa}>Análise Qualitativa</button>
-                <button type='button' onClick={irNotaFiscal}>Nota Fiscal</button>
-                <div className="uni_quant">Unidade: {tipoPeso}
-                </div>
-                <div className='anaq1'>
-                    <div className='anaq2'>
-                        Resultado da pesagem:
+                <NavBar />
+                <div className="mainContent">
+                    <div className="titleRegister">
+                        <h1 className="mainTitle">ANÁLISE QUANTITATIVA</h1>
+
                     </div>
-                    <input type="text" className='input_form2' value={pesagem} readOnly></input>
+                    <button type='button' onClick={irQualitativa}>Análise Qualitativa</button>
+                    <button type='button' onClick={irNotaFiscal}>Nota Fiscal</button>
+                    <div className="uni_quant">Unidade: {tipoPeso}
+                    </div>
+                    <div className='anaq1'>
+                        <div className='anaq2'>
+                            Resultado da pesagem:
+                        </div>
+                        <input type="text" className='input_form2' value={pesagem} readOnly></input>
+                    </div>
+
+
+                    <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Voltar</button>
                 </div>
-                
-                
-                <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Voltar</button>    
-            </div>
             </>
 
         )
-        
-            
-        
+
+
+
     }
-    
+
 }
 
 export default AnaliseQuant
