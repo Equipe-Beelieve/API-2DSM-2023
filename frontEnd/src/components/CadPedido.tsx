@@ -358,6 +358,14 @@ function CadPedido() {
             if (!isNaN(preco * quant)) {
                 setPrecoTotal(`R$ ${preco * quant}`)
             }
+            if (((precoUnitario.slice(-1) === 'g' || quantidade.slice(-1) === 'g') && unidade === "t")) {
+                setQuantidade(quantidade.replace('kg', 't'))
+                setPrecoUnitario(precoUnitario.replace('kg', 't'))
+            }
+            if (((precoUnitario.slice(-1) === 't' || quantidade.slice(-1) === 't') && unidade === "kg")) {
+                setQuantidade(quantidade.replace('t', 'kg'))
+                setPrecoUnitario(precoUnitario.replace('t', 'kg'))
+            }
 
         }
         
@@ -367,31 +375,31 @@ function CadPedido() {
 
 
     // ============== Mudança de unidade ==============
-    useEffect(() => {
-        console.log('FOIIII')
-        if (((precoUnitario.slice(-1) === 'g' || quantidade.slice(-1) === 'g') && unidade === "t")) {
-            console.log(`precoUnitário ${precoUnitario.slice(2,-2)} || quantidade ${quantidade.slice(0, -2)}`)
-            let preco:any = precoUnitario.slice(2, -2)
-            let quant:any = quantidade.slice(0, -2)
-            preco = parseFloat(preco) / 1000
-            preco = preco.toString()
-            quant = parseFloat(quant) / 1000
-            quant = quant.toString()
-            setQuantidade(quant + ' t')
-            setPrecoUnitario('R$' + preco + '/t')
-        }
-        if (((precoUnitario.slice(-1) === 't' || quantidade.slice(-1) === 't') && unidade === "kg")) {
-            console.log(`precoUnitário ${precoUnitario.slice(2,-1)} || quantidade ${quantidade.slice(0, -1)}`)
-            let preco:any = precoUnitario.slice(2, -1)
-            let quant:any = quantidade.slice(0, -1)
-            preco = parseFloat(preco) * 1000
-            preco = preco.toString()
-            quant = parseFloat(quant) * 1000
-            quant = quant.toString()
-            setQuantidade(quant + ' kg')
-            setPrecoUnitario('R$' + preco + '/kg')
-        }
-    }, [produto, unidade])
+    // useEffect(() => {
+    //     console.log('FOIIII')
+    //     if (((precoUnitario.slice(-1) === 'g' || quantidade.slice(-1) === 'g') && unidade === "t")) {
+    //         console.log(`precoUnitário ${precoUnitario.slice(2,-2)} || quantidade ${quantidade.slice(0, -2)}`)
+    //         let preco:any = precoUnitario.slice(2, -2)
+    //         let quant:any = quantidade.slice(0, -2)
+    //         preco = parseFloat(preco) / 1000
+    //         preco = preco.toString()
+    //         quant = parseFloat(quant) / 1000
+    //         quant = quant.toString()
+    //         setQuantidade(quant + ' t')
+    //         setPrecoUnitario('R$' + preco + '/t')
+    //     }
+    //     if (((precoUnitario.slice(-1) === 't' || quantidade.slice(-1) === 't') && unidade === "kg")) {
+    //         console.log(`precoUnitário ${precoUnitario.slice(2,-1)} || quantidade ${quantidade.slice(0, -1)}`)
+    //         let preco:any = precoUnitario.slice(2, -1)
+    //         let quant:any = quantidade.slice(0, -1)
+    //         preco = parseFloat(preco) * 1000
+    //         preco = preco.toString()
+    //         quant = parseFloat(quant) * 1000
+    //         quant = quant.toString()
+    //         setQuantidade(quant + ' kg')
+    //         setPrecoUnitario('R$' + preco + '/kg')
+    //     }
+    // }, [produto, unidade])
 
     // ===================== Submit =====================
     async function cadastroPedido() {
