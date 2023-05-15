@@ -100,3 +100,5 @@ Esses resultados devem seguir os resulatados propostos na tabela de casos de tes
 |   Dev Team    | <img src="docs/imagens/fotoMurilo.png" alt="Foto Murilo"> | Murilo Henrique Sangi da Silva Lima | [GitHub](https://github.com/MuriloLima03)    |
 | Dev Team | <img src="docs/imagens/fotoAugusto.png" alt="Foto Augusto"> | Augusto Henrique Buin                    | [GitHub](https://github.com/AugustoBuin)     |
 | Dev Team | <img src="docs/imagens/fotoPedro.png" alt="Foto Pedro"> | Pedro Henrique Silva Almeida             | [GitHub](https://github.com/PedroHSdeAlmeida) |
+| Dev Team | <img src="docs/imagens/fotoAline.png" alt="Foto Aline"> | Aline C. Correa Costa                   | [GitHub](https://github.com/acorreac) |
+| Dev Team | <img src="docs/imagens/fotoJose.png" alt="Foto Jose"> | José V. H. Lopes de Souza                   | [GitHub](https://github.com/HenningerJv) |
