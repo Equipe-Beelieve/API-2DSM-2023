@@ -231,8 +231,16 @@ app.post('/confereStatus', async (req, res) =>{
     else if (acessando === 'Relatório de Compras' && status !== 'Finalizado'){
         if(status !== undefined){
             let dados = await bd.pegaRelatorioCompras(id)
+            let editar:string
             dados['status'] = 'Edição'
-            res.send(dados)
+            if(status === 'A caminho'){
+                editar = 'Permitir'
+            }
+            else{
+                editar = 'Não permitir'
+            }
+            
+            res.send({dados, editar})
         }
         else{
             res.send({status:"não permitir"})

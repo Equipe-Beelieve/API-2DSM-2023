@@ -32,6 +32,7 @@ function CadPedido() {
     const [frete, setFrete] = useState('')
     const [transportadora, setTransportadora] = useState('')
     const [condicaoPagamento, setCondicaoPagamento] = useState('')
+    const [status, setStatus] = useState('')
 
     const { id } = useParams()
     const [logado, setLogado] = useState(Boolean)
@@ -263,7 +264,8 @@ function CadPedido() {
 
     async function veStatus() {
         await api.post('/confereStatus', { id: id, acessando: 'Relatório de Compras' }).then((resposta) => {
-            let dado = resposta.data
+            let dado = resposta.data.dados
+            setStatus(resposta.data.editar)
             console.log(dado)
             if (dado.status === 'Revisão') {
                 setMudanca('Revisão')
@@ -368,38 +370,12 @@ function CadPedido() {
             }
 
         }
-        
+        console.log(`STATUS ${status}`)
 
 
     }, [navegate, precoUnitario, quantidade, render, unidade]) //Aciona as funções apenas quando a página é renderizada
 
 
-    // ============== Mudança de unidade ==============
-    // useEffect(() => {
-    //     console.log('FOIIII')
-    //     if (((precoUnitario.slice(-1) === 'g' || quantidade.slice(-1) === 'g') && unidade === "t")) {
-    //         console.log(`precoUnitário ${precoUnitario.slice(2,-2)} || quantidade ${quantidade.slice(0, -2)}`)
-    //         let preco:any = precoUnitario.slice(2, -2)
-    //         let quant:any = quantidade.slice(0, -2)
-    //         preco = parseFloat(preco) / 1000
-    //         preco = preco.toString()
-    //         quant = parseFloat(quant) / 1000
-    //         quant = quant.toString()
-    //         setQuantidade(quant + ' t')
-    //         setPrecoUnitario('R$' + preco + '/t')
-    //     }
-    //     if (((precoUnitario.slice(-1) === 't' || quantidade.slice(-1) === 't') && unidade === "kg")) {
-    //         console.log(`precoUnitário ${precoUnitario.slice(2,-1)} || quantidade ${quantidade.slice(0, -1)}`)
-    //         let preco:any = precoUnitario.slice(2, -1)
-    //         let quant:any = quantidade.slice(0, -1)
-    //         preco = parseFloat(preco) * 1000
-    //         preco = preco.toString()
-    //         quant = parseFloat(quant) * 1000
-    //         quant = quant.toString()
-    //         setQuantidade(quant + ' kg')
-    //         setPrecoUnitario('R$' + preco + '/kg')
-    //     }
-    // }, [produto, unidade])
 
     // ===================== Submit =====================
     async function cadastroPedido() {
@@ -460,7 +436,7 @@ function CadPedido() {
 
     // ===================== HTML =====================  
 
-    if (mudanca !== "Revisão" && funcao !== 'Conferente') {
+    if (mudanca !== "Revisão" && funcao !== 'Conferente' && (status === 'Permitir' || status === '')) {
         return (
             <>
                 <NavBar />
