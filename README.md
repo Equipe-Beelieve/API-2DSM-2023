@@ -66,7 +66,7 @@ Todos os documentos desses artefatos são encontrados na pasta docs do repositó
 Os artefatos usados pelo nossa equipe para identificar que uma tarefa está pronta para ser iniciado (DoR) foram:
 * <a href="#backlogs">BackLog do Produto:</a><br />
 Lista com os requisitos do projeto priorizados, que nos auxiliam a chegar a um MVP (Mínimo Produto Viável) na sprint.
-* <a href="docs/modelo_logico.jpg">Modelo Lógico do banco de dados:</a><br />
+* <a href="docs/modeloLogico.jpg">Modelo Lógico do banco de dados:</a><br />
 Modelo com as tabelas, colunas e os tipos de dados que serve como base para a construção física do banco de dados.
 * <a href="docs/casosTeste/">Casos de Teste:</a><br />
 Modelo com os testes que cada requisito precisa cumprir após sua conclusão. Isso nos ajuda a desenvolver o requisito baseado nos testes que ele precisa passar.
@@ -100,3 +100,5 @@ Esses resultados devem seguir os resulatados propostos na tabela de casos de tes
 |   Dev Team    | <img src="docs/imagens/fotoMurilo.png" alt="Foto Murilo"> | Murilo Henrique Sangi da Silva Lima | [GitHub](https://github.com/MuriloLima03)    |
 | Dev Team | <img src="docs/imagens/fotoAugusto.png" alt="Foto Augusto"> | Augusto Henrique Buin                    | [GitHub](https://github.com/AugustoBuin)     |
 | Dev Team | <img src="docs/imagens/fotoPedro.png" alt="Foto Pedro"> | Pedro Henrique Silva Almeida             | [GitHub](https://github.com/PedroHSdeAlmeida) |
+| Dev Team | <img src="docs/imagens/fotoAline.png" alt="Foto Aline"> | Aline C. Correa Costa                   | [GitHub](https://github.com/acorreac) |
+| Dev Team | <img src="docs/imagens/fotoJose.png" alt="Foto Jose"> | José V. H. Lopes de Souza                   | [GitHub](https://github.com/HenningerJv) |
