@@ -66,7 +66,7 @@ Todos os documentos desses artefatos são encontrados na pasta docs do repositó
 Os artefatos usados pelo nossa equipe para identificar que uma tarefa está pronta para ser iniciado (DoR) foram:
 * <a href="#backlogs">BackLog do Produto:</a><br />
 Lista com os requisitos do projeto priorizados, que nos auxiliam a chegar a um MVP (Mínimo Produto Viável) na sprint.
-* <a href="docs/modelo_logico.jpg">Modelo Lógico do banco de dados:</a><br />
+* <a href="docs/modeloLogico.jpg">Modelo Lógico do banco de dados:</a><br />
 Modelo com as tabelas, colunas e os tipos de dados que serve como base para a construção física do banco de dados.
 * <a href="docs/casosTeste/">Casos de Teste:</a><br />
 Modelo com os testes que cada requisito precisa cumprir após sua conclusão. Isso nos ajuda a desenvolver o requisito baseado nos testes que ele precisa passar.
