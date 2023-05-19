@@ -216,7 +216,7 @@ function ListaPedidos(){
                                     <button type='button' className='ped_btn' onClick={() => { navegate(`/analiseQuant/${pedido.ped_codigo}`); } }>Análise Quantitativa</button>
                                     <button type='button' className='ped_btn' onClick={() => { navegate(`/analiseQuali/${pedido.ped_codigo}`); } }>Análise Qualitativa</button>
                                     <hr className='hr_pedido' />
-                                    <button type='button' className='ped_btn2' disabled>Relatório Final</button>
+                                    <button type='button' className='ped_btn2' onClick={() => { navegate(`/relatorioFinal/${pedido.ped_codigo}`)} }>Relatório Final</button>
                                 
                                     </>
                                 }

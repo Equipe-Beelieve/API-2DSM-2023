@@ -22,6 +22,7 @@ import CadUsuario from './components/CadUsuario';
 import RecebimentoPedido from './components/RecebimentoPedido';
 import AnaliseQuant from './components/AnaliseQuant';
 import AnaliseQuali from './components/AnaliseQuali';
+import RelatorioFinal from './components/RelatorioFinal';
 
 
 const router = createBrowserRouter([
@@ -79,7 +80,13 @@ const router = createBrowserRouter([
       {
         path: "/analiseQuali/:id",
         element: <AnaliseQuali/>
+      },
+      {
+        path: "/relatorioFinal/:id",
+        element: <RelatorioFinal/>
       }
+        
+
     ]
   }
 ])
