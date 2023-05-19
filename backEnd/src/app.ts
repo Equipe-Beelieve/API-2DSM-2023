@@ -393,6 +393,15 @@ app.post('/updateQualitativa', async (req, res) =>{
     
 })
 
+
+//======================= Relatório Final =======================
+
+app.post('/relatorioFinal', async(req,res) => {
+    let id = req.body.id
+    let relatorioFinal = await bd.pegaDadosRelatorioFinal(id)
+    res.send(relatorioFinal)
+})
+
 app.listen(8080, () => {
     console.log(`servidor rodando em http://localhost:8080`);
 });

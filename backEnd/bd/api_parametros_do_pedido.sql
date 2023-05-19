@@ -30,9 +30,11 @@ CREATE TABLE `parametros_do_pedido` (
   `regra_valor` varchar(100) DEFAULT NULL,
   `prod_codigo` int NOT NULL,
   `ped_codigo` int NOT NULL,
+  `reg_codigo` int DEFAULT NULL,
   PRIMARY KEY (`par_codigo`),
   KEY `fk_produto_parametro` (`prod_codigo`),
   KEY `fk_pedido_parametro` (`ped_codigo`),
+  CONSTRAINT `fk_regra_parametro` FOREIGN KEY (`reg_codigo`) REFERENCES `regras_de_recebimento` (`reg_codigo`),
   CONSTRAINT `fk_pedido_parametro` FOREIGN KEY (`ped_codigo`) REFERENCES `pedido` (`ped_codigo`),
   CONSTRAINT `fk_produto_parametro` FOREIGN KEY (`prod_codigo`) REFERENCES `produto` (`prod_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

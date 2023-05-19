@@ -8,6 +8,7 @@ import Usuario from './Usuario.js'
 import Produto from './Produto.js'
 import NotaFiscal from './NotaFiscal.js';
 import AnaliseQualitativa from './Analisequalitativa.js';
+import trataRelatorioFinal from './trataRelatorioFinal.js';
 
 export default class bancoDados { //clase que contém, a princípio, tudo envolvendo banco de dados
     private conexao: mysql.Connection //atributo que tem o tipo "conexão com MySQL"
@@ -264,7 +265,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     async inserirAnaliseQualitativa(id: string, analiseQualitativa: AnaliseQualitativa){
         await this.conectar()
         let [prod_codigo] = await this.conexao.query(`SELECT prod_codigo FROM produto WHERE prod_descricao = (SELECT ped_descricao FROM pedido WHERE ped_codigo=${id})`)  as Array<any>
-        let [insert, fields]:[mysql.OkPacket, mysql.FieldPacket[]] = await this.conexao.query(`INSERT INTO parametros_do_pedido(regra_tipo, regra_valor, prod_codigo, ped_codigo) VALUES(?, ?, ${prod_codigo[0].prod_codigo}, ${id})`,
+        let [insert, fields]:[mysql.OkPacket, mysql.FieldPacket[]] = await this.conexao.query(`INSERT INTO parametros_do_pedido(regra_tipo, regra_valor, prod_codigo, ped_codigo, reg_codigo) VALUES(?, ?, ${prod_codigo[0].prod_codigo}, ${id}, ${analiseQualitativa['codigo']})`,
         [analiseQualitativa['tipo'], analiseQualitativa['valor']])
         await this.conexao.end()
         if(analiseQualitativa['avaria'] !== undefined && analiseQualitativa['avaria'] != ''){    
@@ -390,5 +391,25 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conexao.end()
       }
 
+
+    //===================== Relatório Final =====================
+
+    async pegaDadosRelatorioFinal(id:number){
+        await this.conectar()
+        let [dadosRecebimento] = await this.conexao.query(`SELECT p.ped_razao_social, p.ped_transportadora, p.ped_tipo_frete, p.ped_produto_massa, p.ped_descricao, p.ped_valor_unidade, p.ped_valor_total, p.ped_data_entrega, p.ped_data_pedido, p.ped_condicao_pagamento, 
+        nf.nf_razao_social, nf.nf_data_emissao, nf.nf_data_entrega, nf.nf_transportadora, nf.nf_produto_massa, nf.nf_tipo_frete, nf.nf_produto_descricao, nf.nf_laudo, nf.nf_valor_total, nf.nf_valor_unidade, nf.nf_condicao_pagamento, nf.nf_unidade FROM pedido p, nota_fiscal nf
+        WHERE p.ped_codigo = ${id} and p.ped_codigo = nf.ped_codigo`) as Array<any>
+        let [regraAnalise] = await this.conexao.query(`SELECT p.regra_tipo, p.regra_valor, r.reg_valor as regra, a.av_comentario
+        FROM produto prod, parametros_do_pedido p 
+        LEFT JOIN avaria_comentario a ON p.par_codigo = a.par_codigo
+        LEFT JOIN regras_de_recebimento r ON p.reg_codigo = r.reg_codigo
+        WHERE p.ped_codigo = ${id} and p.prod_codigo = prod.prod_codigo and prod.prod_codigo = r.prod_codigo`) as Array<any>
+        await this.conexao.end()
+        let relatorioFinal = trataRelatorioFinal(dadosRecebimento[0], regraAnalise)
+        return relatorioFinal
+    }
+
 }
+
+
 

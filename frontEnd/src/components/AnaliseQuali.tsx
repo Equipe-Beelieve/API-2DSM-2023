@@ -43,21 +43,23 @@ function AnaliseQuali() {
             const regras = response.data
 
             regras.sort((a:Regra, b:Regra) => a.reg_tipo.localeCompare(b.reg_tipo))
-
             const padraoAnalises = regras.map((regra: Regra) => {
                 if (regra.reg_tipo === 'Avaria') {
                     return {
+                        codigo: regra.reg_codigo,
                         tipo: regra.reg_tipo,
                         valor: 'false',
                         avaria: ''
                     }
                 } else if (regra.reg_tipo === 'Personalizada') {
                     return {
+                        codigo: regra.reg_codigo,
                         tipo: regra.reg_tipo,
                         valor: 'false',
                     }
                 } else {
                     return {
+                        codigo: regra.reg_codigo,
                         tipo: regra.reg_tipo,
                         valor: '',
                     }
