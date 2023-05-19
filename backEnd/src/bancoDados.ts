@@ -404,8 +404,10 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         LEFT JOIN avaria_comentario a ON p.par_codigo = a.par_codigo
         LEFT JOIN regras_de_recebimento r ON p.reg_codigo = r.reg_codigo
         WHERE p.ped_codigo = ${id} and p.prod_codigo = prod.prod_codigo and prod.prod_codigo = r.prod_codigo`) as Array<any>
+        let [analiseQuantitativa] = await this.conexao.query(`SELECT regra_tipo, regra_valor FROM parametros_do_pedido WHERE ped_codigo = ${id}`) as Array<any>
         await this.conexao.end()
-        let relatorioFinal = trataRelatorioFinal(dadosRecebimento[0], regraAnalise)
+        console.log(dadosRecebimento[0])
+        let relatorioFinal = trataRelatorioFinal(dadosRecebimento[0], regraAnalise, analiseQuantitativa[0])
         return relatorioFinal
     }
 

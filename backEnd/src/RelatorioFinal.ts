@@ -1,3 +1,6 @@
+
+
+import ComparacaoRelatorioFinal from "./ComparaRelatorioFinal"
 import RegrasAnalises from "./RegrasAnalises"
 
 
@@ -33,4 +36,6 @@ export default interface RelatorioFinal {
 
     // Valores da tabela Parametros do Pedido e regra de negócio
     RegrasAnalises:RegrasAnalises[]
+
+    Resultados:ComparacaoRelatorioFinal[]
 }

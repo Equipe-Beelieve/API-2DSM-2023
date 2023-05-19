@@ -139,7 +139,7 @@ function RecebimentoPedido() {
             if (valor.slice(-1) !== 't' && valor.slice(-1) !== 'g'
                 && valor.slice(-1) !== 'k' && valor.slice(-1) !== '' && valor.slice(-1) !== ' ') {
                 valor = valor.replace(',', '.')
-                setQuantidade(valor + unidade)
+                setQuantidade(valor + ' ' + unidade.slice(1))
             }
             else if (valor.slice(-1) !== 't' && valor.slice(-1) !== 'g') {
                 toast.error('Quantidade deve ser condizente com a unidade do produto.', {

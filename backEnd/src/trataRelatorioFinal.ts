@@ -1,15 +1,18 @@
+
+import ComparacaoRelatorioFinal from "./ComparaRelatorioFinal"
 import RegrasAnalises from "./RegrasAnalises"
 import RelatorioFinal from "./RelatorioFinal"
+import comparaDados from "./comparaDadosRelatorio"
 
 
-
-
-export default function trataRelatorioFinal(dadosRelatorio:any, regrasAnalise:any){
+export default function trataRelatorioFinal(dadosRelatorio:any, regrasAnalise:any, analiseQuantitativa:any){
     
     dadosRelatorio.ped_data_entrega = dadosRelatorio.ped_data_entrega.toString().slice(0, 10)
     dadosRelatorio.ped_data_pedido = dadosRelatorio.ped_data_pedido.toString().slice(0, 10)
     dadosRelatorio.nf_data_emissao = dadosRelatorio.nf_data_emissao.toString().slice(0, 10)
     dadosRelatorio.nf_data_entrega = dadosRelatorio.nf_data_entrega.toString().slice(0, 10)
+
+    let resultado:ComparacaoRelatorioFinal[] = comparaDados(dadosRelatorio, regrasAnalise, analiseQuantitativa)
 
     let regras:RegrasAnalises[] = []
     regrasAnalise.forEach((regra:any) =>{
@@ -56,7 +59,9 @@ export default function trataRelatorioFinal(dadosRelatorio:any, regrasAnalise:an
             CondicaoPagamento:dadosRelatorio.nf_condicao_pagamento,
             Laudo:dadosRelatorio.nf_laudo
         },
-        RegrasAnalises:regras
+        RegrasAnalises:regras,
+        Resultados:resultado
+
     }
 
     return relatorioFinal
