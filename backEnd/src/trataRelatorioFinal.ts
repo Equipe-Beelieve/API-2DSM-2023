@@ -2,7 +2,7 @@
 import ComparacaoRelatorioFinal from "./ComparaRelatorioFinal"
 import RegrasAnalises from "./RegrasAnalises"
 import RelatorioFinal from "./RelatorioFinal"
-import comparaDados from "./comparaDadosRelatorio"
+import comparaDados from "./comparaDadosRelatorio.js"
 
 
 export default function trataRelatorioFinal(dadosRelatorio:any, regrasAnalise:any, analiseQuantitativa:any){

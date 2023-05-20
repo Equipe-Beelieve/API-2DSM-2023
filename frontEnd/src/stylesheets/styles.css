@@ -11,6 +11,32 @@
   text-align: center;
 }
 
+#clicavel{
+  cursor: pointer;
+}
+
+.blocoInvisivelUsuarioDireita{
+  width: 35px;
+  margin-right: 200px;
+}
+
+.blocoInvisivelUsuarioEsquerda{
+  width: 30px;
+  margin-left: 200px;
+}
+
+.lixoUsuario{
+  width: 30px;
+  margin-right: 200px;
+}
+
+.flexMainUsuario{
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 200px;
+}
+
 .mainTitle {
   font-size: 2vw;
   margin-top: 4vh;

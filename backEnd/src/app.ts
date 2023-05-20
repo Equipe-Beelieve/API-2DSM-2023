@@ -188,6 +188,14 @@ app.get('/listaPedido', async (req,res) =>{
     res.send({tabelaPedidos, funcao})
 })
 
+//========================= deleta Usuário =========================
+
+app.post('/deletaUsuario', async (req, res) => {
+    let id = req.body.id
+    await bd.deletaUsuario(id)
+    res.send('foi')
+})
+
 //========================= deleta Pedidos =========================
 
 app.post('/deletePedido', async (req, res) => {

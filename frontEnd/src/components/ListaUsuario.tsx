@@ -102,7 +102,7 @@ function ListaUsuario(){
                 onKeyUp= {(evento) => atualizarBusca(busca)} />
             </div>
             {usuariosBuscados.map((usuario, index) => (
-                    <div className="listaIn" key={index}>
+                    <div className="listaIn" id='clicavel' key={index} onClick={() => {navegate(`/cadastroUsuario/${usuario.us_matricula}`)}}>
                         <h1>
                             Matricula nº{usuario.us_matricula}
                         </h1>

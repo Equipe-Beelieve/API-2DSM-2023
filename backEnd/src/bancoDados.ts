@@ -383,14 +383,22 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         } 
     }
 
-//===================== Delete pedido =====================
+//===================== Deletes =====================
 
+    //DELETE PEDIDO
     async deletePedido(post: number) {
         await this.conectar()
         await this.conexao.query(`DELETE FROM pedido WHERE ped_codigo = ${post}`)
         await this.conexao.end()
-      }
+    }
 
+    //DELETE USUARIO
+    async deletaUsuario(id:string){
+        await this.conectar()
+        await this.conexao.query(`DELETE FROM usuario WHERE us_matricula = ${id}`)
+        await this.conexao.end()
+    }
+    
 
     //===================== Relatório Final =====================
 

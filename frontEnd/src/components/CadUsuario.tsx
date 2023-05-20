@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
-import { RedirectFunction } from 'react-router-dom';
+import { RedirectFunction, useParams } from 'react-router-dom';
 import api from '../services/api'
 import { Link, useNavigate } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import trataCep from './CadFornecedor';
 import trataNumero from './CadFornecedor';
+import lixeira from '../images/lixeira.png'
 
 
 
@@ -27,6 +28,10 @@ function CadUsuario() {
     const [numero] = useState('')
     const [cpf, setCpf] = useState('')
     const [controleCpf, setControleCpf] = useState(0)
+    const [editar, setEditar] = useState<Boolean>(true)
+    const [loginInicial, setLoginInicial] = useState('')
+    const [funcaoInical, setFuncaoInicial] = useState('')
+    const { id } = useParams()
 
     //================== Tratar login ==================
     const [loginExistente, setLogins] = useState<Usuarios[]>([]) //Logins que virão do bd
@@ -61,6 +66,41 @@ function CadUsuario() {
         }
     }
 
+    //================== Edição ==================
+    
+    async function resgataValores(){
+        await api.post('/resgataValoresUsuario', {id:id}).then((resposta) => {
+            //us_matricula, us_nome, us_senha, us_funcao, us_login
+            let dado = resposta.data
+            setLogin(dado.us_login)
+            setNome(dado.us_nome)
+            setSenha(dado.us_senha)
+            setFuncao(dado.us_funcao)
+            setEditar(true)
+            setLoginInicial(dado.us_login)
+            setFuncaoInicial(dado.us_funcao)
+        })
+    }
+
+    async function editaUsuario(){
+        if (loginExistente.some(usuario => usuario.us_login === login) || loginInicial === login) {
+            toast.error('Escolha outro login', { position: 'bottom-left', autoClose: 2500,
+            className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+
+        } else {
+            const post = { nome, senha, funcao, login}
+            
+            await api.post('/updateUsuario', { post }).then((resposta) => {navegate('/listaUsuario')})
+        }
+    }
+
+    //================== Deleta Usuario ==================
+
+    async function deleteUsuario(){
+        await api.post('/deletaUsuario', {id:id}).then((resposta) => {navegate('/listaUsuario')})
+    }
+
+
 
     //================== Função verifica logado (useEffect) ==================
     useEffect(() => {
@@ -79,8 +119,16 @@ function CadUsuario() {
         }
         veLogado()
 
-    }, [])
+        console.log(editar)
 
+    }, [editar])
+
+    useEffect(() => {
+        if(id){
+            resgataValores()
+        }
+        console.log(editar)
+    }, [])
 
     //================== RENDERIZAÇÃO ==================
 
@@ -88,9 +136,20 @@ function CadUsuario() {
         <>
             <NavBar />
             <div className="divFornecedor">
-                <form onSubmit={cadastroUsuario}>
+                <div className="flexMainUsuario">
+                    <div className='blocoInvisivelUsuarioEsquerda'> </div>
                     <h1 className='mainTitle'>Cadastro de Usuario</h1>
-
+                    {editar && funcaoInical !== 'Administrador' &&
+                        <img src={lixeira} id='clicavel' alt="Lixo" className='lixoUsuario' onClick={()=>{deleteUsuario()}} />
+                    }
+                    {!editar &&
+                        <div className='blocoInvisivelUsuarioDireita'> </div>
+                    }
+                </div>
+                <form onSubmit={cadastroUsuario}>
+                    
+                    
+                    
                     <div className="grid-container poscentralized">
                         <div className="box">
                             <table>
@@ -176,11 +235,23 @@ function CadUsuario() {
 
                     </div >
 
-                    <input className="confirm_button" type="submit" value="Confirmar" />
-
-                    <button className="cancel_button">
-                        <Link to={'/listaUsuario'}>Cancelar</Link>
-                    </button>
+                    {editar &&
+                        <>
+                        <button className="cancel_button" type='button' onClick={()=>{navegate('/listaUsuario')}}>
+                            Cancelar
+                        </button>
+                        <input className="confirm_button" type="submit" value="Confirmar" />
+                        </>
+                    }
+                    {!editar &&
+                        <>
+                        <button className="cancel_button" type='button' onClick={()=>{navegate('/listaUsuario')}}>
+                            Cancelar
+                        </button>
+                        <button type='button' className="confirm_button" onClick={editaUsuario}>Editar</button>
+                        </>
+                    }
+                    
 
                 </form >
             </div >
