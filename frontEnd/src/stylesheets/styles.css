@@ -1173,3 +1173,11 @@ p.solid {
   margin-top: -8%;
 }
 
+/* Formatação do Relatório final */
+.boxFinalReportGreen {
+  background-color: lightgreen;
+}
+
+.boxFinalReportRed {
+  background-color: red;
+}
