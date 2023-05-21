@@ -383,6 +383,18 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         } 
     }
 
+    async pegaUsuario(id: number){
+        await this.conectar()
+        let [usuario, meta]:any =  await this.conexao.query(`SELECT * from usuario WHERE us_matricula = '${id}'`)
+        await this.conexao.end()
+        return usuario[0]
+    }
+
+    async updateUsuario(usuario:Usuario, id: number){
+        await this.conectar()
+        await this.conexao.query(`UPDATE usuario SET us_nome = '${usuario['nome']}', us_senha = '${usuario['senha']}', us_funcao = '${usuario['funcao']}', us_login = '${usuario['login']}' WHERE us_matricula = '${id}'`)
+    }
+
 //===================== Deletes =====================
 
     //DELETE PEDIDO

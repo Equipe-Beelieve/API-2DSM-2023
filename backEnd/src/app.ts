@@ -179,6 +179,25 @@ app.post('/cadastroProduto', async (req, res) => {
     
 })
 
+//================================== Rotas de UPDATE ==================================
+//========================= Update de Usuarios =========================
+app.post('/resgataValoresUsuario',async (req, res) => {
+    let id = req.body.id
+    //console.log('id: ', id)
+    let usuario = await bd.pegaUsuario(id)
+    console.log('DADO: ', usuario)
+    res.status(201).send(usuario)
+})
+app.post('/updateUsuario', async(req, res) => {
+    let id = req.body.id
+    console.log('id: ', id)
+    let body = req.body.post
+    let usuario = new Usuario(body.name, body.funcao, body.login, body.senha)
+    await bd.updateUsuario(usuario, id)
+    console.log(usuario, id)
+    res.status(201).send(`Requisição recebida com sucesso! ${id}`);
+})
+
 
 //================================== Rotas de Listagem ==================================
 //========================= Listagem de Pedidos =========================
