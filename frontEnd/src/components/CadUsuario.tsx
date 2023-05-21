@@ -28,7 +28,7 @@ function CadUsuario() {
     const [numero] = useState('')
     const [cpf, setCpf] = useState('')
     const [controleCpf, setControleCpf] = useState(0)
-    const [editar, setEditar] = useState<Boolean>(true)
+    const [editar, setEditar] = useState<Boolean>(false)
     const [loginInicial, setLoginInicial] = useState('')
     const [funcaoInical, setFuncaoInicial] = useState('')
     const { id } = useParams()
@@ -70,6 +70,7 @@ function CadUsuario() {
     
     async function resgataValores(){
         await api.post('/resgataValoresUsuario', {id:id}).then((resposta) => {
+            console.log(resposta.data)
             //us_matricula, us_nome, us_senha, us_funcao, us_login
             let dado = resposta.data
             setLogin(dado.us_login)
@@ -83,12 +84,13 @@ function CadUsuario() {
     }
 
     async function editaUsuario(){
-        if (loginExistente.some(usuario => usuario.us_login === login) || loginInicial === login) {
+        let idUsuario = id
+        if (loginExistente.some(usuario => usuario.us_login === login) && loginInicial !== login) {
             toast.error('Escolha outro login', { position: 'bottom-left', autoClose: 2500,
             className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
 
         } else {
-            const post = { nome, senha, funcao, login}
+            const post = { idUsuario, nome, senha, funcao, login}
             
             await api.post('/updateUsuario', { post }).then((resposta) => {navegate('/listaUsuario')})
         }
@@ -138,9 +140,13 @@ function CadUsuario() {
             <div className="divFornecedor">
                 <div className="flexMainUsuario">
                     <div className='blocoInvisivelUsuarioEsquerda'> </div>
-                    <h1 className='mainTitle'>Cadastro de Usuario</h1>
+                    {editar && <h1 className='mainTitle'>Edição de Usuario</h1>}
+                    {!editar && <h1 className='mainTitle'>Cadastro de Usuario</h1>}
                     {editar && funcaoInical !== 'Administrador' &&
                         <img src={lixeira} id='clicavel' alt="Lixo" className='lixoUsuario' onClick={()=>{deleteUsuario()}} />
+                    }
+                    {editar && !(funcaoInical !== 'Administrador') &&
+                        <div className='blocoInvisivelUsuarioDireita'> </div>
                     }
                     {!editar &&
                         <div className='blocoInvisivelUsuarioDireita'> </div>
@@ -235,7 +241,7 @@ function CadUsuario() {
 
                     </div >
 
-                    {editar &&
+                    {!editar &&
                         <>
                         <button className="cancel_button" type='button' onClick={()=>{navegate('/listaUsuario')}}>
                             Cancelar
@@ -243,7 +249,7 @@ function CadUsuario() {
                         <input className="confirm_button" type="submit" value="Confirmar" />
                         </>
                     }
-                    {!editar &&
+                    {editar &&
                         <>
                         <button className="cancel_button" type='button' onClick={()=>{navegate('/listaUsuario')}}>
                             Cancelar

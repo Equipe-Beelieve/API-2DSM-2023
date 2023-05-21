@@ -189,10 +189,10 @@ app.post('/resgataValoresUsuario',async (req, res) => {
     res.status(201).send(usuario)
 })
 app.post('/updateUsuario', async(req, res) => {
-    let id = req.body.id
+    let id = req.body.post.idUsuario
     console.log('id: ', id)
     let body = req.body.post
-    let usuario = new Usuario(body.name, body.funcao, body.login, body.senha)
+    let usuario = new Usuario(body.nome, body.senha, body.funcao, body.login)
     await bd.updateUsuario(usuario, id)
     console.log(usuario, id)
     res.status(201).send(`Requisição recebida com sucesso! ${id}`);
