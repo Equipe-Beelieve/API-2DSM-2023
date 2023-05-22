@@ -94,13 +94,19 @@ function RelatorioFinal() {
     return(
         <>
         <NavBar/>
+            {/* Título Principal da página  */}
             <h1 className='mainTitle'>Relatório Final</h1>
+
+            {/* Formulário que contém os dados do relatório */}
             <form>
                 <h2 className='mainTitle' >Dados do Pedido</h2>
+
+                {/* Sessão de comparação entre os dados do Relatório de Compras e da Nota Fiscal */}
                 <h3>Relatório de Compras</h3> <h3>Dados da Nota Fiscal</h3>
                 {dadosRelatorio.Resultados.map((resultado, index) => {
                     if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Produto'){
                         return (
+                            /* Cada if possui uma div dessas que é um campo de comparação, o assunto está descrito na tag label. Nesse caso é a comparação dos produtos */
                             <div className={`${resultado.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
                                 <label>Produto</label>
                                 <input type="text" value={dadosRelatorio.pedido.Produto} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.Produto} readOnly/>
@@ -174,7 +180,8 @@ function RelatorioFinal() {
                         )
                     }
                 })}
-            
+
+                {/* Sessão de comparação da Análise Quantitativa */}
                 <h2>Conferência Quantitativa</h2>
                 <h3>Dados da Nota Fiscal</h3> <h3>Dados da análise</h3>
                     {dadosRelatorio.RegrasAnalises.map((regra, index) => {
@@ -189,6 +196,7 @@ function RelatorioFinal() {
                             }
                         })}
                 
+                {/* Sessão de comparação da Análise Qualitativa */}
                 <h2>Conferência Qualitativa</h2>
                 <h3>Regra de Recebimento</h3> <h3>Dados da análise</h3>
                 {dadosRelatorio.Resultados.map((resultado, index) => {
@@ -232,6 +240,8 @@ function RelatorioFinal() {
                             )
                         }
                     })}
+
+                    {/* Exibe a decisão do sistema quanto ao pedido e os botões necessários pra cada uma delas*/}
                     {resultadoFinal === true &&
                         <>
                             <div>
@@ -249,6 +259,8 @@ function RelatorioFinal() {
                             </div> 
                             <div>
                                 <button onClick={(e) => navigateTo('listaPedidos')}>Outros pedidos</button>
+
+                                {/* Somente o Administrador e os Gerentes podem forçar o aceite em caso de recusa */}
                                 {(funcao === 'Administrador' || funcao === 'Gerente') &&
                                     <>
                                         <button>Forçar aceite</button>

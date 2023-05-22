@@ -6,11 +6,18 @@ import comparaDados from "./comparaDadosRelatorio.js"
 
 
 export default function trataRelatorioFinal(dadosRelatorio:any, regrasAnalise:any, analiseQuantitativa:any){
+
+    function formatarData(data:Date){
+        const dia = String(data.getDate()).padStart(2, '0')
+        const mes = String(data.getMonth() + 1).padStart(2, '0')
+        const ano = data.getFullYear()
+        return `${dia}/${mes}/${ano}`
+    }
     
-    dadosRelatorio.ped_data_entrega = dadosRelatorio.ped_data_entrega.toString().slice(0, 10)
-    dadosRelatorio.ped_data_pedido = dadosRelatorio.ped_data_pedido.toString().slice(0, 10)
-    dadosRelatorio.nf_data_emissao = dadosRelatorio.nf_data_emissao.toString().slice(0, 10)
-    dadosRelatorio.nf_data_entrega = dadosRelatorio.nf_data_entrega.toString().slice(0, 10)
+    dadosRelatorio.ped_data_entrega = formatarData(dadosRelatorio.ped_data_entrega)
+    dadosRelatorio.ped_data_pedido = formatarData(dadosRelatorio.ped_data_pedido)
+    dadosRelatorio.nf_data_emissao = formatarData(dadosRelatorio.nf_data_emissao)
+    dadosRelatorio.nf_data_entrega = formatarData(dadosRelatorio.nf_data_entrega)
 
     let resultado:ComparacaoRelatorioFinal[] = comparaDados(dadosRelatorio, regrasAnalise, analiseQuantitativa)
 
