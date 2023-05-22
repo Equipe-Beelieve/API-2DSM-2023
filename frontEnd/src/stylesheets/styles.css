@@ -837,7 +837,7 @@ p.solid {
   font-size: large;
 }
 
-.lista_button:focus {
+.lista_button.active {
   background: #3e813b;
   color: white;
 }
