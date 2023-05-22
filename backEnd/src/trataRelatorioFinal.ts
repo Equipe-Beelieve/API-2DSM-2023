@@ -39,6 +39,11 @@ export default function trataRelatorioFinal(dadosRelatorio:any, regrasAnalise:an
             })
         }
     })
+    regras.push({
+        tipo:analiseQuantitativa.regra_tipo,
+        valor:analiseQuantitativa.regra_valor,
+        regra:dadosRelatorio.nf_produto_massa
+    })
 
     let relatorioFinal:RelatorioFinal = {
         pedido:{
