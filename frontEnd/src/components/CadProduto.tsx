@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import api from '../services/api'
 import NavBar from './NavBar'
-import { Link, redirect, useNavigate } from 'react-router-dom'
+import { Link, redirect, useNavigate, useParams } from 'react-router-dom'
 import verificaLogado from '../funcoes/verificaLogado'
 import ListaProdutos from './ListaProdutos'
 import { toast } from 'react-toastify'
 import lixeira from '../images/lixeira.png'
+import { DefaultDeserializer } from 'v8'
 
 interface Regra {
     tipo: string,
@@ -21,6 +22,7 @@ function CadProduto() {
     // { tipo: 'Avaria', valor: 'Não deve haver', obrigatoriedade: true }])
     const [regras, setRegras] = useState<Regra[]>([{ tipo: 'Avaria', valor: 'Não deve haver'}])
     const [render, setRender] = useState(0)
+    const { id } = useParams()
 
 
     const navigate = useNavigate()
@@ -151,7 +153,16 @@ function CadProduto() {
     //     setRender(render + 1)
     //     console.log(regras[id].obrigatoriedade)
     // }
-
+    //=============== Edição do produto ===================
+    async function resgataValores(){
+        await api.post('/resgataValoresProduto', {id: id}).then((resposta) => {
+            console.log(resposta.data)
+            let dado = resposta.data
+            setDescricao(dado.descricao)
+            setUnidadeMedida(dado.unidadeMedida)
+            setRegras(dado.regras)
+        })
+    }
     function redirecionarProduto() {
         navigate('/listaProdutos')
     }
@@ -259,6 +270,11 @@ function CadProduto() {
         }
         veLogado()
     }, [render, regras])
+    useEffect(() => {
+        if(id){
+            resgataValores()
+        }
+    }, [])
 
     //======================== Submit ========================
 
@@ -317,11 +333,7 @@ function CadProduto() {
                 })
 
             }
-        }
-
-
-
-
+        }       
         //dados de teste/modelo dos dados de inserção de regra de recebimento
         /* const regrasRecebimento = [{tipo: 'umidade', valor:'<10%', obrigatoriedade:'sim'}, 
         {tipo: 'avarias', valor:'não deve haver', obrigatoriedade:'não'}, 
