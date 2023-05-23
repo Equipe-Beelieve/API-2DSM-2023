@@ -179,9 +179,11 @@ function ListaPedidos(){
         <div className="mainContent">
             <div className="state">
                 {/* aqui o código confere se o botão de filtro clicado já estava ativo e passa uma string vazia (desativa o filtro), se for o caso */}
-                <button className='lista_button' onClick = {(evento) => setFiltroStatus(filtroStatus === 'A caminho' ? '' : 'A caminho') }>A caminho</button> 
-                <button className='lista_button' onClick = {(evento) => setFiltroStatus(filtroStatus === 'Em análise' ? '' : 'Em análise')}>Em análise</button>
-                <button className='lista_button' onClick = {(evento) => setFiltroStatus(filtroStatus === 'Finalizado' ? '' : 'Finalizado')}>Finalizado</button>
+                <button className={`lista_button ${filtroStatus === 'A caminho' ? 'active' : ''}`}
+                onClick={(evento) => setFiltroStatus(filtroStatus === 'A caminho' ? '' : 'A caminho')}>A caminho</button>
+                <button className={`lista_button ${filtroStatus === 'Em análise' ? 'active': ''}`} 
+                onClick = {(evento) => setFiltroStatus(filtroStatus === 'Em análise' ? '' : 'Em análise')}>Em análise</button>
+                <button className={`lista_button ${filtroStatus === 'Finalizado' ? 'active' : ''}`} onClick = {(evento) => setFiltroStatus(filtroStatus === 'Finalizado' ? '' : 'Finalizado')}>Finalizado</button>
                 {(funcao === 'Administrador' || funcao === 'Gerente') &&
                 <button id="register">
                     <Link to={'/cadastroPedido'} id='linkBotaoCadastro'>

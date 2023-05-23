@@ -18,7 +18,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'root', //sua senha
+                password: 'fatec', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -435,11 +435,15 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         let [dadosRecebimento] = await this.conexao.query(`SELECT p.ped_razao_social, p.ped_transportadora, p.ped_tipo_frete, p.ped_produto_massa, p.ped_descricao, p.ped_valor_unidade, p.ped_valor_total, p.ped_data_entrega, p.ped_data_pedido, p.ped_condicao_pagamento, 
         nf.nf_razao_social, nf.nf_data_emissao, nf.nf_data_entrega, nf.nf_transportadora, nf.nf_produto_massa, nf.nf_tipo_frete, nf.nf_produto_descricao, nf.nf_laudo, nf.nf_valor_total, nf.nf_valor_unidade, nf.nf_condicao_pagamento, nf.nf_unidade FROM pedido p, nota_fiscal nf
         WHERE p.ped_codigo = ${id} and p.ped_codigo = nf.ped_codigo`) as Array<any>
+        await this.conexao.end()
+        await this.conectar()
         let [regraAnalise] = await this.conexao.query(`SELECT p.regra_tipo, p.regra_valor, r.reg_valor as regra, a.av_comentario
         FROM produto prod, parametros_do_pedido p 
         LEFT JOIN avaria_comentario a ON p.par_codigo = a.par_codigo
         LEFT JOIN regras_de_recebimento r ON p.reg_codigo = r.reg_codigo
         WHERE p.ped_codigo = ${id} and p.prod_codigo = prod.prod_codigo and prod.prod_codigo = r.prod_codigo`) as Array<any>
+        await this.conexao.end()
+        await this.conectar()
         let [analiseQuantitativa] = await this.conexao.query(`SELECT regra_tipo, regra_valor FROM parametros_do_pedido WHERE ped_codigo = ${id}`) as Array<any>
         await this.conexao.end()
         console.log(dadosRecebimento[0])
