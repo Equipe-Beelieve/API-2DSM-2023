@@ -230,7 +230,7 @@ function RelatorioFinal() {
                                    
                                 </div>
                             )
-                        } else {
+                        } else if(regra.tipo !== 'Personalizada' && regra.tipo !== 'Avaria' && regra.tipo !== 'Análise Quantitativa'){
                             const resultadoAnalise = dadosRelatorio.Resultados.find((resultado) => resultado.comparacao === `Regra qualitativa | ${regra.tipo} | ${regra.regra}`)
                             return(
                                 <div className={`${resultadoAnalise?.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
@@ -263,7 +263,7 @@ function RelatorioFinal() {
                                 {/* Somente o Administrador e os Gerentes podem forçar o aceite em caso de recusa */}
                                 {(funcao === 'Administrador' || funcao === 'Gerente') &&
                                     <>
-                                        <button>Forçar aceite</button>
+                                        <button onClick={(e) => setResultadoFinal(true)}>Forçar aceite</button>
                                     </>
                                 } 
                             </div>
