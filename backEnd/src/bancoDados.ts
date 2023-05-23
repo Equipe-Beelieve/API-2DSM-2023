@@ -175,9 +175,9 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         return prod_cod
     }
 
-    async inserirRegrasRecebimento(tipo_regra:string, valor:string, obrigatoriedade:boolean, codigo_produto:number) {
+    async inserirRegrasRecebimento(tipo_regra:string, valor:string, codigo_produto:number) {
         await this.conectar()
-        await this.conexao.query('INSERT INTO regras_de_recebimento(reg_tipo, reg_valor, reg_obrigatoriedade, prod_codigo) VALUES(?, ?, ?, ?)', [tipo_regra, valor, obrigatoriedade, codigo_produto])
+        await this.conexao.query('INSERT INTO regras_de_recebimento(reg_tipo, reg_valor, prod_codigo) VALUES(?, ?, ?)', [tipo_regra, valor, codigo_produto])
         await this.conexao.end()
     }
 
@@ -254,6 +254,22 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         const [pedido] = dado.map((linha:any) => new Pedido(linha.ped_descricao, linha.ped_data_pedido, linha.ped_data_entrega, linha.ped_razao_social, linha.ped_valor_unidade, linha.ped_produto_massa, linha.ped_valor_total, linha.ped_tipo_frete, linha.ped_transportadora, linha.ped_condicao_pagamento))
         return pedido
     }
+
+    async pegaProduto(id:string){
+        await this.conectar()
+        let [produto] = await this.conexao.query(`Select prod_descricao, prod_unidade_medida FROM produto WHERE prod_codigo = ${id}`) as Array<any>
+        await this.conexao.end()
+        await this.conectar()
+        let [regras] = await this.conexao.query(`Select reg_tipo as tipo, reg_valor as valor FROM regras_de_recebimento WHERE prod_codigo = ${id}`) as Array<any>
+        await this.conexao.end()
+        produto = {
+            descricao: produto[0].prod_descricao,
+            unidadeMedida: produto[0].prod_unidade_medida,
+            regras: regras
+        }
+        return produto
+    }
+
 
     async pegaRegraRecebimento(id:string) {
         await this.conectar()

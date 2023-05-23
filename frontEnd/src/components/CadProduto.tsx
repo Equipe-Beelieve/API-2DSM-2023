@@ -10,16 +10,16 @@ import lixeira from '../images/lixeira.png'
 interface Regra {
     tipo: string,
     valor: string,
-    obrigatoriedade: boolean
+    // obrigatoriedade: boolean
 }
 
 function CadProduto() {
 
     const [descricao, setDescricao] = useState('')
     const [unidadeMedida, setUnidadeMedida] = useState('')
-    const [regras, setRegras] = useState<Regra[]>([{ tipo: 'Mínimo de conformidade', valor: '', obrigatoriedade: true },
-    { tipo: 'Avaria', valor: 'Não deve haver', obrigatoriedade: true }])
-
+    // const [regras, setRegras] = useState<Regra[]>([{ tipo: 'Mínimo de conformidade', valor: '', obrigatoriedade: true },
+    // { tipo: 'Avaria', valor: 'Não deve haver', obrigatoriedade: true }])
+    const [regras, setRegras] = useState<Regra[]>([{ tipo: 'Avaria', valor: 'Não deve haver'}])
     const [render, setRender] = useState(0)
 
 
@@ -29,7 +29,8 @@ function CadProduto() {
 
     function addRegra() {
         let regra = regras
-        regra.push({ tipo: '', valor: '', obrigatoriedade: false })
+        // regra.push({ tipo: '', valor: '', obrigatoriedade: false })
+        regra.push({ tipo: '', valor: ''})
         setRegras(regra)
         console.log(regras)
         setRender(render + 1)
@@ -81,7 +82,7 @@ function CadProduto() {
 
 
                                 <label>Obrigatoriedade:</label>
-                                <input type="checkbox" checked={regras[id].obrigatoriedade} onChange={(e) => { mudaObrigatoriedade(e, id) }} />
+                                {/* <input type="checkbox" checked={regras[id].obrigatoriedade} onChange={(e) => { mudaObrigatoriedade(e, id) }} /> */}
 
                             </div>
                         }
@@ -137,19 +138,19 @@ function CadProduto() {
         console.log(regras[id].valor)
     }
 
-    function mudaObrigatoriedade(e: any, id: number) {
-        let regra = regras
-        console.log(e.target.checked)
-        if (e.target.checked === true) {
-            regra[id].obrigatoriedade = true
-        }
-        else {
-            regra[id].obrigatoriedade = false
-        }
-        setRegras(regra)
-        setRender(render + 1)
-        console.log(regras[id].obrigatoriedade)
-    }
+    // function mudaObrigatoriedade(e: any, id: number) {
+    //     let regra = regras
+    //     console.log(e.target.checked)
+    //     if (e.target.checked === true) {
+    //         regra[id].obrigatoriedade = true
+    //     }
+    //     else {
+    //         regra[id].obrigatoriedade = false
+    //     }
+    //     setRegras(regra)
+    //     setRender(render + 1)
+    //     console.log(regras[id].obrigatoriedade)
+    // }
 
     function redirecionarProduto() {
         navigate('/listaProdutos')
@@ -389,7 +390,7 @@ function CadProduto() {
 
                         {regras.map((valor, id) =>
                             <>
-                                {id === 0 &&
+                                {/* {id === 0 &&
                                     <>
                                     <div className='minimo'>
                                         
@@ -416,8 +417,8 @@ function CadProduto() {
                                         
                                         <br /><br />
                                     </div></>
-                                }
-                                {id === 1 &&
+                                } */}
+                                {id === 0 &&
                                     <div className='minimo'>
                                         <div className='flexCheckbox'>
                                             <label className='tipo-regra'>Tipo de Regra:</label>
@@ -427,18 +428,18 @@ function CadProduto() {
                                             </select>
                                         </div>
                                         <div className='flexCheckbox'>
-                                            <label className='limitacao'>Limitação:</label>
+                                            <label className='limitacao'>Regra:</label>
                                             <input className='input_formLimit' type="text" value={regras[id].valor} readOnly />
                                         </div>
-                                        <div className='flexCheckbox'>
+                                        {/* <div className='flexCheckbox'>
                                             <label className='obrigacao'>Obrigatória:</label>
                                             <input type="checkbox" className='checkboxzin' checked={regras[id].obrigatoriedade} disabled />
-                                        </div>
+                                        </div> */}
                                         
                                         <br /><br />
                                     </div>
                                 }
-                                {id > 1 &&
+                                {id > 0 &&
                                     <div className='minimo'>
                                         
                                         <img src={lixeira} alt="Lixo" className='lixeira' onClick={() => deleteRegra(id)} />
@@ -455,38 +456,38 @@ function CadProduto() {
                                         </div>
                                         
                                         <div className='flexCheckbox'>
-                                            <label className='limitacao'>Limitacao:</label>
+                                            <label className='limitacao'>Regra:</label>
                                             {regras[id].tipo === "Umidade" &&
                                                 <input className='input_formLimit' type='text'
                                                     value={regras[id].valor}
                                                     onChange={(e) => { mudaParametro(e, id) }}
                                                     onBlur={(e) => { blurUmidade(e, id) }}
-                                                    onSelect={(e) => { selectUmidade(e, id) }} />
+                                                    onSelect={(e) => { selectUmidade(e, id) }} placeholder='Insira um número'/>
                                             }
                                             {regras[id].tipo === "Pureza" &&
                                                 <input className='input_formLimit' type='text'
                                                     value={regras[id].valor}
                                                     onChange={(e) => { mudaParametro(e, id) }}
                                                     onBlur={(e) => { blurPureza(e, id) }}
-                                                    onSelect={(e) => { selectPureza(e, id) }} />
+                                                    onSelect={(e) => { selectPureza(e, id) }} placeholder='Insira um número'/>
                                             }
                                             {regras[id].tipo === "Personalizada" &&
                                                 <input className='input_formLimit' type='text'
                                                     value={regras[id].valor}
-                                                    onChange={(e) => { mudaParametro(e, id) }} />
+                                                    onChange={(e) => { mudaParametro(e, id) }} placeholder='Digite a regra'/>
                                             }
                                             {regras[id].tipo === '' &&
                                                 <input className='input_formLimit' type='text'
                                                     value={regras[id].valor}
-                                                    onChange={(e) => { mudaParametro(e, id) }} />
+                                                    onChange={(e) => { mudaParametro(e, id) }} placeholder='Escolha um tipo antes'/>
                                             }
                                         </div>
                                         
 
-                                        <div className='flexCheckbox'>
+                                        {/* <div className='flexCheckbox'>
                                             <label className='obrigacao'>Obrigatória:</label>
                                             <input type="checkbox" className='checkboxzin' checked={regras[id].obrigatoriedade} onChange={(e) => { mudaObrigatoriedade(e, id) }} />
-                                        </div>
+                                        </div> */}
 
                                         
                                         

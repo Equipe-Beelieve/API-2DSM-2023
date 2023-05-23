@@ -163,7 +163,9 @@ app.post('/cadastroUsuario', async (req,res) => {
 //========================= Cadastro de Produtos =========================
 app.post('/cadastroProduto', async (req, res) => {
     let regrasRecebimento = req.body.post.regras
-    console.log(req.body.post.regras)
+    console.log('=========================================')
+    console.log(req.body)
+    console.log('=========================================')
     let descricao = req.body.post.descricao
     let unidadeMedida = req.body.post.unidadeMedida
     console.log(regrasRecebimento)
@@ -172,8 +174,8 @@ app.post('/cadastroProduto', async (req, res) => {
     regrasRecebimento.forEach(async (regra:Regra) => {
         const tipoRegra = regra.tipo
         const descricaoRegra = regra.valor
-        const obrigatoriedade = regra.obrigatoriedade
-        await bd.inserirRegrasRecebimento(tipoRegra,  descricaoRegra, obrigatoriedade,  codigoProduto)
+        // const obrigatoriedade = regra.obrigatoriedade
+        await bd.inserirRegrasRecebimento(tipoRegra,  descricaoRegra,  codigoProduto)
     });
     res.send('Foi')
     
@@ -198,6 +200,17 @@ app.post('/updateUsuario', async(req, res) => {
     res.status(201).send(`Requisição recebida com sucesso! ${id}`);
 })
 
+//========================= Update de Produto =========================
+
+app.post('/resgataValoresProduto', async(req,res) => {
+    let id = req.body.id
+    let produto = await bd.pegaProduto(id)
+    res.send(produto)
+})
+
+app.post('/updateProduto', async(req,res)=>{
+
+})
 
 //================================== Rotas de Listagem ==================================
 //========================= Listagem de Pedidos =========================
