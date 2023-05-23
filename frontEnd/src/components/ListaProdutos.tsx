@@ -93,7 +93,7 @@ function ListaProdutos(){
                 onKeyUp= {(evento) => atualizarBusca(busca)} />
             </div>
             {produtosBuscados.map((produto, index)=>(
-                    <div className = "listaIn" key = {index}>
+                    <div className = "listaIn" id = 'clicavel' key = {index} onClick ={() => (navegate(`/cadastroProduto/${produto.prod_codigo}`))}>
                         <h1>
                             Produto nº{produto.prod_codigo}
                         </h1>
