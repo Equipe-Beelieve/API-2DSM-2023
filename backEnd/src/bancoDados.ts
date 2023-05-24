@@ -21,7 +21,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: '', //sua senha
+                password: 'root', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -499,7 +499,8 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             WHERE p.ped_codigo = ${id} and p.ped_codigo = nf.ped_codigo`) as Array<any>
             await this.conexao.end()
             await this.conectar()
-            let [regraAnalise] = await this.conexao.query(`SELECT h.historico_tipo, h.historico_regra, h.historico_analise, h.historico_resultado, hav.historico_avaria_comentario FROM historico_analise h LEFT JOIN historico_avaria hav ON h.historico_codigo = hav.historico_codigo and h.ped_codigo = ${id}`) as Array<any>
+            console.log(`SELECT h.historico_tipo, h.historico_regra, h.historico_analise, h.historico_resultado, hav.historico_avaria_comentario FROM historico_analise h LEFT JOIN historico_avaria hav ON h.historico_codigo = hav.historico_codigo and h.ped_codigo = ${id} WHERE h.ped_codigo = ${id}`)
+            let [regraAnalise] = await this.conexao.query(`SELECT h.historico_tipo, h.historico_regra, h.historico_analise, h.historico_resultado, hav.historico_avaria_comentario FROM historico_analise h LEFT JOIN historico_avaria hav ON h.historico_codigo = hav.historico_codigo and h.ped_codigo = ${id} WHERE h.ped_codigo = ${id}`) as Array<any>
             await this.conexao.end()
             let analise:Array<RegrasAnalises> = []
             regraAnalise.forEach((regra:any)=>{

@@ -212,9 +212,9 @@ export default function comparaDados(dadosRelatorio:any, regrasAnalise:any){
 
 
         if(analise.historico_tipo === 'Pureza'){
-            if(analise.regra && analise.regra_valor){
-                let regra = parseFloat(analise.regra.slice(1, -1))
-                let valor = parseFloat(analise.regra_valor.slice(0, -1))
+            if(analise.historico_regra && analise.historico_analise){
+                let regra = parseFloat(analise.historico_regra.slice(1, -1))
+                let valor = parseFloat(analise.historico_analise.slice(0, -1))
                 if(valor>regra){
                     comparacoes.push({
                         comparacao:`Regra qualitativa | ${analise.historico_tipo} | ${analise.historico_regra}`,
@@ -230,9 +230,9 @@ export default function comparaDados(dadosRelatorio:any, regrasAnalise:any){
             }    
         }
         else if(analise.historico_tipo === 'Umidade'){
-            if(analise.regra && analise.regra_valor){
-                let regra = parseFloat(analise.regra.slice(1, -1))
-                let valor = parseFloat(analise.regra_valor.slice(0, -1))
+            if(analise.historico_regra && analise.historico_analise){
+                let regra = parseFloat(analise.historico_regra.slice(1, -1))
+                let valor = parseFloat(analise.historico_analise.slice(0, -1))
                 if(valor<regra){
                     comparacoes.push({
                         comparacao:`Regra qualitativa | ${analise.historico_tipo} | ${analise.historico_regra}`,
