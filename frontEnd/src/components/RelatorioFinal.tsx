@@ -53,6 +53,7 @@ function RelatorioFinal() {
     const [funcao, setFuncao] = useState('')
     const navigate = useNavigate()
     const {id} = useParams()
+    const [controleRender, setControleRender] = useState(false)
 
     async function getDadosRelatorio(){
         try {
@@ -88,8 +89,15 @@ function RelatorioFinal() {
             }
         }
         veLogado()
-        getDadosRelatorio()
+        
+        setControleRender(true)
     }, [])
+
+    useEffect(() => {
+        if(controleRender){
+            getDadosRelatorio()
+        }
+    }, [controleRender])
 
     return(
         <>

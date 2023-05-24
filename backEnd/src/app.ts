@@ -11,6 +11,7 @@ import Produto from "./Produto.js";
 import NotaFiscal from "./NotaFiscal.js";
 import AnaliseQualitativa from "./Analisequalitativa.js";
 import Regra from "./RegraRecebimento.js";
+import RegrasAnalises from "./RegrasAnalises.js";
 
 declare module 'express-session' {
     export interface SessionData {
@@ -209,7 +210,13 @@ app.post('/resgataValoresProduto', async(req,res) => {
 })
 
 app.post('/updateProduto', async(req,res)=>{
-
+    console.log(req.body)
+    let id = req.body.id
+    let regrasRecebimento = req.body.regras
+    let descricao = req.body.descricao
+    let unidadeMedida = req.body.unidadeMedida
+    bd.updateProduto(id, descricao, unidadeMedida, regrasRecebimento)
+    res.send('foi')
 })
 
 //================================== Rotas de Listagem ==================================
@@ -438,7 +445,13 @@ app.post('/updateQualitativa', async (req, res) =>{
 
 app.post('/relatorioFinal', async(req,res) => {
     let id = req.body.id
-    let relatorioFinal = await bd.pegaDadosRelatorioFinal(id)
+    let status = await bd.pegaStatus(id)
+    let relatorioFinal = await bd.pegaDadosRelatorioFinal(id, status);
+    if(status !== 'Recusado' && status !== 'Aceito'){
+        relatorioFinal.RegrasAnalises.forEach(async(regra:RegrasAnalises)=>{
+            await bd.guardaResultadoAnalise(regra, id)
+        })
+    }
     res.send(relatorioFinal)
 })
 

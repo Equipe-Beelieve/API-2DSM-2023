@@ -211,7 +211,7 @@ function ListaPedidos(){
                                 <hr className='hr_pedido' />
                                 <p>Revisão:</p>
                                 <center>
-                                {pedido.ped_status === 'Finalizado' &&
+                                {(pedido.ped_status === 'Recusado' || pedido.ped_status === 'Aceito') &&
                                     <>
                                     <button type='button' className='ped_btn' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Cadastro do Pedido</button>
                                     <button type='button' className='ped_btn' onClick={() => { navegate(`/recebePedido/${pedido.ped_codigo}`); } }>Nota Fiscal</button>
