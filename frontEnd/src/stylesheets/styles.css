@@ -470,7 +470,6 @@ p.solid {
 }
 
 .box3 .minimo .limitacao {
-
   font-weight: bold;
 }
 
@@ -486,7 +485,6 @@ p.solid {
 }
 
 .box3 .minimo .obrigacao {
-
   font-weight: bold;
 }
 
@@ -500,7 +498,6 @@ p.solid {
 }
 
 .tipo-regra {
-
   font-weight: bold;
 }
 
@@ -687,6 +684,7 @@ p.solid {
   text-align: center;
   padding: 6px;
   border-color: transparent;
+  margin-left: 1vw;
 }
 
 .laudo .regra-valor {
@@ -696,7 +694,6 @@ p.solid {
   text-align: center;
   border-color: transparent;
   padding: 6px;
-
 }
 
 .laudo .checkbox {
@@ -799,7 +796,6 @@ p.solid {
 }
 
 .laudo .checkbox {
-
   outline-color: #000000;
   accent-color: #000000;
 }
@@ -895,9 +891,6 @@ p.solid {
   border-radius: 20px;
   border-color: transparent;
   width: 150px;
-  /* margin-top: 2vh;
-   margin-right:3vw; */
-
 }
 
 .cancel_button3 a,
@@ -911,12 +904,7 @@ p.solid {
   margin-top: 10vw;
 }
 
-/* .pesquisa {
-  margin: auto;
-  width: 70%;
-  padding: 10px;
-  
-} */
+
 .termo-pesquisa {
   width: 65vw;
   border: 3px solid gray;
@@ -970,9 +958,6 @@ p.solid {
 .addRegras {
   background: transparent;
   border: none;
-  /* border-top: none;
-  border-left: none;
-  border-right: none; */
   font-weight: bold;
   font-size: 0.8em;
   margin-bottom: 3vh;
@@ -998,7 +983,6 @@ p.solid {
   opacity: 1;
   cursor: pointer;
   width: 15px;
-  /* background-color: #FFEF78; */
   border: none;
 }
 
@@ -1042,7 +1026,6 @@ p.solid {
 
 .shadow {
   box-shadow: 2px 4px 1px 1px #00000000;
-
 }
 
 .testeaDireita {
@@ -1180,4 +1163,15 @@ p.solid {
 
 .boxFinalReportRed {
   background-color: red;
+}
+
+/* Responsividade tela 1366 x 768 */
+@media screen and (max-width: 1366px) {
+  .anaq1{
+    width: 35vw;
+  }
+  
+  .anaq2{
+    width: 19vw;
+  }
 }
