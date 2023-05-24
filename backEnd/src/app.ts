@@ -188,17 +188,37 @@ app.post('/resgataValoresUsuario',async (req, res) => {
     let id = req.body.id
     //console.log('id: ', id)
     let usuario = await bd.pegaUsuario(id)
-    console.log('DADO: ', usuario)
+    //console.log('user: ', usuario)
     res.status(201).send(usuario)
 })
 app.post('/updateUsuario', async(req, res) => {
     let id = req.body.post.idUsuario
-    console.log('id: ', id)
-    let body = req.body.post
-    let usuario = new Usuario(body.nome, body.senha, body.funcao, body.login)
-    await bd.updateUsuario(usuario, id)
-    console.log(usuario, id)
-    res.status(201).send(`Requisição recebida com sucesso! ${id}`);
+    //console.log('id: ', id)
+    let updateUsuario = req.body.post
+    let funcaoUsuario = await bd.pegaUsuario(id)
+    let quantidadeFuncaoAdministrador = await bd.quantidadeFuncaoAdministrador()
+    //console.log('pega usuario: ', funcaoUsuario)
+    //console.log('us_funcao', funcaoUsuario['us_funcao'])
+    //console.log('ad: ', quantidadeFuncaoAdministrador["COUNT('us_funcao')"])
+    if(funcaoUsuario['us_funcao'] == 'Administrador'){
+        if(quantidadeFuncaoAdministrador["COUNT('us_funcao')"] > 1){
+            let usuario = new Usuario(updateUsuario.nome, updateUsuario.senha, updateUsuario.funcao, updateUsuario.login)
+            await bd.updateUsuario(usuario, id)
+            console.log(usuario, id)
+            res.status(200).redirect('/loggout');
+        } else {
+            let usuario = new Usuario(updateUsuario.nome, updateUsuario.senha, 'Administrador', updateUsuario.login)
+            await bd.updateUsuario(usuario, id)
+            console.log('user adm: ', usuario, id)
+            res.status(200).send(`Requisição recebida com sucesso! ${id}`);
+        }
+    }
+     else{
+        let usuario = new Usuario(updateUsuario.nome, updateUsuario.senha, updateUsuario.funcao, updateUsuario.login)
+        await bd.updateUsuario(usuario, id)
+        console.log(usuario, id)
+        res.status(200).send(`Requisição recebida com sucesso! ${id}`);
+    }
 })
 
 //========================= Update de Produto =========================

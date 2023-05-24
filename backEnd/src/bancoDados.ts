@@ -21,7 +21,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'Meusequel@d0', //sua senha
+                password: '', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -442,9 +442,18 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         return usuario[0]
     }
 
+    async quantidadeFuncaoAdministrador(){
+        await this.conectar()
+        let [quantidadeFuncaoAdministrador, meta]:any = await this.conexao.query(`SELECT COUNT('us_funcao') from usuario WHERE us_funcao = 'Administrador'`)
+        await this.conexao.end()
+        //console.log('ADM: ', quantidadeFuncaoAdministrador[0])
+        return quantidadeFuncaoAdministrador[0]
+    }
+
     async updateUsuario(usuario:Usuario, id: number){
         await this.conectar()
         await this.conexao.query(`UPDATE usuario SET us_nome = '${usuario['nome']}', us_senha = '${usuario['senha']}', us_funcao = '${usuario['funcao']}', us_login = '${usuario['login']}' WHERE us_matricula = '${id}'`)
+        await this.conexao.end()
     }
 
 //===================== Deletes =====================
