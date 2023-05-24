@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `api` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLL
 USE `api`;
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: localhost    Database: api
+-- Host: 127.0.0.1    Database: api
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -28,12 +28,11 @@ CREATE TABLE `regras_de_recebimento` (
   `reg_codigo` int NOT NULL AUTO_INCREMENT,
   `reg_tipo` varchar(50) DEFAULT NULL,
   `reg_valor` varchar(100) DEFAULT NULL,
-  `reg_obrigatoriedade` varchar(3) DEFAULT NULL,
   `prod_codigo` int NOT NULL,
   PRIMARY KEY (`reg_codigo`),
   KEY `fk_produto_codigo` (`prod_codigo`),
   CONSTRAINT `fk_produto_codigo` FOREIGN KEY (`prod_codigo`) REFERENCES `produto` (`prod_codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +41,7 @@ CREATE TABLE `regras_de_recebimento` (
 
 LOCK TABLES `regras_de_recebimento` WRITE;
 /*!40000 ALTER TABLE `regras_de_recebimento` DISABLE KEYS */;
+INSERT INTO `regras_de_recebimento` VALUES (1,'Avaria','Não deve haver',1),(2,'Umidade','<12%',1),(3,'Pureza','>90%',1),(4,'Personalizada','Cor deve ser amarelo',1),(5,'Avaria','Não deve haver',2),(6,'Umidade','<15%',2),(7,'Pureza','>90%',2),(8,'Personalizada','Cor deve ser verde',2);
 /*!40000 ALTER TABLE `regras_de_recebimento` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-03 17:51:01
+-- Dump completed on 2023-05-24 15:00:07
