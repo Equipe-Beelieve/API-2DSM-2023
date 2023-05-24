@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `api` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLL
 USE `api`;
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: localhost    Database: api
+-- Host: 127.0.0.1    Database: api
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -28,7 +28,6 @@ CREATE TABLE `regras_de_recebimento` (
   `reg_codigo` int NOT NULL AUTO_INCREMENT,
   `reg_tipo` varchar(50) DEFAULT NULL,
   `reg_valor` varchar(100) DEFAULT NULL,
-  `reg_obrigatoriedade` varchar(3) DEFAULT NULL,
   `prod_codigo` int NOT NULL,
   PRIMARY KEY (`reg_codigo`),
   KEY `fk_produto_codigo` (`prod_codigo`),
@@ -54,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-03 17:51:01
+-- Dump completed on 2023-05-24 15:00:07

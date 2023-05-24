@@ -11,6 +11,7 @@ import Produto from "./Produto.js";
 import NotaFiscal from "./NotaFiscal.js";
 import AnaliseQualitativa from "./Analisequalitativa.js";
 import Regra from "./RegraRecebimento.js";
+import RegrasAnalises from "./RegrasAnalises.js";
 
 declare module 'express-session' {
     export interface SessionData {
@@ -229,7 +230,13 @@ app.post('/resgataValoresProduto', async(req,res) => {
 })
 
 app.post('/updateProduto', async(req,res)=>{
-
+    console.log(req.body)
+    let id = req.body.id
+    let regrasRecebimento = req.body.regras
+    let descricao = req.body.descricao
+    let unidadeMedida = req.body.unidadeMedida
+    bd.updateProduto(id, descricao, unidadeMedida, regrasRecebimento)
+    res.send('foi')
 })
 
 //================================== Rotas de Listagem ==================================
@@ -255,6 +262,13 @@ app.post('/deletePedido', async (req, res) => {
     await bd.deletePedido(post);
     console.log(post);
   });
+
+//========================= Deleta Fornecedor =========================
+app.post('/deletaFornecedor', async (req, res) => {
+    let id = req.body.id
+    await bd.deletaFornecedor(id)
+    res.send('foi')
+})
   
 //========================= Listagem de Fornecedores =========================
 app.get("/listaFornecedores", async (req, res) => {
@@ -282,13 +296,13 @@ app.post('/confereStatus', async (req, res) =>{
     let {id, acessando} = req.body
     let status = await bd.pegaStatus(id)
     console.log(acessando)
-    if (acessando === 'Nota Fiscal' && status !== 'A caminho' && status !== 'Finalizado'){
+    if (acessando === 'Nota Fiscal' && status !== 'A caminho' && status !== 'Finalizado' && status !== 'Aceito' && status !== 'Recusado'){
         let dados = await bd.pegaNf(id)
         dados['status'] = 'Edição'
         console.log(dados)
         res.send(dados)
     }
-    else if (acessando === 'Relatório de Compras' && status !== 'Finalizado'){
+    else if (acessando === 'Relatório de Compras' && status !== 'Finalizado' && status !== 'Aceito' && status !== 'Recusado'){
         if(status !== undefined){
             let dados = await bd.pegaRelatorioCompras(id)
             let editar:string
@@ -307,7 +321,7 @@ app.post('/confereStatus', async (req, res) =>{
         }
         
     }
-    else if (acessando === 'Análise Quantitativa' && status !== 'Análise Quantitativa' && status !== 'Finalizado'){
+    else if (acessando === 'Análise Quantitativa' && status !== 'Análise Quantitativa' && status !== 'Finalizado' && status !== 'Aceito' && status !== 'Recusado'){
         if(status !== 'A caminho'){
             let dados = await bd.pegaAnaliseQuantitativa(id)
             dados['status'] = 'Edição'
@@ -317,7 +331,7 @@ app.post('/confereStatus', async (req, res) =>{
             res.send({status:"não permitir"})
         }
     }
-    else if (acessando === 'Análise Qualitativa' && status !== 'Análise Qualitativa' && status !== 'Finalizado'){
+    else if (acessando === 'Análise Qualitativa' && status !== 'Análise Qualitativa' && status !== 'Finalizado' && status !== 'Aceito' && status !== 'Recusado'){
         if (status !== 'A caminho' && status !== 'Análise Quantitativa'){
             let analises = await bd.pegaAnaliseQualitativa(id)
             let laudo = await bd.pegaLaudoNF(id)
@@ -333,14 +347,15 @@ app.post('/confereStatus', async (req, res) =>{
         }
     }
     //else if (status !== 'Recusado' && status !== 'Aceito'){ DESCOMENTAR APÓS A IMPLEMENTAÇÃO DO RELATÓRIO FINAL
-    else if (status !== 'Finalizado'){
+    else if (status !== 'Finalizado' && status !== 'Aceito' && status !== 'Recusado'){
         res.send({status:"Primeira vez"})
     }
     else {
         if(acessando === 'Relatório de Compras'){
             let dados = await bd.pegaRelatorioCompras(id)
             dados['status'] = 'Revisão'
-            res.send(dados)
+            console.log(dados)
+            res.send({dados, editar:'Não permitir'})
         }
         else if(acessando === 'Nota Fiscal'){
             let dados = await await bd.pegaNf(id)
@@ -458,7 +473,13 @@ app.post('/updateQualitativa', async (req, res) =>{
 
 app.post('/relatorioFinal', async(req,res) => {
     let id = req.body.id
-    let relatorioFinal = await bd.pegaDadosRelatorioFinal(id)
+    let status = await bd.pegaStatus(id)
+    let relatorioFinal = await bd.pegaDadosRelatorioFinal(id, status);
+    if(status !== 'Recusado' && status !== 'Aceito'){
+        relatorioFinal.RegrasAnalises.forEach(async(regra:RegrasAnalises)=>{
+            await bd.guardaResultadoAnalise(regra, id)
+        })
+    }
     res.send(relatorioFinal)
 })
 

@@ -62,6 +62,10 @@ const router = createBrowserRouter([
         element: <CadFornecedor/>
       },
       {
+        path: "/cadastroFornecedor/:id",
+        element: <CadFornecedor/>
+      },
+      {
         path: "/listaUsuario",
         element: <ListaUsuario/>
       },

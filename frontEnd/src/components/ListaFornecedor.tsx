@@ -105,7 +105,7 @@ function ListaFornecedor() {
                         />
                 </div>
                 {fornecedoresBuscados.map((fornecedor, index) => (
-                    <div className="listaIn" key={index}>
+                    <div className="listaIn" key={index} id='clicavel' onClick={() => {navegate(`/cadastroFornecedor/${fornecedor.for_codigo}`)}}>
                         <h1>Fornecedor nº{fornecedor.for_codigo}</h1>
                         <div className="listColumns">
                             <div className="column1_for">

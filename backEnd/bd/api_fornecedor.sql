@@ -30,6 +30,7 @@ CREATE TABLE `fornecedor` (
   `end_codigo` int NOT NULL,
   `for_razao_social` varchar(50) DEFAULT NULL,
   `for_nome_fantasia` varchar(50) DEFAULT NULL,
+  `for_ativo` boolean NOT NULL DEFAULT 1,
   PRIMARY KEY (`for_codigo`),
   KEY `fk_endereço_fornecedor` (`end_codigo`),
   CONSTRAINT `fk_endereço_fornecedor` FOREIGN KEY (`end_codigo`) REFERENCES `endereco_fornecedor` (`end_codigo`)
@@ -42,7 +43,7 @@ CREATE TABLE `fornecedor` (
 
 LOCK TABLES `fornecedor` WRITE;
 /*!40000 ALTER TABLE `fornecedor` DISABLE KEYS */;
-INSERT INTO `fornecedor` VALUES (1,'12345678000199',1,'Teste LTDA','Fornecedor Teste');
+INSERT INTO `fornecedor` VALUES (1,'12345678000199',1,'Teste LTDA','Fornecedor Teste', 1);
 /*!40000 ALTER TABLE `fornecedor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

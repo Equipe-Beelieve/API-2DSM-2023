@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import api from '../services/api'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
 import { toast } from 'react-toastify';
+import lixeira from '../images/lixeira.png'
+import Swal from 'sweetalert2';
+
 
 function CadFornecedor() {
 
@@ -18,6 +21,8 @@ function CadFornecedor() {
     const [ruaAvenida, setRuaAvenida] = useState('')
     const [numero, setNumero] = useState('')
     const [controleCnpj, setControleCnpj] = useState(0)
+    const [editar, setEditar] = useState(false)
+    const {id} = useParams()
 
     const [logado, setLogado] = useState(Boolean)
 
@@ -181,6 +186,33 @@ function CadFornecedor() {
         setNumero('')
     }
 
+    //================== EDIÇÃO ======================
+    async function resgataValores(){
+        setEditar(true)
+    }
+
+    //============ DESATIVAR FORNECEDOR ==============
+    async function confirmarDelete(){
+        Swal.fire({
+            title: 'Excluir fornecedor?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#C0C0C0',
+            cancelButtonColor: '#3E813B',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Confirmar',
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              await deletaFornecedor()
+            }
+          })
+    }
+
+    async function deletaFornecedor(){
+        navegate('/listaFornecedor')
+        await api.post("/deletaFornecedor", {id})/* .then((reposta) => {navegate('/listaFornecedor')}) */
+    }
+
     //================== USE EFFECT ==================
 
     useEffect(()=>{
@@ -195,8 +227,13 @@ function CadFornecedor() {
             }
         }
         veLogado()
-        }, [])
+        }, [editar])
 
+        useEffect(()=>{
+            if(id){
+                resgataValores()
+            }
+            }, [])
 
     //================== REENDERIZAÇÃO ==================
 
@@ -204,9 +241,18 @@ function CadFornecedor() {
         <>
         <NavBar />
         <div className="divFornecedor">
-            <center>
-                <h1 className='mainTitle'>Cadastro de Fornecedores</h1>
-            </center>
+            <div className={`${editar === true? 'flexMainFornecedor' : ''}`}>
+                {editar &&
+                <>
+                <h1 className='mainTitle'>Edição de Fornecedor</h1>
+                <img src={lixeira} alt='Excluir fornecedor' id='clicavel' className='lixoFornecedor' onClick={() => confirmarDelete()}/>
+                </>
+                }   
+                {!editar && <h1 className='mainTitle'>Cadastro de Fornecedores</h1>}
+                
+            </div>
+            
+           
             
             <form>
                 <div className="grid-container poscentralized">

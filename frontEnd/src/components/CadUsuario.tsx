@@ -11,6 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 import trataCep from './CadFornecedor';
 import trataNumero from './CadFornecedor';
 import lixeira from '../images/lixeira.png'
+import Swal from 'sweetalert2';
+
 
 
 
@@ -97,6 +99,21 @@ function CadUsuario() {
     }
 
     //================== Deleta Usuario ==================
+    async function confirmarDelete(){
+        Swal.fire({
+            title: 'Excluir usuário?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#C0C0C0',
+            cancelButtonColor: '#3E813B',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Confirmar',
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              await deleteUsuario()
+            }
+          })
+    }
 
     async function deleteUsuario(){
         await api.post('/deletaUsuario', {id:id}).then((resposta) => {navegate('/listaUsuario')})
@@ -143,7 +160,7 @@ function CadUsuario() {
                     {editar && <h1 className='mainTitle'>Edição de Usuario</h1>}
                     {!editar && <h1 className='mainTitle'>Cadastro de Usuario</h1>}
                     {editar && funcaoInical !== 'Administrador' &&
-                        <img src={lixeira} id='clicavel' alt="Lixo" className='lixoUsuario' onClick={()=>{deleteUsuario()}} />
+                        <img src={lixeira} id='clicavel' alt="Lixo" className='lixoUsuario' onClick={()=>{confirmarDelete()}} />
                     }
                     {editar && !(funcaoInical !== 'Administrador') &&
                         <div className='blocoInvisivelUsuarioDireita'> </div>

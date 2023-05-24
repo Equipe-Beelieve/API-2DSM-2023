@@ -22,6 +22,7 @@ function CadProduto() {
     // { tipo: 'Avaria', valor: 'Não deve haver', obrigatoriedade: true }])
     const [regras, setRegras] = useState<Regra[]>([{ tipo: 'Avaria', valor: 'Não deve haver'}])
     const [render, setRender] = useState(0)
+    const [edicao, setEdicao] = useState(false)
     const { id } = useParams()
 
 
@@ -161,8 +162,17 @@ function CadProduto() {
             setDescricao(dado.descricao)
             setUnidadeMedida(dado.unidadeMedida)
             setRegras(dado.regras)
+            setEdicao(true)
         })
     }
+
+    async function edicaoProduto(){
+
+        await api.post('/updateProduto', {id:id, descricao:descricao, unidadeMedida:unidadeMedida, regras:regras}).then((resposta)=>{
+            navigate('/listaProdutos')
+        })
+    }
+
     function redirecionarProduto() {
         navigate('/listaProdutos')
     }
@@ -334,10 +344,6 @@ function CadProduto() {
 
             }
         }       
-        //dados de teste/modelo dos dados de inserção de regra de recebimento
-        /* const regrasRecebimento = [{tipo: 'umidade', valor:'<10%', obrigatoriedade:'sim'}, 
-        {tipo: 'avarias', valor:'não deve haver', obrigatoriedade:'não'}, 
-        {tipo: 'pureza', valor:'>=90%', obrigatoriedade:'sim'}] */
 
 
     }
@@ -347,7 +353,12 @@ function CadProduto() {
             <NavBar />
             <div className='divFornecedor'>
                 <form>
-                    <h1 className='mainTitle'>Cadastro de Produtos</h1>
+                    {edicao &&
+                        <h1 className='mainTitle'>Edição de Produtos</h1>
+                    }
+                    {!edicao &&
+                        <h1 className='mainTitle'>Cadastro de Produtos</h1>
+                    }
 
                     <div className="grid-container poscentralized">
                         <div className="box">
@@ -518,7 +529,12 @@ function CadProduto() {
                             <button className="cancel_button" onClick={redirecionarProduto}>Cancelar</button>
 
                         </div>
-                        <button className='confirm_button' type='button' onClick={cadastroProduto}>Cadastrar</button>
+                        {!edicao &&
+                            <button className='confirm_button' type='button' onClick={cadastroProduto}>Cadastrar</button>
+                        }
+                        {edicao &&
+                            <button className='confirm_button' type='button' onClick={edicaoProduto}>Editar</button>
+                        }
                     </div>
                 </form>
                 <br />

@@ -248,6 +248,7 @@ function AnaliseQuali() {
     }
 
     async function confirmaContinua() {
+        
         const post = { id, analises, laudo }
          //substituir listaPedidos pela rota do relatório final, quando pronta
         await api.post('/postQualitativa', { post }).then((resposta) => {navigate(`/relatorioFinal/${id}`)})

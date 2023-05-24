@@ -110,11 +110,11 @@ function ListaPedidos(){
                 })
             } else if (filtroStatus === 'Finalizado'){
                 return pedidos.filter((pedido) => {
-                    // const aprovado = pedido.ped_status.includes('Aprovado')
-                    // const recusado = pedido.ped_status.includes('Recusado')
-                    // return aprovado || recusado
-                    const finalizado = pedido.ped_status.includes('Finalizado')
-                    return finalizado
+                    const aprovado = pedido.ped_status.includes('Aceito')
+                    const recusado = pedido.ped_status.includes('Recusado')
+                    return aprovado || recusado
+                    // const finalizado = pedido.ped_status.includes('Finalizado')
+                    // return finalizado
                 })
             }
         }
@@ -211,7 +211,7 @@ function ListaPedidos(){
                                 <hr className='hr_pedido' />
                                 <p>Revisão:</p>
                                 <center>
-                                {pedido.ped_status === 'Finalizado' &&
+                                {(pedido.ped_status === 'Recusado' || pedido.ped_status === 'Aceito') &&
                                     <>
                                     <button type='button' className='ped_btn' onClick={() => { navegate(`/cadastroPedido/${pedido.ped_codigo}`); } }>Cadastro do Pedido</button>
                                     <button type='button' className='ped_btn' onClick={() => { navegate(`/recebePedido/${pedido.ped_codigo}`); } }>Nota Fiscal</button>

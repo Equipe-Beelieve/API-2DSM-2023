@@ -38,4 +38,6 @@ export default interface RelatorioFinal {
     RegrasAnalises:RegrasAnalises[]
 
     Resultados:ComparacaoRelatorioFinal[]
+
+    DecisaoFinal:string
 }

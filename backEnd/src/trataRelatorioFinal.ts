@@ -3,16 +3,18 @@ import ComparacaoRelatorioFinal from "./ComparaRelatorioFinal"
 import RegrasAnalises from "./RegrasAnalises"
 import RelatorioFinal from "./RelatorioFinal"
 import comparaDados from "./comparaDadosRelatorio.js"
+import decisaoFinal from "./decisaoFinal.js"
 
+function formatarData(data:Date){
+    const dia = String(data.getDate()).padStart(2, '0')
+    const mes = String(data.getMonth() + 1).padStart(2, '0')
+    const ano = data.getFullYear()
+    return `${dia}/${mes}/${ano}`
+}
 
-export default function trataRelatorioFinal(dadosRelatorio:any, regrasAnalise:any, analiseQuantitativa:any){
+function trataRelatorioFinal(dadosRelatorio:any, regrasAnalise:any, analiseQuantitativa:any){
 
-    function formatarData(data:Date){
-        const dia = String(data.getDate()).padStart(2, '0')
-        const mes = String(data.getMonth() + 1).padStart(2, '0')
-        const ano = data.getFullYear()
-        return `${dia}/${mes}/${ano}`
-    }
+    
     
     dadosRelatorio.ped_data_entrega = formatarData(dadosRelatorio.ped_data_entrega)
     dadosRelatorio.ped_data_pedido = formatarData(dadosRelatorio.ped_data_pedido)
@@ -20,6 +22,8 @@ export default function trataRelatorioFinal(dadosRelatorio:any, regrasAnalise:an
     dadosRelatorio.nf_data_entrega = formatarData(dadosRelatorio.nf_data_entrega)
 
     let resultado:ComparacaoRelatorioFinal[] = comparaDados(dadosRelatorio, regrasAnalise, analiseQuantitativa)
+    let decisao:string = decisaoFinal(resultado)
+
 
     let regras:RegrasAnalises[] = []
     regrasAnalise.forEach((regra:any) =>{
@@ -72,9 +76,12 @@ export default function trataRelatorioFinal(dadosRelatorio:any, regrasAnalise:an
             Laudo:dadosRelatorio.nf_laudo
         },
         RegrasAnalises:regras,
-        Resultados:resultado
-
+        Resultados:resultado,
+        DecisaoFinal:decisao
     }
+
+
 
     return relatorioFinal
 }
+export {formatarData, trataRelatorioFinal}

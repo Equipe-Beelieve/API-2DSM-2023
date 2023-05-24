@@ -28,6 +28,7 @@ CREATE TABLE `produto` (
   `prod_codigo` int NOT NULL AUTO_INCREMENT,
   `prod_descricao` varchar(20) DEFAULT NULL,
   `prod_unidade_medida` varchar(10) DEFAULT NULL,
+  `prod_ativo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`prod_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-03 17:51:01
+-- Dump completed on 2023-05-24 15:00:07
