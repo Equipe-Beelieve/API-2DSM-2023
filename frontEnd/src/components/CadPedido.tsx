@@ -264,9 +264,10 @@ function CadPedido() {
 
     async function veStatus() {
         await api.post('/confereStatus', { id: id, acessando: 'Relatório de Compras' }).then((resposta) => {
+            console.log(resposta.data.dados)
             let dado = resposta.data.dados
             setStatus(resposta.data.editar)
-            console.log(dado)
+            
             if (dado.status === 'Revisão') {
                 setMudanca('Revisão')
                 setProduto(dado.descricao)
@@ -305,9 +306,9 @@ function CadPedido() {
                     setUnidade("t")
                 }
             }
-            else {
-                navegate('/listaPedidos')
-            }
+            // else {
+            //     navegate('/listaPedidos')
+            // }
         });
     };
     useEffect(() => {
