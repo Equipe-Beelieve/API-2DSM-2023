@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import api from '../services/api'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
 import { toast } from 'react-toastify';
@@ -18,6 +18,8 @@ function CadFornecedor() {
     const [ruaAvenida, setRuaAvenida] = useState('')
     const [numero, setNumero] = useState('')
     const [controleCnpj, setControleCnpj] = useState(0)
+    const [editar, setEditar] = useState(false)
+    const {id} = useParams()
 
     const [logado, setLogado] = useState(Boolean)
 
@@ -181,6 +183,16 @@ function CadFornecedor() {
         setNumero('')
     }
 
+    //================== EDIÇÃO ======================
+    async function resgataValores(){
+        setEditar(true)
+    }
+
+    //============ DESATIVAR FORNECEDOR ==============
+    async function deletaFornecedor(){
+        await api.post("/deletaFornecedor", {id}).then((reposta) => {navegate('/listaFornecedor')})
+    }
+
     //================== USE EFFECT ==================
 
     useEffect(()=>{
@@ -195,8 +207,13 @@ function CadFornecedor() {
             }
         }
         veLogado()
-        }, [])
+        }, [editar])
 
+        useEffect(()=>{
+            if(id){
+                resgataValores()
+            }
+            }, [])
 
     //================== REENDERIZAÇÃO ==================
 

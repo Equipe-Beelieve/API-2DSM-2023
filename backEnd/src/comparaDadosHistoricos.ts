@@ -212,36 +212,40 @@ export default function comparaDados(dadosRelatorio:any, regrasAnalise:any){
 
 
         if(analise.historico_tipo === 'Pureza'){
-            let regra = parseFloat(analise.regra.slice(1, -1))
-            let valor = parseFloat(analise.regra_valor.slice(0, -1))
-            if(valor>regra){
-                comparacoes.push({
-                    comparacao:`Regra qualitativa | ${analise.historico_tipo} | ${analise.historico_regra}`,
-                    resultado: true
-                })
-            }
-            else{
-                comparacoes.push({
-                    comparacao:`Regra qualitativa | ${analise.historico_tipo} | ${analise.historico_regra}`,
-                    resultado: false
-                })
-            }
+            if(analise.regra && analise.regra_valor){
+                let regra = parseFloat(analise.regra.slice(1, -1))
+                let valor = parseFloat(analise.regra_valor.slice(0, -1))
+                if(valor>regra){
+                    comparacoes.push({
+                        comparacao:`Regra qualitativa | ${analise.historico_tipo} | ${analise.historico_regra}`,
+                        resultado: true
+                    })
+                }
+                else{
+                    comparacoes.push({
+                        comparacao:`Regra qualitativa | ${analise.historico_tipo} | ${analise.historico_regra}`,
+                        resultado: false
+                    })
+                }
+            }    
         }
         else if(analise.historico_tipo === 'Umidade'){
-            let regra = parseFloat(analise.regra.slice(1, -1))
-            let valor = parseFloat(analise.regra_valor.slice(0, -1))
-            if(valor<regra){
-                comparacoes.push({
-                    comparacao:`Regra qualitativa | ${analise.historico_tipo} | ${analise.historico_regra}`,
-                    resultado: true
-                })
-            }
-            else{
-                comparacoes.push({
-                    comparacao:`Regra qualitativa | ${analise.historico_tipo} | ${analise.historico_regra}`,
-                    resultado: false
-                })
-            }
+            if(analise.regra && analise.regra_valor){
+                let regra = parseFloat(analise.regra.slice(1, -1))
+                let valor = parseFloat(analise.regra_valor.slice(0, -1))
+                if(valor<regra){
+                    comparacoes.push({
+                        comparacao:`Regra qualitativa | ${analise.historico_tipo} | ${analise.historico_regra}`,
+                        resultado: true
+                    })
+                }
+                else{
+                    comparacoes.push({
+                        comparacao:`Regra qualitativa | ${analise.historico_tipo} | ${analise.historico_regra}`,
+                        resultado: false
+                    })
+                }
+            }  
         }
         else{
             if(analise.historico_analise === 'true'){

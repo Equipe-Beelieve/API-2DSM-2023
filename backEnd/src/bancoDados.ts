@@ -21,7 +21,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'root', //sua senha
+                password: '', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -86,7 +86,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async pegarListaFornecedores() {
         await this.conectar()
-        let [consulta, meta]:any = await this.conexao.query(`SELECT f.for_codigo, f.for_cnpj, f.for_razao_social, f.for_nome_fantasia, e.end_cep FROM fornecedor f, endereco_fornecedor e Where f.end_codigo=e.end_codigo`) 
+        let [consulta, meta]:any = await this.conexao.query(`SELECT f.for_codigo, f.for_cnpj, f.for_razao_social, f.for_nome_fantasia, e.end_cep FROM fornecedor f, endereco_fornecedor e Where f.end_codigo=e.end_codigo AND f.for_ativo = 1`) 
             /* o pacote do mysql2 retorna 1 array com 2 arrays dentro dele numa consulta ao banco, um com resultados e 
                 outro com metadados da busca, os [] nas variáveis separa os resultado em arrays diferentes. 
                 É uma funcionalidade chamada de 'destructring arrays'*/
@@ -97,7 +97,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async pegarRazaoSocial() {
         await this.conectar()
-        let [consulta, meta]:any = await this.conexao.query(`SELECT for_razao_social FROM fornecedor`) 
+        let [consulta, meta]:any = await this.conexao.query(`SELECT for_razao_social FROM fornecedor WHERE for_ativo = 1`) 
         /*o pacote do mysql2 retorna 1 array com 2 arrays dentro dele numa consulta ao banco, um com resultados e outro 
             com metadados da busca, os [] nas variáveis separa os resultado em arrays diferentes. É uma funcionalidade chamada 
             de 'destructring arrays' */

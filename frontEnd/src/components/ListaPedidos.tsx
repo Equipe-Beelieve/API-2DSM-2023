@@ -110,11 +110,11 @@ function ListaPedidos(){
                 })
             } else if (filtroStatus === 'Finalizado'){
                 return pedidos.filter((pedido) => {
-                    // const aprovado = pedido.ped_status.includes('Aprovado')
-                    // const recusado = pedido.ped_status.includes('Recusado')
-                    // return aprovado || recusado
-                    const finalizado = pedido.ped_status.includes('Finalizado')
-                    return finalizado
+                    const aprovado = pedido.ped_status.includes('Aprovado')
+                    const recusado = pedido.ped_status.includes('Recusado')
+                    return aprovado || recusado
+                    // const finalizado = pedido.ped_status.includes('Finalizado')
+                    // return finalizado
                 })
             }
         }
