@@ -30,11 +30,26 @@
   margin-right: 200px;
 }
 
+.lixoFornecedor{
+  width: 30px;
+  margin-left: 10vw;
+}
+
 .flexMainUsuario{
   display: flex;
   justify-content: center;
   align-items: baseline;
   gap: 200px;
+}
+
+.flexMainFornecedor{
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.flexMainFornecedor h1 {
+  margin-left: 10vw;
 }
 
 .mainTitle {

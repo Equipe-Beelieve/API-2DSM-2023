@@ -49,6 +49,9 @@ function App() {
       case `/cadastroFornecedor`:
         setPageTitle('Sabiá | Cadastro de fornecedor')
         break
+      case `/cadastroFornecedor/${id}`:
+        setPageTitle('Sabiá | Edição de fornecedor')
+        break;
       case `/listaUsuario`:
         setPageTitle('Sabiá | Usuários')
         break

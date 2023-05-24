@@ -242,6 +242,13 @@ app.post('/deletePedido', async (req, res) => {
     await bd.deletePedido(post);
     console.log(post);
   });
+
+//========================= Deleta Fornecedor =========================
+app.post('/deletaFornecedor', async (req, res) => {
+    let id = req.body.id
+    await bd.deletaFornecedor(id)
+    res.send('foi')
+})
   
 //========================= Listagem de Fornecedores =========================
 app.get("/listaFornecedores", async (req, res) => {

@@ -21,7 +21,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: '', //sua senha
+                password: 'Meusequel@d0', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -276,7 +276,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async pegaRegraRecebimento(id:string) {
         await this.conectar()
-        let [regras, meta] = await this.conexao.query(`SELECT reg_codigo, reg_tipo, reg_valor, reg_obrigatoriedade FROM regras_de_recebimento WHERE prod_codigo = ${id} and reg_tipo <> 'Mínimo de conformidade'`)
+        let [regras, meta] = await this.conexao.query(`SELECT reg_codigo, reg_tipo, reg_valor FROM regras_de_recebimento WHERE prod_codigo = ${id} and reg_tipo <> 'Mínimo de conformidade'`)
         await this.conexao.end()
         return regras
     }
@@ -460,6 +460,13 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     async deletaUsuario(id:string){
         await this.conectar()
         await this.conexao.query(`DELETE FROM usuario WHERE us_matricula = ${id}`)
+        await this.conexao.end()
+    }
+
+    //DELETE FORNECEDOR
+    async deletaFornecedor(id:string){
+        await this.conectar()
+        await this.conexao.query(`UPDATE fornecedor SET for_ativo = 0 WHERE for_codigo = ${id}`)
         await this.conexao.end()
     }
     
