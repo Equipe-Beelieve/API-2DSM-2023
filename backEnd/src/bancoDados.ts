@@ -473,6 +473,19 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     }
 
     //DELETE FORNECEDOR
+    async confereFornecedor(id:string){
+        await this.conectar()
+        let [consultaRazaoSocial] = await this.conexao.query(`SELECT for_razao_social FROM fornecedor WHERE for_codigo = ${id}`) as Array<any>
+        await this.conexao.end()
+
+        let razaoSocial = consultaRazaoSocial[0].for_razao_social
+        await this.conectar()
+        let [existeFornecedor] = await this.conexao.query(`SELECT ped_codigo FROM pedido WHERE ped_razao_social = '${razaoSocial}'`) as Array<any>
+        await this.conexao.end()
+
+        return existeFornecedor.length > 0
+    }
+
     async deletaFornecedor(id:string){
         await this.conectar()
         await this.conexao.query(`UPDATE fornecedor SET for_ativo = 0 WHERE for_codigo = ${id}`)

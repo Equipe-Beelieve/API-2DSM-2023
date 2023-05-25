@@ -222,7 +222,6 @@ app.post('/updateUsuario', async(req, res) => {
 })
 
 //========================= Update de Produto =========================
-
 app.post('/resgataValoresProduto', async(req,res) => {
     let id = req.body.id
     let produto = await bd.pegaProduto(id)
@@ -237,6 +236,13 @@ app.post('/updateProduto', async(req,res)=>{
     let unidadeMedida = req.body.unidadeMedida
     bd.updateProduto(id, descricao, unidadeMedida, regrasRecebimento)
     res.send('foi')
+})
+
+//========================= Update de Fornecedor =========================
+app.post('/resgataValoresFornecedor', async (req, res) => {
+    let id = req.body.id
+    let existeFornecedor = await bd.confereFornecedor(id)
+    res.send(existeFornecedor)
 })
 
 //================================== Rotas de Listagem ==================================

@@ -22,6 +22,7 @@ function CadFornecedor() {
     const [numero, setNumero] = useState('')
     const [controleCnpj, setControleCnpj] = useState(0)
     const [editar, setEditar] = useState(false)
+    const [fornecedorUtilizado, setFornecedorUtilizado] = useState(false)
     const {id} = useParams()
 
     const [logado, setLogado] = useState(Boolean)
@@ -173,7 +174,6 @@ function CadFornecedor() {
     }
 
     //================== APAGA TUDO ==================
-
     function apagaTudo(){
         setRazaoSocial('')
         setNomeFantasia('')
@@ -188,24 +188,41 @@ function CadFornecedor() {
 
     //================== EDIÇÃO ======================
     async function resgataValores(){
-        setEditar(true)
+        await api.post('/resgataValoresFornecedor', {id}).then((resposta) => {
+            let existeFornecedor = resposta.data
+            setEditar(true)  
+            setFornecedorUtilizado(existeFornecedor)
+        })
+        
     }
 
     //============ DESATIVAR FORNECEDOR ==============
     async function confirmarDelete(){
-        Swal.fire({
-            title: 'Excluir fornecedor?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#C0C0C0',
-            cancelButtonColor: '#3E813B',
-            cancelButtonText: 'Cancelar',
-            confirmButtonText: 'Confirmar',
-          }).then(async (result) => {
-            if (result.isConfirmed) {
-              await deletaFornecedor()
-            }
-          })
+        if(fornecedorUtilizado){
+            Swal.fire({
+                title: 'Não foi possível excluir o fornecedor',
+                text: 'Fornecedor já utilizado em algum pedido',
+                icon: 'warning',
+                showConfirmButton: false,
+                showCancelButton: true,
+                cancelButtonColor: '#3E813B',
+                cancelButtonText: 'Ok'
+            })
+        } else {
+            Swal.fire({
+                title: 'Excluir fornecedor?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#C0C0C0',
+                cancelButtonColor: '#3E813B',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Confirmar',
+              }).then(async (result) => {
+                if (result.isConfirmed) {
+                  await deletaFornecedor()
+                }
+              })
+        }  
     }
 
     async function deletaFornecedor(){
