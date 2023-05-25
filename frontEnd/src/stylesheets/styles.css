@@ -177,15 +177,12 @@
 
 .listaIn {
   background-color: #C0C0C0;
-
   margin: 2vh 0;
-
   width: 80%;
   padding-top: 1%;
   padding-left: 1%;
   padding-bottom: 0.5%;
   padding-right: 1%;
-
   font-weight: bold;
   border-style: solid;
   border-color: #D9D9D9;
@@ -911,7 +908,6 @@ p.solid {
   background-color: lightgray;
   padding: 5px;
   border-radius: 5px;
-
 }
 
 .mesmalinha {
@@ -1165,7 +1161,7 @@ p.solid {
   background-color: red;
 }
 
-/* Responsividade tela 1366 x 768 */
+/* Responsividade tela 1366px  */
 @media screen and (max-width: 1366px) {
   .anaq1{
     width: 35vw;
@@ -1173,5 +1169,71 @@ p.solid {
   
   .anaq2{
     width: 19vw;
+  }
+
+  .loggout {
+    margin-right: 5vw;
+  }
+}
+
+/* Responsividade tela 500px */
+@media screen and (max-width: 500px) {
+  .mainTitle{
+    font-size: 6vw;
+  }
+
+  .lista_button{
+    width: 20vw;
+  }
+
+  .state {
+    width: 100%;
+  }
+  
+  .state button {
+    font-size: 3.5vw;
+  }
+
+  .cadastro {
+    width: 23vw;
+  }
+
+  .termo-pesquisa {
+    width: 65vw;
+    padding: 1px;
+    border-radius: 5px;
+  }
+
+  #imagem-pesquisa {
+    background-size: 4vh;
+    font-size: 4vw;
+    padding: 5px 20px 5px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+  }
+
+  .listaIn {
+    margin: 2vh 0;
+    width: 90%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 0.5%;
+    padding-right: 1%;
+    border-width: 3vw;
+  }
+
+  .listaIn h1 {
+    font-size: 20px;
+    margin-bottom: 2vh;
+  }
+  
+  .listaIn p {
+    font-size: 15px;
+    margin-bottom: 2.5vh;
+  }
+
+
+  .listColumns .column1_for {
+    width: 100%;
   }
 }
