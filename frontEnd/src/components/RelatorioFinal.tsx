@@ -64,7 +64,7 @@ function RelatorioFinal() {
 
                 const comparacoes = dados.Resultados
                 for(let i = 0; comparacoes.length; i++){
-                    if(comparacoes[i].resultado === false){
+                    if(comparacoes[i].resultado === false && !comparacoes[i].comparacao.startsWith('Regra qualitativa | Análise Quantitativa')){
                         setResultadoFinal(false)
                     }
                 }
