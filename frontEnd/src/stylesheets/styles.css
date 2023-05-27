@@ -1179,7 +1179,8 @@ p.solid {
 /* Responsividade tela 500px */
 @media screen and (max-width: 500px) {
   .mainTitle{
-    font-size: 6vw;
+    font-size: 5.5vw;
+    
   }
 
   .lista_button{
@@ -1235,5 +1236,71 @@ p.solid {
 
   .listColumns .column1_for {
     width: 100%;
+  }
+
+  .nav-texts a,
+  .nav-texts a:visited {
+    font-size: 4vw;
+  }
+
+  .box3 {
+    width: 90vw;
+    background-color: #FFEF78;
+    border-radius: 7px;
+    padding-top: 1vh;
+    margin-left: 5%;
+  }
+
+  .minimo {
+    justify-content: center;
+    gap: 3vw;
+    margin-left: 0%;
+  }
+  
+  .box3 .minimo .input_form {
+    width: 10vw;
+  }
+  
+  
+  .box3 .minimo input {
+    margin-left: 0%;
+    padding: 1px;
+  }
+  
+  .box3 .minimo .checkbox {
+    padding: 1px;
+    border-radius: 0px;
+    margin-left: 0%;
+  }
+
+  .box3 .mainTitle {
+    font-size: 4vw;
+  }
+
+  .box3 .minimo .input_formLimit {
+    width: 10vw;
+    height: 35px;
+  }
+
+  .checkboxzin {
+    width: 5vw;
+  }
+
+  .box3 .minimo .tipo-regra, .limitacao, .obrigacao{
+    font-size: 3vw;
+  }
+
+  .input_form {
+    width: 30vw;
+    height: 35px;
+  }
+
+  .box{
+    margin-left: 7%;
+    margin-right: 7%;
+  }
+
+  .responsividade{
+    width: 100vw;
   }
 }

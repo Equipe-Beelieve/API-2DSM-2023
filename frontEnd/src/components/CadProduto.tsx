@@ -333,7 +333,7 @@ function CadProduto() {
         <>
             <NavBar />
             <div className='divFornecedor'>
-                <form>
+                <form className='responsividade'>
                     <h1 className='mainTitle'>Cadastro de Produtos</h1>
 
                     <div className="grid-container poscentralized">

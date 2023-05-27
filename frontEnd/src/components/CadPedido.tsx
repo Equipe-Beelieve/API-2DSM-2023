@@ -454,7 +454,7 @@ function CadPedido() {
                         }
                     </div>
                     
-                    <form onSubmit={estadoPedido}>
+                    <form className='responsividade' onSubmit={estadoPedido}>
 
                         <div className="poscentralized grid-container">
                             <div className="box">
