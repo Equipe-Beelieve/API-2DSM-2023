@@ -187,27 +187,38 @@ app.post('/cadastroProduto', async (req, res) => {
 app.post('/resgataValoresUsuario',async (req, res) => {
     let id = req.body.id
     //console.log('id: ', id)
+    let loginUsuario = req.session.login
     let usuario = await bd.pegaUsuario(id)
+    let mesmoUsuario
+    if(loginUsuario === usuario.us_login){
+        mesmoUsuario = true
+    }
+    else{
+        mesmoUsuario = false
+    }
+    let quantidadeFuncaoAdministrador = await bd.quantidadeFuncaoAdministrador()
     //console.log('user: ', usuario)
-    res.status(201).send(usuario)
+    res.status(201).send({usuario, quantidadeFuncaoAdministrador, mesmoUsuario})
 })
 app.post('/updateUsuario', async(req, res) => {
-    let id = req.body.post.idUsuario
+    console.log(req.body.post)
+    let id = req.body.post.dados.idUsuario
     //console.log('id: ', id)
-    let updateUsuario = req.body.post
+    let updateUsuario = req.body.post.dados
+    let mesmoUsuario = req.body.post.mesmoUsuario
     let funcaoUsuario = await bd.pegaUsuario(id)
     let quantidadeFuncaoAdministrador = await bd.quantidadeFuncaoAdministrador()
     //console.log('pega usuario: ', funcaoUsuario)
     //console.log('us_funcao', funcaoUsuario['us_funcao'])
     //console.log('ad: ', quantidadeFuncaoAdministrador["COUNT('us_funcao')"])
     if(funcaoUsuario['us_funcao'] == 'Administrador'){
-        if(quantidadeFuncaoAdministrador["COUNT('us_funcao')"] > 1){
+        if(mesmoUsuario){
             let usuario = new Usuario(updateUsuario.nome, updateUsuario.senha, updateUsuario.funcao, updateUsuario.login)
             await bd.updateUsuario(usuario, id)
             console.log(usuario, id)
             res.status(200).redirect('/loggout');
         } else {
-            let usuario = new Usuario(updateUsuario.nome, updateUsuario.senha, 'Administrador', updateUsuario.login)
+            let usuario = new Usuario(updateUsuario.nome, updateUsuario.senha, updateUsuario.funcao, updateUsuario.login)
             await bd.updateUsuario(usuario, id)
             console.log('user adm: ', usuario, id)
             res.status(200).send(`Requisição recebida com sucesso! ${id}`);

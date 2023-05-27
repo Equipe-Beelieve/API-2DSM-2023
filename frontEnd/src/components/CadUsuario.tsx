@@ -33,6 +33,8 @@ function CadUsuario() {
     const [editar, setEditar] = useState<Boolean>(false)
     const [loginInicial, setLoginInicial] = useState('')
     const [funcaoInical, setFuncaoInicial] = useState('')
+    const [mesmoUsuario, setMesmoUsuario] = useState(false)
+    const [quantidadeAdministrador, setQuantidadeAdministrador] = useState<number>(1)
     const { id } = useParams()
 
     //================== Tratar login ==================
@@ -72,9 +74,13 @@ function CadUsuario() {
     
     async function resgataValores(){
         await api.post('/resgataValoresUsuario', {id:id}).then((resposta) => {
-            console.log(resposta.data)
+            console.log(resposta.data.usuario)
+            console.log(resposta.data.quantidadeFuncaoAdministrador)
+            console.log(resposta.data.mesmoUsuario)
+            
             //us_matricula, us_nome, us_senha, us_funcao, us_login
-            let dado = resposta.data
+            let dado = resposta.data.usuario
+            console.log(dado.us_funcao)
             setLogin(dado.us_login)
             setNome(dado.us_nome)
             setSenha(dado.us_senha)
@@ -82,6 +88,8 @@ function CadUsuario() {
             setEditar(true)
             setLoginInicial(dado.us_login)
             setFuncaoInicial(dado.us_funcao)
+            setQuantidadeAdministrador(resposta.data.quantidadeFuncaoAdministrador["COUNT('us_funcao')"])
+            setMesmoUsuario(resposta.data.mesmoUsuario)
         })
     }
 
@@ -91,8 +99,13 @@ function CadUsuario() {
             toast.error('Escolha outro login', { position: 'bottom-left', autoClose: 2500,
             className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
 
-        } else {
-            const post = { idUsuario, nome, senha, funcao, login}
+        } 
+        else if (funcao === ''){
+            toast.error('Escolha uma função', { position: 'bottom-left', autoClose: 2500,
+            className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+        }
+        else {
+            const post = { dados:{idUsuario, nome, senha, funcao, login}, mesmoUsuario:mesmoUsuario}
             
             await api.post('/updateUsuario', { post }).then((resposta) => {navegate('/listaUsuario')})
         }
@@ -241,15 +254,23 @@ function CadUsuario() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><select className="input_form" name="end_estado" id="end_estado" required
-                                            value={funcao}
-                                            onChange={(e) => setFuncao(e.target.value)}>
-                                            <option value=""></option>
-                                            <option value="Administrador">Administrador</option>
-                                            <option value="Gerente">Gerente</option>
-                                            <option value="Conferente">Conferente</option>
-                                        </select>
+                                    <tr> 
+                                        <td>
+                                            {((quantidadeAdministrador > 1 && funcaoInical === "Administrador" && !mesmoUsuario) || (funcaoInical !== "Administrador")) && 
+                                                <select className="input_form" name="end_estado" id="end_estado" required
+                                                value={funcao}
+                                                onChange={(e) => setFuncao(e.target.value)}>
+                                                <option value=""></option>
+                                                <option value="Administrador">Administrador</option>
+                                                <option value="Gerente">Gerente</option>
+                                                <option value="Conferente">Conferente</option>
+                                                </select>
+                                            }
+                                            {(mesmoUsuario || quantidadeAdministrador <= 1) && (funcaoInical === 'Administrador') &&
+                                                <select className='input_form' name="end_estado" id="end_estado" value={funcao}>
+                                                    <option value={funcao}>{funcao}</option>
+                                                </select>
+                                            }
                                         </td>
                                     </tr>
                                 </tbody>
