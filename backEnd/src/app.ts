@@ -260,6 +260,7 @@ app.post('/updateProduto', async(req,res)=>{
 app.post('/resgataValoresFornecedor', async (req, res) => {
     let id = req.body.id
     let existeFornecedor = await bd.confereFornecedor(id)
+    console.log(existeFornecedor)
     res.send(existeFornecedor)
 })
 

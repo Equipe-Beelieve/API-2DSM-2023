@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import cadastro from '../images/cadastro.png'
 import api from '../services/api';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
 import unidecode from 'unidecode';
@@ -22,6 +22,8 @@ function ListaUsuario(){
 
     const [busca, setBusca] = useState('') //state para armazenar o termo da busca do usuário
     const [usuariosBuscados, setUsuariosBuscados] = useState<Usuarios[]>([]) //state para armazenar os resultados correspondentes da busca
+
+
 
     async function getUsuario(){
         try {
@@ -79,6 +81,8 @@ function ListaUsuario(){
             console.log('FOI 2')
             return;
     }}, [renderizou])
+    
+
 
 
 

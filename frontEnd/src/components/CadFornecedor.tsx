@@ -189,11 +189,28 @@ function CadFornecedor() {
     //================== EDIÇÃO ======================
     async function resgataValores(){
         await api.post('/resgataValoresFornecedor', {id}).then((resposta) => {
-            let existeFornecedor = resposta.data
+            //for_codigo, for_cnpj, end_codigo, for_razao_social, for_nome_fantasia, for_ativo
+            //end_codigo, end_cep, end_estado, end_cidade, end_bairro, end_rua_avenida, end_numero
+            console.log(resposta)
+            let dados = resposta.data
+            setRazaoSocial(dados.for_razao_social)
+            setNomeFantasia(dados.for_nome_fantasia)
+            setCnpj(dados.for_cnpj)
+            setCidade(dados.end_cidade)
+            setCep(dados.end_cep)
+            setEstado(dados.end_estado)
+            setBairro(dados.end_bairro)
+            setRuaAvenida(dados.end_rua_avenida)
+            setNumero(dados.end_numero)
             setEditar(true)  
-            setFornecedorUtilizado(existeFornecedor)
+            setFornecedorUtilizado(true)
         })
         
+    }
+
+    async function editaFornecedor() {
+        const post = {razaoSocial, nomeFantasia, cnpj, cidade, cep, estado, bairro, ruaAvenida, numero}
+        await api.post('/updateFornecedor', {post}).then((resposta) => {navegate('/listaFornecedor')})
     }
 
     //============ DESATIVAR FORNECEDOR ==============
@@ -318,15 +335,29 @@ function CadFornecedor() {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input className="input_form" type="text" placeholder="00.000.000/0000-00"
-                                        minLength={18}
-                                        maxLength={18}
-                                        ref={cnpjRef}
-                                        id="for_cnpj"
-                                        name="for_cnpj" required
-                                        value={cnpj} onChange={trataCnpj}
-                                        onClick={() => carretFim(cnpjRef)}
-                                        onKeyDown={impedeSeta} />
+                                    <td>
+                                        {!editar &&
+                                            <input className="input_form" type="text" placeholder="00.000.000/0000-00"
+                                            minLength={18}
+                                            maxLength={18}
+                                            ref={cnpjRef}
+                                            id="for_cnpj"
+                                            name="for_cnpj" required
+                                            value={cnpj} onChange={trataCnpj}
+                                            onClick={() => carretFim(cnpjRef)}
+                                            onKeyDown={impedeSeta} />
+                                        }
+                                        {editar &&
+                                            <input className="input_form" type="text" placeholder="00.000.000/0000-00"
+                                            minLength={18}
+                                            maxLength={18}
+                                            ref={cnpjRef}
+                                            id="for_cnpj"
+                                            name="for_cnpj" required
+                                            value={cnpj} 
+                                            readOnly />
+                                        }
+                                        
                                     </td>
                                 </tr>
                             </tbody>
@@ -471,7 +502,12 @@ function CadFornecedor() {
                     </div>
                 </div>
                 <button type='button' className="cancel_button" onClick={() => {navegate('/listaFornecedor')}}>Cancelar</button>
-                <button type='button' className="confirm_button" onClick={cadastraFornecedor}>Confirmar</button>
+                {!editar &&
+                    <button type='button' className="confirm_button" onClick={cadastraFornecedor}>Confirmar</button>
+                }
+                {editar &&
+                    <button type='button' className="confirm_button" onClick={editaFornecedor}>Editar</button>
+                }
             </form>
         </div>
         </>
