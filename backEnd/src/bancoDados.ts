@@ -191,6 +191,13 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         return produtos
     }
 
+    async listarProdutoDescricao() {
+        await this.conectar()
+        let [produtos, meta] = await this.conexao.query('SELECT prod_descricao FROM produto')
+        await this.conexao.end()
+        return produtos
+    }
+
     async inserirNF(nf:NotaFiscal) { 
         await this.conectar()
         console.log(`CODIGOPEDIDO: ${nf['codigo_pedido']}`)
@@ -492,6 +499,23 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conexao.end()
     }
     
+
+    // //DELETE PRODUTO
+    async confereProduto(id:string){
+        await this.conectar()
+        let [produtoEmPedido] = await this.conexao.query(`SELECT pr.prod_descricao FROM produto pr
+            INNER JOIN pedido pe on pr.prod_descricao = pe.ped_descricao where pr.prod_codigo = ${id}`) as Array<any>
+        return produtoEmPedido.length > 0
+    }
+
+     async deletaProduto(id:string){
+        await this.conectar()
+        await this.conexao.query(`DELETE FROM regras_de_recebimento WHERE prod_codigo = ${id}`)
+        await this.conexao.end()
+        await this.conectar()
+        await this.conexao.query(`DELETE FROM produto WHERE prod_codigo = ${id}`)
+        await this.conexao.end()
+    }
 
     //===================== Relatório Final =====================
 

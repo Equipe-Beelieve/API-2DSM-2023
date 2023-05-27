@@ -225,7 +225,10 @@ app.post('/updateUsuario', async(req, res) => {
 app.post('/resgataValoresProduto', async(req,res) => {
     let id = req.body.id
     let produto = await bd.pegaProduto(id)
-    res.send(produto)
+    let existeProduto = await bd.confereProduto(id)
+    let produtos = await bd.listarProdutoDescricao()
+    //console.log(produtos)
+    res.send({produto, existeProduto, produtos})
 })
 
 app.post('/updateProduto', async(req,res)=>{
@@ -234,8 +237,12 @@ app.post('/updateProduto', async(req,res)=>{
     let regrasRecebimento = req.body.regras
     let descricao = req.body.descricao
     let unidadeMedida = req.body.unidadeMedida
-    bd.updateProduto(id, descricao, unidadeMedida, regrasRecebimento)
-    res.send('foi')
+    if(regrasRecebimento != '' && descricao != '' && unidadeMedida != ''){
+        bd.updateProduto(id, descricao, unidadeMedida, regrasRecebimento)
+        res.send('foi')
+    } else{
+        res.send('Não é permitido campos vazios')
+    }
 })
 
 //========================= Update de Fornecedor =========================
@@ -275,6 +282,13 @@ app.post('/deletaFornecedor', async (req, res) => {
     await bd.deletaFornecedor(id)
     res.send('foi')
 })
+
+//========================= Deleta Produto =========================
+app.post('/deletaProduto', async (req, res) => {
+    let id = req.body.id
+    await bd.deletaProduto(id)
+    res.send('foi')
+})
   
 //========================= Listagem de Fornecedores =========================
 app.get("/listaFornecedores", async (req, res) => {
@@ -292,6 +306,12 @@ app.get('/listarUsuario', async (req, res) => {
 app.get('/listaProdutos', async (req, res) => {
     let tabelaProdutos = await bd.listarProdutos()
     res.send({tabelaProdutos})
+})
+
+app.get('/getDescricaoProdutos', async (req, res) => {
+    let produtos = await bd.listarProdutoDescricao()
+    console.log(produtos)
+    res.send({produtos})
 })
 
 
