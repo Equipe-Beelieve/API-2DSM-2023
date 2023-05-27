@@ -7,11 +7,16 @@ import ListaProdutos from './ListaProdutos'
 import { toast } from 'react-toastify'
 import lixeira from '../images/lixeira.png'
 import { DefaultDeserializer } from 'v8'
+import Swal from 'sweetalert2';
 
 interface Regra {
     tipo: string,
     valor: string,
     // obrigatoriedade: boolean
+}
+
+export interface Produto {
+    prod_descricao:string
 }
 
 function CadProduto() {
@@ -24,6 +29,8 @@ function CadProduto() {
     const [render, setRender] = useState(0)
     const [edicao, setEdicao] = useState(false)
     const { id } = useParams()
+    const [produtoUtilizado, setProdutoUtilizado] = useState(false)
+    const [produtoDescricao, setProdutoDescricao] = useState<Produto[]>([])
 
 
     const navigate = useNavigate()
@@ -157,24 +164,128 @@ function CadProduto() {
     //=============== Edição do produto ===================
     async function resgataValores(){
         await api.post('/resgataValoresProduto', {id: id}).then((resposta) => {
-            console.log(resposta.data)
-            let dado = resposta.data
+            //console.log(resposta.data)
+            let dado = resposta.data['produto']
+            let existeProduto = resposta.data['existeProduto']
+            let produtos = resposta.data['produtos']
             setDescricao(dado.descricao)
             setUnidadeMedida(dado.unidadeMedida)
             setRegras(dado.regras)
             setEdicao(true)
+            setProdutoUtilizado(existeProduto)
+            setProdutoDescricao(produtos)
         })
     }
 
     async function edicaoProduto(){
+        let controle = true
+        if (unidadeMedida === '' || descricao === '') {
+            toast.error('Preencha todos os campos', {
+                position: 'bottom-left',
+                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+            })
+        } else if(produtoDescricao.some(produto => produto.prod_descricao === descricao)){
+                toast.error('Produto existente', {
+                    position: 'bottom-left',
+                    autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                })
+        }
+        else {
+            //Confere se todas as regras estão preenchidas e há no máximo 1 regra de umidade e 1 de pureza
+            let contadorTipo = { Pureza: 0, Umidade: 0 }
+            regras.forEach((regra: Regra) => {
+                console.log(regra)
+                if (regra.tipo === '' || regra.valor === "") {
+                    controle = false
 
-        await api.post('/updateProduto', {id:id, descricao:descricao, unidadeMedida:unidadeMedida, regras:regras}).then((resposta)=>{
-            navigate('/listaProdutos')
-        })
+                }
+                //Contador de regras de umidade e pureza:
+                else {
+                    if (regra.tipo === 'Pureza') {
+                        contadorTipo.Pureza += 1
+                    }
+                    else if (regra.tipo === 'Umidade') {
+                        contadorTipo.Umidade += 1
+                    }
+                }
+            })
+
+            if (controle) {
+                if (contadorTipo.Umidade > 1) {
+                    toast.error('Não pode haver mais de uma regra de Umidade', {
+                        position: 'bottom-left',
+                        autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                    })
+                }
+                else if (contadorTipo.Pureza > 1) {
+                    toast.error('Não pode haver mais de uma regra de Pureza', {
+                        position: 'bottom-left',
+                        autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                    })
+                }
+                else {
+                    await api.post('/updateProduto', {id:id, descricao:descricao, unidadeMedida:unidadeMedida, regras:regras}).then((resposta)=>{
+                        navigate('/listaProdutos')
+                    })
+                }
+            }
+            else {
+                toast.error('Preencha todas as regras adicionadas', {
+                    position: 'bottom-left',
+                    autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                })
+
+            }
+        }
     }
 
     function redirecionarProduto() {
         navigate('/listaProdutos')
+    }
+    
+    async function getDescricaoProdutos(){
+        try{
+            const response = await api.get('/getDescricaoProdutos')
+                //console.log(resposta.data)
+                setProdutoDescricao(response.data.produtos)
+        } catch(erro){
+            console.log(erro)
+        }
+    }
+    
+
+    //============ DELETAR PRODUTO ==============
+    async function confirmarDelete(){
+        if(produtoUtilizado){
+            Swal.fire({
+                title: 'Não foi possível excluir o produto',
+                text: 'Produto utilizado em algum pedido',
+                icon: 'warning',
+                showConfirmButton: false,
+                showCancelButton: true,
+                cancelButtonColor: '#3E813B',
+                cancelButtonText: 'Ok'
+            })
+        } else {
+            Swal.fire({
+                title: 'Excluir produto?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#C0C0C0',
+                cancelButtonColor: '#3E813B',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Confirmar',
+              }).then(async (result) => {
+                if (result.isConfirmed) {
+                  await deletaProduto()
+                }
+              })
+        }  
+    }
+
+    async function deletaProduto(){
+        navigate('/listaProdutos')
+        await api.post("/deletaProduto", {id})/* .then((reposta) => {navegate('/listaFornecedor')}) */
     }
 
     //======================== Mascaras ========================
@@ -279,22 +390,29 @@ function CadProduto() {
 
         }
         veLogado()
-    }, [render, regras])
+    }, [edicao, render, regras])
     useEffect(() => {
         if(id){
             resgataValores()
+            getDescricaoProdutos()
         }
     }, [])
 
     //======================== Submit ========================
 
     async function cadastroProduto(evento: any) {
+        getDescricaoProdutos()
         let controle = true
         if (unidadeMedida === '' || descricao === '') {
             toast.error('Preencha todos os campos', {
                 position: 'bottom-left',
                 autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
             })
+        } else if(produtoDescricao.some(produto => produto.prod_descricao === descricao)){
+                toast.error('Produto existente', {
+                    position: 'bottom-left',
+                    autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                })
         }
         else {
             //Confere se todas as regras estão preenchidas e há no máximo 1 regra de umidade e 1 de pureza
@@ -352,14 +470,18 @@ function CadProduto() {
         <>
             <NavBar />
             <div className='divFornecedor'>
-                <form>
+                <div className={`${edicao === true? 'flexMainFornecedor' : ''}`}>
                     {edicao &&
-                        <h1 className='mainTitle'>Edição de Produtos</h1>
-                    }
-                    {!edicao &&
-                        <h1 className='mainTitle'>Cadastro de Produtos</h1>
-                    }
+                    <>
+                    <h1 className='mainTitle'>Edição de Produtos</h1>
+                    <img src={lixeira} alt='Excluir produto' id='clicavel' className='lixoFornecedor' onClick={() => confirmarDelete()}/>
+                    </>
+                    }   
+                    {!edicao && <h1 className='mainTitle'>Cadastro de Produtos</h1>}
+                    
+                </div>
 
+                <form>
                     <div className="grid-container poscentralized">
                         <div className="box">
                             <table>

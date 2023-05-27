@@ -26,8 +26,8 @@ DROP TABLE IF EXISTS `produto`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `produto` (
   `prod_codigo` int NOT NULL AUTO_INCREMENT,
-  `prod_descricao` varchar(20) DEFAULT NULL,
-  `prod_unidade_medida` varchar(10) DEFAULT NULL,
+  `prod_descricao` varchar(20) NOT NULL UNIQUE,
+  `prod_unidade_medida` varchar(10) NOT NULL,
   `prod_ativo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`prod_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
