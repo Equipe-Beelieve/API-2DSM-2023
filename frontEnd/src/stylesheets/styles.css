@@ -1189,10 +1189,294 @@ p.solid {
 }
 
 /* Formatação do Relatório final */
-.boxFinalReportGreen {
-  background-color: lightgreen;
+.boxFinalProdutoReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+}
+
+.boxFinalProdutoReportGreen label{
+  font-weight: bold;
+  margin-left: 3%;
+}
+
+.boxFinalProdutoReportGreen .prod-nome{
+  margin-left: 3%;
+  text-align: center;
+}
+
+.boxFinalProdutoReportGreen .nome-confirme{
+  text-align: center;
+  margin-left: 5%;
+}
+
+.boxFinalRazaoSocialReportGreen{
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalRazaoSocialReportGreen label{
+  font-weight: bold;
+  margin-left: 2%;
+}
+
+.boxFinalRazaoSocialReportGreen .razao-nome{
+  margin-left: 3%;
+  text-align: center;
+}
+
+.boxFinalRazaoSocialReportGreen .razao-nome-confirme{
+  text-align: center;
+  margin-left: 3%;
+}
+
+.boxFinalTransporteReportGreen{
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalTransporteReportGreen label{
+  font-weight: bold;
+  margin-left: 2%;
+}
+
+.boxFinalTransporteReportGreen .nome-transporte{
+  margin-left: 1%;
+  text-align: center;
+}
+
+.boxFinalTransporteReportGreen .transporte-confirme{
+  text-align: center;
+  margin-left: 3%;
+}
+
+.boxFinalValorUniReportGreen{
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalValorUniReportGreen label{
+  font-weight: bold;
+  margin-left: 2%;
+}
+
+.boxFinalValorUniReportGreen .valor-unico{
+  margin-left: 1%;
+  text-align: center;
+}
+
+.boxFinalValorUniReportGreen .valor-confirme{
+  text-align: center;
+  margin-left: 3%;
+}
+
+.boxFinalValorTotalReportGreen{
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalValorTotalReportGreen label{
+  font-weight: bold;
+  margin-left: 2%;
+}
+
+.boxFinalValorTotalReportGreen .valor-total{
+  margin-left: 1%;
+  text-align: center;
+}
+
+.boxFinalValorTotalReportGreen .valor-confirme{
+  text-align: center;
+  margin-left: 3%;
+}
+
+.boxFinalCondicaoPagamentoReportGreen{
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalCondicaoPagamentoReportGreen label{
+  font-weight: bold;
+}
+
+.boxFinalCondicaoPagamentoReportGreen .cond-pagar{
+  margin-left: 1%;
+  text-align: center;
+}
+
+.boxFinalCondicaoPagamentoReportGreen .cond-confirme{
+  margin-left: 1%;
+  text-align: center;
+}
+
+.boxFinalTipoFreteReportGreen{
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalTipoFreteReportGreen label{
+  font-weight: bold;
+}
+
+.boxFinalDataPedidoReportGreen{
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalDataPedidoReportGreen label{
+  font-weight: bold;
+}
+
+.boxFinalDataEntregaReportGreen{
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalDataEntregaReportGreen label{
+  font-weight: bold;
+}
+
+.boxFinalQuantReportGreen{
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalQuantReportGreen label{
+  font-weight: bold;
+}
+
+.boxFinalPesoReportGreen{
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalPesoReportGreen label{
+  font-weight: bold;
+}
+
+.boxFinalLaudoReportGreen{
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalLaudoReportGreen label{
+  font-weight: bold;
+}
+
+.boxFinalPersonalizadaReportGreen{
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalPersonalizadaReportGreen label{
+  font-weight: bold;
+}
+
+.boxFinalAvariaReportGreen{
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalAvariaReportGreen label{
+  font-weight: bold;
+}
+
+.boxFinalUmidaePurezaReportGreen{
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalUmidaePurezaReportGreen label{
+  font-weight: bold;
+}
+
+.titulo-aprovado{
+  background-color: #3E813B;
+  color: #FFFFFF;
+  width: 40%;
+  text-align: center;
+  margin-left: 30%;
+  padding: 3px;
+  border-radius: 16px;
+  margin-top: 3%;
+  font-weight: bold;
+}
+
+.titulo-aprovado p{
+  margin-top: 3%;
+}
+
+.botao-aprovado .pedido{
+  background-color: #C0C0C0;
+  font-weight: bold;
+  border-color: transparent;
+  border-radius: 6px;
+  color: #000000;
+  margin-top: 3%;
+  margin-left: 44%;
+  text-align: center;
+  width: 12%;
 }
 
 .boxFinalReportRed {
-  background-color: red;
+  background-color: #FF8282;
+  border: 1px solid #DD2424;
 }

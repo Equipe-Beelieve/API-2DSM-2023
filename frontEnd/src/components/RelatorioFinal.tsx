@@ -115,74 +115,74 @@ function RelatorioFinal() {
                     if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Produto'){
                         return (
                             /* Cada if possui uma div dessas que é um campo de comparação, o assunto está descrito na tag label. Nesse caso é a comparação dos produtos */
-                            <div className={`${resultado.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
-                                <label>Produto</label>
-                                <input type="text" value={dadosRelatorio.pedido.Produto} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.Produto} readOnly/>
+                            <div className={`${resultado.resultado === true? 'boxFinalProdutoReportGreen' : 'boxFinalProdutoReportRed'}`}>
+                                <label>Produto:</label>
+                                <input className='prod-nome' type="text" value={dadosRelatorio.pedido.Produto} readOnly/> <input className='nome-confirme' type="text" value={dadosRelatorio.notaFiscal.Produto} readOnly/>
                             </div>
                         )
                     }
                     else if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Razão Social'){
                         return (
-                            <div className={`${resultado.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
-                                <label >Razão Social</label>
-                                <input type="text" value={dadosRelatorio.pedido.RazaoSocial} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.RazaoSocial} readOnly/>
+                            <div className={`${resultado.resultado === true? 'boxFinalRazaoSocialReportGreen' : 'boxFinalRazaoSocialReportRed'}`}>
+                                <label>Razão Social:</label>
+                                <input className='razao-nome' type="text" value={dadosRelatorio.pedido.RazaoSocial} readOnly/> <input className='razao-nome-confirme' type="text" value={dadosRelatorio.notaFiscal.RazaoSocial} readOnly/>
                             </div>
                         )
                     }
                     else if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Transportadora'){
                         return (
-                            <div className={`${resultado.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`} >
-                                <label>Transportadora</label>
-                                <input type="text" value={dadosRelatorio.pedido.Transportadora} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.Transportadora} readOnly/>
+                            <div className={`${resultado.resultado === true? 'boxFinalTransporteReportGreen' : 'boxFinalTransporteReportRed'}`} >
+                                <label>Transportadora:</label>
+                                <input className='nome-transporte' type="text" value={dadosRelatorio.pedido.Transportadora} readOnly/> <input className='transporte-confirme' type="text" value={dadosRelatorio.notaFiscal.Transportadora} readOnly/>
                             </div>  
                         )
                     }
                     else if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Valor Unidade'){
                         return (
-                            <div className={`${resultado.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
-                                <label>Valor Unitário</label>
-                                <input type="text" value={dadosRelatorio.pedido.ValorUnitario} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.ValorUnitario} readOnly/>
+                            <div className={`${resultado.resultado === true? 'boxFinalValorUniReportGreen' : 'boxFinalValorUniReportRed'}`}>
+                                <label>Valor Unitário:</label>
+                                <input className='valor-unico' type="text" value={dadosRelatorio.pedido.ValorUnitario} readOnly/> <input className='valor-confirme' type="text" value={dadosRelatorio.notaFiscal.ValorUnitario} readOnly/>
                             </div>      
                         )
                     } else if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Valor Total'){
                         return (
-                            <div className={`${resultado.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
-                                <label>Valor Total</label>
-                                <input type="text" value={dadosRelatorio.pedido.ValorTotal} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.ValorTotal} readOnly/>
+                            <div className={`${resultado.resultado === true? 'boxFinalValorTotalReportGreen' : 'boxFinalValorTotalReportRed'}`}>
+                                <label>Valor Total:</label>
+                                <input className='valor-total' type="text" value={dadosRelatorio.pedido.ValorTotal} readOnly/> <input className='valor-confirme' type="text" value={dadosRelatorio.notaFiscal.ValorTotal} readOnly/>
                             </div>
                         )
                     } else if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Condição de Pagamento'){
                         return (
-                            <div className={`${resultado.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
-                                <label>Condição de Pagamento</label>
-                                <input type="text" value={dadosRelatorio.pedido.CondicaoPagamento} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.CondicaoPagamento} readOnly/>
+                            <div className={`${resultado.resultado === true? 'boxFinalCondicaoPagamentoReportGreen' : 'boxFinalCondicaoPagamentoReportRed'}`}>
+                                <label>Condição de Pagamento:</label>
+                                <input className='cond-pagar' type="text" value={dadosRelatorio.pedido.CondicaoPagamento} readOnly/> <input className='cond-confirme' type="text" value={dadosRelatorio.notaFiscal.CondicaoPagamento} readOnly/>
                             </div>
                         )
                     } else if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Tipo Frete'){
                         return (
-                            <div className={`${resultado.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
-                                <label>Tipo de Frete</label>
+                            <div className={`${resultado.resultado === true? 'boxFinalTipoFreteReportGreen' : 'boxFinalTipoFreteReportRed'}`}>
+                                <label>Tipo de Frete:</label>
                                 <input type="text" value={dadosRelatorio.pedido.TipoFrete} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.TipoFrete} readOnly/>
                             </div>
                         )
                     } else if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Data do Pedido'){
                         return (
-                            <div className={`${resultado.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
-                                <label>Data do Pedido</label>
+                            <div className={`${resultado.resultado === true? 'boxFinalDataPedidoReportGreen' : 'boxFinalDataPedidoReportRed'}`}>
+                                <label>Data do Pedido:</label>
                                 <input type="text" value={dadosRelatorio.pedido.DataPedido} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.DataPedido} readOnly/>
                             </div>
                         )
                     } else if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Data de Entrega'){
                         return (
-                            <div className={`${resultado.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
-                                <label>Data de entrega</label>
+                            <div className={`${resultado.resultado === true? 'boxFinalDataEntregaReportGreen' : 'boxFinalDataEntregaReportRed'}`}>
+                                <label>Data de entrega:</label>
                                 <input type="text" value={dadosRelatorio.pedido.DataEntrega} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.DataEntrega} readOnly/>
                             </div>
                         )
                     } else if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Quantidade'){
                         return (
-                            <div className={`${resultado.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
-                                <label>Quantidade</label>
+                            <div className={`${resultado.resultado === true? 'boxFinalQuantReportGreen' : 'boxFinalQuantReportRed'}`}>
+                                <label>Quantidade:</label>
                                 <input type="text" value={dadosRelatorio.pedido.Quantidade} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.Quantidade} readOnly/>
                             </div>
                         )
@@ -196,8 +196,8 @@ function RelatorioFinal() {
                         const analiseQuantitativa = dadosRelatorio.Resultados.find((resultado) => resultado.comparacao === 'Nota Fiscal x Dados da Análise Quantitativa | Peso')
                             if(regra.tipo === 'Análise Quantitativa'){
                                 return (
-                                    <div className={`${analiseQuantitativa?.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
-                                        <label>Peso</label>
+                                    <div className={`${analiseQuantitativa?.resultado === true? 'boxFinalPesoReportGreen' : 'boxFinalPesoReportRed'}`}>
+                                        <label>Peso:</label>
                                         <input type="text" value={regra.regra} readOnly/> <input type="text" value={regra.valor} readOnly/>
                                     </div>
                                 )
@@ -210,8 +210,8 @@ function RelatorioFinal() {
                 {dadosRelatorio.Resultados.map((resultado, index) => {
                     if(resultado.comparacao === 'Laudo'){
                         return (
-                            <div className={`${resultado.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
-                                <label>Presença do laudo</label>
+                            <div className={`${resultado.resultado === true? 'boxFinalLaudoReportGreen' : 'boxFinalLaudoReportRed'}`}>
+                                <label>Presença do laudo:</label>
                                 <input type="text" value={'Sim'} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.Laudo} readOnly/>
                             </div>
                         )
@@ -221,16 +221,16 @@ function RelatorioFinal() {
                         if(regra.tipo === 'Personalizada'){
                             const resultadoPersonalizada = dadosRelatorio.Resultados.find((resultado) => resultado.comparacao === `Regra qualitativa | Personalizada | ${regra.regra}`)
                             return(
-                                <div className={`${resultadoPersonalizada?.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
-                                    <label>{regra.regra}</label>
+                                <div className={`${resultadoPersonalizada?.resultado === true? 'boxFinalPersonalizadaReportGreen' : 'boxFinalPersonalizadaReportRed'}`}>
+                                    <label>{regra.regra}:</label>
                                     <input type="text" value={'Sim'} readOnly/> <input type="text" value={regra.valor === 'true'? 'Sim' : 'Não'} readOnly/>
                                 </div>
                             )
                         } else if(regra.tipo === 'Avaria'){
                             const resultadoAvaria = dadosRelatorio.Resultados.find((resultado) => resultado.comparacao === 'Regra qualitativa | Avaria | Não deve haver')
                             return(
-                                <div className={`${resultadoAvaria?.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
-                                    <label>Avaria</label>
+                                <div className={`${resultadoAvaria?.resultado === true? 'boxFinalAvariaReportGreen' : 'boxFinalAvariaReportRed'}`}>
+                                    <label>Avaria:</label>
                                     <input type="text" value={'Não deve haver'} readOnly/> <input type="text" value={regra.valor === 'true'? 'Não há' : 'Há'} readOnly/>
                                     {regra.avaria !== undefined && regra.avaria !== '' &&
                                         <input type="text" value={regra.avaria} readOnly/>
@@ -241,8 +241,8 @@ function RelatorioFinal() {
                         } else if(regra.tipo !== 'Personalizada' && regra.tipo !== 'Avaria' && regra.tipo !== 'Análise Quantitativa'){
                             const resultadoAnalise = dadosRelatorio.Resultados.find((resultado) => resultado.comparacao === `Regra qualitativa | ${regra.tipo} | ${regra.regra}`)
                             return(
-                                <div className={`${resultadoAnalise?.resultado === true? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
-                                    <label>{regra.tipo}</label>
+                                <div className={`${resultadoAnalise?.resultado === true? 'boxFinalUmidaePurezaReportGreen' : 'boxFinalUmidaePurezaReportRed'}`}>
+                                    <label>{regra.tipo}:</label>
                                     <input type="text" value={regra.regra} readOnly/> <input type="text" value={regra.valor} readOnly/>
                                 </div>
                             )
@@ -252,26 +252,26 @@ function RelatorioFinal() {
                     {/* Exibe a decisão do sistema quanto ao pedido e os botões necessários pra cada uma delas*/}
                     {resultadoFinal === true &&
                         <>
-                            <div>
+                            <div className='titulo-aprovado'>
                                 <p>APROVADO</p>
                             </div> 
-                            <div>
-                                <button onClick={(e) => navigateTo('listaPedidos')}>Outros pedidos</button>
+                            <div className='botao-aprovado'>
+                                <button className='pedido' onClick={(e) => navigateTo('listaPedidos')}>Outros pedidos</button>
                             </div>
                         </> 
                     }
                     {resultadoFinal === false &&
                         <>
-                            <div>
+                            <div className='titulo-recusado'>
                                 <p>RECUSADO</p>
                             </div> 
-                            <div>
-                                <button onClick={(e) => navigateTo('listaPedidos')}>Outros pedidos</button>
+                            <div className='botao-recusado'>
+                                <button className='pedido'  onClick={(e) => navigateTo('listaPedidos')}>Outros pedidos</button>
 
                                 {/* Somente o Administrador e os Gerentes podem forçar o aceite em caso de recusa */}
                                 {(funcao === 'Administrador' || funcao === 'Gerente') &&
                                     <>
-                                        <button onClick={(e) => setResultadoFinal(true)}>Forçar aceite</button>
+                                        <button className='force-aceite' onClick={(e) => setResultadoFinal(true)}>Forçar aceite</button>
                                     </>
                                 } 
                             </div>
