@@ -152,6 +152,11 @@ app.post('/cadastroFornecedor', async (req, res) => {
     res.send('Foi')
 })
 
+app.get('/cnpjFornecedores', async(req, res) => {
+    let cnpjs = await bd.pegarCNPJ()
+    res.send(cnpjs)
+})
+
 //========================= Cadastro de Usuarios =========================
 app.post('/cadastroUsuario', async (req,res) => {
     let {nome, senha,funcao, login} = req.body.post

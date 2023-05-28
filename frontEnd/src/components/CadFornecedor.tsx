@@ -3,10 +3,10 @@ import api from '../services/api'
 import { useNavigate, useParams } from 'react-router-dom';
 import verificaLogado from '../funcoes/verificaLogado';
 import NavBar from './NavBar';
+import { Fornecedor } from './ListaFornecedor';
 import { toast } from 'react-toastify';
 import lixeira from '../images/lixeira.png'
 import Swal from 'sweetalert2';
-
 
 function CadFornecedor() {
 
@@ -29,9 +29,17 @@ function CadFornecedor() {
 
     const navegate = useNavigate()
     const cnpjRef = useRef(null)
+    const [cnpjsExistentes, setCnpjsExistentes] = useState<Fornecedor[]>([])
     const cepRef = useRef(null)
     
 
+    async function getFornecedores(){
+        await api.get('/cnpjFornecedores').then((resposta) => {
+            let dados = resposta.data
+            console.log(dados)
+            setCnpjsExistentes(dados)
+        })
+    }
     
     //================== SUBMIT DE FORMULÁRIO ==================   
     async function cadastraFornecedor(evento:any){
@@ -46,21 +54,29 @@ function CadFornecedor() {
             erroCnpj = true
       
         }
+
         if (!regexCep.test(cep)){
             toast.error("O CEP deve ser: XXXXX-XX", {position: 'bottom-left', autoClose: 5000,
             className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
             erroCep = true
         }
-        
+
         if (!regexCnpj.test(cnpj) || !regexCep.test(cep)){
             if (erroCnpj){setCnpj('')}
             if (erroCep){setCep('')}
             evento.preventDefault()
-        }
-        else{
-            const post = {cnpj, cep, estado, cidade, bairro, numero, ruaAvenida, razaoSocial, nomeFantasia}
-            
-            await api.post('/cadastroFornecedor', {post}).then((resposta) => {navegate('/listaFornecedor')})
+        } 
+        else {
+            const cnpjExiste = cnpjsExistentes.some((cnpjExistente) => cnpjExistente.for_cnpj === cnpj)
+            if(cnpjExiste){
+                toast.error('CNPJ já cadastrado no sistema', {
+                    position: 'bottom-left',
+                    autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                })
+            } else {
+                const post = {cnpj, cep, estado, cidade, bairro, numero, ruaAvenida, razaoSocial, nomeFantasia}
+                await api.post('/cadastroFornecedor', {post}).then((resposta) => {navegate('/listaFornecedor')})
+            } 
         } 
     }
 
@@ -137,6 +153,7 @@ function CadFornecedor() {
             }
         }
     }
+
 
     function trataCep(evento:any){
         let valor = evento.target.value
@@ -267,13 +284,14 @@ function CadFornecedor() {
             }
         }
         veLogado()
+        getFornecedores()
         }, [editar])
 
-        useEffect(()=>{
-            if(id){
-                resgataValores()
-            }
-            }, [])
+    useEffect(()=>{
+        if(id){
+            resgataValores()
+        }
+        }, [])
 
     //================== REENDERIZAÇÃO ==================
 
