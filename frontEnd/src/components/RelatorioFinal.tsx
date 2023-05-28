@@ -231,9 +231,9 @@ function RelatorioFinal() {
                             return(
                                 <div className={`${resultadoAvaria?.resultado === true? 'boxFinalAvariaReportGreen' : 'boxFinalAvariaReportRed'}`}>
                                     <label>Avaria:</label>
-                                    <input type="text" value={'Não deve haver'} readOnly/> <input type="text" value={regra.valor === 'true'? 'Não há' : 'Há'} readOnly/>
+                                    <input className='haver' type="text" value={'Não deve haver'} readOnly/> <input className='ha' type="text" value={regra.valor === 'true'? 'Não há' : 'Há'} readOnly/><br /><br />
                                     {regra.avaria !== undefined && regra.avaria !== '' &&
-                                        <input type="text" value={regra.avaria} readOnly/>
+                                        <input className='comentario' type="text" value={regra.avaria} readOnly/>
                                     }
                                    
                                 </div>

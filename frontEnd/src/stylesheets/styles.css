@@ -1435,6 +1435,22 @@ p.solid {
   font-weight: bold;
 }
 
+.boxFinalAvariaReportGreen .haver{
+  margin-left: 2%;
+  text-align: center;
+}
+
+.boxFinalAvariaReportGreen .ha{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalAvariaReportGreen .comentario{
+  width: 70%;
+  padding: 9px;
+  margin-left: 9%;
+}
+
 .boxFinalUmidaePurezaReportGreen{
   background-color: #AFFFAB;
   border: 6px solid #3E813B;
@@ -1476,7 +1492,96 @@ p.solid {
   width: 12%;
 }
 
-.boxFinalReportRed {
+.boxFinalProdutoReportRed {
   background-color: #FF8282;
-  border: 1px solid #DD2424;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalAvariaReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalTransporteReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalTransporteReportRed label{
+  font-weight: bold;
+}
+
+.boxFinalTransporteReportRed .nome-transporte{
+  margin-left: 1%;
+  text-align: center;
+}
+
+.boxFinalTransporteReportRed .transporte-confirme{
+  margin-left: 4%;
+  text-align: center;
+}
+
+.boxFinalAvariaReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalAvariaReportRed label{
+  font-weight: bold;
+}
+
+.titulo-recusado{
+  background-color: #DD2424;
+  color: #FFFFFF;
+  width: 40%;
+  text-align: center;
+  margin-left: 30%;
+  padding: 3px;
+  border-radius: 16px;
+  margin-top: 3%;
+  font-weight: bold;
+}
+
+.titulo-recusado p{
+  margin-top: 3%;
+}
+
+.botao-recusado{
+  margin-top: 3%;
+  margin-left: 31%;
+}
+
+.botao-recusado .pedido{
+  background-color: #C0C0C0;
+  color: #000000;
+  font-weight: bold;
+  border-color: transparent;
+  border-radius: 5px;
+  width: 25%;
+}
+
+.botao-recusado .force-aceite{
+  background-color: #3E813B;
+  color: #F5F5F5;
+  font-weight: bold;
+  margin-left: 7%;
+  border-color: transparent;
+  border-radius: 5px;
+  width: 25%;
 }
