@@ -115,17 +115,17 @@ app.get('/cadastroPedido', async (req, res) => {
 })
 
 app.post('/postCadastroPedido', async (req,res) => {
-    let {produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, 
+    let {produto, dataPedido, dataEntrega, razaoSocial, cnpj, precoUnitario, 
         quantidade, precoTotal, frete, transportadora, condicaoPagamento} = req.body.post
-    let pedido = new Pedido(produto, dataPedido, dataEntrega, razaoSocial, 
-        precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento)
+    let pedido = new Pedido(produto, dataPedido, dataEntrega, cnpj, 
+        precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento, razaoSocial)
     await bd.inserirPedido(pedido) //método da clase bancoDados para inserir na tabela pedido
     res.send('Foi')
 });
 
 app.post('/updatePedido', async (req,res) => {
-    let {id, produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento} = req.body.post
-    let pedido = new Pedido(produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento)
+    let {id, produto, dataPedido, dataEntrega, razaoSocial, cnpj, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento} = req.body.post
+    let pedido = new Pedido(produto, dataPedido, dataEntrega, cnpj, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento, razaoSocial)
     let status = await bd.pegaStatus(id)
     let trocaUnidade = false
     let unidade = ''
@@ -422,18 +422,18 @@ app.post('/confereStatus', async (req, res) =>{
 
 //========================= Inserção da nota fiscal =========================
 app.post('/postNota', async (req, res) => {
-    let {id, unidade, produto,  dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento} = req.body.post
+    let {id, unidade, produto,  dataEmissao, dataEntrega, cnpj, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento} = req.body.post
     console.log(`unidadePost: ${unidade}`)
-    let codigoFornecedor = await bd.pegarCodigo('for_codigo', 'fornecedor', 'for_razao_social', razaoSocial)
-    let nf = new NotaFiscal(produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, codigoFornecedor, unidade, id)
+    let codigoFornecedor = await bd.pegarCodigo('for_codigo', 'fornecedor', 'for_cnpj', cnpj)
+    let nf = new NotaFiscal(produto, dataEmissao, dataEntrega, cnpj, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, codigoFornecedor, unidade, id)
     await bd.inserirNF(nf)
     res.send('foi')
 })
 
 app.post('/updateNota', async (req,res) => {
-    let {id, unidade, produto,  dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento} = req.body.post
-    let codigoFornecedor = await bd.pegarCodigo('for_codigo', 'fornecedor', 'for_razao_social', razaoSocial)
-    let nf = new NotaFiscal(produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, codigoFornecedor, unidade, id)
+    let {id, unidade, produto,  dataEmissao, dataEntrega, cnpj, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento} = req.body.post
+    let codigoFornecedor = await bd.pegarCodigo('for_codigo', 'fornecedor', 'for_cnpj', cnpj)
+    let nf = new NotaFiscal(produto, dataEmissao, dataEntrega, cnpj, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, codigoFornecedor, unidade, id)
     await bd.updateNF(nf)
     res.send('Foi')
 
@@ -519,6 +519,11 @@ app.post('/relatorioFinal', async(req,res) => {
         })
     }
     res.send(relatorioFinal)
+})
+
+app.post('/forcarAceite', async (req, res) => {
+    let {status, id} = req.body
+    await bd.mudaStatusFinal(status, id)
 })
 
 app.listen(8080, () => {

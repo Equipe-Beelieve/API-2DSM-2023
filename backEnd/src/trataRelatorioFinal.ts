@@ -51,7 +51,7 @@ function trataRelatorioFinal(dadosRelatorio:any, regrasAnalise:any, analiseQuant
 
     let relatorioFinal:RelatorioFinal = {
         pedido:{
-            RazaoSocial:dadosRelatorio.ped_razao_social,
+            CNPJ:dadosRelatorio.ped_cnpj,
             Transportadora:dadosRelatorio.ped_transportadora,
             TipoFrete:dadosRelatorio.ped_tipo_frete,
             Quantidade:dadosRelatorio.ped_produto_massa,
@@ -63,7 +63,7 @@ function trataRelatorioFinal(dadosRelatorio:any, regrasAnalise:any, analiseQuant
             CondicaoPagamento:dadosRelatorio.ped_condicao_pagamento
         },
         notaFiscal:{
-            RazaoSocial:dadosRelatorio.nf_razao_social,
+            CNPJ:dadosRelatorio.nf_cnpj,
             Transportadora:dadosRelatorio.nf_transportadora,
             TipoFrete:dadosRelatorio.nf_tipo_frete,
             Quantidade:dadosRelatorio.nf_produto_massa,

@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `nota_fiscal`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nota_fiscal` (
   `nf_codigo` int NOT NULL AUTO_INCREMENT,
-  `nf_razao_social` varchar(50) DEFAULT NULL,
+  `nf_cnpj` varchar(19) DEFAULT NULL,
   `nf_data_emissao` date DEFAULT NULL,
   `nf_data_entrega` date DEFAULT NULL,
   `nf_transportadora` varchar(100) DEFAULT NULL,

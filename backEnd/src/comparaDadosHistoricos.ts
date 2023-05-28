@@ -20,16 +20,16 @@ export default function comparaDados(dadosRelatorio:any, regrasAnalise:any){
             resultado:false
         })
     }
-    //Relatório Compras x Nota fiscal | Razão Social
-    if(dadosRelatorio.ped_razao_social === dadosRelatorio.nf_razao_social){
+    //Relatório Compras x Nota fiscal | CNPJ
+    if(dadosRelatorio.ped_cnpj === dadosRelatorio.nf_cnpj){
         comparacoes.push({
-            comparacao:"Relatório Compras x Nota fiscal | Razão Social",
+            comparacao:"Relatório Compras x Nota fiscal | CNPJ",
             resultado:true
         })
     }
     else{
         comparacoes.push({
-            comparacao:"Relatório Compras x Nota fiscal | Razão Social",
+            comparacao:"Relatório Compras x Nota fiscal | CNPJ",
             resultado:false
         })
     }

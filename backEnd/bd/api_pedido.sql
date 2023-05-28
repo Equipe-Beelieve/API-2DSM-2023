@@ -27,6 +27,7 @@ DROP TABLE IF EXISTS `pedido`;
 CREATE TABLE `pedido` (
   `ped_codigo` int NOT NULL AUTO_INCREMENT,
   `ped_razao_social` varchar(50) DEFAULT NULL,
+  `ped_cnpj` varchar(19) DEFAULT NULL,
   `ped_transportadora` varchar(100) DEFAULT NULL,
   `ped_tipo_frete` varchar(20) DEFAULT NULL,
   `ped_produto_massa` varchar(10) DEFAULT NULL,

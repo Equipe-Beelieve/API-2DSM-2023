@@ -26,6 +26,7 @@ function CadPedido() {
     const [dataPedido, setDataPedido] = useState('')
     const [dataEntrega, setDataEntrega] = useState('')
     const [razaoSocial, setRazaoSocial] = useState('')
+    const [cnpj, setCnpj] = useState('')
     const [precoUnitario, setPrecoUnitario] = useState('')
     const [quantidade, setQuantidade] = useState('')
     const [precoTotal, setPrecoTotal] = useState('')
@@ -177,6 +178,25 @@ function CadPedido() {
         setProduto('')
     }
 
+    function manipularFornecedor(razaoSelecionada:string){
+        setRazaoSocial(razaoSelecionada)
+        const fornecedorAlvo = fornecedores.find(fornecedor => fornecedor.for_razao_social === razaoSelecionada)
+        if(fornecedorAlvo){
+            setCnpj(fornecedorAlvo.for_cnpj)
+        } else{
+            setCnpj('')
+        }
+    }
+
+    function manipularCNPJ(){
+        if(cnpj === ''){
+            toast.error('Selecione um fornecedor no campo Razão Social', {
+                position: 'bottom-left', autoClose: 2500,
+                className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+            })
+        }
+    }
+
     function trataDatalistFornecedor(evento: any) {
         for (let i in fornecedores) {
             if (razaoSocial === fornecedores[i].for_razao_social) {
@@ -273,6 +293,7 @@ function CadPedido() {
                 setProduto(dado.descricao)
                 setDataPedido(dado.data_pedido.slice(0, 10))
                 setDataEntrega(dado.data_entrega.slice(0, 10))
+                setCnpj(dado.cnpj)
                 setRazaoSocial(dado.razao_social)
                 setPrecoUnitario(dado.valor_unidade)
                 setQuantidade(dado.produto_massa)
@@ -293,6 +314,7 @@ function CadPedido() {
                 setDataPedido(dado.data_pedido.slice(0, 10))
                 setDataEntrega(dado.data_entrega.slice(0, 10))
                 setRazaoSocial(dado.razao_social)
+                setCnpj(dado.cnpj)
                 setPrecoUnitario(dado.valor_unidade)
                 setQuantidade(dado.produto_massa)
                 setPrecoTotal(dado.valor_total)
@@ -306,11 +328,9 @@ function CadPedido() {
                     setUnidade("t")
                 }
             }
-            // else {
-            //     navegate('/listaPedidos')
-            // }
         });
     };
+
     useEffect(() => {
         if (id) {
             veStatus()
@@ -390,7 +410,7 @@ function CadPedido() {
             setPrecoTotal(precoTotal.slice(3))
             setQuantidade(quantidade.slice(0, -2))
         }
-        const post = { produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento }
+        const post = { produto, dataPedido, dataEntrega, razaoSocial, cnpj, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento }
 
         await api.post('/postCadastroPedido', { post }).then((resposta) => { navegate("/listaPedidos") })
 
@@ -408,7 +428,7 @@ function CadPedido() {
             setPrecoTotal(precoTotal.slice(3))
             setQuantidade(quantidade.slice(0, -2))
         }
-        const post = { id, produto, dataPedido, dataEntrega, razaoSocial, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento }
+        const post = { id, produto, dataPedido, dataEntrega, razaoSocial, cnpj, precoUnitario, quantidade, precoTotal, frete, transportadora, condicaoPagamento }
 
         await api.post('/updatePedido', { post }).then((resposta) => {
             navegate("/listaPedidos")
@@ -556,7 +576,7 @@ function CadPedido() {
                                             <td>
                                                 <input type='text' list='datalistFornecedor' className="input_form" id="razaoSocial" name="razaoSocial" required
                                                     value={razaoSocial}
-                                                    onChange={(e) => { setRazaoSocial(e.target.value) }}
+                                                    onChange={(e) => { manipularFornecedor(e.target.value) }}
                                                     onBlur={trataDatalistFornecedor} />
                                                 <datalist id='datalistFornecedor'>
                                                     <option value=""></option>
@@ -571,6 +591,47 @@ function CadPedido() {
                                 </table>
                             </div>
 
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>CNPJ:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" id="cnpj" name="cnpj"
+                                                required
+                                                readOnly
+                                                value={cnpj}
+                                                onSelect={manipularCNPJ} />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>    
+                        </div>
+
+                        <div className="poscentralized grid-container">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Quantidade:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" id="quantidade" name="quantidade" required
+                                                value={quantidade}
+                                                onChange={trataQuantidade}
+                                                onBlur={blurQuantidade}
+                                                onSelect={selectQuantidade} />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <div className="box">
                                 <table>
@@ -597,28 +658,6 @@ function CadPedido() {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Quantidade:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input className="input_form" type="text" id="quantidade" name="quantidade" required
-                                                value={quantidade}
-                                                onChange={trataQuantidade}
-                                                onBlur={blurQuantidade}
-                                                onSelect={selectQuantidade} />
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div className="poscentralized grid-container">
-                            <div className="box">
-                                <table>
-                                    <thead>
-                                        <tr>
                                             <th>Preço Total:</th>
                                         </tr>
                                     </thead>
@@ -631,8 +670,10 @@ function CadPedido() {
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
+                            </div>  
+                        </div>
 
+                        <div className="poscentralized grid-container">
                             <div className="box">
                                 <table>
                                     <thead>
@@ -675,10 +716,8 @@ function CadPedido() {
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
+                            </div>   
 
-                        <div className="poscentralized grid-container">
                             <div className="box">
                                 <table>
                                     <thead>
@@ -705,12 +744,11 @@ function CadPedido() {
                                                     <option value="90/10">90/10</option>
                                                     <option value="100/00">100/00</option>
                                                 </select>
-
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
+                            </div>                         
                         </div>
 
 
@@ -840,6 +878,46 @@ function CadPedido() {
                                 </table>
                             </div>
 
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>CNPJ:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" id="cnpj" name="cnpj"
+                                                required
+                                                readOnly
+                                                value={cnpj}/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>      
+                        </div>
+
+                        <div className="poscentralized grid-container">
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Quantidade:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="text" id="quantidade" name="quantidade" required readOnly
+                                                value={quantidade}
+                                                onChange={trataQuantidade}
+                                                onBlur={blurQuantidade}
+                                                onSelect={selectQuantidade} />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <div className="box">
                                 <table>
@@ -866,28 +944,6 @@ function CadPedido() {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Quantidade:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input className="input_form" type="text" id="quantidade" name="quantidade" required readOnly
-                                                value={quantidade}
-                                                onChange={trataQuantidade}
-                                                onBlur={blurQuantidade}
-                                                onSelect={selectQuantidade} />
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div className="poscentralized grid-container">
-                            <div className="box">
-                                <table>
-                                    <thead>
-                                        <tr>
                                             <th>Preço Total:</th>
                                         </tr>
                                     </thead>
@@ -900,8 +956,10 @@ function CadPedido() {
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
+                            </div>   
+                        </div>
 
+                        <div className="poscentralized grid-container">
                             <div className="box">
                                 <table>
                                     <thead>
@@ -940,9 +998,7 @@ function CadPedido() {
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
 
-                        <div className="poscentralized grid-container">
                             <div className="box">
                                 <table>
                                     <thead>

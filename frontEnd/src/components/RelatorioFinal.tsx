@@ -26,7 +26,7 @@ interface Relatorio {
             Laudo: string,
             Produto: string,
             Quantidade: string,
-            RazaoSocial: string,
+            CNPJ: string,
             TipoFrete: string,
             Transportadora: string,
             ValorTotal: string,
@@ -38,7 +38,7 @@ interface Relatorio {
             DataPedido: string,
             Produto: string,
             Quantidade: string,
-            RazaoSocial: string,
+            CNPJ: string,
             TipoFrete: string,
             Transportadora: string,
             ValorTotal: string,
@@ -49,7 +49,7 @@ interface Relatorio {
 
 function RelatorioFinal() {
     const [dadosRelatorio, setDadosRelatorio] = useState<Relatorio>({RegrasAnalises: [], Resultados: [], notaFiscal:{...Object.assign({})}, pedido:{...Object.assign({})}})
-    const [resultadoFinal, setResultadoFinal] = useState(true)
+    const [resultadoFinal, setResultadoFinal] = useState('')
     const [funcao, setFuncao] = useState('')
     const navigate = useNavigate()
     const {id} = useParams()
@@ -60,14 +60,8 @@ function RelatorioFinal() {
             await api.post("/relatorioFinal", {id}).then((resposta) => {
                 let dados = resposta.data
                 setDadosRelatorio(dados)
+                setResultadoFinal(dados.DecisaoFinal)
                 console.log(dados)
-
-                const comparacoes = dados.Resultados
-                for(let i = 0; comparacoes.length; i++){
-                    if(comparacoes[i].resultado === false && !comparacoes[i].comparacao.startsWith('Regra qualitativa | Análise Quantitativa')){
-                        setResultadoFinal(false)
-                    }
-                }
             })
         } 
         catch (erro) {
@@ -77,6 +71,11 @@ function RelatorioFinal() {
 
     function navigateTo(caminho:string){
         navigate(`/${caminho}`)
+    }
+
+    async function forcarAceite(){
+        setResultadoFinal('Aceito')
+        await api.post('/forcarAceite', {status:'Aceito', id})
     }
 
     useEffect(() => {
@@ -121,11 +120,11 @@ function RelatorioFinal() {
                             </div>
                         )
                     }
-                    else if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Razão Social'){
+                    else if(resultado.comparacao === 'Relatório Compras x Nota fiscal | CNPJ'){
                         return (
                             <div className={`${resultado.resultado === true? 'boxFinalRazaoSocialReportGreen' : 'boxFinalRazaoSocialReportRed'}`}>
-                                <label>Razão Social:</label>
-                                <input className='razao-nome' type="text" value={dadosRelatorio.pedido.RazaoSocial} readOnly/> <input className='razao-nome-confirme' type="text" value={dadosRelatorio.notaFiscal.RazaoSocial} readOnly/>
+                                <label>CNPJ:</label>
+                                <input className='razao-nome' type="text" value={dadosRelatorio.pedido.CNPJ} readOnly/> <input className='razao-nome-confirme' type="text" value={dadosRelatorio.notaFiscal.CNPJ} readOnly/>
                             </div>
                         )
                     }
@@ -250,7 +249,7 @@ function RelatorioFinal() {
                     })}
 
                     {/* Exibe a decisão do sistema quanto ao pedido e os botões necessários pra cada uma delas*/}
-                    {resultadoFinal === true &&
+                    {resultadoFinal === 'Aceito' &&
                         <>
                             <div className='titulo-aprovado'>
                                 <p>APROVADO</p>
@@ -260,7 +259,7 @@ function RelatorioFinal() {
                             </div>
                         </> 
                     }
-                    {resultadoFinal === false &&
+                    {resultadoFinal === 'Recusado' &&
                         <>
                             <div className='titulo-recusado'>
                                 <p>RECUSADO</p>
@@ -271,7 +270,7 @@ function RelatorioFinal() {
                                 {/* Somente o Administrador e os Gerentes podem forçar o aceite em caso de recusa */}
                                 {(funcao === 'Administrador' || funcao === 'Gerente') &&
                                     <>
-                                        <button className='force-aceite' onClick={(e) => setResultadoFinal(true)}>Forçar aceite</button>
+                                        <button className='force-aceite' onClick={(e) => forcarAceite()}>Forçar aceite</button>
                                     </>
                                 } 
                             </div>

@@ -1,5 +1,6 @@
 export default class Pedido { //classe com os atributos de um pedido
-    private razao_social:string
+    private razao_social?:string
+    private cnpj:string
     private transportadora:string
     private tipo_frete:string
     private produto_massa:string
@@ -11,8 +12,9 @@ export default class Pedido { //classe com os atributos de um pedido
     private condicao_pagamento:string
     private status = "A caminho"
 
-    constructor(descricao:string, data_pedido:string, data_entrega:string, razao_social:string, valor_unidade:string, produto_massa:string, valor_total:string,  tipo_frete:string, transportadora:string,  condicao_pagamento:string) {
+    constructor(descricao:string, data_pedido:string, data_entrega:string, cnpj:string, valor_unidade:string, produto_massa:string, valor_total:string,  tipo_frete:string, transportadora:string,  condicao_pagamento:string, razao_social?:string) {
         this.razao_social = razao_social
+        this.cnpj = cnpj
         this.transportadora = transportadora
         this.tipo_frete = tipo_frete
         this.produto_massa = produto_massa

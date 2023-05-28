@@ -7,7 +7,7 @@ import RegrasAnalises from "./RegrasAnalises"
 export default interface RelatorioFinal {
     // Valores da tabela Pedido
     pedido:{
-        RazaoSocial:string
+        CNPJ:string
         Transportadora:string
         TipoFrete:string
         Quantidade:string
@@ -21,7 +21,7 @@ export default interface RelatorioFinal {
     
     // Valores da tabela Nota Fiscal
     notaFiscal:{
-        RazaoSocial:string
+        CNPJ:string
         Transportadora:string
         TipoFrete:string
         Quantidade:string

@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import NavBar from "./NavBar"
 import { Produto } from "./ListaProdutos"
 import api from "../services/api"
@@ -11,7 +11,7 @@ function RecebimentoPedido() {
 
     //=================== Estados e Hooks ===================
 
-    const [razaoSocial, setRazaoSocial] = useState('')
+    const [cnpj, setCnpj] = useState('')
     const [produto, setProduto] = useState('')
     const [transportadora, setTransportadora] = useState('')
     const [condicaoPagamento, setCondicaoPagamento] = useState('')
@@ -31,11 +31,93 @@ function RecebimentoPedido() {
     const [renderUm, setRenderUm] = useState(true)
     const navegate = useNavigate()
 
-
+    const cnpjRef = useRef(null)
+    const [controleCnpj, setControleCnpj] = useState(0)
     const { id } = useParams()
 
-    //=================== Tratamentos de Preço Unitário ===================
+    //Tratamento do CNPJ
+    function trataCnpj(evento:any){
+        let valor = evento.target.value
+        if(isNaN(valor[valor.length-1]) && valor[valor.length-1] !== '.' && valor[valor.length-1] !== '-' && valor[valor.length-1] !== '/' && valor[valor.length-1] !== undefined){
+            setCnpj(cnpj)
+        }
+        else if (valor.length !== 3 && valor.length !== 7 && valor.length !== 11 && valor.length !== 16 && isNaN(valor.slice(-1))){
+            setCnpj(cnpj)
+        }
+        else{
+            // console.log(controleCnpj)
+            // console.log(valor.length)
+            console.log(`valor.length: ${valor.length}`)
+            if (valor.length < 2){
+                setCnpj(valor)
+                setControleCnpj(0)
+            }
+            else if(valor.length === 2 && controleCnpj < 2) {
+                setCnpj(valor + '.')
+                setControleCnpj(2)
+            }
+            else if(valor.length === 3 && valor[valor.length-1] !== '.'){
+                setCnpj(cnpj + '.' + valor[valor.length-1])
+                setControleCnpj(2)
+            }
+            else if (valor.length > 3 && valor[2] !== '.'){
 
+                setCnpj('')
+                toast.warning('Siga o padrão: XX.XXX.XXX/XXXX-XX para o CNPJ', {position: 'bottom-left', autoClose: 2500, className: 'flash-login', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+            }
+            else if (valor.length<6){
+                setCnpj(valor)
+                setControleCnpj(2)
+            }
+            else if(valor.length === 6 && controleCnpj < 6) {
+                setCnpj(valor + '.')
+                setControleCnpj(6)
+            }
+            else if(valor.length === 7 && valor[valor.length-1] !== '.'){
+                setCnpj(cnpj + '.' + valor[valor.length-1])
+                setControleCnpj(6)
+            }
+            else if (valor.length < 10){
+                setCnpj(valor)
+                setControleCnpj(6)
+            }
+            else if(valor.length === 10 && controleCnpj < 10) {
+                setCnpj(valor + '/')
+                setControleCnpj(10)
+            }
+            else if(valor.length === 11 && valor[valor.length-1] !== '/'){
+                setCnpj(cnpj + '/' + valor[valor.length-1])
+                setControleCnpj(10)
+            }
+            else if (valor.length < 15){
+                setCnpj(valor)
+                setControleCnpj(10)
+            }
+            else if(valor.length === 15 && controleCnpj < 15) {
+                setCnpj(valor + '-')
+                setControleCnpj(15)
+            }
+            else if(valor.length === 16 && valor[valor.length-1] !== '-'){
+                setCnpj(cnpj + '-' + valor[valor.length-1])
+                setControleCnpj(15)
+            }
+            else {
+                setCnpj(valor)
+            }
+        }
+    }
+
+    function carretFim(ref:any){
+        ref.current.setSelectionRange(-1, -1)
+    }
+
+    function impedeSeta(evento:any){
+        if(evento.keyCode === 37 || evento.keyCode === 39){
+            evento.preventDefault();
+        }
+    }
+
+    //=================== Tratamentos de Preço Unitário ===================
     function trataPrecoUnitario(evento: any) {
         let valor = evento.target.value
         if (isNaN(valor.slice(-1)) && unidade !== '' && valor.slice(-1) !== '.' && valor.slice(-1) !== ',') {
@@ -180,10 +262,10 @@ function RecebimentoPedido() {
     // ====================== Botões ======================
 
     async function confirmaVoltaListagem() {
-        if (produto !== '' && dataEntrega !== '' && razaoSocial !== '' && precoUnitario !== '' &&
+        if (produto !== '' && dataEntrega !== '' && cnpj !== '' && precoUnitario !== '' &&
             quantidade !== '' && precoTotal !== '' && tipoFrete !== '' && transportadora !== '' && condicaoPagamento) {
             const post = {
-                id, unidade, produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario,
+                id, unidade, produto, dataEmissao, dataEntrega, cnpj, precoUnitario,
                 quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento
             }
             navegate('/listaPedidos')
@@ -200,10 +282,10 @@ function RecebimentoPedido() {
     }
 
     async function editarVoltaListagem() {
-        if (produto !== '' && dataEntrega !== '' && razaoSocial !== '' && precoUnitario !== '' &&
+        if (produto !== '' && dataEntrega !== '' && cnpj !== '' && precoUnitario !== '' &&
             quantidade !== '' && precoTotal !== '' && tipoFrete !== '' && transportadora !== '' && condicaoPagamento) {
             const post = {
-                id, unidade, produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario,
+                id, unidade, produto, dataEmissao, dataEntrega, cnpj, precoUnitario,
                 quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, nfCodigo
             }
             navegate('/listaPedidos')
@@ -220,11 +302,11 @@ function RecebimentoPedido() {
     }
 
     async function confirmaContinua() {
-        if (produto !== '' && dataEntrega !== '' && razaoSocial !== '' && precoUnitario !== '' &&
+        if (produto !== '' && dataEntrega !== '' && cnpj !== '' && precoUnitario !== '' &&
             quantidade !== '' && precoTotal !== '' && tipoFrete !== '' &&
             transportadora !== '' && condicaoPagamento) {
             const post = {
-                id, unidade, produto, dataEmissao, dataEntrega, razaoSocial, precoUnitario,
+                id, unidade, produto, dataEmissao, dataEntrega, cnpj, precoUnitario,
                 quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento
             }
             await api.post('/postNota', { post }).then((response) => { navegate(`/analiseQuant/${id}`) })
@@ -247,7 +329,7 @@ function RecebimentoPedido() {
             }
             else if (dado.status === 'Revisão') {
                 setMudanca('Revisão')
-                setRazaoSocial(dado.nf_razao_social)
+                setCnpj(dado.nf_cnpj)
                 setProduto(dado.nf_produto_descricao)
                 setTransportadora(dado.nf_transportadora)
                 setCondicaoPagamento(dado.nf_condicao_pagamento)
@@ -264,7 +346,7 @@ function RecebimentoPedido() {
             }
             else if (dado.status === 'Edição') {
                 setMudanca('Edição')
-                setRazaoSocial(dado.nf_razao_social)
+                setCnpj(dado.nf_cnpj)
                 setProduto(dado.nf_produto_descricao)
                 setTransportadora(dado.nf_transportadora)
                 setCondicaoPagamento(dado.nf_condicao_pagamento)
@@ -389,18 +471,61 @@ function RecebimentoPedido() {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Razão Social :</th>
+                                            <th>CNPJ :</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input className="input_form" type="text" value={razaoSocial}
-                                                onChange={(e) => { setRazaoSocial(e.target.value) }} required />
+                                            <td><input className="input_form" type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" required
+                                                value={cnpj}
+                                                minLength={18}
+                                                maxLength={18}
+                                                ref={cnpjRef}
+                                                onChange={trataCnpj}
+                                                onClick={() => carretFim(cnpjRef)}
+                                                onKeyDown={impedeSeta}/>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data de emissão :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="date" value={dataEmissao}
+                                                onChange={(e) => { setDataEmissao(e.target.value) }} required />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data de entrega :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="date" value={dataEntrega}
+                                                onChange={(e) => { setDataEntrega(e.target.value) }} required />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                        <div className="grid-container poscentralized">
                             <div className="box">
                                 <table>
                                     <thead>
@@ -452,8 +577,9 @@ function RecebimentoPedido() {
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
+                            </div> 
                         </div>
+
                         <div className="grid-container poscentralized">
                             <div className="box">
                                 <table>
@@ -508,42 +634,9 @@ function RecebimentoPedido() {
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                            <div className="box">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Data de emissão :</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input className="input_form" type="date" value={dataEmissao}
-                                                onChange={(e) => { setDataEmissao(e.target.value) }} required />
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="box">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Data de entrega :</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input className="input_form" type="date" value={dataEntrega}
-                                                onChange={(e) => { setDataEntrega(e.target.value) }} required />
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-
+                            </div>  
                         </div>
+
                         <div className="grid-container poscentralized">
                             <div className="box">
                                 <table>
@@ -645,7 +738,6 @@ function RecebimentoPedido() {
                                                         <option value="100/00">100/00</option>
                                                     </select>
                                                 }
-
                                             </td>
                                         </tr>
                                     </tbody>
@@ -707,19 +799,55 @@ function RecebimentoPedido() {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Razão Social :</th>
+                                            <th>CNPJ :</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input className="input_form" type="text" value={razaoSocial}
-                                                onChange={(e) => { setRazaoSocial(e.target.value) }} required readOnly />
+                                            <td><input className="input_form" type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" required
+                                                value={cnpj}
+                                                readOnly/>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data de emissão :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="date" value={dataEmissao}
+                                                onChange={(e) => { setDataEmissao(e.target.value) }} required readOnly />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data de entrega :</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input className="input_form" type="date" value={dataEntrega}
+                                                onChange={(e) => { setDataEntrega(e.target.value) }} required readOnly />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div className="grid-container poscentralized">
+                        <div className="box">
                                 <table>
                                     <thead>
                                         <tr>
@@ -756,6 +884,7 @@ function RecebimentoPedido() {
                                 </table>
                             </div>
                         </div>
+
                         <div className="grid-container-5 poscentralized">
                             <div className="box">
 
@@ -813,41 +942,8 @@ function RecebimentoPedido() {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="box">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Data de emissão :</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input className="input_form" type="date" value={dataEmissao}
-                                                onChange={(e) => { setDataEmissao(e.target.value) }} required readOnly />
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="box">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Data de entrega :</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input className="input_form" type="date" value={dataEntrega}
-                                                onChange={(e) => { setDataEntrega(e.target.value) }} required readOnly />
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-
                         </div>
+                        
                         <div className="grid-container poscentralized">
                             <div className="box">
                                 <table>

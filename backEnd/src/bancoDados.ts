@@ -21,7 +21,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'Lopes@230763', //sua senha
+                password: '', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -71,10 +71,10 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async inserirPedido(pedido:Pedido) { //aqui a função recebe um argumento do tipo Pedido (que é uma classe)
         await this.conectar()
-        await this.conexao.query('INSERT INTO pedido(ped_razao_social,' +
+        await this.conexao.query('INSERT INTO pedido(ped_razao_social, ped_cnpj,' +
             'ped_transportadora,ped_tipo_frete,ped_produto_massa,ped_descricao,ped_valor_unidade,ped_valor_total,' +
-            'ped_data_entrega,ped_condicao_pagamento, ped_data_pedido) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [pedido['razao_social'], pedido['transportadora'] ,pedido['tipo_frete'], 
+            'ped_data_entrega,ped_condicao_pagamento, ped_data_pedido) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [pedido['razao_social'], pedido['cnpj'], pedido['transportadora'] ,pedido['tipo_frete'], 
             pedido['produto_massa'], pedido['descricao'],pedido['valor_unidade'],pedido['valor_total'],
             pedido['data_entrega'],pedido['condicao_pagamento'], pedido['data_pedido']])
 
@@ -97,7 +97,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async pegarRazaoSocial() {
         await this.conectar()
-        let [consulta, meta]:any = await this.conexao.query(`SELECT for_razao_social FROM fornecedor WHERE for_ativo = 1`) 
+        let [consulta, meta]:any = await this.conexao.query(`SELECT for_razao_social, for_cnpj FROM fornecedor WHERE for_ativo = 1`) 
         /*o pacote do mysql2 retorna 1 array com 2 arrays dentro dele numa consulta ao banco, um com resultados e outro 
             com metadados da busca, os [] nas variáveis separa os resultado em arrays diferentes. É uma funcionalidade chamada 
             de 'destructring arrays' */
@@ -202,12 +202,12 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conectar()
         console.log(`CODIGOPEDIDO: ${nf['codigo_pedido']}`)
         if (nf['codigo_fornecedor'] !== 0){
-            await this.conexao.query('INSERT INTO nota_fiscal(nf_razao_social, nf_data_emissao, nf_data_entrega, nf_transportadora, nf_produto_massa, nf_tipo_frete, nf_produto_descricao, nf_valor_total, nf_valor_unidade, for_codigo, nf_condicao_pagamento, nf_unidade, ped_codigo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-            [nf['razao_social'], nf['data_pedido'], nf['data_entrega'], nf['transportadora'], nf['produto_massa'], nf['tipo_frete'], nf['descricao'], nf['valor_total'], nf['valor_unidade'], nf['codigo_fornecedor'], nf['condicao_pagamento'], nf['unidade'], nf['codigo_pedido']]) 
+            await this.conexao.query('INSERT INTO nota_fiscal(nf_cnpj, nf_data_emissao, nf_data_entrega, nf_transportadora, nf_produto_massa, nf_tipo_frete, nf_produto_descricao, nf_valor_total, nf_valor_unidade, for_codigo, nf_condicao_pagamento, nf_unidade, ped_codigo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+            [nf['cnpj'], nf['data_pedido'], nf['data_entrega'], nf['transportadora'], nf['produto_massa'], nf['tipo_frete'], nf['descricao'], nf['valor_total'], nf['valor_unidade'], nf['codigo_fornecedor'], nf['condicao_pagamento'], nf['unidade'], nf['codigo_pedido']]) 
         }
         else{
-            await this.conexao.query('INSERT INTO nota_fiscal(nf_razao_social, nf_data_emissao, nf_data_entrega, nf_transportadora, nf_produto_massa, nf_tipo_frete, nf_produto_descricao, nf_valor_total, nf_valor_unidade, for_codigo, nf_condicao_pagamento, nf_unidade, ped_codigo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-            [nf['razao_social'], nf['data_pedido'], nf['data_entrega'], nf['transportadora'], nf['produto_massa'], nf['tipo_frete'], nf['descricao'], nf['valor_total'], nf['valor_unidade'], null, nf['condicao_pagamento'], nf['unidade'],  nf['codigo_pedido']]) 
+            await this.conexao.query('INSERT INTO nota_fiscal(nf_cnpj, nf_data_emissao, nf_data_entrega, nf_transportadora, nf_produto_massa, nf_tipo_frete, nf_produto_descricao, nf_valor_total, nf_valor_unidade, for_codigo, nf_condicao_pagamento, nf_unidade, ped_codigo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+            [nf['cnpj'], nf['data_pedido'], nf['data_entrega'], nf['transportadora'], nf['produto_massa'], nf['tipo_frete'], nf['descricao'], nf['valor_total'], nf['valor_unidade'], null, nf['condicao_pagamento'], nf['unidade'],  nf['codigo_pedido']]) 
         }
         await this.conexao.end()
         await this.mudaStatus(nf['codigo_pedido'], 'Análise Quantitativa')
@@ -259,9 +259,9 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async pegaRelatorioCompras(id:string):Promise<Pedido> {
         await this.conectar()
-        let [dado] = await this.conexao.query(`Select ped_razao_social, ped_transportadora, ped_tipo_frete, ped_produto_massa, ped_descricao, ped_valor_unidade, ped_valor_total, ped_data_entrega, ped_data_pedido, ped_condicao_pagamento FROM pedido WHERE ped_codigo =${id}`) as Array<any>
+        let [dado] = await this.conexao.query(`Select ped_razao_social, ped_cnpj, ped_transportadora, ped_tipo_frete, ped_produto_massa, ped_descricao, ped_valor_unidade, ped_valor_total, ped_data_entrega, ped_data_pedido, ped_condicao_pagamento FROM pedido WHERE ped_codigo =${id}`) as Array<any>
         await this.conexao.end()
-        const [pedido] = dado.map((linha:any) => new Pedido(linha.ped_descricao, linha.ped_data_pedido, linha.ped_data_entrega, linha.ped_razao_social, linha.ped_valor_unidade, linha.ped_produto_massa, linha.ped_valor_total, linha.ped_tipo_frete, linha.ped_transportadora, linha.ped_condicao_pagamento))
+        const [pedido] = dado.map((linha:any) => new Pedido(linha.ped_descricao, linha.ped_data_pedido, linha.ped_data_entrega, linha.ped_cnpj, linha.ped_valor_unidade, linha.ped_produto_massa, linha.ped_valor_total, linha.ped_tipo_frete, linha.ped_transportadora, linha.ped_condicao_pagamento, linha.ped_razao_social))
         return pedido
     }
 
@@ -336,7 +336,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async updatePedido(pedido:Pedido, id:string, trocaUnidade:boolean, unidade:string){
         await this.conectar()
-        await this.conexao.query(`UPDATE pedido SET ped_razao_social = '${pedido['razao_social']}', ped_transportadora = '${pedido['transportadora']}', ped_tipo_frete = '${pedido['tipo_frete']}', ped_produto_massa = '${pedido['produto_massa']}', ped_descricao = '${pedido['descricao']}', ped_valor_unidade = '${pedido['valor_unidade']}', ped_valor_total = '${pedido['valor_total']}', ped_data_entrega = '${pedido['data_entrega']}', ped_data_pedido = '${pedido['data_pedido']}', ped_condicao_pagamento = '${pedido['condicao_pagamento']}' WHERE ped_codigo = ${id}`)
+        await this.conexao.query(`UPDATE pedido SET ped_razao_social = '${pedido['razao_social']}', ped_cnpj = '${pedido['cnpj']}', ped_transportadora = '${pedido['transportadora']}', ped_tipo_frete = '${pedido['tipo_frete']}', ped_produto_massa = '${pedido['produto_massa']}', ped_descricao = '${pedido['descricao']}', ped_valor_unidade = '${pedido['valor_unidade']}', ped_valor_total = '${pedido['valor_total']}', ped_data_entrega = '${pedido['data_entrega']}', ped_data_pedido = '${pedido['data_pedido']}', ped_condicao_pagamento = '${pedido['condicao_pagamento']}' WHERE ped_codigo = ${id}`)
         if(trocaUnidade){
             let [pesagem] = await this.conexao.query(`SELECT regra_valor FROM parametros_do_pedido WHERE ped_codigo = ${id} and regra_tipo = 'Análise Quantitativa'`) as Array<any>
             pesagem = pesagem[0].regra_valor
@@ -362,10 +362,10 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     async updateNF(nf:NotaFiscal) { 
         await this.conectar()
         if (nf['codigo_fornecedor'] !== 0){
-            await this.conexao.query(`UPDATE nota_fiscal SET nf_razao_social = '${nf['razao_social']}', nf_data_emissao = '${nf['data_pedido'].slice(0, 10)}', nf_data_entrega = '${nf['data_entrega'].slice(0, 10)}', nf_transportadora = '${nf['transportadora']}', nf_produto_massa = '${nf['produto_massa']}', nf_tipo_frete = '${nf['tipo_frete']}', nf_produto_descricao = '${nf['descricao']}', nf_valor_total = '${nf['valor_total']}', nf_valor_unidade = '${nf['valor_unidade']}', for_codigo = ${nf['codigo_fornecedor']}, nf_condicao_pagamento = '${nf['condicao_pagamento']}', nf_unidade = '${nf['unidade']}'  WHERE ped_codigo = ${nf['codigo_pedido']}`)
+            await this.conexao.query(`UPDATE nota_fiscal SET nf_cnpj = '${nf['cnpj']}', nf_data_emissao = '${nf['data_pedido'].slice(0, 10)}', nf_data_entrega = '${nf['data_entrega'].slice(0, 10)}', nf_transportadora = '${nf['transportadora']}', nf_produto_massa = '${nf['produto_massa']}', nf_tipo_frete = '${nf['tipo_frete']}', nf_produto_descricao = '${nf['descricao']}', nf_valor_total = '${nf['valor_total']}', nf_valor_unidade = '${nf['valor_unidade']}', for_codigo = ${nf['codigo_fornecedor']}, nf_condicao_pagamento = '${nf['condicao_pagamento']}', nf_unidade = '${nf['unidade']}'  WHERE ped_codigo = ${nf['codigo_pedido']}`)
         }
         else{
-            await this.conexao.query(`UPDATE nota_fiscal SET nf_razao_social = '${nf['razao_social']}', nf_data_emissao = '${nf['data_pedido'].slice(0, 10)}', nf_data_entrega = '${nf['data_entrega'].slice(0, 10)}', nf_transportadora = '${nf['transportadora']}', nf_produto_massa = '${nf['produto_massa']}', nf_tipo_frete = '${nf['tipo_frete']}', nf_produto_descricao = '${nf['descricao']}', nf_valor_total = '${nf['valor_total']}', nf_valor_unidade = '${nf['valor_unidade']}', nf_condicao_pagamento = '${nf['condicao_pagamento']}', nf_unidade = '${nf['unidade']}'  WHERE ped_codigo = ${nf['codigo_pedido']}`)
+            await this.conexao.query(`UPDATE nota_fiscal SET nf_cnpj = '${nf['cnpj']}', nf_data_emissao = '${nf['data_pedido'].slice(0, 10)}', nf_data_entrega = '${nf['data_entrega'].slice(0, 10)}', nf_transportadora = '${nf['transportadora']}', nf_produto_massa = '${nf['produto_massa']}', nf_tipo_frete = '${nf['tipo_frete']}', nf_produto_descricao = '${nf['descricao']}', nf_valor_total = '${nf['valor_total']}', nf_valor_unidade = '${nf['valor_unidade']}', nf_condicao_pagamento = '${nf['condicao_pagamento']}', nf_unidade = '${nf['unidade']}'  WHERE ped_codigo = ${nf['codigo_pedido']}`)
         }
         await this.conexao.end()
     }
@@ -524,8 +524,8 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         console.log(`===================================== ${status} ========================================`)
         if(status === 'Finalizado'){
             await this.conectar()
-            let [dadosRecebimento] = await this.conexao.query(`SELECT p.ped_razao_social, p.ped_transportadora, p.ped_tipo_frete, p.ped_produto_massa, p.ped_descricao, p.ped_valor_unidade, p.ped_valor_total, p.ped_data_entrega, p.ped_data_pedido, p.ped_condicao_pagamento, 
-            nf.nf_razao_social, nf.nf_data_emissao, nf.nf_data_entrega, nf.nf_transportadora, nf.nf_produto_massa, nf.nf_tipo_frete, nf.nf_produto_descricao, nf.nf_laudo, nf.nf_valor_total, nf.nf_valor_unidade, nf.nf_condicao_pagamento, nf.nf_unidade FROM pedido p, nota_fiscal nf
+            let [dadosRecebimento] = await this.conexao.query(`SELECT p.ped_cnpj, p.ped_transportadora, p.ped_tipo_frete, p.ped_produto_massa, p.ped_descricao, p.ped_valor_unidade, p.ped_valor_total, p.ped_data_entrega, p.ped_data_pedido, p.ped_condicao_pagamento, 
+            nf.nf_cnpj, nf.nf_data_emissao, nf.nf_data_entrega, nf.nf_transportadora, nf.nf_produto_massa, nf.nf_tipo_frete, nf.nf_produto_descricao, nf.nf_laudo, nf.nf_valor_total, nf.nf_valor_unidade, nf.nf_condicao_pagamento, nf.nf_unidade FROM pedido p, nota_fiscal nf
             WHERE p.ped_codigo = ${id} and p.ped_codigo = nf.ped_codigo`) as Array<any>
             await this.conexao.end()
             await this.conectar()
@@ -547,8 +547,8 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         }
         else{
             await this.conectar()
-            let [dadosRecebimento] = await this.conexao.query(`SELECT p.ped_razao_social, p.ped_transportadora, p.ped_tipo_frete, p.ped_produto_massa, p.ped_descricao, p.ped_valor_unidade, p.ped_valor_total, p.ped_data_entrega, p.ped_data_pedido, p.ped_condicao_pagamento, 
-            nf.nf_razao_social, nf.nf_data_emissao, nf.nf_data_entrega, nf.nf_transportadora, nf.nf_produto_massa, nf.nf_tipo_frete, nf.nf_produto_descricao, nf.nf_laudo, nf.nf_valor_total, nf.nf_valor_unidade, nf.nf_condicao_pagamento, nf.nf_unidade FROM pedido p, nota_fiscal nf
+            let [dadosRecebimento] = await this.conexao.query(`SELECT p.ped_cnpj, p.ped_transportadora, p.ped_tipo_frete, p.ped_produto_massa, p.ped_descricao, p.ped_valor_unidade, p.ped_valor_total, p.ped_data_entrega, p.ped_data_pedido, p.ped_condicao_pagamento, p.ped_status,
+            nf.nf_cnpj, nf.nf_data_emissao, nf.nf_data_entrega, nf.nf_transportadora, nf.nf_produto_massa, nf.nf_tipo_frete, nf.nf_produto_descricao, nf.nf_laudo, nf.nf_valor_total, nf.nf_valor_unidade, nf.nf_condicao_pagamento, nf.nf_unidade FROM pedido p, nota_fiscal nf
             WHERE p.ped_codigo = ${id} and p.ped_codigo = nf.ped_codigo`) as Array<any>
             await this.conexao.end()
             await this.conectar()
@@ -570,7 +570,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             dadosRecebimento = dadosRecebimento[0]
             relatorioFinal = {
                 pedido:{
-                    RazaoSocial:dadosRecebimento.ped_razao_social,
+                    CNPJ:dadosRecebimento.ped_cnpj,
                     Transportadora:dadosRecebimento.ped_transportadora,
                     TipoFrete:dadosRecebimento.ped_tipo_frete,
                     Quantidade:dadosRecebimento.ped_produto_massa,
@@ -582,7 +582,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
                     CondicaoPagamento:dadosRecebimento.ped_condicao_pagamento
                 },
                 notaFiscal:{
-                    RazaoSocial:dadosRecebimento.nf_razao_social,
+                    CNPJ:dadosRecebimento.nf_cnpj,
                     Transportadora:dadosRecebimento.nf_transportadora,
                     TipoFrete:dadosRecebimento.nf_tipo_frete,
                     Quantidade:dadosRecebimento.nf_produto_massa,
@@ -607,7 +607,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async mudaStatusFinal(decisao:string, id:number) {
         await this.conectar()
-        await this.conexao.query(`UPDATE pedido SET ped_status = ${decisao} WHERE ped_codigo = ${id}`)
+        await this.conexao.query(`UPDATE pedido SET ped_status = '${decisao}' WHERE ped_codigo = ${id}`)
         await this.conexao.end()
     }
 
