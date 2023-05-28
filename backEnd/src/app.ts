@@ -259,9 +259,18 @@ app.post('/updateProduto', async(req,res)=>{
 //========================= Update de Fornecedor =========================
 app.post('/resgataValoresFornecedor', async (req, res) => {
     let id = req.body.id
-    let existeFornecedor = await bd.confereFornecedor(id)
-    console.log(existeFornecedor)
-    res.send(existeFornecedor)
+    let fornecedorUtilizado = await bd.confereFornecedor(id)
+    let fornecedor = await bd.pegaFornecedor(id)
+    let cnpjs = await bd.pegarCNPJ()
+    res.send({fornecedorUtilizado, fornecedor, cnpjs})
+})
+
+app.post('/updateFornecedor', async (req, res) => {
+    let {razaoSocial, nomeFantasia, cnpj, cidade, cep, estado, bairro, ruaAvenida, numero, id} = req.body.post
+    let endereco = new Endereco(cep, estado, cidade, bairro, ruaAvenida, numero)
+    let fornecedor = new Fornecedor(cnpj, endereco, razaoSocial, nomeFantasia)
+    await bd.updateFornecedor(fornecedor, id)
+    res.send('foi')
 })
 
 //================================== Rotas de Listagem ==================================

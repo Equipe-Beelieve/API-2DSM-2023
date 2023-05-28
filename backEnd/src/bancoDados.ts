@@ -106,6 +106,13 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         return consulta
     }
 
+    async pegarCNPJ(){
+        await this.conectar()
+        let [cnpjs] = await this.conexao.query('SELECT for_cnpj FROM fornecedor WHERE for_ativo = 1')
+        await this.conexao.end()
+        return cnpjs
+    }
+
     async pegarListaPedidos() {
         await this.conectar()
         let [consulta, meta]:any = await this.conexao.query(`SELECT ped_codigo, ped_razao_social, ped_produto_massa, 
@@ -280,6 +287,17 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         return produto
     }
 
+    async pegaFornecedor(id:string){
+        await this.conectar()
+        let [consulta] = await this.conexao.query(`SELECT f.for_cnpj, f.for_razao_social, f.for_nome_fantasia, e.end_cep, e.end_estado, e.end_cidade, e.end_bairro, e.end_rua_avenida, e.end_numero FROM fornecedor f INNER JOIN endereco_fornecedor e ON f.end_codigo = e.end_codigo AND f.end_codigo = ${id}`) as Array<any>
+        await this.conexao.end()
+        let fornecedor = consulta[0]
+        let endereco = new Endereco(fornecedor.end_cep, fornecedor.end_estado, fornecedor.end_cidade, fornecedor.end_bairro, fornecedor.end_rua_avenida, fornecedor.end_numero)
+        fornecedor = new Fornecedor(fornecedor.for_cnpj, endereco, fornecedor.for_razao_social, fornecedor.for_nome_fantasia)
+
+        return fornecedor
+    }
+
 
     async pegaRegraRecebimento(id:string) {
         await this.conectar()
@@ -401,6 +419,18 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         })
     }
 
+    async updateFornecedor(fornecedor: Fornecedor, id:string){
+        await this.conectar()
+        await this.conexao.query(`UPDATE fornecedor SET for_razao_social = ?, for_nome_fantasia = ? WHERE for_codigo = ?`, [fornecedor['razao_social'], fornecedor['nome_fantasia'], id])
+        await this.conexao.end()
+
+        await this.conectar()
+        let [codigoEndereco] = await this.conexao.query(`SELECT end_codigo FROM fornecedor WHERE for_codigo = ?`, [id]) as Array<any>
+        await this.conexao.query('UPDATE endereco_fornecedor SET end_cep = ?, end_estado = ?, end_cidade = ?, end_bairro = ?, end_rua_avenida = ?, end_numero = ? WHERE end_codigo = ?',
+        [fornecedor['endereco'].cep, fornecedor['endereco'].estado, fornecedor['endereco'].cidade, fornecedor['endereco'].bairro, fornecedor['endereco'].rua_avenida,
+        fornecedor['endereco'].numero, codigoEndereco[0].end_codigo])
+        await this.conexao.end()
+    }    
     //=========================================================
 
     async laudoNF(id:string, laudo:string){

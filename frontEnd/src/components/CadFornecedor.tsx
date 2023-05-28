@@ -191,25 +191,30 @@ function CadFornecedor() {
         await api.post('/resgataValoresFornecedor', {id}).then((resposta) => {
             //for_codigo, for_cnpj, end_codigo, for_razao_social, for_nome_fantasia, for_ativo
             //end_codigo, end_cep, end_estado, end_cidade, end_bairro, end_rua_avenida, end_numero
-            console.log(resposta)
             let dados = resposta.data
-            setRazaoSocial(dados.for_razao_social)
-            setNomeFantasia(dados.for_nome_fantasia)
-            setCnpj(dados.for_cnpj)
-            setCidade(dados.end_cidade)
-            setCep(dados.end_cep)
-            setEstado(dados.end_estado)
-            setBairro(dados.end_bairro)
-            setRuaAvenida(dados.end_rua_avenida)
-            setNumero(dados.end_numero)
+            console.log(dados)
+            setRazaoSocial(dados.fornecedor.razao_social)
+            setNomeFantasia(dados.fornecedor.nome_fantasia)
+            setCnpj(dados.fornecedor.cnpj)
+            setCidade(dados.fornecedor.endereco.cidade)
+            setCep(dados.fornecedor.endereco.cep)
+            setEstado(dados.fornecedor.endereco.estado)
+            setBairro(dados.fornecedor.endereco.bairro)
+            setRuaAvenida(dados.fornecedor.endereco.rua_avenida)
+            setNumero(dados.fornecedor.endereco.numero)
             setEditar(true)  
-            setFornecedorUtilizado(true)
+            setFornecedorUtilizado(dados.fornecedorUtilizado)
         })
         
     }
 
+    function infoCNPJ(){
+        toast.error('Não é possível alterar o CNPJ', {position: 'bottom-left', autoClose: 5000,
+                    className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
+    }
+
     async function editaFornecedor() {
-        const post = {razaoSocial, nomeFantasia, cnpj, cidade, cep, estado, bairro, ruaAvenida, numero}
+        const post = {razaoSocial, nomeFantasia, cnpj, cidade, cep, estado, bairro, ruaAvenida, numero, id}
         await api.post('/updateFornecedor', {post}).then((resposta) => {navegate('/listaFornecedor')})
     }
 
@@ -243,6 +248,7 @@ function CadFornecedor() {
     }
 
     async function deletaFornecedor(){
+
         navegate('/listaFornecedor')
         await api.post("/deletaFornecedor", {id})/* .then((reposta) => {navegate('/listaFornecedor')}) */
     }
@@ -354,7 +360,8 @@ function CadFornecedor() {
                                             ref={cnpjRef}
                                             id="for_cnpj"
                                             name="for_cnpj" required
-                                            value={cnpj} 
+                                            value={cnpj}
+                                            onSelect={infoCNPJ} 
                                             readOnly />
                                         }
                                         
@@ -506,7 +513,7 @@ function CadFornecedor() {
                     <button type='button' className="confirm_button" onClick={cadastraFornecedor}>Confirmar</button>
                 }
                 {editar &&
-                    <button type='button' className="confirm_button" onClick={editaFornecedor}>Editar</button>
+                    <button type='button' className="confirm_button" onClick={() => editaFornecedor()}>Editar</button>
                 }
             </form>
         </div>

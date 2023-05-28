@@ -15,6 +15,11 @@ export interface Fornecedor {
     for_razao_social: string;
     for_nome_fantasia: string;
     end_cep: string;
+    end_cidade:string
+    end_estado:string
+    end_bairro:string
+    end_rua_avenida:string
+    end_numero:string
 }
 
 function ListaFornecedor() {
