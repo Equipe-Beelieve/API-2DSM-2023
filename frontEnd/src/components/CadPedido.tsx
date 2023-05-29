@@ -454,7 +454,7 @@ function CadPedido() {
                         }
                     </div>
                     
-                    <form className='responsividade' onSubmit={estadoPedido}>
+                    <form className='responsividadeforms' onSubmit={estadoPedido}>
 
                         <div className="poscentralized grid-container">
                             <div className="box">
@@ -742,7 +742,7 @@ function CadPedido() {
                         <button type='button' onClick={irRecebimento} className="botaoteste3">
                         Nota Fiscal<img src={teste} alt="" className="testeaDireita" /></button>
                     </div>
-                    <form onSubmit={cadastroPedido}>
+                    <form className='responsividadeforms' onSubmit={cadastroPedido}>
 
                         <div className="poscentralized grid-container">
                             <div className="box">

@@ -1313,6 +1313,11 @@ p.solid {
     width: 100vw;
   }
 
+  .responsividadeforms{
+    width: 10vw;
+  }
+
+
   .ped_btn {
     height: 7vh;
     width: 40vw;
@@ -1325,4 +1330,14 @@ p.solid {
     margin-right: 1.5vw;
     margin-bottom: 1vh;
   }
+
+  .cancel_button, .confirm_button {
+    width: 150px;
+    margin-top: 2vh;
+    margin-left: -11vw;
+  }
+
+  .lixoUsuario{
+    width: 3vh;
+    }
 }

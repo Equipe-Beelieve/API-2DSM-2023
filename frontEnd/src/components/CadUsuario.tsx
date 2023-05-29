@@ -146,7 +146,7 @@ function CadUsuario() {
                         <div className='blocoInvisivelUsuarioDireita'> </div>
                     }
                 </div>
-                <form className='responsividade' onSubmit={cadastroUsuario}>
+                <form className='responsividadeforms' onSubmit={cadastroUsuario}>
                     
                     
                     

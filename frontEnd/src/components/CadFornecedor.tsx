@@ -208,7 +208,7 @@ function CadFornecedor() {
                 <h1 className='mainTitle'>Cadastro de Fornecedores</h1>
             </center>
             
-            <form className='responsividade'>
+            <form className='responsividadeforms'>
                 <div className="grid-container poscentralized">
                     <div className="box">
                         <table>
