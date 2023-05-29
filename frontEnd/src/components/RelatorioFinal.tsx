@@ -161,28 +161,28 @@ function RelatorioFinal() {
                         return (
                             <div className={`${resultado.resultado === true? 'boxFinalTipoFreteReportGreen' : 'boxFinalTipoFreteReportRed'}`}>
                                 <label>Tipo de Frete:</label>
-                                <input type="text" value={dadosRelatorio.pedido.TipoFrete} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.TipoFrete} readOnly/>
+                                <input className='tipo-frete' type="text" value={dadosRelatorio.pedido.TipoFrete} readOnly/> <input className='frete-confirme' type="text" value={dadosRelatorio.notaFiscal.TipoFrete} readOnly/>
                             </div>
                         )
                     } else if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Data do Pedido'){
                         return (
                             <div className={`${resultado.resultado === true? 'boxFinalDataPedidoReportGreen' : 'boxFinalDataPedidoReportRed'}`}>
                                 <label>Data do Pedido:</label>
-                                <input type="text" value={dadosRelatorio.pedido.DataPedido} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.DataPedido} readOnly/>
+                                <input className='data-pedido' type="text" value={dadosRelatorio.pedido.DataPedido} readOnly/> <input className='data-confirme' type="text" value={dadosRelatorio.notaFiscal.DataPedido} readOnly/>
                             </div>
                         )
                     } else if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Data de Entrega'){
                         return (
                             <div className={`${resultado.resultado === true? 'boxFinalDataEntregaReportGreen' : 'boxFinalDataEntregaReportRed'}`}>
                                 <label>Data de entrega:</label>
-                                <input type="text" value={dadosRelatorio.pedido.DataEntrega} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.DataEntrega} readOnly/>
+                                <input className='data-entrega' type="text" value={dadosRelatorio.pedido.DataEntrega} readOnly/> <input className='data-confirme' type="text" value={dadosRelatorio.notaFiscal.DataEntrega} readOnly/>
                             </div>
                         )
                     } else if(resultado.comparacao === 'Relatório Compras x Nota fiscal | Quantidade'){
                         return (
                             <div className={`${resultado.resultado === true? 'boxFinalQuantReportGreen' : 'boxFinalQuantReportRed'}`}>
                                 <label>Quantidade:</label>
-                                <input type="text" value={dadosRelatorio.pedido.Quantidade} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.Quantidade} readOnly/>
+                                <input className='quantidade' type="text" value={dadosRelatorio.pedido.Quantidade} readOnly/> <input className='quant-confirme' type="text" value={dadosRelatorio.notaFiscal.Quantidade} readOnly/>
                             </div>
                         )
                     }
@@ -197,7 +197,7 @@ function RelatorioFinal() {
                                 return (
                                     <div className={`${analiseQuantitativa?.resultado === true? 'boxFinalPesoReportGreen' : 'boxFinalPesoReportRed'}`}>
                                         <label>Peso:</label>
-                                        <input type="text" value={regra.regra} readOnly/> <input type="text" value={regra.valor} readOnly/>
+                                        <input className='peso-haver' type="text" value={regra.regra} readOnly/> <input className='peso-confirme' type="text" value={regra.valor} readOnly/>
                                     </div>
                                 )
                             }
@@ -211,7 +211,7 @@ function RelatorioFinal() {
                         return (
                             <div className={`${resultado.resultado === true? 'boxFinalLaudoReportGreen' : 'boxFinalLaudoReportRed'}`}>
                                 <label>Presença do laudo:</label>
-                                <input type="text" value={'Sim'} readOnly/> <input type="text" value={dadosRelatorio.notaFiscal.Laudo} readOnly/>
+                                <input className='laudo-haver' type="text" value={'Sim'} readOnly/> <input className='laudo-confirme' type="text" value={dadosRelatorio.notaFiscal.Laudo} readOnly/>
                             </div>
                         )
                     }   
@@ -222,7 +222,7 @@ function RelatorioFinal() {
                             return(
                                 <div className={`${resultadoPersonalizada?.resultado === true? 'boxFinalPersonalizadaReportGreen' : 'boxFinalPersonalizadaReportRed'}`}>
                                     <label>{regra.regra}:</label>
-                                    <input type="text" value={'Sim'} readOnly/> <input type="text" value={regra.valor === 'true'? 'Sim' : 'Não'} readOnly/>
+                                    <input className='personalizada-haver' type="text" value={'Sim'} readOnly/> <input className='personalizada-confirme' type="text" value={regra.valor === 'true'? 'Sim' : 'Não'} readOnly/>
                                 </div>
                             )
                         } else if(regra.tipo === 'Avaria'){
@@ -242,7 +242,7 @@ function RelatorioFinal() {
                             return(
                                 <div className={`${resultadoAnalise?.resultado === true? 'boxFinalUmidaePurezaReportGreen' : 'boxFinalUmidaePurezaReportRed'}`}>
                                     <label>{regra.tipo}:</label>
-                                    <input type="text" value={regra.regra} readOnly/> <input type="text" value={regra.valor} readOnly/>
+                                    <input className='umidade-pureza-haver' type="text" value={regra.regra} readOnly/> <input className='umida-pura-confirme' type="text" value={regra.valor} readOnly/>
                                 </div>
                             )
                         }
