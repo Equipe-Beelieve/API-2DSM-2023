@@ -1577,6 +1577,20 @@ p.solid {
   margin-top: 3%;
 }
 
+.boxFinalProdutoReportRed label{
+  font-weight: bold;
+}
+
+.boxFinalProdutoReportRed .prod-nome{
+  margin-left: 2%;
+  text-align: center;
+}
+
+.boxFinalProdutoReportRed .nome-confirme{
+  margin-left: 2%;
+  text-align: center;
+}
+
 .boxFinalAvariaReportRed{
   background-color: #FF8282;
   border: 6px solid #DD2424;
@@ -1618,8 +1632,301 @@ p.solid {
   margin-top: 3%;
 }
 
+.boxFinalTipoFreteReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalTipoFreteReportRed label{
+  font-weight: bold;
+}
+
+.boxFinalTipoFreteReportRed .tipo-frete{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalCondicaoPagamentoReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalCondicaoPagamentoReportRed label{
+  font-weight: bold;
+}
+
+.boxFinalCondicaoPagamentoReportRed .cond-pagar{
+  text-align: center;
+  margin-left: 1%;
+}
+
+.boxFinalValorUniReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalValorUniReportRed label{
+  font-weight: bold;
+}
+
+.boxFinalValorUniReportRed .valor-unico{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalValorUniReportRed .valor-confirme{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalValorTotalReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalValorTotalReportRed label{
+  font-weight: bold;
+}
+
+.boxFinalValorTotalReportRed .valor-total{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalValorTotalReportRed .valor-confirme{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalCondicaoPagamentoReportRed .cond-confirme{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalTipoFreteReportRed .frete-confirme{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalDataPedidoReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalDataPedidoReportRed label{
+  font-weight: bold;
+}
+
+.boxFinalDataPedidoReportRed .data-pedido{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalDataPedidoReportRed .data-confirme{
+  margin-left: 2%;
+  text-align: center;
+}
+
+.boxFinalDataEntregaReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalDataEntregaReportRed label{
+  font-weight: bold;
+}
+
+.boxFinalDataEntregaReportRed .data-entrega{
+  margin-left: 2%;
+  text-align: center;
+}
+
+.boxFinalDataEntregaReportRed .data-confirme{
+  margin-left: 2%;
+  text-align: center;
+}
+
+.boxFinalPesoReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalPesoReportRed label{
+  font-weight: bold;
+  margin-left: 2%;
+}
+
+.boxFinalPesoReportRed .peso-haver{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalPesoReportRed .peso-confirme{
+  text-align: center;
+  margin-left: 4%;
+}
+
 .boxFinalAvariaReportRed label{
   font-weight: bold;
+}
+
+.boxFinalAvariaReportRed .haver{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalAvariaReportRed .ha{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalAvariaReportRed .comentario{
+  width: 70%;
+  margin-left: 8%;
+  text-align: center;
+}
+
+.boxFinalLaudoReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalLaudoReportRed label{
+  font-weight: bold;
+}
+
+.boxFinalLaudoReportRed .laudo-haver{
+  margin-left: 2%;
+  text-align: center;
+}
+
+.boxFinalLaudoReportRed .laudo-confirme{
+  margin-left: 2%;
+  text-align: center;
+}
+
+.boxFinalUmidaePurezaReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalUmidaePurezaReportRed label{
+  font-weight: bold;
+}
+
+.boxFinalUmidaePurezaReportRed .umida-pura-confirme{
+  margin-left: 2%;
+  text-align: center;
+}
+
+.boxFinalUmidaePurezaReportRed .umidade-pureza-haver{
+  margin-left: 2%;
+  text-align: center;
+}
+
+.boxFinalQuantReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalQuantReportRed label{
+  font-weight: bold;
+}
+
+.boxFinalQuantReportRed .quantidade{
+  margin-left: 2%;
+  text-align: center;
+}
+
+.boxFinalQuantReportRed .quant-confirme{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalRazaoSocialReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalRazaoSocialReportRed label{
+  font-weight: bold;
+}
+
+.boxFinalRazaoSocialReportRed .razao-nome{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalRazaoSocialReportRed .razao-nome-confirme{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalPersonalizadaReportRed{
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalPersonalizadaReportRed label{
+  font-weight: bold;
+}
+
+.boxFinalPersonalizadaReportRed .personalizada-haver{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalPersonalizadaReportRed .personalizada-confirme{
+  text-align: center;
+  margin-left: 2%;
 }
 
 .titulo-recusado{
@@ -1640,7 +1947,7 @@ p.solid {
 
 .botao-recusado{
   margin-top: 3%;
-  margin-left: 31%;
+  margin-left: 30%;
 }
 
 .botao-recusado .pedido{
