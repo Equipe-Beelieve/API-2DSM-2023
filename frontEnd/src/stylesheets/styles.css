@@ -1189,10 +1189,27 @@ p.solid {
 }
 
 /* Formatação do Relatório final */
+
+.dados-compras-titulo{
+  margin-top: 4%;
+  display: flex;
+}
+
+.dados-compras-titulo .relatorio-compra{
+  font-weight: bold;
+  margin-left: 30%;
+}
+
+.dados-compras-titulo .dados-titulo{
+  font-weight: bold;
+  margin-left: 4%;
+}
+
 .boxFinalProdutoReportGreen {
   background-color: #AFFFAB;
   border: 6px solid #3E813B;
   width: 40%;
+  margin-top: 3%;
   margin-left: 30%;
   padding: 5px;
 }
@@ -1203,13 +1220,13 @@ p.solid {
 }
 
 .boxFinalProdutoReportGreen .prod-nome{
-  margin-left: 3%;
+  margin-left: 4%;
   text-align: center;
 }
 
 .boxFinalProdutoReportGreen .nome-confirme{
   text-align: center;
-  margin-left: 5%;
+  margin-left: 11%;
 }
 
 .boxFinalRazaoSocialReportGreen{
@@ -1227,13 +1244,13 @@ p.solid {
 }
 
 .boxFinalRazaoSocialReportGreen .razao-nome{
-  margin-left: 3%;
+  margin-left: 5%;
   text-align: center;
 }
 
 .boxFinalRazaoSocialReportGreen .razao-nome-confirme{
   text-align: center;
-  margin-left: 3%;
+  margin-left: 15%;
 }
 
 .boxFinalTransporteReportGreen{
@@ -1257,7 +1274,7 @@ p.solid {
 
 .boxFinalTransporteReportGreen .transporte-confirme{
   text-align: center;
-  margin-left: 3%;
+  margin-left: 9%;
 }
 
 .boxFinalValorUniReportGreen{
@@ -1275,13 +1292,13 @@ p.solid {
 }
 
 .boxFinalValorUniReportGreen .valor-unico{
-  margin-left: 1%;
+  margin-left: 3%;
   text-align: center;
 }
 
 .boxFinalValorUniReportGreen .valor-confirme{
   text-align: center;
-  margin-left: 3%;
+  margin-left: 9%;
 }
 
 .boxFinalValorTotalReportGreen{
@@ -1299,13 +1316,13 @@ p.solid {
 }
 
 .boxFinalValorTotalReportGreen .valor-total{
-  margin-left: 1%;
+  margin-left: 3%;
   text-align: center;
 }
 
 .boxFinalValorTotalReportGreen .valor-confirme{
   text-align: center;
-  margin-left: 3%;
+  margin-left: 11%;
 }
 
 .boxFinalCondicaoPagamentoReportGreen{
@@ -1346,12 +1363,12 @@ p.solid {
 
 .boxFinalTipoFreteReportGreen .tipo-frete{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 5%;
 }
 
 .boxFinalTipoFreteReportGreen .frete-confirme{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 10%;
 }
 
 .boxFinalDataPedidoReportGreen{
@@ -1368,13 +1385,13 @@ p.solid {
 }
 
 .boxFinalDataPedidoReportGreen .data-pedido{
-  margin-left: 2%;
+  margin-left: 3%;
   text-align: center;
 }
 
 .boxFinalDataPedidoReportGreen .data-confirme{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 9%;
 }
 
 .boxFinalDataEntregaReportGreen{
@@ -1392,12 +1409,12 @@ p.solid {
 
 .boxFinalDataEntregaReportGreen .data-entrega{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 3%;
 }
 
 .boxFinalDataEntregaReportGreen .data-confirme{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 8%;
 }
 
 .boxFinalQuantReportGreen{
@@ -1411,12 +1428,12 @@ p.solid {
 
 .boxFinalQuantReportGreen .quantidade{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 4%;
 }
 
 .boxFinalQuantReportGreen .quant-confirme{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 10%;
 }
 
 .boxFinalQuantReportGreen label{
@@ -1439,18 +1456,19 @@ p.solid {
 
 .boxFinalPesoReportGreen .peso-haver{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 4%;
 }
 
 .boxFinalPesoReportGreen .peso-confirme{
   text-align: center;
-  margin-left: 4%;
+  margin-left: 15%;
 }
 
 .boxFinalLaudoReportGreen{
   background-color: #AFFFAB;
   border: 6px solid #3E813B;
   width: 40%;
+  margin-top: 2%;
   margin-left: 30%;
   padding: 5px;
   margin-top: 3%;
@@ -1467,7 +1485,7 @@ p.solid {
 
 .boxFinalLaudoReportGreen .laudo-confirme{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 4%;
 }
 
 .boxFinalPersonalizadaReportGreen{
@@ -1518,12 +1536,12 @@ p.solid {
 
 .boxFinalUmidaePurezaReportGreen .umidade-pureza-haver{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 6%;
 }
 
 .boxFinalUmidaePurezaReportGreen .umida-pura-confirme{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 14%;
 }
 
 .boxFinalUmidaePurezaReportGreen label{
@@ -1537,7 +1555,7 @@ p.solid {
 
 .boxFinalPersonalizadaReportGreen .personalizada-confirme{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 4%;
 }
 
 .titulo-aprovado{
@@ -1582,12 +1600,12 @@ p.solid {
 }
 
 .boxFinalProdutoReportRed .prod-nome{
-  margin-left: 2%;
+  margin-left: 5%;
   text-align: center;
 }
 
 .boxFinalProdutoReportRed .nome-confirme{
-  margin-left: 2%;
+  margin-left: 14%;
   text-align: center;
 }
 
@@ -1739,11 +1757,11 @@ p.solid {
 
 .boxFinalDataPedidoReportRed .data-pedido{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 4%;
 }
 
 .boxFinalDataPedidoReportRed .data-confirme{
-  margin-left: 2%;
+  margin-left: 8%;
   text-align: center;
 }
 
@@ -1761,12 +1779,12 @@ p.solid {
 }
 
 .boxFinalDataEntregaReportRed .data-entrega{
-  margin-left: 2%;
+  margin-left: 4%;
   text-align: center;
 }
 
 .boxFinalDataEntregaReportRed .data-confirme{
-  margin-left: 2%;
+  margin-left: 8%;
   text-align: center;
 }
 
@@ -1800,17 +1818,18 @@ p.solid {
 
 .boxFinalAvariaReportRed .haver{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 4%;
 }
 
 .boxFinalAvariaReportRed .ha{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 12%;
 }
 
 .boxFinalAvariaReportRed .comentario{
-  width: 70%;
-  margin-left: 8%;
+  width: 77%;
+  padding: 18px;
+  margin-left: 13%;
   text-align: center;
 }
 
@@ -1833,7 +1852,7 @@ p.solid {
 }
 
 .boxFinalLaudoReportRed .laudo-confirme{
-  margin-left: 2%;
+  margin-left: 4%;
   text-align: center;
 }
 
@@ -1851,12 +1870,12 @@ p.solid {
 }
 
 .boxFinalUmidaePurezaReportRed .umida-pura-confirme{
-  margin-left: 2%;
+  margin-left: 10%;
   text-align: center;
 }
 
 .boxFinalUmidaePurezaReportRed .umidade-pureza-haver{
-  margin-left: 2%;
+  margin-left: 6%;
   text-align: center;
 }
 
@@ -1874,13 +1893,13 @@ p.solid {
 }
 
 .boxFinalQuantReportRed .quantidade{
-  margin-left: 2%;
+  margin-left: 4%;
   text-align: center;
 }
 
 .boxFinalQuantReportRed .quant-confirme{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 8%;
 }
 
 .boxFinalRazaoSocialReportRed{
@@ -1926,7 +1945,7 @@ p.solid {
 
 .boxFinalPersonalizadaReportRed .personalizada-confirme{
   text-align: center;
-  margin-left: 2%;
+  margin-left: 5%;
 }
 
 .titulo-recusado{
@@ -1996,7 +2015,6 @@ p.solid {
   transition: all .5s;
   overflow: hidden;
   transform: translateY(30px);
-  width:100%;
 }
 
 .card.active .content {
@@ -2004,14 +2022,8 @@ p.solid {
   padding: 20px;
   opacity: 1;
   transform: translateY(0);
-  width:100%;
 }
 
 .hidden {
   display: none;
-}
-
-.revisao-esquerda{
-  text-align: left;
-  flex:left;
 }
