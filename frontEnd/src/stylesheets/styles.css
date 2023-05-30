@@ -1689,6 +1689,7 @@ p.solid {
   transition: all .5s;
   overflow: hidden;
   transform: translateY(30px);
+  width:100%;
 }
 
 .card.active .content {
@@ -1696,8 +1697,14 @@ p.solid {
   padding: 20px;
   opacity: 1;
   transform: translateY(0);
+  width:100%;
 }
 
 .hidden {
   display: none;
+}
+
+.revisao-esquerda{
+  text-align: left;
+  flex:left;
 }

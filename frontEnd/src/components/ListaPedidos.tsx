@@ -231,11 +231,10 @@ function ListaPedidos(){
                                 <p>Valor total: {pedido.ped_valor_total}</p>
                                 <p>Data de entrega: {pedido.ped_data_entrega}</p>
                                 <p>Estado do pedido: {pedido.ped_status}</p>
-                                <hr className='hr_pedido' />
                                 <div className="card">
                                 <div className="content">
                                 <div className="desc hidden">
-                                <p>Revisão:</p>
+                                <p className="revisao-esquerda">Revisão:</p>
                                 <center>
                                 {(pedido.ped_status === 'Recusado' || pedido.ped_status === 'Aceito') &&
                                     <>
