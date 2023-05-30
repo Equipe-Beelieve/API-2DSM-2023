@@ -21,7 +21,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: '_Br1g4d31r0*', //sua senha
+                password: 'fatec', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -421,7 +421,11 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async updateFornecedor(fornecedor: Fornecedor, id:string){
         await this.conectar()
+        let [razaoAntiga] = await this.conexao.query('SELECT for_razao_social FROM fornecedor WHERE for_codigo = ?', [id]) as Array<any>
         await this.conexao.query(`UPDATE fornecedor SET for_razao_social = ?, for_nome_fantasia = ? WHERE for_codigo = ?`, [fornecedor['razao_social'], fornecedor['nome_fantasia'], id])
+        if(razaoAntiga[0].for_razao_social !== fornecedor['razao_social']){
+            await this.conexao.query('UPDATE pedido SET ped_razao_social = ? WHERE ped_razao_social = ?', [fornecedor['razao_social'], razaoAntiga[0].for_razao_social])
+        }
         await this.conexao.end()
 
         await this.conectar()
@@ -430,6 +434,8 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         [fornecedor['endereco'].cep, fornecedor['endereco'].estado, fornecedor['endereco'].cidade, fornecedor['endereco'].bairro, fornecedor['endereco'].rua_avenida,
         fornecedor['endereco'].numero, codigoEndereco[0].end_codigo])
         await this.conexao.end()
+
+    
     }    
     //=========================================================
 
