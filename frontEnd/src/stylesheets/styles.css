@@ -1344,6 +1344,16 @@ p.solid {
   font-weight: bold;
 }
 
+.boxFinalTipoFreteReportGreen .tipo-frete{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalTipoFreteReportGreen .frete-confirme{
+  text-align: center;
+  margin-left: 2%;
+}
+
 .boxFinalDataPedidoReportGreen{
   background-color: #AFFFAB;
   border: 6px solid #3E813B;
@@ -1355,6 +1365,16 @@ p.solid {
 
 .boxFinalDataPedidoReportGreen label{
   font-weight: bold;
+}
+
+.boxFinalDataPedidoReportGreen .data-pedido{
+  margin-left: 2%;
+  text-align: center;
+}
+
+.boxFinalDataPedidoReportGreen .data-confirme{
+  text-align: center;
+  margin-left: 2%;
 }
 
 .boxFinalDataEntregaReportGreen{
@@ -1370,6 +1390,16 @@ p.solid {
   font-weight: bold;
 }
 
+.boxFinalDataEntregaReportGreen .data-entrega{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalDataEntregaReportGreen .data-confirme{
+  text-align: center;
+  margin-left: 2%;
+}
+
 .boxFinalQuantReportGreen{
   background-color: #AFFFAB;
   border: 6px solid #3E813B;
@@ -1377,6 +1407,16 @@ p.solid {
   margin-left: 30%;
   padding: 5px;
   margin-top: 3%;
+}
+
+.boxFinalQuantReportGreen .quantidade{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalQuantReportGreen .quant-confirme{
+  text-align: center;
+  margin-left: 2%;
 }
 
 .boxFinalQuantReportGreen label{
@@ -1394,6 +1434,17 @@ p.solid {
 
 .boxFinalPesoReportGreen label{
   font-weight: bold;
+  margin-left: 2%;
+}
+
+.boxFinalPesoReportGreen .peso-haver{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalPesoReportGreen .peso-confirme{
+  text-align: center;
+  margin-left: 4%;
 }
 
 .boxFinalLaudoReportGreen{
@@ -1407,6 +1458,16 @@ p.solid {
 
 .boxFinalLaudoReportGreen label{
   font-weight: bold;
+}
+
+.boxFinalLaudoReportGreen .laudo-haver{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalLaudoReportGreen .laudo-confirme{
+  text-align: center;
+  margin-left: 2%;
 }
 
 .boxFinalPersonalizadaReportGreen{
@@ -1433,22 +1494,17 @@ p.solid {
 
 .boxFinalAvariaReportGreen label{
   font-weight: bold;
+  margin-left: 2%;
 }
 
 .boxFinalAvariaReportGreen .haver{
-  margin-left: 2%;
+  margin-left: 4%;
   text-align: center;
 }
 
 .boxFinalAvariaReportGreen .ha{
   text-align: center;
-  margin-left: 2%;
-}
-
-.boxFinalAvariaReportGreen .comentario{
-  width: 70%;
-  padding: 9px;
-  margin-left: 9%;
+  margin-left: 5%;
 }
 
 .boxFinalUmidaePurezaReportGreen{
@@ -1460,8 +1516,28 @@ p.solid {
   margin-top: 3%;
 }
 
+.boxFinalUmidaePurezaReportGreen .umidade-pureza-haver{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalUmidaePurezaReportGreen .umida-pura-confirme{
+  text-align: center;
+  margin-left: 2%;
+}
+
 .boxFinalUmidaePurezaReportGreen label{
   font-weight: bold;
+}
+
+.boxFinalPersonalizadaReportGreen .personalizada-haver{
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalPersonalizadaReportGreen .personalizada-confirme{
+  text-align: center;
+  margin-left: 2%;
 }
 
 .titulo-aprovado{
