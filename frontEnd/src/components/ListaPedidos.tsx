@@ -16,6 +16,29 @@ interface Pedido {
     ped_status:string
 }
 
+function toggleDiv(index: number) {
+    var cards = document.querySelectorAll('.card');
+    var images = document.querySelectorAll('.desc');
+    
+    cards.forEach(function(card, i) {
+      if (i === index) {
+        card.classList.toggle('active');
+      } else {
+        card.classList.remove('active');
+      }
+    });
+  
+    images.forEach(function(image, i) {
+      if (i === index) {
+        image.classList.toggle('hidden');
+      } else {
+        image.classList.add('hidden');
+      }
+    });
+  }
+  
+  
+
 function ListaPedidos(){
     const [id, setId] = useState(null);
     const [pedidos, setPedido] = useState<Pedido[]>([])
@@ -200,7 +223,7 @@ function ListaPedidos(){
                 onKeyUp= {(evento) => atualizarBusca(busca)} />
             </div>
             {pedidosBuscados.map((pedido, index) =>(
-                    <div className="listaIn" key={index}>
+                <div className="listaIn" key={index} onClick={() => toggleDiv(index)}>
                         <h1>Pedido nº{pedido.ped_codigo} - {pedido.ped_descricao} ({pedido.ped_razao_social})</h1>
                         <div className="listColumns">
                             <div className="column1">
@@ -209,6 +232,9 @@ function ListaPedidos(){
                                 <p>Data de entrega: {pedido.ped_data_entrega}</p>
                                 <p>Estado do pedido: {pedido.ped_status}</p>
                                 <hr className='hr_pedido' />
+                                <div className="card">
+                                <div className="content">
+                                <div className="desc hidden">
                                 <p>Revisão:</p>
                                 <center>
                                 {(pedido.ped_status === 'Recusado' || pedido.ped_status === 'Aceito') &&
@@ -250,6 +276,9 @@ function ListaPedidos(){
 
                             </div>
                     </div>
+                </div>
+                </div>
+                </div>
                 </div>
             ))
             }

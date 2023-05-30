@@ -1585,3 +1585,43 @@ p.solid {
   border-radius: 5px;
   width: 25%;
 }
+
+/* coisas da expansividade */
+.card {
+  border-radius: 16px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all .5s;
+  background-color: #C0C0C0;
+}
+.card-content {
+  transition: height 0.5s;
+  overflow: hidden;
+  height: auto;
+}
+
+.card-details {
+  display: none;
+  padding: 10px;
+  background-color: #d9d9d9;
+}
+
+.card .content {
+  padding: 0px 20px;
+  height: 0;
+  opacity: 0;
+  transition: all .5s;
+  overflow: hidden;
+  transform: translateY(30px);
+}
+
+.card.active .content {
+  height: 260px;
+  padding: 20px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hidden {
+  display: none;
+}
