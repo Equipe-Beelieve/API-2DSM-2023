@@ -880,7 +880,6 @@ p.solid {
   width: 150px;
   margin-top: 2vh;
   margin-right: 3vw;
-
 }
 
 .cancel_button3:hover {
@@ -1261,6 +1260,7 @@ p.solid {
     width: 16vw;
     height: 4vh;
     font-size: 2.5vw;
+    padding: 0 2vw 0 0;
   }
   
   
@@ -1283,6 +1283,7 @@ p.solid {
     width: 16vw;
     height: 4vh;
     font-size: 2.5vw;
+    padding: 0 0 0 0;
   }
 
   .checkboxzin::before {
@@ -1301,12 +1302,13 @@ p.solid {
 
   .input_form {
     width: 30vw;
-    height: 35px;
+    height: 4.5vh;
   }
 
   .box{
     margin-left: 7%;
     margin-right: 7%;
+    font-size: 3vw;
   }
 
   .responsividade{
@@ -1332,12 +1334,45 @@ p.solid {
   }
 
   .cancel_button, .confirm_button {
-    width: 150px;
+    width: 35vw;
     margin-top: 2vh;
-    margin-left: -11vw;
+    margin-left: -12vw;
+  }
+
+  .cancel_button3{
+    width: 35vw;
+    margin-right: 15vw;
+  }
+
+  .button_margin {
+    margin-right: 15vw;
+    padding-left: 10vw;
+    padding-right: 2vw;
   }
 
   .lixoUsuario{
     width: 3vh;
+    margin-right: -10vw;
+    margin-left: 4vw;
     }
+
+  .botoesNavegacao{
+    gap: 0%;
+    width: 150%;
+  }
+
+  .flexMainUsuario{
+    gap: 0;
+  }
+
+  .blocoInvisivelUsuarioEsquerda{
+    width: 0;
+    margin-left: 0;
+  }
+
+  .recebimentoTitulo{
+    width: 100vw;
+    font-size: 4.5vw;
+    margin-top: 3vh;
+  }
 }

@@ -547,7 +547,7 @@ function CadPedido() {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Razão Social(fornecedor):</th>
+                                            <th>Razão Social:</th>
                                         </tr>
                                     </thead>
                                     <tbody>

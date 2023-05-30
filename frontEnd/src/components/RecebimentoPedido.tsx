@@ -383,7 +383,7 @@ function RecebimentoPedido() {
                     <h3>Insira a nota fiscal</h3> */}
 
                 <div className="divFornecedor">
-                    <form>
+                    <form className="responsividadeforms">
                         <div className="grid-container poscentralized">
                             <div className="box">
                                 <table>
