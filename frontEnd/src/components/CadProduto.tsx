@@ -489,7 +489,7 @@ function CadProduto() {
                     
                 </div>
 
-                <form>
+                <form className='responsividade'>
                     <div className="grid-container poscentralized">
                         <div className="box">
                             <table>

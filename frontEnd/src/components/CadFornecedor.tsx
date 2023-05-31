@@ -318,7 +318,7 @@ function CadFornecedor() {
             
            
             
-            <form onSubmit={(e) => manipularFormulario(e)}>
+            <form className='responsividadeforms' onSubmit={(e) => manipularFormulario(e)}>
                 <div className="grid-container poscentralized">
                     <div className="box">
                         <table>
