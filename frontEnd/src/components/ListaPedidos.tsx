@@ -234,7 +234,7 @@ function ListaPedidos(){
                                 <div className="card">
                                 <div className="content">
                                 <div className="desc hidden">
-                                <p className="revisao-esquerda">Revisão:</p>
+                                <p>Revisão:</p>
                                 <center>
                                 {(pedido.ped_status === 'Recusado' || pedido.ped_status === 'Aceito') &&
                                     <>

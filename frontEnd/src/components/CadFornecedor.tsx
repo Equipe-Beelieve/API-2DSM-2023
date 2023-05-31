@@ -41,8 +41,17 @@ function CadFornecedor() {
         })
     }
     
-    //================== SUBMIT DE FORMULÁRIO ==================   
-    async function cadastraFornecedor(evento:any){
+    //================== SUBMIT DE FORMULÁRIO ==================
+    async function manipularFormulario(evento:any){
+        evento.preventDefault()
+        if(!editar){
+            await cadastraFornecedor()
+        } else {
+            await editaFornecedor()
+        }
+    }
+    
+    async function cadastraFornecedor(){
         let regexCep = /^\d{5}\-\d{3}$/
         let regexCnpj = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/
         let erroCep = false
@@ -64,7 +73,6 @@ function CadFornecedor() {
         if (!regexCnpj.test(cnpj) || !regexCep.test(cep)){
             if (erroCnpj){setCnpj('')}
             if (erroCep){setCep('')}
-            evento.preventDefault()
         } 
         else {
             const cnpjExiste = cnpjsExistentes.some((cnpjExistente) => cnpjExistente.for_cnpj === cnpj)
@@ -80,7 +88,10 @@ function CadFornecedor() {
         } 
     }
 
-    
+    async function editaFornecedor() {
+        const post = {razaoSocial, nomeFantasia, cnpj, cidade, cep, estado, bairro, ruaAvenida, numero, id}
+        await api.post('/updateFornecedor', {post}).then((resposta) => {navegate('/listaFornecedor')})
+    }
     //================== MASCARAS DE FORMULÁRIO ==================
 
     function trataCnpj(evento:any){
@@ -230,11 +241,6 @@ function CadFornecedor() {
                     className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"})
     }
 
-    async function editaFornecedor() {
-        const post = {razaoSocial, nomeFantasia, cnpj, cidade, cep, estado, bairro, ruaAvenida, numero, id}
-        await api.post('/updateFornecedor', {post}).then((resposta) => {navegate('/listaFornecedor')})
-    }
-
     //============ DESATIVAR FORNECEDOR ==============
     async function confirmarDelete(){
         if(fornecedorUtilizado){
@@ -312,7 +318,7 @@ function CadFornecedor() {
             
            
             
-            <form>
+            <form onSubmit={(e) => manipularFormulario(e)}>
                 <div className="grid-container poscentralized">
                     <div className="box">
                         <table>
@@ -528,10 +534,10 @@ function CadFornecedor() {
                 </div>
                 <button type='button' className="cancel_button" onClick={() => {navegate('/listaFornecedor')}}>Cancelar</button>
                 {!editar &&
-                    <button type='button' className="confirm_button" onClick={cadastraFornecedor}>Confirmar</button>
+                    <button type='submit' className="confirm_button">Confirmar</button>
                 }
                 {editar &&
-                    <button type='button' className="confirm_button" onClick={() => editaFornecedor()}>Editar</button>
+                    <button type='submit' className="confirm_button">Editar</button>
                 }
             </form>
         </div>
