@@ -440,13 +440,9 @@ function RecebimentoPedido() {
                 <NavBar />
                 <div className="mainContent">
                     <div className="botoesNavegacao">
-                        <button type='button' onClick={irCadastroPedido} className="botaoteste4">
-                            <img src={teste} alt="" className="testeaEsquerda" />Cadastro dos Pedidos</button>
+                        
                         <h1 className="recebimentoTitulo">RECEBIMENTO DO PEDIDO: {id}</h1>
-                        {mudanca === 'Edição' &&
-                        <button type='button' onClick={irQuantitativa} className="botaoteste4">Análise Qualitativa
-                            <img src={teste} alt="" className="testeaDireita" /></button>
-                        }
+                        
                         {mudanca !== 'Edição' &&
                             <div className='blocoInvisivel'> </div>
                         }
@@ -454,18 +450,14 @@ function RecebimentoPedido() {
                     <h4 className="txtAlg">Insira a nota fiscal</h4>
                 </div>
 
-                {/* <button type='button' onClick={irCadastroPedido} className="botaoteste4">
-                        <img src={teste} alt="" className="testea" />Cadastro dos Pedidos  </button>
-
-                    <h2>RECEBIMENTO DO PEDIDO: {id}</h2>
-
-                    {mudanca === 'Edição' &&
-                        <button className="botaoteste4" type='button' onClick={irQuantitativa}>Análise Quantitativa<img src={teste} alt="" className="testea upsideDown" /></button>
-                    }
-                    <h3>Insira a nota fiscal</h3> */}
-
                 <div className="divFornecedor">
                     <form className="responsividadeforms">
+                    <button type='button' onClick={irCadastroPedido} className="botaoteste4">
+                            <img src={teste} alt="" className="testeaEsquerda" />Cadastro dos Pedidos</button>
+                            {mudanca === 'Edição' &&
+                        <button type='button' onClick={irQuantitativa} className="botaoteste4esquerda">Análise Qualitativa
+                            <img src={teste} alt="" className="testeaDireita" /></button>
+                        }
                         <div className="grid-container poscentralized">
                             <div className="box">
                                 <table>
@@ -696,7 +688,7 @@ function RecebimentoPedido() {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Condição de pagamento :</th>
+                                            <th>Pagamento :</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -769,31 +761,18 @@ function RecebimentoPedido() {
 
                 <div className="mainContent">
                     <div className="botoesNavegacao">
-                        <button type='button' onClick={irCadastroPedido} className="botaoteste4">
-                            <img src={teste} alt="" className="testeaEsquerda" />Cadastro dos Pedidos</button>
                         <h1 className="mainTitle">RECEBIMENTO DO PEDIDO: {id}</h1>
-                        
-                        <button type='button' onClick={irQuantitativa} className="botaoteste4">Análise Qualitativa
-                        <img src={teste} alt="" className="testeaDireita" /></button>
-                        
+
                     </div>
                     <h3 className="txtAlg">Insira a nota fiscal</h3>
                 </div>
-                {/* <div>
-                    <div>
-                        <br />
-                        <button className="botaoteste4" type='button' onClick={irCadastroPedido}>
-                            <img src={teste} alt="" className="testea" />Cadastro dos Pedidos</button>
-                        <h2 className="txtAlg">RECEBIMENTO DO PEDIDO: {id}</h2>
-                        <h3 className="txtAlg">Insira a nota fiscal</h3>
-
-                        <button className="botaoteste4" type='button' onClick={irQuantitativa}>Análise Quantitativa
-                            <img src={teste} alt="" className="testea upsideDown" /></button>
-                    </div>
-                </div> */}
 
                 <div className="divFornecedor">
-                    <form>
+                    <form className="responsividadeforms">
+                    <button type='button' onClick={irCadastroPedido} className="botaoteste4">
+                            <img src={teste} alt="" className="testeaEsquerda" />Cadastro dos Pedidos</button>                    
+                    <button type='button' onClick={irQuantitativa} className="botaoteste4">Análise Qualitativa
+                        <img src={teste} alt="" className="testeaDireita" /></button>
                         <div className="grid-container poscentralized">
                             <div className="box">
                                 <table>
@@ -984,7 +963,7 @@ function RecebimentoPedido() {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Condição de pagamento :</th>
+                                            <th>Pagamento :</th>
                                         </tr>
                                     </thead>
                                     <tbody>

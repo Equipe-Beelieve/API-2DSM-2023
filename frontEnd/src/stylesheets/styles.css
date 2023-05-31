@@ -60,7 +60,6 @@
 }
 
 .recebimentoTitulo{
-  width: 400px;
   font-size: 2vw;
   margin-top: 4vh;
   font-weight: bold;
@@ -1097,6 +1096,26 @@ p.solid {
   font-size: 15px;
   border: 1px solid #ddd;
   width: 200px;
+  margin-top: -8vh;
+  margin-bottom: 10vh;
+  margin-right: 70vw;
+}
+
+.botaoteste4esquerda {
+  background-color: gray;
+  color: white;
+  font-weight: bolder;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-size: 30px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  width: 200px;
+  margin-top: -13vh;
+  margin-bottom: 10vh;
+  margin-left: 70vw;
 }
 
 .botaoteste5Esquerda {
@@ -2042,6 +2061,7 @@ p.solid {
 
   .cadastro {
     width: 23vw;
+    height: 3.2vh;
   }
 
   .termo-pesquisa {
@@ -2103,7 +2123,7 @@ p.solid {
   }
   
   .box3 .minimo .input_form {
-    width: 16vw;
+    width: 20vw;
     height: 4vh;
     font-size: 2.5vw;
     padding: 0 2vw 0 0;
@@ -2126,7 +2146,7 @@ p.solid {
   }
 
   .box3 .minimo .input_formLimit {
-    width: 16vw;
+    width: 22vw;
     height: 4vh;
     font-size: 2.5vw;
     padding: 0 0 0 0;
@@ -2168,13 +2188,13 @@ p.solid {
 
   .ped_btn {
     height: 7vh;
-    width: 40vw;
+    width: 37vw;
     margin-bottom: 1.5vw;
   }
   
   .ped_btn2 {
     height: 7vh;
-    width: 40vw;
+    width: 37vw;
     margin-right: 1.5vw;
     margin-bottom: 1vh;
   }
@@ -2187,7 +2207,7 @@ p.solid {
 
   .cancel_button3{
     width: 35vw;
-    margin-right: 15vw;
+    margin-left: -12vw;
   }
 
   .button_margin {
@@ -2204,7 +2224,7 @@ p.solid {
 
   .botoesNavegacao{
     gap: 0%;
-    width: 150%;
+    width: 100%;
   }
 
   .flexMainUsuario{
@@ -2216,9 +2236,57 @@ p.solid {
     margin-left: 0;
   }
 
+  .blocoInvisivelUsuarioDireita{
+    width: 0;
+    margin-right: 0;
+  }
+
+  .blocoInvisivel{
+    width: 0px;
+  }
+
   .recebimentoTitulo{
     width: 100vw;
     font-size: 4.5vw;
     margin-top: 3vh;
+    margin-left: 3vw;
+  }
+
+  .botaoteste5Direita {
+    font-size: 2vh;
+    width: 20vw;
+    margin-right: 27vw;
+    margin-bottom: 2vh;
+  }
+
+  .botaoteste4, .botaoteste4esquerda {
+    background-size: 30px;
+    font-size: 2vh;
+    width: 40vw;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    margin-left: -15vw;
+  }
+
+  .txtAlg {
+    font-size: 4.5vw;
+  }
+
+  .mesmalinha {
+    margin-left: 12vw;
+  }
+  
+  .mesmalinha .confirm_button{
+    margin-left: 10vw;
+  }
+  
+  .anaq1{
+    width: 51vw;
+    height: 9vh;
+    font-size: 3vw;
+  }
+  
+  .anaq2{
+    width: 25vw;
   }
 }

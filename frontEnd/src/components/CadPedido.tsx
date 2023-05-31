@@ -722,7 +722,7 @@ function CadPedido() {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Condição de pagamento :</th>
+                                            <th>Pagamento :</th>
                                         </tr>
                                     </thead>
                                     <tbody>
