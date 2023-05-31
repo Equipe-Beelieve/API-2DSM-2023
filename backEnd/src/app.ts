@@ -241,14 +241,14 @@ app.post('/updateUsuario', async(req, res) => {
 app.post('/resgataValoresProduto', async(req,res) => {
     let id = req.body.id
     let produto = await bd.pegaProduto(id)
-    let existeProduto = await bd.confereProduto(id)
+    let produtoUtilizado = await bd.confereProduto(id)
     let produtos = await bd.listarProdutoDescricao()
-    //console.log(produtos)
-    res.send({produto, existeProduto, produtos})
+    console.log(produto)
+    res.send({produto, produtoUtilizado, produtos})
 })
 
 app.post('/updateProduto', async(req,res)=>{
-    console.log(req.body)
+    ////console.log(req.body)
     let id = req.body.id
     let regrasRecebimento = req.body.regras
     let descricao = req.body.descricao

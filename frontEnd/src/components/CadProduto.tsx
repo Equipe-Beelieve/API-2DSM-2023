@@ -31,6 +31,8 @@ function CadProduto() {
     const { id } = useParams()
     const [produtoUtilizado, setProdutoUtilizado] = useState(false)
     const [produtoDescricao, setProdutoDescricao] = useState<Produto[]>([])
+    const [nomeInicial, setNomeInicial] = useState('')
+    const [unidadeMedidaInicial, setUnidadeMedidaInicial] = useState('')
 
 
     const navigate = useNavigate()
@@ -174,6 +176,8 @@ function CadProduto() {
             setEdicao(true)
             setProdutoUtilizado(existeProduto)
             setProdutoDescricao(produtos)
+            setNomeInicial(dado.descricao)
+            setUnidadeMedidaInicial(dado.unidadeMedida)
         })
     }
 
@@ -184,57 +188,61 @@ function CadProduto() {
                 position: 'bottom-left',
                 autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
             })
-        } else if(produtoDescricao.some(produto => produto.prod_descricao === descricao)){
-                toast.error('Produto existente', {
-                    position: 'bottom-left',
-                    autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
-                })
+        }
+         if(descricao !== nomeInicial && produtoDescricao.some(produto => produto.prod_descricao === descricao)){
+            toast.error('Produto existente', {
+                position: 'bottom-left',
+                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+            })
         }
         else {
-            //Confere se todas as regras estão preenchidas e há no máximo 1 regra de umidade e 1 de pureza
-            let contadorTipo = { Pureza: 0, Umidade: 0 }
-            regras.forEach((regra: Regra) => {
-                console.log(regra)
-                if (regra.tipo === '' || regra.valor === "") {
-                    controle = false
+            if(descricao === nomeInicial || (descricao !== nomeInicial && produtoDescricao.some(produto => produto.prod_descricao !== descricao))){
+                //Confere se todas as regras estão preenchidas e há no máximo 1 regra de umidade e 1 de pureza
+                let contadorTipo = { Pureza: 0, Umidade: 0 }
+                regras.forEach((regra: Regra) => {
+                    console.log(regra)
+                    if (regra.tipo === '' || regra.valor === "") {
+                        controle = false
 
-                }
-                //Contador de regras de umidade e pureza:
-                else {
-                    if (regra.tipo === 'Pureza') {
-                        contadorTipo.Pureza += 1
                     }
-                    else if (regra.tipo === 'Umidade') {
-                        contadorTipo.Umidade += 1
+                    //Contador de regras de umidade e pureza:
+                    else {
+                        if (regra.tipo === 'Pureza') {
+                            contadorTipo.Pureza += 1
+                        }
+                        else if (regra.tipo === 'Umidade') {
+                            contadorTipo.Umidade += 1
+                        }
                     }
-                }
-            })
-
-            if (controle) {
-                if (contadorTipo.Umidade > 1) {
-                    toast.error('Não pode haver mais de uma regra de Umidade', {
-                        position: 'bottom-left',
-                        autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
-                    })
-                }
-                else if (contadorTipo.Pureza > 1) {
-                    toast.error('Não pode haver mais de uma regra de Pureza', {
-                        position: 'bottom-left',
-                        autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
-                    })
-                }
-                else {
-                    await api.post('/updateProduto', {id:id, descricao:descricao, unidadeMedida:unidadeMedida, regras:regras}).then((resposta)=>{
-                        navigate('/listaProdutos')
-                    })
-                }
-            }
-            else {
-                toast.error('Preencha todas as regras adicionadas', {
-                    position: 'bottom-left',
-                    autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
                 })
 
+                if (controle) {
+                    if (contadorTipo.Umidade > 1) {
+                        toast.error('Não pode haver mais de uma regra de Umidade', {
+                            position: 'bottom-left',
+                            autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                        })
+                    }
+                    else if (contadorTipo.Pureza > 1) {
+                        toast.error('Não pode haver mais de uma regra de Pureza', {
+                            position: 'bottom-left',
+                            autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                        })
+                    }
+                    else {
+                        await api.post('/updateProduto', {id:id, descricao:descricao, unidadeMedida:unidadeMedidaInicial, regras:regras}).then((resposta)=>{
+                            navigate('/listaProdutos')
+                        })
+                    }
+                }
+                else {
+                    toast.error('Preencha todas as regras adicionadas', {
+                        position: 'bottom-left',
+                        autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                    })
+
+                }
+            
             }
         }
     }
@@ -513,15 +521,22 @@ function CadProduto() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>
-                                            <select className='input_form' name="unidadeMedida" id="unidadeMedida"
+                                        <td>{edicao && <select className='input_form' name="unidadeMedida" id="unidadeMedida"
+                                                disabled
+                                                value={unidadeMedidaInicial}
+                                                onChange={(e) => { setUnidadeMedida(e.target.value) }}>
+                                                <option value=""></option>
+                                                <option value="kg">Quilogramas (kg)</option>
+                                                <option value="t">Toneladas (t)</option>
+                                            </select>}
+                                            {!edicao && <select className='input_form' name="unidadeMedida" id="unidadeMedida"
                                                 required
                                                 value={unidadeMedida}
                                                 onChange={(e) => { setUnidadeMedida(e.target.value) }}>
                                                 <option value=""></option>
                                                 <option value="kg">Quilogramas (kg)</option>
                                                 <option value="t">Toneladas (t)</option>
-                                            </select>
+                                            </select>}
                                         </td>
                                     </tr>
                                 </tbody>

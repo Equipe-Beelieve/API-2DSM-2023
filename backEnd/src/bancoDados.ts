@@ -200,7 +200,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async listarProdutoDescricao() {
         await this.conectar()
-        let [produtos, meta] = await this.conexao.query('SELECT prod_descricao FROM produto')
+        let [produtos, meta] = await this.conexao.query('SELECT prod_descricao FROM produto') as Array<any>
         await this.conexao.end()
         return produtos
     }
@@ -539,9 +539,13 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     // //DELETE PRODUTO
     async confereProduto(id:string){
         await this.conectar()
-        let [produtoEmPedido] = await this.conexao.query(`SELECT pr.prod_descricao FROM produto pr
-            INNER JOIN pedido pe on pr.prod_descricao = pe.ped_descricao where pr.prod_codigo = ${id}`) as Array<any>
-        return produtoEmPedido.length > 0
+        let [consultaProduto] = await this.conexao.query(`SELECT prod_descricao FROM produto where prod_codigo = ${id}`) as Array<any>
+
+        let produtoDescricao = consultaProduto[0].prod_descricao
+        await this.conectar()
+        let [existeProduto] = await this.conexao.query(`SELECT ped_codigo FROM pedido WHERE ped_descricao = '${produtoDescricao}'`) as Array<any>
+        await this.conexao.end()
+        return existeProduto.length > 0
     }
 
      async deletaProduto(id:string){
