@@ -30,7 +30,7 @@ CREATE TABLE `usuario` (
   `us_senha` varchar(30) DEFAULT NULL,
   `us_funcao` varchar(30) DEFAULT NULL,
   `us_login` varchar(30) DEFAULT NULL,
-  `us_ativo` varchar(10) DEFAULT 'Ativo',
+  `us_ativo` varchar(10) DEFAULT 'Ativado',
   PRIMARY KEY (`us_matricula`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

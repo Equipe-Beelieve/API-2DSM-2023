@@ -235,13 +235,26 @@ function CadUsuario() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input title='não é possivel editar' className="input_form" type="text" id="for_login"
-                                            name="for_login" required
-                                            value={login}
-                                            onChange={(e) => setLogin(e.target.value)} 
-                                            disabled
-                                            />
-                                        </td>
+                                        {editar &&
+                                            <td>
+                                                <input title='não é possivel editar' className="input_form" type="text" id="for_login"
+                                                name="for_login" required
+                                                value={login}
+                                                onChange={(e) => setLogin(e.target.value)} 
+                                                disabled
+                                                />
+                                            </td>
+                                        }
+                                        {!editar &&
+                                            <td>
+                                                <input title='não é possivel editar' className="input_form" type="text" id="for_login"
+                                                name="for_login" required
+                                                value={login}
+                                                onChange={(e) => setLogin(e.target.value)} 
+                                                />
+                                            </td>
+                                        }
+                                        
                                     </tr>
                                 </tbody>
                             </table>
@@ -275,12 +288,25 @@ function CadUsuario() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input title='não é possivel editar' className="input_form" type="text" id="for_nome" name="for_nome"
-                                            required
-                                            value={nome}
-                                            onChange={(e) => setNome(e.target.value)} 
-                                            disabled/>
-                                        </td>
+                                        {editar &&
+                                            <td>
+                                                <input title='não é possivel editar' className="input_form" type="text" id="for_nome" name="for_nome"
+                                                required
+                                                value={nome}
+                                                onChange={(e) => setNome(e.target.value)} 
+                                                disabled/>
+                                            </td>
+                                        }
+                                        {!editar &&
+                                            <td>
+                                                <input title='não é possivel editar' className="input_form" type="text" id="for_nome" name="for_nome"
+                                                required
+                                                value={nome}
+                                                onChange={(e) => setNome(e.target.value)} 
+                                                />
+                                            </td>
+                                        }
+                                        
                                     </tr>
                                 </tbody>
                             </table>
