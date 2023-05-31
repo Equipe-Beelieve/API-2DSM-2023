@@ -130,7 +130,7 @@ function CadUsuario() {
                 }
               })
         }
-        else{
+        else if (acao === "Ativar"){
             Swal.fire({
                 title: `Ativar usuário?`,
                 icon: 'warning',
@@ -145,7 +145,14 @@ function CadUsuario() {
                 }
               })
         }
-        
+        else{
+            Swal.fire({
+                title: `O Administrador não pode ser desativado.`,
+                icon: 'warning',
+                confirmButtonColor: '#5D5D5D',
+                confirmButtonText: 'Voltar',
+              })
+        }
         
     }
 
@@ -207,8 +214,8 @@ function CadUsuario() {
                         <button className="desativado" onClick={()=>{confirmarDelete('Ativar')}}>Desativado</button>
                         
                     }
-                    {editar && !(funcaoInical !== 'Administrador') &&
-                        <div className='blocoInvisivelUsuarioDireita'> </div>
+                    {editar && funcaoInical === 'Administrador' &&
+                        <button className="ativado" onClick={()=>{confirmarDelete('naoPrermite')}}>Ativado</button>
                     }
                     {!editar &&
                         <div className='blocoInvisivelUsuarioDireita'> </div>
