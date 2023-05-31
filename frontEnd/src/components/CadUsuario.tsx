@@ -214,9 +214,9 @@ function CadUsuario() {
                         <div className='blocoInvisivelUsuarioDireita'> </div>
                     }
                 </div>
-                <br />
-                <form className='responsividadeforms' onSubmit={cadastroUsuario}>
-                
+                <form className='responsividadeforms' onSubmit={cadastroUsuario} action="/action_page.php">
+                    
+                    
                     
                     <div className="grid-container poscentralized">
                         <div className="box">
@@ -228,10 +228,12 @@ function CadUsuario() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input className="input_form" type="text" id="for_login"
+                                        <td><input title='não é possivel editar' className="input_form" type="text" id="for_login"
                                             name="for_login" required
                                             value={login}
-                                            onChange={(e) => setLogin(e.target.value)} />
+                                            onChange={(e) => setLogin(e.target.value)} 
+                                            disabled
+                                            />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -266,10 +268,11 @@ function CadUsuario() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input className="input_form" type="text" id="for_nome" name="for_nome"
+                                        <td><input title='não é possivel editar' className="input_form" type="text" id="for_nome" name="for_nome"
                                             required
                                             value={nome}
-                                            onChange={(e) => setNome(e.target.value)} />
+                                            onChange={(e) => setNome(e.target.value)} 
+                                            disabled/>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -293,7 +296,6 @@ function CadUsuario() {
                                                 value={funcao}
                                                 onChange={(e) => setFuncao(e.target.value)}>
                                                 <option value=""></option>
-                                                <option value="Administrador">Administrador</option>
                                                 <option value="Gerente">Gerente</option>
                                                 <option value="Conferente">Conferente</option>
                                                 </select>
