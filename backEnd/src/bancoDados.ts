@@ -21,7 +21,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: '', //sua senha
+                password: 'root', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -165,14 +165,14 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
       
     public async listarUsuario() {
         await this.conectar()
-        let [usuarios, meta]:any = await this.conexao.query('SELECT us_matricula,us_nome, us_senha, us_funcao, us_login FROM usuario')
+        let [usuarios, meta]:any = await this.conexao.query('SELECT us_matricula,us_nome, us_senha, us_funcao, us_login, us_ativo FROM usuario')
         await this.conexao.end()
         return usuarios
     }
 
     async dadosUsuario(credencias:any){
         await this.conectar()
-        let [usuario, meta]:any = await this.conexao.query(`SELECT us_matricula,us_nome, us_senha, us_funcao, us_login FROM usuario WHERE us_login = "${credencias.login}" and us_senha = "${credencias.senha}" `)
+        let [usuario, meta]:any = await this.conexao.query(`SELECT us_matricula,us_nome, us_senha, us_funcao, us_login, us_ativo FROM usuario WHERE us_login = "${credencias.login}" and us_senha = "${credencias.senha}" `)
         console.log(`Login: ${credencias.login} e Senha: ${credencias.senha}`)
         await this.conexao.end()
         return usuario[0] 
@@ -509,12 +509,20 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conexao.end()
     }
 
-    //DELETE USUARIO
-    async deletaUsuario(id:string){
+    // DESATIVA/ATIVA USUARIO
+    async desativaUsuario(id:string){
         await this.conectar()
-        await this.conexao.query(`DELETE FROM usuario WHERE us_matricula = ${id}`)
+        await this.conexao.query(`UPDATE usuario SET us_ativo="Desativado" WHERE us_matricula = ${id}`)
         await this.conexao.end()
     }
+
+    async ativaUsuario(id:string){
+        await this.conectar()
+        await this.conexao.query(`UPDATE usuario SET us_ativo="Ativado" WHERE us_matricula = ${id}`)
+        await this.conexao.end()
+    }
+
+
 
     //DELETE FORNECEDOR
     async confereFornecedor(id:string){

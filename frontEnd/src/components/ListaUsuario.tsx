@@ -12,6 +12,7 @@ export interface Usuarios {
     us_nome:string;
     us_funcao:string;
     us_login:string;
+    us_ativo:string;
 }
 
 function ListaUsuario(){
@@ -105,22 +106,27 @@ function ListaUsuario(){
                 onChange = {(evento) => setBusca(evento.target.value)}
                 onKeyUp= {(evento) => atualizarBusca(busca)} />
             </div>
-            {usuariosBuscados.map((usuario, index) => (
-                    <div className="listaIn" id='clicavel' key={index} onClick={() => {navegate(`/cadastroUsuario/${usuario.us_matricula}`)}}>
-                        <h1>
-                            Matricula nº{usuario.us_matricula}
-                        </h1>
+            {usuariosBuscados.map((usuario, index) => (  
+                <div className="listaIn" id='clicavel' key={index} onClick={() => {navegate(`/cadastroUsuario/${usuario.us_matricula}`)}}>
+                    <h1>
+                        Matricula nº{usuario.us_matricula}
+                    </h1>
+                    <div className="fucao_statusUsuario">
+                        
                         <div className="listColumns">
                             <div className="column1">
                                 <p>Nome: {usuario.us_nome}</p>
                                 <p>Login: {usuario.us_login}</p>
-                                
                             </div>
-                            <div className="column2">
+                            <div className="">
                                 <p>Função: {usuario.us_funcao}</p>
                             </div>
                         </div>
+                        <p>{usuario.us_ativo}</p>
                     </div>
+                    
+                    
+                </div>    
             ))
             }
         </div>

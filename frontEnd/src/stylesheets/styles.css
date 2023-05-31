@@ -39,7 +39,7 @@
   display: flex;
   justify-content: center;
   align-items: baseline;
-  gap: 200px;
+  gap: 140px;
 }
 
 .flexMainFornecedor{
@@ -216,6 +216,12 @@
   width: 100%;
 }
 
+.fucao_statusUsuario{
+  display: flex;
+  justify-content: space-between;
+  align-items: last baseline;
+}
+
 .listColumns .column1_for {
   width: 50%;
 }
@@ -340,6 +346,27 @@ p.solid {
   width: 150px;
   margin-top: 2vh;
 }
+
+.desativado{
+  background: #DD2424;
+  color: white;
+  border-radius: 10px;
+  border-color: transparent;
+  margin-right: 130px;
+  text-align: center;
+  width: 100px;
+}
+
+.ativado{
+  background: #3E813B;
+  color: white;
+  border-radius: 10px;
+  border-color: transparent;
+  margin-right: 130px;
+  text-align: center;
+  width: 100px;
+}
+
 
 .confirm_button:hover {
   background-color: #3E813B;
@@ -612,6 +639,7 @@ p.solid {
   border-radius: 7px;
   border-color: transparent;
 }
+
 
 .button {
   background-color: #5D5D5D;
@@ -2221,6 +2249,8 @@ p.solid {
     margin-right: -10vw;
     margin-left: 4vw;
     }
+
+
 
   .botoesNavegacao{
     gap: 0%;

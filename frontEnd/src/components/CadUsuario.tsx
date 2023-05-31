@@ -35,6 +35,7 @@ function CadUsuario() {
     const [funcaoInical, setFuncaoInicial] = useState('')
     const [mesmoUsuario, setMesmoUsuario] = useState(false)
     const [quantidadeAdministrador, setQuantidadeAdministrador] = useState<number>(1)
+    const [ativo, setAtivo] = useState('')
     const { id } = useParams()
 
     //================== Tratar login ==================
@@ -85,6 +86,7 @@ function CadUsuario() {
             setNome(dado.us_nome)
             setSenha(dado.us_senha)
             setFuncao(dado.us_funcao)
+            setAtivo(dado.us_ativo)
             setEditar(true)
             setLoginInicial(dado.us_login)
             setFuncaoInicial(dado.us_funcao)
@@ -112,24 +114,47 @@ function CadUsuario() {
     }
 
     //================== Deleta Usuario ==================
-    async function confirmarDelete(){
-        Swal.fire({
-            title: 'Excluir usuário?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#C0C0C0',
-            cancelButtonColor: '#3E813B',
-            cancelButtonText: 'Cancelar',
-            confirmButtonText: 'Confirmar',
-          }).then(async (result) => {
-            if (result.isConfirmed) {
-              await deleteUsuario()
-            }
-          })
+    async function confirmarDelete(acao:string){
+        if(acao === "Desativar"){
+            Swal.fire({
+                title: `Desativar usuário?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3E813B',
+                cancelButtonColor: '#5D5D5D',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Confirmar',
+              }).then(async (result) => {
+                if (result.isConfirmed) {
+                  await desativaUsuario()
+                }
+              })
+        }
+        else{
+            Swal.fire({
+                title: `Ativar usuário?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3E813B',
+                cancelButtonColor: '#5D5D5D',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Confirmar',
+              }).then(async (result) => {
+                if (result.isConfirmed) {
+                  await ativaUsuario()
+                }
+              })
+        }
+        
+        
     }
 
-    async function deleteUsuario(){
-        await api.post('/deletaUsuario', {id:id}).then((resposta) => {navegate('/listaUsuario')})
+    async function desativaUsuario(){
+        await api.post('/desativaUsuario', {id:id}).then((resposta) => {setAtivo("Desativado")})
+    }
+
+    async function ativaUsuario() {
+        await api.post('/ativaUsuario', {id:id}).then((resposta) => {setAtivo("Ativado")})
     }
 
 
@@ -172,8 +197,15 @@ function CadUsuario() {
                     <div className='blocoInvisivelUsuarioEsquerda'> </div>
                     {editar && <h1 className='mainTitle'>Edição de Usuario</h1>}
                     {!editar && <h1 className='mainTitle'>Cadastro de Usuario</h1>}
-                    {editar && funcaoInical !== 'Administrador' &&
-                        <img src={lixeira} id='clicavel' alt="Lixo" className='lixoUsuario' onClick={()=>{confirmarDelete()}} />
+                    {editar && funcaoInical !== 'Administrador' && ativo === "Ativado" &&
+                        
+                        <button className="ativado" onClick={()=>{confirmarDelete('Desativar')}}>Ativado</button>                        
+                        
+                    }
+                    {editar && funcaoInical !== 'Administrador' && ativo === "Desativado" &&
+                        
+                        <button className="desativado" onClick={()=>{confirmarDelete('Ativar')}}>Desativado</button>
+                        
                     }
                     {editar && !(funcaoInical !== 'Administrador') &&
                         <div className='blocoInvisivelUsuarioDireita'> </div>
@@ -182,9 +214,9 @@ function CadUsuario() {
                         <div className='blocoInvisivelUsuarioDireita'> </div>
                     }
                 </div>
+                <br />
                 <form className='responsividadeforms' onSubmit={cadastroUsuario}>
-                    
-                    
+                
                     
                     <div className="grid-container poscentralized">
                         <div className="box">

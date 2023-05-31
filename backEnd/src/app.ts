@@ -62,7 +62,7 @@ app.get('/confereLogado', async(req,res)=>{
 app.post('/login', async(req,res)=>{
     let login = req.body
     let usuario = await bd.dadosUsuario(login)
-    if (usuario){
+    if (usuario.us_ativo === "Ativado"){
         req.session.senha = login.senha
         req.session.login = login.login
         req.session.funcao = usuario.us_funcao
@@ -286,11 +286,17 @@ app.get('/listaPedido', async (req,res) =>{
     res.send({tabelaPedidos, funcao})
 })
 
-//========================= deleta Usuário =========================
+//========================= Ativa/Desativa Usuário =========================
 
-app.post('/deletaUsuario', async (req, res) => {
+app.post('/desativaUsuario', async (req, res) => {
     let id = req.body.id
-    await bd.deletaUsuario(id)
+    await bd.desativaUsuario(id)
+    res.send('foi')
+})
+
+app.post('/ativaUsuario', async (req, res) => {
+    let id = req.body.id
+    await bd.ativaUsuario(id)
     res.send('foi')
 })
 

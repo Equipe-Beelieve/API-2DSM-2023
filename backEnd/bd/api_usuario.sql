@@ -30,6 +30,7 @@ CREATE TABLE `usuario` (
   `us_senha` varchar(30) DEFAULT NULL,
   `us_funcao` varchar(30) DEFAULT NULL,
   `us_login` varchar(30) DEFAULT NULL,
+  `us_ativo` varchar(10) DEFAULT 'Ativo',
   PRIMARY KEY (`us_matricula`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -40,7 +41,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Giovana','1','Administrador','1'),(2,'Carlos','2','Gerente','2'),(3,'Giovana','3','Conferente','3');
+INSERT INTO `usuario` VALUES (1,'Giovana','1','Administrador','1',"Ativado"),(2,'Carlos','2','Gerente','2',"Ativado"),(3,'Giovana','3','Conferente','3',"Ativado");
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
