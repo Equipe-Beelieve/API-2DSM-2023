@@ -48,7 +48,8 @@ function ListaFornecedor() {
             const razaoSocial = unidecode(fornecedor.for_razao_social.toLowerCase()).includes(buscaNormalizada) //cada variável testa a ocorrência em um campo específico
             const codigoFornecedor = fornecedor.for_codigo.toLocaleString().includes(buscaNormalizada)
             const nomeFantasia = unidecode(fornecedor.for_nome_fantasia.toLowerCase()).includes(buscaNormalizada)
-            return razaoSocial || codigoFornecedor || nomeFantasia //retorna os pedidos cujo a busca se encaixe em pelo menos um campo definido
+            const cnpjPesquisa = unidecode(fornecedor.for_cnpj).includes(buscaNormalizada)
+            return razaoSocial || codigoFornecedor || nomeFantasia || cnpjPesquisa //retorna os pedidos cujo a busca se encaixe em pelo menos um campo definido
         })
     }
 
