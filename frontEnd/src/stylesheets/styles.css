@@ -1,48 +1,52 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .nav-texts a,
 .nav-texts a:visited {
   color: #ffffff;
   font-size: 20px;
 }
 
-#Titulo h1{
+#Titulo h1 {
   font-size: 2vw;
   margin: 0;
   font-weight: bold;
   text-align: center;
 }
 
-#clicavel{
+#clicavel {
   cursor: pointer;
 }
 
-.blocoInvisivelUsuarioDireita{
+.blocoInvisivelUsuarioDireita {
   width: 35px;
   margin-right: 200px;
 }
 
-.blocoInvisivelUsuarioEsquerda{
+.blocoInvisivelUsuarioEsquerda {
   width: 30px;
   margin-left: 200px;
 }
 
-.lixoUsuario{
+.lixoUsuario {
   width: 30px;
   margin-right: 200px;
 }
 
-.lixoFornecedor{
+.lixoFornecedor {
   width: 30px;
   margin-left: 10vw;
 }
 
-.flexMainUsuario{
+.flexMainUsuario {
   display: flex;
   justify-content: center;
   align-items: baseline;
   gap: 140px;
 }
 
-.flexMainFornecedor{
+.flexMainFornecedor {
   display: flex;
   justify-content: center;
   align-items: baseline;
@@ -59,7 +63,7 @@
   text-align: center;
 }
 
-.recebimentoTitulo{
+.recebimentoTitulo {
   font-size: 2vw;
   margin-top: 4vh;
   font-weight: bold;
@@ -105,17 +109,13 @@
 .state {
   display: flex;
   justify-content: center;
-
   width: 80%;
 }
 
 .state button {
   margin: 2vh 2vw;
-
   background-color: #D9D9D9;
   padding: 0 1.5vw;
-  border: none;
-
   font-size: 30px;
   font-weight: 500;
 }
@@ -144,7 +144,7 @@
   flex-direction: column;
 }
 
-.centralizaTitulo{
+.centralizaTitulo {
   gap: 10%;
   margin: 5vh 0;
   width: 80%;
@@ -164,7 +164,7 @@
   align-items: center;
 }
 
-.botoesNavegacao{
+.botoesNavegacao {
   display: flex;
   align-items: baseline;
   justify-content: space-around;
@@ -172,7 +172,7 @@
   width: 95%;
 }
 
-.centralizaTitulo .mainTitle{
+.centralizaTitulo .mainTitle {
   align-self: center;
   margin: 0;
 }
@@ -216,7 +216,7 @@
   width: 100%;
 }
 
-.fucao_statusUsuario{
+.fucao_statusUsuario {
   display: flex;
   justify-content: space-between;
   align-items: last baseline;
@@ -317,6 +317,7 @@ p.solid {
   border-color: transparent;
   width: 200px;
   height: 35px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .cancel_button {
@@ -347,7 +348,7 @@ p.solid {
   margin-top: 2vh;
 }
 
-.desativado{
+.desativado {
   background: #DD2424;
   color: white;
   border-radius: 10px;
@@ -357,7 +358,7 @@ p.solid {
   width: 100px;
 }
 
-.ativado{
+.ativado {
   background: #3E813B;
   color: white;
   border-radius: 10px;
@@ -397,7 +398,11 @@ p.solid {
 .login2 {
   background-color: #3E813B;
   height: 100vh;
+}
 
+.sabia {
+  background: no-repeat center fixed;
+  width: 100%;
 }
 
 .login_button {
@@ -463,8 +468,8 @@ p.solid {
   flex-direction: column;
   justify-content: center;
   flex-wrap: nowrap;
-  width: 1000px;
-  background-color: #FFEF78;
+  width: 55vw;
+  background-color: #C4F86F;
   border-radius: 7px;
   padding-top: 1vh;
 }
@@ -483,7 +488,7 @@ p.solid {
   color: #000000;
 }
 
-.flexCheckbox{
+.flexCheckbox {
   gap: 10px;
   display: flex;
   flex-direction: row;
@@ -500,6 +505,7 @@ p.solid {
 .box3 .minimo .input_form {
   width: 232px;
   font-weight: bold;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
   background-color: #C0C0C0;
   border-color: transparent;
@@ -514,7 +520,6 @@ p.solid {
 .box3 .minimo input {
   margin-left: 1%;
   background-color: #C0C0C0;
-
   text-align: center;
   border-color: transparent;
   font-weight: bold;
@@ -667,6 +672,7 @@ p.solid {
   width: 700px;
   margin-bottom: 3%;
   color: #000000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .resultadoCheckbox {
@@ -859,10 +865,12 @@ p.solid {
   text-decoration: none;
 }
 
-/* botão */
-.lista_button {
+/* botões listagem de pedidos */
+.a_caminho {
   border-radius: 5px;
   border-color: transparent;
+  border-style: solid;
+  border-color: #FF1001;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -870,11 +878,55 @@ p.solid {
   flex-direction: column;
   font-weight: bold;
   font-size: large;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.lista_button.active {
-  background: #3e813b;
+.a_caminho.active {
+  background: #f63426;
   color: white;
+  box-shadow: none;
+}
+
+.em_analise {
+  border-radius: 5px;
+  border-style: solid;
+  border-color: #FF7B01;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: large;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.em_analise.active {
+  background: #FF7B01;
+  color: white;
+  box-shadow: none;
+}
+
+.finalizado {
+  border-radius: 5px;
+  border-style: solid;
+  /* border-color: #00FF66; */
+  border-color: #3E813B;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: large;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.finalizado.active {
+  /* background: #00FF66; */
+  background: #3E813B;
+  color: white;
+  box-shadow: none;
 }
 
 .anaq1 {
@@ -907,6 +959,7 @@ p.solid {
   width: 45%;
   padding-top: 0.6vh;
   padding-bottom: 0.6vh;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .uni_quant {
@@ -1004,15 +1057,25 @@ p.solid {
 }
 
 .lixeira {
-  position: absolute;
-  background-repeat: no-repeat;
-  background-color: transparent;
-  float: left;
-  margin-right: 940px;
-
-  border: 1px solid #000000;
   width: 1.5vw;
+  height: 1.5vw;
+  border: 1px solid #000000;
   cursor: pointer;
+  position: absolute;
+  left: -5%;
+  margin-right: 15px;
+}
+
+.flexCheckbox_regras {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+
+}
+
+.flexCheckbox_regras .minimo {
+  position: relative;
 }
 
 .checkboxzin {
@@ -1107,7 +1170,7 @@ p.solid {
   width: 150px;
 }
 
-.blocoInvisivel{
+.blocoInvisivel {
   width: 200px;
 }
 
@@ -1180,7 +1243,7 @@ p.solid {
   text-align: center;
 }
 
-.testea{
+.testea {
   height: 25px;
   width: 20px;
 }
@@ -1195,7 +1258,7 @@ p.solid {
   margin-left: 5%;
 }
 
-.laudo .descricao1{
+.laudo .descricao1 {
   width: 100vw;
   padding: 10px;
   height: 120px;
@@ -1215,22 +1278,22 @@ p.solid {
 
 /* Formatação do Relatório final */
 
-.dados-compras-titulo{
+.dados-compras-titulo {
   margin-top: 4%;
   display: flex;
 }
 
-.dados-compras-titulo .relatorio-compra{
+.dados-compras-titulo .relatorio-compra {
   font-weight: bold;
   margin-left: 30%;
 }
 
-.dados-compras-titulo .dados-titulo{
+.dados-compras-titulo .dados-titulo {
   font-weight: bold;
   margin-left: 4%;
 }
 
-.alinhamento-comparacao{
+.alinhamento-comparacao {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1246,18 +1309,362 @@ p.solid {
   padding: 5px;
 }
 
-.informacao-comparacao{
+.informacao-comparacao {
   font-weight: bold;
   width: 150px;
   text-align: center;
 }
 
-.input-relatorio-final{
+.input-relatorio-final {
   text-align: center;
   width: 173px;
 }
 
-.titulo-aprovado{
+.boxFinalProdutoReportGreen label {
+  font-weight: bold;
+  margin-left: 3%;
+}
+
+.boxFinalProdutoReportGreen .prod-nome {
+  margin-left: 4%;
+  text-align: center;
+}
+
+.boxFinalProdutoReportGreen .nome-confirme {
+  text-align: center;
+  margin-left: 11%;
+}
+
+.boxFinalRazaoSocialReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalRazaoSocialReportGreen label {
+  font-weight: bold;
+  margin-left: 2%;
+}
+
+.boxFinalRazaoSocialReportGreen .razao-nome {
+  margin-left: 5%;
+  text-align: center;
+}
+
+.boxFinalRazaoSocialReportGreen .razao-nome-confirme {
+  text-align: center;
+  margin-left: 15%;
+}
+
+.boxFinalTransporteReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalTransporteReportGreen label {
+  font-weight: bold;
+  margin-left: 2%;
+}
+
+.boxFinalTransporteReportGreen .nome-transporte {
+  margin-left: 1%;
+  text-align: center;
+}
+
+.boxFinalTransporteReportGreen .transporte-confirme {
+  text-align: center;
+  margin-left: 9%;
+}
+
+.boxFinalValorUniReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalValorUniReportGreen label {
+  font-weight: bold;
+  margin-left: 2%;
+}
+
+.boxFinalValorUniReportGreen .valor-unico {
+  margin-left: 3%;
+  text-align: center;
+}
+
+.boxFinalValorUniReportGreen .valor-confirme {
+  text-align: center;
+  margin-left: 9%;
+}
+
+.boxFinalValorTotalReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalValorTotalReportGreen label {
+  font-weight: bold;
+  margin-left: 2%;
+}
+
+.boxFinalValorTotalReportGreen .valor-total {
+  margin-left: 3%;
+  text-align: center;
+}
+
+.boxFinalValorTotalReportGreen .valor-confirme {
+  text-align: center;
+  margin-left: 11%;
+}
+
+.boxFinalCondicaoPagamentoReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalCondicaoPagamentoReportGreen label {
+  font-weight: bold;
+}
+
+.boxFinalCondicaoPagamentoReportGreen .cond-pagar {
+  margin-left: 1%;
+  text-align: center;
+}
+
+.boxFinalCondicaoPagamentoReportGreen .cond-confirme {
+  margin-left: 1%;
+  text-align: center;
+}
+
+.boxFinalTipoFreteReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalTipoFreteReportGreen label {
+  font-weight: bold;
+}
+
+.boxFinalTipoFreteReportGreen .tipo-frete {
+  text-align: center;
+  margin-left: 5%;
+}
+
+.boxFinalTipoFreteReportGreen .frete-confirme {
+  text-align: center;
+  margin-left: 10%;
+}
+
+.boxFinalDataPedidoReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalDataPedidoReportGreen label {
+  font-weight: bold;
+}
+
+.boxFinalDataPedidoReportGreen .data-pedido {
+  margin-left: 3%;
+  text-align: center;
+}
+
+.boxFinalDataPedidoReportGreen .data-confirme {
+  text-align: center;
+  margin-left: 9%;
+}
+
+.boxFinalDataEntregaReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalDataEntregaReportGreen label {
+  font-weight: bold;
+}
+
+.boxFinalDataEntregaReportGreen .data-entrega {
+  text-align: center;
+  margin-left: 3%;
+}
+
+.boxFinalDataEntregaReportGreen .data-confirme {
+  text-align: center;
+  margin-left: 8%;
+}
+
+.boxFinalQuantReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalQuantReportGreen .quantidade {
+  text-align: center;
+  margin-left: 4%;
+}
+
+.boxFinalQuantReportGreen .quant-confirme {
+  text-align: center;
+  margin-left: 10%;
+}
+
+.boxFinalQuantReportGreen label {
+  font-weight: bold;
+}
+
+.boxFinalPesoReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalPesoReportGreen label {
+  font-weight: bold;
+  margin-left: 2%;
+}
+
+.boxFinalPesoReportGreen .peso-haver {
+  text-align: center;
+  margin-left: 4%;
+}
+
+.boxFinalPesoReportGreen .peso-confirme {
+  text-align: center;
+  margin-left: 15%;
+}
+
+.boxFinalLaudoReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-top: 2%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalLaudoReportGreen label {
+  font-weight: bold;
+}
+
+.boxFinalLaudoReportGreen .laudo-haver {
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalLaudoReportGreen .laudo-confirme {
+  text-align: center;
+  margin-left: 4%;
+}
+
+.boxFinalPersonalizadaReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalPersonalizadaReportGreen label {
+  font-weight: bold;
+}
+
+.boxFinalAvariaReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalAvariaReportGreen label {
+  font-weight: bold;
+  margin-left: 2%;
+}
+
+.boxFinalAvariaReportGreen .haver {
+  margin-left: 4%;
+  text-align: center;
+}
+
+.boxFinalAvariaReportGreen .ha {
+  text-align: center;
+  margin-left: 5%;
+}
+
+.boxFinalUmidaePurezaReportGreen {
+  background-color: #AFFFAB;
+  border: 6px solid #3E813B;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalUmidaePurezaReportGreen .umidade-pureza-haver {
+  text-align: center;
+  margin-left: 6%;
+}
+
+.boxFinalUmidaePurezaReportGreen .umida-pura-confirme {
+  text-align: center;
+  margin-left: 14%;
+}
+
+.boxFinalUmidaePurezaReportGreen label {
+  font-weight: bold;
+}
+
+.boxFinalPersonalizadaReportGreen .personalizada-haver {
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalPersonalizadaReportGreen .personalizada-confirme {
+  text-align: center;
+  margin-left: 4%;
+}
+
+.titulo-aprovado {
   background-color: #3E813B;
   color: #FFFFFF;
   width: 40%;
@@ -1269,11 +1676,11 @@ p.solid {
   font-weight: bold;
 }
 
-.titulo-aprovado p{
+.titulo-aprovado p {
   margin-top: 3%;
 }
 
-.botao-aprovado .pedido{
+.botao-aprovado .pedido {
   background-color: #C0C0C0;
   font-weight: bold;
   border-color: transparent;
@@ -1294,7 +1701,360 @@ p.solid {
   gap: 3%;
 }
 
-.titulo-recusado{
+.boxFinalProdutoReportRed label {
+  font-weight: bold;
+}
+
+.boxFinalProdutoReportRed .prod-nome {
+  margin-left: 5%;
+  text-align: center;
+}
+
+.boxFinalProdutoReportRed .nome-confirme {
+  margin-left: 14%;
+  text-align: center;
+}
+
+.boxFinalAvariaReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalTransporteReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalTransporteReportRed label {
+  font-weight: bold;
+}
+
+.boxFinalTransporteReportRed .nome-transporte {
+  margin-left: 1%;
+  text-align: center;
+}
+
+.boxFinalTransporteReportRed .transporte-confirme {
+  margin-left: 4%;
+  text-align: center;
+}
+
+.boxFinalAvariaReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalTipoFreteReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalTipoFreteReportRed label {
+  font-weight: bold;
+}
+
+.boxFinalTipoFreteReportRed .tipo-frete {
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalCondicaoPagamentoReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalCondicaoPagamentoReportRed label {
+  font-weight: bold;
+}
+
+.boxFinalCondicaoPagamentoReportRed .cond-pagar {
+  text-align: center;
+  margin-left: 1%;
+}
+
+.boxFinalValorUniReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalValorUniReportRed label {
+  font-weight: bold;
+}
+
+.boxFinalValorUniReportRed .valor-unico {
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalValorUniReportRed .valor-confirme {
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalValorTotalReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalValorTotalReportRed label {
+  font-weight: bold;
+}
+
+.boxFinalValorTotalReportRed .valor-total {
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalValorTotalReportRed .valor-confirme {
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalCondicaoPagamentoReportRed .cond-confirme {
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalTipoFreteReportRed .frete-confirme {
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalDataPedidoReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalDataPedidoReportRed label {
+  font-weight: bold;
+}
+
+.boxFinalDataPedidoReportRed .data-pedido {
+  text-align: center;
+  margin-left: 4%;
+}
+
+.boxFinalDataPedidoReportRed .data-confirme {
+  margin-left: 8%;
+  text-align: center;
+}
+
+.boxFinalDataEntregaReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalDataEntregaReportRed label {
+  font-weight: bold;
+}
+
+.boxFinalDataEntregaReportRed .data-entrega {
+  margin-left: 4%;
+  text-align: center;
+}
+
+.boxFinalDataEntregaReportRed .data-confirme {
+  margin-left: 8%;
+  text-align: center;
+}
+
+.boxFinalPesoReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalPesoReportRed label {
+  font-weight: bold;
+  margin-left: 2%;
+}
+
+.boxFinalPesoReportRed .peso-haver {
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalPesoReportRed .peso-confirme {
+  text-align: center;
+  margin-left: 4%;
+}
+
+.boxFinalAvariaReportRed label {
+  font-weight: bold;
+}
+
+.boxFinalAvariaReportRed .haver {
+  text-align: center;
+  margin-left: 4%;
+}
+
+.boxFinalAvariaReportRed .ha {
+  text-align: center;
+  margin-left: 12%;
+}
+
+.boxFinalAvariaReportRed .comentario {
+  width: 77%;
+  padding: 18px;
+  margin-left: 13%;
+  text-align: center;
+}
+
+.boxFinalLaudoReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalLaudoReportRed label {
+  font-weight: bold;
+}
+
+.boxFinalLaudoReportRed .laudo-haver {
+  margin-left: 2%;
+  text-align: center;
+}
+
+.boxFinalLaudoReportRed .laudo-confirme {
+  margin-left: 4%;
+  text-align: center;
+}
+
+.boxFinalUmidaePurezaReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalUmidaePurezaReportRed label {
+  font-weight: bold;
+}
+
+.boxFinalUmidaePurezaReportRed .umida-pura-confirme {
+  margin-left: 10%;
+  text-align: center;
+}
+
+.boxFinalUmidaePurezaReportRed .umidade-pureza-haver {
+  margin-left: 6%;
+  text-align: center;
+}
+
+.boxFinalQuantReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalQuantReportRed label {
+  font-weight: bold;
+}
+
+.boxFinalQuantReportRed .quantidade {
+  margin-left: 4%;
+  text-align: center;
+}
+
+.boxFinalQuantReportRed .quant-confirme {
+  text-align: center;
+  margin-left: 8%;
+}
+
+.boxFinalRazaoSocialReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalRazaoSocialReportRed label {
+  font-weight: bold;
+}
+
+.boxFinalRazaoSocialReportRed .razao-nome {
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalRazaoSocialReportRed .razao-nome-confirme {
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalPersonalizadaReportRed {
+  background-color: #FF8282;
+  border: 6px solid #DD2424;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5px;
+  margin-top: 3%;
+}
+
+.boxFinalPersonalizadaReportRed label {
+  font-weight: bold;
+}
+
+.boxFinalPersonalizadaReportRed .personalizada-haver {
+  text-align: center;
+  margin-left: 2%;
+}
+
+.boxFinalPersonalizadaReportRed .personalizada-confirme {
+  text-align: center;
+  margin-left: 5%;
+}
+
+.titulo-recusado {
   background-color: #DD2424;
   color: #FFFFFF;
   width: 40%;
@@ -1306,16 +2066,16 @@ p.solid {
   font-weight: bold;
 }
 
-.titulo-recusado p{
+.titulo-recusado p {
   margin-top: 3%;
 }
 
-.botao-recusado{
+.botao-recusado {
   margin-top: 3%;
   margin-left: 30%;
 }
 
-.botao-recusado .pedido{
+.botao-recusado .pedido {
   background-color: #C0C0C0;
   color: #000000;
   font-weight: bold;
@@ -1324,7 +2084,7 @@ p.solid {
   width: 25%;
 }
 
-.botao-recusado .force-aceite{
+.botao-recusado .force-aceite {
   background-color: #3E813B;
   color: #F5F5F5;
   font-weight: bold;
@@ -1342,6 +2102,7 @@ p.solid {
   transition: all .5s;
   background-color: #C0C0C0;
 }
+
 .card-content {
   transition: height 0.5s;
   overflow: hidden;
@@ -1376,11 +2137,11 @@ p.solid {
 
 /* Responsividade tela 1366px  */
 @media screen and (max-width: 1366px) {
-  .anaq1{
+  .anaq1 {
     width: 35vw;
   }
-  
-  .anaq2{
+
+  .anaq2 {
     width: 19vw;
   }
 
@@ -1391,19 +2152,19 @@ p.solid {
 
 /* Responsividade tela 500px */
 @media screen and (max-width: 500px) {
-  .mainTitle{
+  .mainTitle {
     font-size: 5.5vw;
-    
+
   }
 
-  .lista_button{
+  .lista_button {
     width: 20vw;
   }
 
   .state {
     width: 100%;
   }
-  
+
   .state button {
     font-size: 3.5vw;
   }
@@ -1441,7 +2202,7 @@ p.solid {
     font-size: 20px;
     margin-bottom: 2vh;
   }
-  
+
   .listaIn p {
     font-size: 15px;
     margin-bottom: 2.5vh;
@@ -1470,20 +2231,20 @@ p.solid {
     gap: 3vw;
     margin-left: 0%;
   }
-  
+
   .box3 .minimo .input_form {
     width: 20vw;
     height: 4vh;
     font-size: 2.5vw;
     padding: 0 2vw 0 0;
   }
-  
-  
+
+
   .box3 .minimo input {
     margin-left: 0%;
     padding: 1px;
   }
-  
+
   .box3 .minimo .checkbox {
     padding: 1px;
     border-radius: 0px;
@@ -1507,30 +2268,32 @@ p.solid {
     top: -1vh;
   }
 
-  .box3 .minimo .tipo-regra, .limitacao{
+  .box3 .minimo .tipo-regra,
+  .limitacao {
     font-size: 3vw;
   }
 
-  .box3 .minimo .obrigacao{
+  .box3 .minimo .obrigacao {
     font-size: 2.5vw;
   }
 
   .input_form {
     width: 30vw;
     height: 4.5vh;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 
-  .box{
+  .box {
     margin-left: 7%;
     margin-right: 7%;
     font-size: 3vw;
   }
 
-  .responsividade{
+  .responsividade {
     width: 100vw;
   }
 
-  .responsividadeforms{
+  .responsividadeforms {
     width: 10vw;
   }
 
@@ -1540,7 +2303,7 @@ p.solid {
     width: 37vw;
     margin-bottom: 1.5vw;
   }
-  
+
   .ped_btn2 {
     height: 7vh;
     width: 37vw;
@@ -1548,13 +2311,14 @@ p.solid {
     margin-bottom: 1vh;
   }
 
-  .cancel_button, .confirm_button {
+  .cancel_button,
+  .confirm_button {
     width: 35vw;
     margin-top: 2vh;
     margin-left: -12vw;
   }
 
-  .cancel_button3{
+  .cancel_button3 {
     width: 35vw;
     margin-left: -12vw;
   }
@@ -1565,38 +2329,38 @@ p.solid {
     padding-right: 2vw;
   }
 
-  .lixoUsuario{
+  .lixoUsuario {
     width: 3vh;
     margin-right: -10vw;
     margin-left: 4vw;
-    }
+  }
 
 
 
-  .botoesNavegacao{
+  .botoesNavegacao {
     gap: 0%;
     width: 100%;
   }
 
-  .flexMainUsuario{
+  .flexMainUsuario {
     gap: 0;
   }
 
-  .blocoInvisivelUsuarioEsquerda{
+  .blocoInvisivelUsuarioEsquerda {
     width: 0;
     margin-left: 0;
   }
 
-  .blocoInvisivelUsuarioDireita{
+  .blocoInvisivelUsuarioDireita {
     width: 0;
     margin-right: 0;
   }
 
-  .blocoInvisivel{
+  .blocoInvisivel {
     width: 0px;
   }
 
-  .recebimentoTitulo{
+  .recebimentoTitulo {
     width: 100vw;
     font-size: 4.5vw;
     margin-top: 3vh;
@@ -1610,7 +2374,8 @@ p.solid {
     margin-bottom: 2vh;
   }
 
-  .botaoteste4, .botaoteste4esquerda {
+  .botaoteste4,
+  .botaoteste4esquerda {
     background-size: 30px;
     font-size: 2vh;
     width: 40vw;
@@ -1626,18 +2391,18 @@ p.solid {
   .mesmalinha {
     margin-left: 12vw;
   }
-  
-  .mesmalinha .confirm_button{
+
+  .mesmalinha .confirm_button {
     margin-left: 10vw;
   }
-  
-  .anaq1{
+
+  .anaq1 {
     width: 51vw;
     height: 9vh;
     font-size: 3vw;
   }
-  
-  .anaq2{
+
+  .anaq2 {
     width: 25vw;
   }
 }
