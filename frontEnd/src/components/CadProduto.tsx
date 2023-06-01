@@ -42,7 +42,7 @@ function CadProduto() {
     function addRegra() {
         let regra = regras
         // regra.push({ tipo: '', valor: '', obrigatoriedade: false })
-        regra.push({ tipo: '', valor: ''})
+        regra.push({ tipo: '', valor: '' })
         setRegras(regra)
         console.log(regras)
         setRender(render + 1)
@@ -167,9 +167,9 @@ function CadProduto() {
     async function resgataValores(){
         await api.post('/resgataValoresProduto', {id: id}).then((resposta) => {
             //console.log(resposta.data)
-            let dado = resposta.data['produto']
-            let existeProduto = resposta.data['existeProduto']
-            let produtos = resposta.data['produtos']
+            let dado = resposta.data.produto
+            let existeProduto = resposta.data.produtoUtilizado
+            let produtos = resposta.data.produtos
             setDescricao(dado.descricao)
             setUnidadeMedida(dado.unidadeMedida)
             setRegras(dado.regras)
@@ -252,13 +252,11 @@ function CadProduto() {
     }
     
     async function getDescricaoProdutos(){
-        try{
-            const response = await api.get('/getDescricaoProdutos')
-                //console.log(resposta.data)
-                setProdutoDescricao(response.data.produtos)
-        } catch(erro){
-            console.log(erro)
-        }
+        await api.get('/getDescricaoProdutos').then((resposta) => {
+            //console.log(resposta.data)
+            setProdutoDescricao(resposta.data)
+
+        })
     }
     
 
@@ -400,7 +398,7 @@ function CadProduto() {
         veLogado()
     }, [edicao, render, regras])
     useEffect(() => {
-        if(id){
+        if (id) {
             resgataValores()
             getDescricaoProdutos()
         }
@@ -416,13 +414,16 @@ function CadProduto() {
                 position: 'bottom-left',
                 autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
             })
-        } else if(produtoDescricao.some(produto => produto.prod_descricao === descricao)){
-                toast.error('Produto existente', {
-                    position: 'bottom-left',
-                    autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
-                })
+        } 
+        if(produtoDescricao.some(produto => produto.prod_descricao === descricao)){
+            toast.error('Produto existente', {
+                position: 'bottom-left',
+                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+            })
+            return;
         }
         else {
+            if(descricao !== '' && produtoDescricao.some(produto => produto.prod_descricao !== descricao)){
             //Confere se todas as regras estão preenchidas e há no máximo 1 regra de umidade e 1 de pureza
             let contadorTipo = { Pureza: 0, Umidade: 0 }
             regras.forEach((regra: Regra) => {
@@ -469,9 +470,8 @@ function CadProduto() {
                 })
 
             }
-        }       
-
-
+        }
+    }
     }
 
     return (
@@ -614,7 +614,7 @@ function CadProduto() {
                                                 <option value="Personalizada">Personalizada</option>
                                             </select>
                                         </div>
-                                        
+
                                         <div className='flexCheckbox'>
                                             <label className='limitacao'>Regra:</label>
                                             {regras[id].tipo === "Umidade" &&
@@ -622,27 +622,27 @@ function CadProduto() {
                                                     value={regras[id].valor}
                                                     onChange={(e) => { mudaParametro(e, id) }}
                                                     onBlur={(e) => { blurUmidade(e, id) }}
-                                                    onSelect={(e) => { selectUmidade(e, id) }} placeholder='Insira um número'/>
+                                                    onSelect={(e) => { selectUmidade(e, id) }} placeholder='Insira um número' />
                                             }
                                             {regras[id].tipo === "Pureza" &&
                                                 <input className='input_formLimit' type='text'
                                                     value={regras[id].valor}
                                                     onChange={(e) => { mudaParametro(e, id) }}
                                                     onBlur={(e) => { blurPureza(e, id) }}
-                                                    onSelect={(e) => { selectPureza(e, id) }} placeholder='Insira um número'/>
+                                                    onSelect={(e) => { selectPureza(e, id) }} placeholder='Insira um número' />
                                             }
                                             {regras[id].tipo === "Personalizada" &&
                                                 <input className='input_formLimit' type='text'
                                                     value={regras[id].valor}
-                                                    onChange={(e) => { mudaParametro(e, id) }} placeholder='Digite a regra'/>
+                                                    onChange={(e) => { mudaParametro(e, id) }} placeholder='Digite a regra' />
                                             }
                                             {regras[id].tipo === '' &&
                                                 <input className='input_formLimit' type='text'
                                                     value={regras[id].valor}
-                                                    onChange={(e) => { mudaParametro(e, id) }} placeholder='Escolha um tipo antes'/>
+                                                    onChange={(e) => { mudaParametro(e, id) }} placeholder='Escolha um tipo antes' />
                                             }
                                         </div>
-                                        
+
 
                                         {/* <div className='flexCheckbox'>
                                             <label className='obrigacao'>Obrigatória:</label>
