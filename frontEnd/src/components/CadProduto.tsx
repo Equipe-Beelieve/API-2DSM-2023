@@ -16,7 +16,7 @@ interface Regra {
 }
 
 export interface Produto {
-    prod_descricao:string
+    prod_descricao: string
 }
 
 function CadProduto() {
@@ -25,7 +25,7 @@ function CadProduto() {
     const [unidadeMedida, setUnidadeMedida] = useState('')
     // const [regras, setRegras] = useState<Regra[]>([{ tipo: 'Mínimo de conformidade', valor: '', obrigatoriedade: true },
     // { tipo: 'Avaria', valor: 'Não deve haver', obrigatoriedade: true }])
-    const [regras, setRegras] = useState<Regra[]>([{ tipo: 'Avaria', valor: 'Não deve haver'}])
+    const [regras, setRegras] = useState<Regra[]>([{ tipo: 'Avaria', valor: 'Não deve haver' }])
     const [render, setRender] = useState(0)
     const [edicao, setEdicao] = useState(false)
     const { id } = useParams()
@@ -164,8 +164,8 @@ function CadProduto() {
     //     console.log(regras[id].obrigatoriedade)
     // }
     //=============== Edição do produto ===================
-    async function resgataValores(){
-        await api.post('/resgataValoresProduto', {id: id}).then((resposta) => {
+    async function resgataValores() {
+        await api.post('/resgataValoresProduto', { id: id }).then((resposta) => {
             //console.log(resposta.data)
             let dado = resposta.data.produto
             let existeProduto = resposta.data.produtoUtilizado
@@ -181,7 +181,7 @@ function CadProduto() {
         })
     }
 
-    async function edicaoProduto(){
+    async function edicaoProduto() {
         let controle = true
         if (unidadeMedida === '' || descricao === '') {
             toast.error('Preencha todos os campos', {
@@ -189,14 +189,14 @@ function CadProduto() {
                 autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
             })
         }
-         if(descricao !== nomeInicial && produtoDescricao.some(produto => produto.prod_descricao === descricao)){
+        if (descricao !== nomeInicial && produtoDescricao.some(produto => produto.prod_descricao === descricao)) {
             toast.error('Produto existente', {
                 position: 'bottom-left',
                 autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
             })
         }
         else {
-            if(descricao === nomeInicial || (descricao !== nomeInicial && produtoDescricao.some(produto => produto.prod_descricao !== descricao))){
+            if (descricao === nomeInicial || (descricao !== nomeInicial && produtoDescricao.some(produto => produto.prod_descricao !== descricao))) {
                 //Confere se todas as regras estão preenchidas e há no máximo 1 regra de umidade e 1 de pureza
                 let contadorTipo = { Pureza: 0, Umidade: 0 }
                 regras.forEach((regra: Regra) => {
@@ -230,7 +230,7 @@ function CadProduto() {
                         })
                     }
                     else {
-                        await api.post('/updateProduto', {id:id, descricao:descricao, unidadeMedida:unidadeMedidaInicial, regras:regras}).then((resposta)=>{
+                        await api.post('/updateProduto', { id: id, descricao: descricao, unidadeMedida: unidadeMedidaInicial, regras: regras }).then((resposta) => {
                             navigate('/listaProdutos')
                         })
                     }
@@ -242,7 +242,7 @@ function CadProduto() {
                     })
 
                 }
-            
+
             }
         }
     }
@@ -250,19 +250,19 @@ function CadProduto() {
     function redirecionarProduto() {
         navigate('/listaProdutos')
     }
-    
-    async function getDescricaoProdutos(){
+
+    async function getDescricaoProdutos() {
         await api.get('/getDescricaoProdutos').then((resposta) => {
             //console.log(resposta.data)
             setProdutoDescricao(resposta.data)
 
         })
     }
-    
+
 
     //============ DELETAR PRODUTO ==============
-    async function confirmarDelete(){
-        if(produtoUtilizado){
+    async function confirmarDelete() {
+        if (produtoUtilizado) {
             Swal.fire({
                 title: 'Não foi possível excluir o produto',
                 text: 'Produto utilizado em algum pedido',
@@ -281,17 +281,17 @@ function CadProduto() {
                 cancelButtonColor: '#3E813B',
                 cancelButtonText: 'Cancelar',
                 confirmButtonText: 'Confirmar',
-              }).then(async (result) => {
+            }).then(async (result) => {
                 if (result.isConfirmed) {
-                  await deletaProduto()
+                    await deletaProduto()
                 }
-              })
-        }  
+            })
+        }
     }
 
-    async function deletaProduto(){
+    async function deletaProduto() {
         navigate('/listaProdutos')
-        await api.post("/deletaProduto", {id})/* .then((reposta) => {navegate('/listaFornecedor')}) */
+        await api.post("/deletaProduto", { id })/* .then((reposta) => {navegate('/listaFornecedor')}) */
     }
 
     //======================== Mascaras ========================
@@ -408,14 +408,16 @@ function CadProduto() {
 
     async function cadastroProduto(evento: any) {
         getDescricaoProdutos()
+
         let controle = true
         if (unidadeMedida === '' || descricao === '') {
             toast.error('Preencha todos os campos', {
                 position: 'bottom-left',
                 autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
             })
-        } 
-        if(produtoDescricao.some(produto => produto.prod_descricao === descricao)){
+        }
+        console.log(produtoDescricao.some(produto => produto.prod_descricao === descricao))
+        if (produtoDescricao.some(produto => produto.prod_descricao === descricao)) {
             toast.error('Produto existente', {
                 position: 'bottom-left',
                 autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
@@ -423,70 +425,71 @@ function CadProduto() {
             return;
         }
         else {
-            if(descricao !== '' && produtoDescricao.some(produto => produto.prod_descricao !== descricao)){
-            //Confere se todas as regras estão preenchidas e há no máximo 1 regra de umidade e 1 de pureza
-            let contadorTipo = { Pureza: 0, Umidade: 0 }
-            regras.forEach((regra: Regra) => {
-                console.log(regra)
-                if (regra.tipo === '' || regra.valor === "") {
-                    controle = false
+            console.log(produtoDescricao.some(produto => produto.prod_descricao !== descricao))
+            if (descricao !== '' && produtoDescricao.some(produto => produto.prod_descricao !== descricao)) {
+                //Confere se todas as regras estão preenchidas e há no máximo 1 regra de umidade e 1 de pureza
+                let contadorTipo = { Pureza: 0, Umidade: 0 }
+                regras.forEach((regra: Regra) => {
+                    console.log(regra)
+                    if (regra.tipo === '' || regra.valor === "") {
+                        controle = false
 
-                }
-                //Contador de regras de umidade e pureza:
-                else {
-                    if (regra.tipo === 'Pureza') {
-                        contadorTipo.Pureza += 1
                     }
-                    else if (regra.tipo === 'Umidade') {
-                        contadorTipo.Umidade += 1
+                    //Contador de regras de umidade e pureza:
+                    else {
+                        if (regra.tipo === 'Pureza') {
+                            contadorTipo.Pureza += 1
+                        }
+                        else if (regra.tipo === 'Umidade') {
+                            contadorTipo.Umidade += 1
+                        }
                     }
-                }
-            })
-
-            if (controle) {
-                if (contadorTipo.Umidade > 1) {
-                    toast.error('Não pode haver mais de uma regra de Umidade', {
-                        position: 'bottom-left',
-                        autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
-                    })
-                }
-                else if (contadorTipo.Pureza > 1) {
-                    toast.error('Não pode haver mais de uma regra de Pureza', {
-                        position: 'bottom-left',
-                        autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
-                    })
-                }
-                else {
-                    const post = { descricao, unidadeMedida, regras }
-
-                    await api.post('/cadastroProduto', { post }).then((resposta) => { navigate('/listaProdutos') })
-                }
-
-            }
-            else {
-                toast.error('Preencha todas as regras adicionadas', {
-                    position: 'bottom-left',
-                    autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
                 })
 
+                if (controle) {
+                    if (contadorTipo.Umidade > 1) {
+                        toast.error('Não pode haver mais de uma regra de Umidade', {
+                            position: 'bottom-left',
+                            autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                        })
+                    }
+                    else if (contadorTipo.Pureza > 1) {
+                        toast.error('Não pode haver mais de uma regra de Pureza', {
+                            position: 'bottom-left',
+                            autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                        })
+                    }
+                    else {
+                        const post = { descricao, unidadeMedida, regras }
+
+                        await api.post('/cadastroProduto', { post }).then((resposta) => { navigate('/listaProdutos') })
+                    }
+
+                }
+                else {
+                    toast.error('Preencha todas as regras adicionadas', {
+                        position: 'bottom-left',
+                        autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                    })
+
+                }
             }
         }
-    }
     }
 
     return (
         <>
             <NavBar />
             <div className='divFornecedor'>
-                <div className={`${edicao === true? 'flexMainFornecedor' : ''}`}>
+                <div className={`${edicao === true ? 'flexMainFornecedor' : ''}`}>
                     {edicao &&
-                    <>
-                    <h1 className='mainTitle'>Edição de Produtos</h1>
-                    <img src={lixeira} alt='Excluir produto' id='clicavel' className='lixoFornecedor' onClick={() => confirmarDelete()}/>
-                    </>
-                    }   
+                        <>
+                            <h1 className='mainTitle'>Edição de Produtos</h1>
+                            <img src={lixeira} alt='Excluir produto' id='clicavel' className='lixoFornecedor' onClick={() => confirmarDelete()} />
+                        </>
+                    }
                     {!edicao && <h1 className='mainTitle'>Cadastro de Produtos</h1>}
-                    
+
                 </div>
 
                 <form className='responsividade'>
@@ -522,13 +525,13 @@ function CadProduto() {
                                 <tbody>
                                     <tr>
                                         <td>{edicao && <select className='input_form' name="unidadeMedida" id="unidadeMedida"
-                                                disabled
-                                                value={unidadeMedidaInicial}
-                                                onChange={(e) => { setUnidadeMedida(e.target.value) }}>
-                                                <option value=""></option>
-                                                <option value="kg">Quilogramas (kg)</option>
-                                                <option value="t">Toneladas (t)</option>
-                                            </select>}
+                                            disabled
+                                            value={unidadeMedidaInicial}
+                                            onChange={(e) => { setUnidadeMedida(e.target.value) }}>
+                                            <option value=""></option>
+                                            <option value="kg">Quilogramas (kg)</option>
+                                            <option value="t">Toneladas (t)</option>
+                                        </select>}
                                             {!edicao && <select className='input_form' name="unidadeMedida" id="unidadeMedida"
                                                 required
                                                 value={unidadeMedida}
@@ -595,16 +598,16 @@ function CadProduto() {
                                             <label className='obrigacao'>Obrigatória:</label>
                                             <input type="checkbox" className='checkboxzin' checked={regras[id].obrigatoriedade} disabled />
                                         </div> */}
-                                        
+
                                         <br /><br />
                                     </div>
                                 }
                                 {id > 0 &&
                                     <div className='minimo'>
-                                        
+
                                         <img src={lixeira} alt="Lixo" className='lixeira' onClick={() => deleteRegra(id)} />
-                                        
-                                        
+
+
                                         <div className='flexCheckbox'>
                                             <label className='tipo-regra'>Tipo de Regra:</label>
                                             <select className='input_form' value={regras[id].tipo} onChange={(e) => { mudaTipo(e, id) }}>
@@ -649,8 +652,8 @@ function CadProduto() {
                                             <input type="checkbox" className='checkboxzin' checked={regras[id].obrigatoriedade} onChange={(e) => { mudaObrigatoriedade(e, id) }} />
                                         </div> */}
 
-                                        
-                                        
+
+
                                         <br /><br />
                                     </div>
                                 }
