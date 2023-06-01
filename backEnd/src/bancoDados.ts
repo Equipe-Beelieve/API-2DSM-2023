@@ -21,7 +21,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'root', //sua senha
+                password: '', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -310,12 +310,16 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     async inserirAnaliseQualitativa(id: string, analiseQualitativa: AnaliseQualitativa){
         await this.conectar()
         let [prod_codigo] = await this.conexao.query(`SELECT prod_codigo FROM produto WHERE prod_descricao = (SELECT ped_descricao FROM pedido WHERE ped_codigo=${id})`)  as Array<any>
+        await this.conexao.end()
+        await this.conectar()
         let [insert, fields]:[mysql.OkPacket, mysql.FieldPacket[]] = await this.conexao.query(`INSERT INTO parametros_do_pedido(regra_tipo, regra_valor, prod_codigo, ped_codigo, reg_codigo) VALUES(?, ?, ${prod_codigo[0].prod_codigo}, ${id}, ${analiseQualitativa['codigo']})`,
         [analiseQualitativa['tipo'], analiseQualitativa['valor']])
         await this.conexao.end()
-        if(analiseQualitativa['avaria'] !== undefined && analiseQualitativa['avaria'] != ''){    
+        if(analiseQualitativa['avaria'] !== undefined && analiseQualitativa['avaria'] != ''){
+            console.log("Foi até aqui")    
             await this.insereComentarioAvaria(insert.insertId, analiseQualitativa['avaria'])
         }
+        console.log('Foi até o final')
     }
 
     async insereComentarioAvaria(insertId:number, avaria:string){
