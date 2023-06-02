@@ -666,7 +666,7 @@ p.solid {
 }
 
 .info {
-  margin: 0;
+  margin-bottom: 1vh;
   padding: 0;
   font-weight: bold;
 }
@@ -699,7 +699,7 @@ p.solid {
   color: #FFFFFF;
   font-weight: bold;
   text-align: center;
-  padding: 9px;
+  padding: 6px;
   border-color: transparent;
 }
 
@@ -709,7 +709,7 @@ p.solid {
   font-weight: bold;
   text-align: center;
   border-color: transparent;
-  padding: 9px;
+  padding: 6px;
 
 }
 
@@ -739,15 +739,6 @@ p.solid {
   padding: 6px;
   border-color: transparent;
   margin-left: 1vw;
-}
-
-.laudo .regra-valor {
-  background-color: #5D5D5D;
-  color: #FFFFFF;
-  font-weight: bold;
-  text-align: center;
-  border-color: transparent;
-  padding: 6px;
 }
 
 .laudo .checkbox {
@@ -810,7 +801,7 @@ p.solid {
   text-align: center;
   border-color: black;
   color: hwb(0 0% 100%);
-  width: 229px;
+  width: 13vw;
   padding: 6px;
   margin-left: 5%;
   border-width: 1px;
@@ -845,8 +836,6 @@ p.solid {
   text-align: center;
   border-color: transparent;
   padding: 6px;
-  width: 249px;
-
 }
 
 .laudo .checkbox {
@@ -2497,5 +2486,52 @@ p.solid {
     margin-top: 1vh;
     margin-bottom: 3vh;
     margin-left: 0vw;
+  }
+
+  .responsividadeforms .mainTitle{
+    margin-left: 114vw;
+  }
+
+  .info {
+    margin-left: 100vw;
+    width: 100vw;
+    font-size: 1.75vh;
+  }
+
+  .laudo {
+    width: 70vw;
+    margin-left: 90vw;
+  }
+
+  .laudo .descricao {
+    width: 60vw;
+    padding: 10px;
+    height: 120px;
+    white-space: pre-line;
+    border: #000000;
+    border-style: solid;
+    font-weight: bold;
+    text-align: start;
+    font-size: medium;
+    color: #000000;
+    background-color: #C0C0C0;
+    border-width: 1px;
+    margin-left: 2vw;
+    margin-right: 2vw;
+  }
+
+  .laudo .manipular-regra {
+    width: 36vw;
+    margin-left: 2vw;
+  }
+
+  .responsividadeforms .cancel_button{
+    width: 35vw;
+    margin-top: 2vh;
+    margin-left: 75vw;
+  }
+
+  .responsividadeforms .confirm_button{
+    margin-left: 75vw;
   }
 }
