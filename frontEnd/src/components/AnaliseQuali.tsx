@@ -200,10 +200,21 @@ function AnaliseQuali() {
 
     function blurRegra(index:number, valor:any){
         if(valor.length > 0) {
-            let valorPorcentagem = valor + '%'
-            const analiseNova = [...analises]
-            analiseNova[index].valor = valorPorcentagem
-            setAnalises(analiseNova)
+            if(Number(valor) > 100){
+                toast.error('Valor acima de 100%', {
+                position: 'bottom-left',
+                autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                })
+
+                const analiseNova = [...analises]
+                analiseNova[index].valor = ''
+                setAnalises(analiseNova)
+            } else {
+                let valorPorcentagem = valor + '%'
+                const analiseNova = [...analises]
+                analiseNova[index].valor = valorPorcentagem
+                setAnalises(analiseNova)
+            }
         }
     }
 
@@ -216,43 +227,80 @@ function AnaliseQuali() {
         }
     }
 
-    async function  validaAnalises(acao: string) {
+    async function validaAnalises(acao: string) {
         const analisesNumericas = analises.filter((analise) => {
             return analise.tipo !== 'Avaria' && analise.tipo !== 'Personalizada'
         })
-        if (acao === 'Continuar') {
-            if (analisesNumericas.every((analise) => analise.valor !== '')) {
-                await confirmaContinua()
+
+        const analiseAvaria = analises.find(analise => analise.tipo === 'Avaria')
+
+        //se houver uma avaria
+        if(analiseAvaria && analiseAvaria.valor === 'false'){
+
+            //e ela não tiver comentario
+            if(analiseAvaria.avaria === ''){
+
+                //exibe a mensagem de erro
+                toast.error('Preencha o comentário da avaria', {
+                    position: 'bottom-left',
+                    autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                    })
+
+            //e ela tiver comentário
             } else {
-                toast.error('Preencha todas as análises.', {
-                    position: 'bottom-left', autoClose: 2500,
-                    className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
-                })
+
+                //checa se todas as análises estão preenchidas
+                if(analisesNumericas.some((analise) => analise.valor === '')){
+
+                    //exibe mensagem de erro se não estiver
+                    toast.error('Preencha todas as análises.', {
+                        position: 'bottom-left', autoClose: 2500,
+                        className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
+                    })
+                
+                //se tiver tudo certo, finaliza
+                } else{
+                    if (acao === 'Continuar') {
+                        await confirmaContinua()
+  
+                    } else if (acao === 'Editar') {
+                            await editaVolta()
+                    }
+                }  
             }
-        } else if (acao === 'Editar') {
-            if (analisesNumericas.every((analise) => analise.valor !== '')) {
-                await editaVolta()
-            } else {
+        
+        //se não tiver avaria
+        } else {
+
+            //checa se todas as analises estão preenchidas
+            if(analisesNumericas.some((analise) => analise.valor === '')){
+
+                //exibe mensagem de erro se não estiver
                 toast.error('Preencha todas as análises.', {
                     position: 'bottom-left', autoClose: 2500,
                     className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
                 })
+
+            //se tiver tudo certo, finaliza
+            } else {
+                if (acao === 'Continuar') {
+                    await confirmaContinua()
+
+                } else if (acao === 'Editar') {
+                        await editaVolta()
+                }
             }
         }
     }
 
     async function editaVolta(){
         const post = {id, analises, laudo}
-        //navigate(`/listaPedidos`)
         await api.post('/updateQualitativa', { post }).then((resposta) => {navigate(`/listaPedidos`)})
     }
 
-    async function confirmaContinua() {
-        
+    async function confirmaContinua() { 
         const post = { id, analises, laudo }
-         //substituir listaPedidos pela rota do relatório final, quando pronta
         await api.post('/postQualitativa', { post }).then((resposta) => {navigate(`/relatorioFinal/${id}`)})
-
     }
 
     function cancelaVoltaListagem() {
@@ -279,7 +327,6 @@ function AnaliseQuali() {
         }
         veLogado()
     }, [])
-
 
     if (mudanca !== 'Revisão') {
         return (
@@ -358,7 +405,9 @@ function AnaliseQuali() {
                                             onChange={(evento) => manipularRegra(index, evento.target.value)}
                                             onBlur={(evento) => blurRegra(index, evento.target.value)}
                                             onFocus={(evento) => focusRegra(index, evento.target.value)} 
-                                            required />
+                                            required
+                                            maxLength={3}
+                                            />
                                         </div>
                                     </div>
                                 )
@@ -380,7 +429,7 @@ function AnaliseQuali() {
                         }
 
                     </div>
-                    <br />
+
                 </form>
             </>
         )
