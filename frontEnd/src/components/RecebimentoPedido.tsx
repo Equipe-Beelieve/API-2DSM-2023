@@ -440,13 +440,8 @@ function RecebimentoPedido() {
                 <NavBar />
                 <div className="mainContent">
                     <div className="botoesNavegacao">
-                        
                         <h1 className="recebimentoTitulo">RECEBIMENTO DO PEDIDO: {id}</h1>
-                        
-                        {mudanca !== 'Edição' &&
-                            <div className='blocoInvisivel'> </div>
-                        }
-                    </div>
+                   </div>
                     <h4 className="txtAlg">Insira a nota fiscal</h4>
                 </div>
 

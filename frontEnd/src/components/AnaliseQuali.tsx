@@ -285,14 +285,12 @@ function AnaliseQuali() {
         return (
             <>
                 <NavBar />
-                <form >
+                <form className='responsividadeforms'>
                     <div className="mainContent">
                         <div className="botoesNavegacao">
                             <button className='botaoteste4' type='button' onClick={irQuantitativa}>
                                 <img src={teste} alt="" className="testeaEsquerda" />Análise Quantitativa</button>
                             <h1 className="mainTitle">ANÁLISE QUALITATIVA</h1>
-
-                            <div className='blocoInvisivel'></div>
                         </div>
                         <p className='info'>Selecione o checkbox de resultado se a regra for cumprida</p>
                         <div className='laudo'>
@@ -391,7 +389,7 @@ function AnaliseQuali() {
         return (
             <>
                 <NavBar />
-                <form >
+                <form className='responsividadeforms'>
                     <div className="mainContent">
                         <div className="botoesNavegacao">
                             <button className='botaoteste4' type='button' onClick={irQuantitativa}>

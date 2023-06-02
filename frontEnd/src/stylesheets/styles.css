@@ -56,7 +56,7 @@ body::-webkit-scrollbar {
   margin-left: 10vw;
 }
 
-.mainTitle {
+.mainTitle, .mainTitle2 {
   font-size: 2vw;
   margin-top: 4vh;
   font-weight: bold;
@@ -68,6 +68,7 @@ body::-webkit-scrollbar {
   margin-top: 4vh;
   font-weight: bold;
   text-align: center;
+  margin-left: 0vw;
 }
 
 .mainTitle1 {
@@ -170,6 +171,14 @@ body::-webkit-scrollbar {
   justify-content: space-around;
   gap: 20%;
   width: 95%;
+}
+
+.botoesNavegacao2 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-around;
+  gap: 0%;
+  width: 150%;
 }
 
 .centralizaTitulo .mainTitle {
@@ -665,12 +674,12 @@ p.solid {
 .laudo {
   display: flex;
   background-color: #D9D9D9;
-  padding: 15px 0px;
-  gap: 30px;
+  padding: 2vh 0px;
+  gap: 3vw;
   justify-content: center;
   flex-wrap: wrap;
-  width: 700px;
-  margin-bottom: 3%;
+  width: 45vw;
+  margin-bottom: 4vh;
   color: #000000;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -1168,6 +1177,9 @@ p.solid {
   font-size: 15px;
   border: 1px solid #ddd;
   width: 150px;
+  margin-top: -4vh;
+  margin-left: 70vw;
+  margin-bottom: 5vh;
 }
 
 .blocoInvisivel {
@@ -1187,9 +1199,26 @@ p.solid {
   font-size: 15px;
   border: 1px solid #ddd;
   width: 200px;
-  margin-top: -8vh;
-  margin-bottom: 10vh;
+  margin-top: -6vh;
+  margin-bottom: 3vh;
   margin-right: 70vw;
+}
+
+.botaoteste10 {
+  background-color: gray;
+  color: white;
+  font-weight: bolder;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-size: 30px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  width: 200px;
+  margin-top: -3vh;
+  margin-bottom: 3vh;
+  margin-left: 70vw;
 }
 
 .botaoteste4esquerda {
@@ -1204,7 +1233,7 @@ p.solid {
   font-size: 15px;
   border: 1px solid #ddd;
   width: 200px;
-  margin-top: -13vh;
+  margin-top: -6vh;
   margin-bottom: 10vh;
   margin-left: 70vw;
 }
@@ -1221,7 +1250,8 @@ p.solid {
   font-size: 15px;
   border: 1px solid #ddd;
   width: 150px;
-  margin-right: 50px;
+  margin-right: 70vw;
+  margin-top: -3vh;
 }
 
 .botaoteste5Direita {
@@ -1237,6 +1267,9 @@ p.solid {
   border: 1px solid #ddd;
   width: 150px;
   margin-right: 50px;
+  margin-left: 70vw;
+  margin-top: -4vh;
+  margin-bottom: 4vh;
 }
 
 .txtAlg {
@@ -2094,6 +2127,23 @@ p.solid {
   width: 25%;
 }
 
+.botoesNavegacao .mainTitle {
+  margin-right: 0vw;
+}
+
+.botoesNavegacao .mainTitle2{
+  margin-left: -105vw;
+  margin-top: 2vh;
+}
+
+.botoesNavegacao2 .mainTitle {
+  margin-right: 42vw;
+}
+
+.responsividadeforms .mainTitle{
+  margin-right: 95vw;
+}
+
 /* coisas da expansividade */
 .card {
   border-radius: 16px;
@@ -2125,8 +2175,8 @@ p.solid {
 }
 
 .card.active .content {
-  height: 260px;
-  padding: 20px;
+  height: auto;
+  padding: 2.5vh;
   opacity: 1;
   transform: translateY(0);
 }
@@ -2340,6 +2390,7 @@ p.solid {
   .botoesNavegacao {
     gap: 0%;
     width: 100%;
+    padding-right: 15vw;
   }
 
   .flexMainUsuario {
@@ -2357,28 +2408,36 @@ p.solid {
   }
 
   .blocoInvisivel {
-    width: 0px;
+    width: 0;
   }
 
   .recebimentoTitulo {
     width: 100vw;
     font-size: 4.5vw;
     margin-top: 3vh;
-    margin-left: 3vw;
+    margin-left: 18vw;
   }
 
-  .botaoteste5Direita {
+  .botaoteste5Direita{
     font-size: 2vh;
-    width: 20vw;
+    width: 27vw;
     margin-right: 27vw;
-    margin-bottom: 2vh;
+    margin-left: -9vw;
+    margin-bottom: 4vh;
+    margin-top: 2vh;
+  }
+
+  .botaoteste5Esquerda{
+    margin-right: 3vw;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
   }
 
   .botaoteste4,
   .botaoteste4esquerda {
     background-size: 30px;
     font-size: 2vh;
-    width: 40vw;
+    width: 44vw;
     margin-top: 3vh;
     margin-bottom: 3vh;
     margin-left: -15vw;
@@ -2397,12 +2456,46 @@ p.solid {
   }
 
   .anaq1 {
-    width: 51vw;
-    height: 9vh;
+    width: 75vw;
+    height: 9.5vh;
     font-size: 3vw;
+    padding: 1vh 1vh 1vh 1vh;
   }
 
   .anaq2 {
-    width: 25vw;
+    width: 38vw;
+    padding-top: 2.5vh;
+  }
+
+  .input_form2 {
+    width: 33vw;
+    box-shadow: 0px 0px 0px;
+    padding-left: 14vw;
+  }
+
+  .botaoteste3 {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    margin-left: -13vw;
+  }
+
+  
+  .botoesNavegacao .mainTitle {
+    margin-left: 0vw;
+  }
+  
+  .botoesNavegacao2 .mainTitle2 {
+    margin-left: 0vw;
+    font-size: 3vh;
+  }
+
+  .botoesNavegacao .mainTitle2 {
+    margin-left: 3vw;
+  }
+
+  .botaoteste10 {
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+    margin-left: 0vw;
   }
 }
