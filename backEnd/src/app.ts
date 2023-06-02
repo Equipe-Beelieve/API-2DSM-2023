@@ -342,7 +342,7 @@ app.get('/listaProdutos', async (req, res) => {
 
 app.get('/getDescricaoProdutos', async (req, res) => {
     let produtos = await bd.listarProdutoDescricao()
-    console.log("GetProdutos: ", produtos)
+    // console.log("GetProdutos: ", produtos)
     res.send(produtos)
 })
 

@@ -396,6 +396,7 @@ function CadProduto() {
 
         }
         veLogado()
+        console.log(regras)
     }, [edicao, render, regras])
     useEffect(() => {
         if (id) {
@@ -415,8 +416,6 @@ function CadProduto() {
                 autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
             })
         }
-        console.log(produtoDescricao)
-        console.log(produtoDescricao.some(produto => produto.prod_descricao === descricao))
         if (produtoDescricao.some(produto => produto.prod_descricao === descricao)) {
             toast.error('Produto existente', {
                 position: 'bottom-left',

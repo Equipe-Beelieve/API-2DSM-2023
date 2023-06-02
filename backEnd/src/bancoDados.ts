@@ -278,7 +278,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         let [produto] = await this.conexao.query(`Select prod_descricao, prod_unidade_medida FROM produto WHERE prod_codigo = ${id}`) as Array<any>
         await this.conexao.end()
         await this.conectar()
-        let [regras] = await this.conexao.query(`Select reg_tipo as tipo, reg_valor as valor FROM regras_de_recebimento WHERE prod_codigo = ${id}`) as Array<any>
+        let [regras] = await this.conexao.query(`Select reg_tipo as tipo, reg_valor as valor FROM regras_de_recebimento WHERE prod_codigo = ${id} ORDER BY reg_tipo`) as Array<any>
         await this.conexao.end()
         produto = {
             descricao: produto[0].prod_descricao,
