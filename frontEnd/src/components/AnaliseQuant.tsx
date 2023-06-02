@@ -25,6 +25,15 @@ function AnaliseQuant() {
                 let dado = resposta.data
                 console.log(dado)
                 setPeso(dado)
+                if (dado.slice(-1) === 't') {
+                    setTipoPeso('Toneladas')
+                }
+                else if (dado.slice(-1) === 'g') {
+                    setTipoPeso('Quilogramas')
+                }
+                else {
+                    setTipoPeso('ERRO!')
+                }
             })
         }
         catch (erro) {
@@ -60,14 +69,6 @@ function AnaliseQuant() {
     const { id } = useParams()
     const navegate = useNavigate()
 
-    async function confiraTipoPeso() {
-        if (peso.slice(-1) === 't') {
-            setTipoPeso('Toneladas')
-        }
-        else {
-            setTipoPeso('Quilogramas')
-        }
-    }
 
     // ====================== Mascara ======================
 
@@ -159,7 +160,6 @@ function AnaliseQuant() {
         }
         veLogado()
         getPeso()
-        confiraTipoPeso()
         veStatus()
         console.log(mudanca)
     }, [mudanca])
