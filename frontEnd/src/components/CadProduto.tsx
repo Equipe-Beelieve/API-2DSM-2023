@@ -253,7 +253,7 @@ function CadProduto() {
 
     async function getDescricaoProdutos() {
         await api.get('/getDescricaoProdutos').then((resposta) => {
-            //console.log(resposta.data)
+            console.log(resposta.data)
             setProdutoDescricao(resposta.data)
 
         })
@@ -400,14 +400,13 @@ function CadProduto() {
     useEffect(() => {
         if (id) {
             resgataValores()
-            getDescricaoProdutos()
         }
+        getDescricaoProdutos()
     }, [])
 
     //======================== Submit ========================
 
     async function cadastroProduto(evento: any) {
-        getDescricaoProdutos()
 
         let controle = true
         if (unidadeMedida === '' || descricao === '') {
@@ -416,6 +415,7 @@ function CadProduto() {
                 autoClose: 2500, className: 'flash', hideProgressBar: true, pauseOnHover: false, theme: "dark"
             })
         }
+        console.log(produtoDescricao)
         console.log(produtoDescricao.some(produto => produto.prod_descricao === descricao))
         if (produtoDescricao.some(produto => produto.prod_descricao === descricao)) {
             toast.error('Produto existente', {
