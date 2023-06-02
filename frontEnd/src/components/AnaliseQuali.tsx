@@ -335,10 +335,11 @@ function AnaliseQuali() {
                 <form className='responsividadeforms'>
                     <div className="mainContent">
                         <div className="botoesNavegacao">
-                            <button className='botaoteste4' type='button' onClick={irQuantitativa}>
-                                <img src={teste} alt="" className="testeaEsquerda" />Análise Quantitativa</button>
+
                             <h1 className="mainTitle">ANÁLISE QUALITATIVA</h1>
                         </div>
+                        <button className='botaoteste6' type='button' onClick={irQuantitativa}>
+                                <img src={teste} alt="" className="testeaEsquerda" />Análise Quantitativa</button>
                         <p className='info'>Selecione o checkbox de resultado se a regra for cumprida</p>
                         <div className='laudo'>
                             <input className='tipo-laudo' type="text" value={'Laudo'} readOnly />
@@ -441,13 +442,15 @@ function AnaliseQuali() {
                 <form className='responsividadeforms'>
                     <div className="mainContent">
                         <div className="botoesNavegacao">
-                            <button className='botaoteste4' type='button' onClick={irQuantitativa}>
-                                <img src={teste} alt="" className="testeaEsquerda" />Análise Quantitativa</button>
+                           
                             <h1 className="mainTitle">ANÁLISE QUALITATIVA</h1>
-                            <button className='botaoteste4' type='button' onClick={() => {navigate('/listaPedidos')}}>
+                           
+                        </div>
+                        <button className='botaoteste6' type='button' onClick={irQuantitativa}>
+                                <img src={teste} alt="" className="testeaEsquerda" />Análise Quantitativa</button>
+                        <button className='botaoteste6esquerda' type='button' onClick={() => {navigate('/listaPedidos')}}>
                                 Relatório Final<img src={teste} alt="" className="testeaDireita" /></button>
                         
-                        </div>
                         <br />
                         <div className='laudo'>
                             <input className='tipo-laudo' type="text" value={'Laudo'} readOnly /> <input className='haver' type="text" value={'Deve haver'} readOnly />

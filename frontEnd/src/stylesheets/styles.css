@@ -1193,6 +1193,40 @@ p.solid {
   margin-right: 70vw;
 }
 
+.botaoteste6 {
+  background-color: gray;
+  color: white;
+  font-weight: bolder;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-size: 30px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  width: 200px;
+  margin-top: -6vh;
+  margin-bottom: 3vh;
+  margin-right: 70vw;
+}
+
+.botaoteste6esquerda {
+  background-color: gray;
+  color: white;
+  font-weight: bolder;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-size: 30px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  width: 200px;
+  margin-top: -6vh;
+  margin-bottom: 10vh;
+  margin-left: 70vw;
+}
+
 .botaoteste10 {
   background-color: gray;
   color: white;
@@ -2129,9 +2163,6 @@ p.solid {
   margin-right: 42vw;
 }
 
-.responsividadeforms .mainTitle{
-  margin-right: 95vw;
-}
 
 /* coisas da expansividade */
 .card {
@@ -2339,13 +2370,13 @@ p.solid {
 
   .ped_btn {
     height: 7vh;
-    width: 37vw;
+    width: 50vw;
     margin-bottom: 1.5vw;
   }
 
   .ped_btn2 {
     height: 7vh;
-    width: 37vw;
+    width: 50vw;
     margin-right: 1.5vw;
     margin-bottom: 1vh;
   }
@@ -2489,7 +2520,7 @@ p.solid {
   }
 
   .responsividadeforms .mainTitle{
-    margin-left: 114vw;
+    margin-left: 100vw;
   }
 
   .info {
@@ -2533,5 +2564,69 @@ p.solid {
 
   .responsividadeforms .confirm_button{
     margin-left: 75vw;
+  }
+
+  .botaoteste6 {
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    margin-left: 160vw;
+  }
+  
+  .botaoteste6esquerda {
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+    margin-left: 89vw;
+  }
+
+  .dados-compras-titulo .relatorio-compra {
+    font-size: 2.5vh;
+    margin-left: 15vw;
+    text-align: center;
+    width: 30vw;
+  }
+  
+  .dados-compras-titulo .dados-titulo {
+    font-size: 2.5vh;
+    margin-left: 10vw;
+    text-align: center;
+    width: 30vw;
+  }
+
+  .boxFinalReportGreen, .boxFinalReportRed {
+    width: 90vw;
+    margin-top: 3%;
+    gap: 3%;
+    padding: 5px;
+  }
+
+  .input-relatorio-final {
+    width: 35vw;
+    margin-left: 5vw;
+  }
+
+  .informacao-comparacao {
+    width: 85vw;
+    margin-bottom: 1vh;
+  }
+
+  .botao-recusado .pedido {
+    margin-top: 1vh;
+    margin-bottom: 2vh;
+    width: 25vw;
+    margin-left: -7vw;
+  }
+
+  .botao-aprovado .pedido {
+    margin-top: 3%;
+    margin-left: 44%;
+    width: 15vw;
+  }
+
+  .botao-recusado .force-aceite {
+    width: 25vw;
+  }
+
+  .titulo-recusado {
+    width: 40vw;
   }
 }
