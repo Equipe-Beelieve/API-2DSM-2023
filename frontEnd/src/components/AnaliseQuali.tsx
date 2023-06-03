@@ -417,15 +417,15 @@ function AnaliseQuali() {
 
                         {mudanca === 'Primeira vez' &&
                             <div className='mesmalinha'>
-                                <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
-                                <button type="button" onClick={(evento) => validaAnalises('Continuar')} className="confirm_button">Confirmar</button>
+                                <button type="button" onClick={cancelaVoltaListagem} className="cancel_button2">Cancelar</button>
+                                <button type="button" onClick={(evento) => validaAnalises('Continuar')} className="confirm_button2">Confirmar</button>
                             </div>
                         }
                         
                         {mudanca === 'Edição' &&
                             <div className='mesmalinha'>
-                                <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Cancelar</button>
-                                <button type="button" onClick={(evento) => validaAnalises('Editar')} className="confirm_button">Editar</button>
+                                <button type="button" onClick={cancelaVoltaListagem} className="cancel_button2">Cancelar</button>
+                                <button type="button" onClick={(evento) => validaAnalises('Editar')} className="confirm_button2">Editar</button>
                             </div>
                         }
 
@@ -514,7 +514,7 @@ function AnaliseQuali() {
                         })
                         }
                         <div className='mesmalinha'>
-                            <button type="button" onClick={cancelaVoltaListagem} className="cancel_button">Voltar</button>
+                            <button type="button" onClick={cancelaVoltaListagem} className="cancel_button2">Voltar</button>
                         </div>
 
                     </div>

@@ -464,7 +464,6 @@ function CadPedido() {
                 <div className="divFornecedor">
                     
                     <div className='botoesNavegacao'>
-                        <div className='blocoInvisivel'> </div>
                         <h1 className='mainTitle2'>Cadastro de Pedidos</h1>
 
                     </div>
@@ -776,7 +775,6 @@ function CadPedido() {
                 <NavBar />
                 <div className="divFornecedor">
                     <div className='botoesNavegacao2'>
-                        <div className='blocoInvisivel'> </div>
                         <h1 className='mainTitle2'>Cadastro de Pedidos</h1>
                     </div>
                     <form className='responsividadeforms' onSubmit={cadastroPedido}>

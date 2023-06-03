@@ -756,6 +756,7 @@ function RecebimentoPedido() {
 
                 <div className="mainContent">
                     <div className="botoesNavegacao">
+                        <div className="blocoInvisivel2" />
                         <h1 className="mainTitle">RECEBIMENTO DO PEDIDO: {id}</h1>
 
                     </div>
@@ -766,7 +767,7 @@ function RecebimentoPedido() {
                     <form className="responsividadeforms">
                     <button type='button' onClick={irCadastroPedido} className="botaoteste4">
                             <img src={teste} alt="" className="testeaEsquerda" />Cadastro dos Pedidos</button>                    
-                    <button type='button' onClick={irQuantitativa} className="botaoteste4">Análise Qualitativa
+                    <button type='button' onClick={irQuantitativa} className="botaoteste4esquerda">Análise Qualitativa
                         <img src={teste} alt="" className="testeaDireita" /></button>
                         <div className="grid-container poscentralized">
                             <div className="box">
@@ -870,7 +871,7 @@ function RecebimentoPedido() {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input className="input_form2" type="text"
+                                            <td><input className="input_form" type="text"
                                                 value={quantidade}
                                                 onChange={trataQuantidade}
                                                 onBlur={blurQuantidade}

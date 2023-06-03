@@ -24,7 +24,7 @@ body::-webkit-scrollbar {
   margin-right: 200px;
 }
 
-.blocoInvisivelUsuarioEsquerda {
+.blocoInvisivelUsuarioEsquerda{
   width: 30px;
   margin-left: 200px;
 }
@@ -178,7 +178,7 @@ body::-webkit-scrollbar {
   align-items: baseline;
   justify-content: space-around;
   gap: 0%;
-  width: 150%;
+  width: 100%;
 }
 
 .centralizaTitulo .mainTitle {
@@ -348,7 +348,35 @@ p.solid {
   color: #000000;
 }
 
+.cancel_button2 {
+  background: #FF6962;
+  border-radius: 20px;
+  border-color: transparent;
+  width: 150px;
+  margin-top: 2vh;
+}
+
+.cancel_button2:hover {
+  background: #ee2a20;
+}
+
+.cancel_button2 a,
+.cancel_button2 a:visited,
+.cancel_button2 a:hover {
+  text-decoration: none;
+  color: #000000;
+}
+
 .confirm_button {
+  background: #B4D892;
+  border-radius: 20px;
+  border-color: transparent;
+  margin-left: 3vw;
+  width: 150px;
+  margin-top: 2vh;
+}
+
+.confirm_button2 {
   background: #B4D892;
   border-radius: 20px;
   border-color: transparent;
@@ -362,9 +390,10 @@ p.solid {
   color: white;
   border-radius: 10px;
   border-color: transparent;
-  margin-right: 130px;
+  margin-left: 00vw;
+  margin-top: 1vh;
   text-align: center;
-  width: 100px;
+  width: 6vw;
 }
 
 .ativado {
@@ -372,13 +401,17 @@ p.solid {
   color: white;
   border-radius: 10px;
   border-color: transparent;
-  margin-right: 130px;
+  margin-top: 1vh;
+  margin-bottom: 2vh;
   text-align: center;
-  width: 100px;
+  width: 6vw;
 }
 
-
 .confirm_button:hover {
+  background-color: #3E813B;
+}
+
+.confirm_button2:hover {
   background-color: #3E813B;
 }
 
@@ -1175,6 +1208,9 @@ p.solid {
   width: 200px;
 }
 
+.blocoInvisivel2 {
+  margin-left: -84vw;
+}
 
 .botaoteste4 {
   background-color: gray;
@@ -2155,8 +2191,9 @@ p.solid {
 }
 
 .botoesNavegacao .mainTitle2{
-  margin-left: -105vw;
+  margin-left: 0vw;
   margin-top: 2vh;
+  font-size: 3vh;
 }
 
 .botoesNavegacao2 .mainTitle {
@@ -2338,9 +2375,12 @@ p.solid {
     top: -1vh;
   }
 
-  .box3 .minimo .tipo-regra,
-  .limitacao {
+  .box3 .minimo .tipo-regra{
     font-size: 3vw;
+  }
+
+  .limitacao{
+    font-size: 2vh;
   }
 
   .box3 .minimo .obrigacao {
@@ -2460,7 +2500,7 @@ p.solid {
     width: 44vw;
     margin-top: 3vh;
     margin-bottom: 3vh;
-    margin-left: -15vw;
+    margin-left: -17vw;
   }
 
   .txtAlg {
@@ -2530,7 +2570,7 @@ p.solid {
   }
 
   .laudo {
-    width: 70vw;
+    width: 75vw;
     margin-left: 90vw;
   }
 
@@ -2538,15 +2578,6 @@ p.solid {
     width: 60vw;
     padding: 10px;
     height: 120px;
-    white-space: pre-line;
-    border: #000000;
-    border-style: solid;
-    font-weight: bold;
-    text-align: start;
-    font-size: medium;
-    color: #000000;
-    background-color: #C0C0C0;
-    border-width: 1px;
     margin-left: 2vw;
     margin-right: 2vw;
   }
@@ -2556,15 +2587,15 @@ p.solid {
     margin-left: 2vw;
   }
 
-  .responsividadeforms .cancel_button{
+  .cancel_button2{
     width: 35vw;
     margin-top: 2vh;
     margin-left: 75vw;
   }
 
-  .responsividadeforms .confirm_button{
+ .confirm_button2{
     margin-left: 75vw;
-  }
+  } 
 
   .botaoteste6 {
     margin-top: 1vh;
@@ -2628,5 +2659,15 @@ p.solid {
 
   .titulo-recusado {
     width: 40vw;
+  }
+
+  .ativado, .desativado{
+    margin-left: -8vw;
+    margin-bottom: 2vh;
+    width: 30vw;
+  }
+
+  .blocoInvisivel2{
+    margin-left: 15vw;
   }
 }

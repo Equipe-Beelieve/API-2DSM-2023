@@ -201,10 +201,12 @@ function CadUsuario() {
             <NavBar />
             <div className="divFornecedor">
                 <div className="flexMainUsuario">
-                    <div className='blocoInvisivelUsuarioEsquerda'> </div>
                     {editar && <h1 className='mainTitle'>Edição de Usuario</h1>}
                     {!editar && <h1 className='mainTitle'>Cadastro de Usuario</h1>}
-                    {editar && funcaoInical !== 'Administrador' && ativo === "Ativado" &&
+                    
+                </div>
+                <form className='responsividadeforms' onSubmit={cadastroUsuario} action="/action_page.php">
+                {editar && funcaoInical !== 'Administrador' && ativo === "Ativado" &&
                         
                         <button className="ativado" onClick={()=>{confirmarDelete('Desativar')}}>Ativado</button>                        
                         
@@ -220,9 +222,6 @@ function CadUsuario() {
                     {!editar &&
                         <div className='blocoInvisivelUsuarioDireita'> </div>
                     }
-                </div>
-                <form className='responsividadeforms' onSubmit={cadastroUsuario} action="/action_page.php">
-                    
                     
                     
                     <div className="grid-container poscentralized">
