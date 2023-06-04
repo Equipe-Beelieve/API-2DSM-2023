@@ -57,7 +57,7 @@ function RelatorioFinal() {
 
     async function getDadosRelatorio() {
         try {
-            await api.post("/relatorioFinal", { id }).then((resposta) => {
+            await api.get(`/relatorioFinal/${id}`).then((resposta) => {
                 let dados = resposta.data
                 setDadosRelatorio(dados)
                 setResultadoFinal(dados.DecisaoFinal)
@@ -214,7 +214,7 @@ function RelatorioFinal() {
                         const analiseQuantitativa = dadosRelatorio.Resultados.find((resultado) => resultado.comparacao === 'Nota Fiscal x Dados da Análise Quantitativa | Peso')
                         if (regra.tipo === 'Análise Quantitativa') {
                             return (
-                                <div className={`${analiseQuantitativa?.resultado === true ? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
+                                <div key={index} className={`${analiseQuantitativa?.resultado === true ? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
                                     <label className='informacao-comparacao'>Peso:</label>
                                     <input className='input-relatorio-final' type="text" value={regra.regra} readOnly /> <input className='input-relatorio-final' type="text" value={regra.valor} readOnly />
                                     <div className='informacao-comparacao'></div>

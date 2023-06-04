@@ -301,6 +301,7 @@ function AnaliseQuali() {
     async function confirmaContinua() { 
         const post = { id, analises, laudo }
         await api.post('/postQualitativa', { post }).then((resposta) => {navigate(`/relatorioFinal/${id}`)})
+        // await api.post('/postQualitativa', { post })
     }
 
     function cancelaVoltaListagem() {

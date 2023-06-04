@@ -41,15 +41,11 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true }));
 app.use(express.static('public'));
 
-
-
-
 const bd = new bancoDados() //criando uma instância do bd para utilizar os métodos
 
 //================================== Rotas de Funções ==================================
 //========================= Conferir sessão =========================
 app.get('/confereLogado', async(req,res)=>{
-    //console.log(req.session.funcao)
     if (req.session.funcao){
         res.send({logado:'true', funcao:req.session.funcao})
     }
@@ -70,19 +66,8 @@ app.post('/login', async(req,res)=>{
         res.send('true')
     } 
     else {
-        console.log('naodeu')
         res.send('false')
     }
-    // let usuario = bd.dadosUsuario(login)
-
-    // if (usuario != undefined){
-    //     req.session.user = usuario
-    //     console.log(req.session.user)
-    //     res.send(true)
-    // }
-    // else{
-    //     res.send(false)
-    // }
 })
 
 //========================= Loggout =========================
@@ -131,7 +116,6 @@ app.post('/updatePedido', async (req,res) => {
     let unidade = ''
     if (status !== 'Análise Quantitativa' && status !== 'A caminho'){
         let unidade = await bd.condereUnidade(id)
-        console.log(unidade)
         if (unidade.slice(-1) !== quantidade.slice(-1)){
             trocaUnidade = true
         } 
@@ -160,7 +144,6 @@ app.get('/cnpjFornecedores', async(req, res) => {
 //========================= Cadastro de Usuarios =========================
 app.post('/cadastroUsuario', async (req,res) => {
     let {nome, senha,funcao, login} = req.body.post
-    console.log(`nome: ${nome} | senha: ${senha} | funcao: ${funcao} | login: ${login}`)
     let usuario = new Usuario(nome, senha,funcao, login)
     await bd.inserirUsuario(usuario) 
     res.send('Foi')
@@ -169,12 +152,8 @@ app.post('/cadastroUsuario', async (req,res) => {
 //========================= Cadastro de Produtos =========================
 app.post('/cadastroProduto', async (req, res) => {
     let regrasRecebimento = req.body.post.regras
-    console.log('=========================================')
-    console.log(req.body)
-    console.log('=========================================')
     let descricao = req.body.post.descricao
     let unidadeMedida = req.body.post.unidadeMedida
-    console.log(regrasRecebimento)
     let produto = new Produto(descricao, unidadeMedida)
     let codigoProduto = await bd.inserirProduto(produto)
     regrasRecebimento.forEach(async (regra:Regra) => {
@@ -191,7 +170,6 @@ app.post('/cadastroProduto', async (req, res) => {
 //========================= Update de Usuarios =========================
 app.post('/resgataValoresUsuario',async (req, res) => {
     let id = req.body.id
-    //console.log('id: ', id)
     let loginUsuario = req.session.login
     let usuario = await bd.pegaUsuario(id)
     let mesmoUsuario
@@ -202,37 +180,28 @@ app.post('/resgataValoresUsuario',async (req, res) => {
         mesmoUsuario = false
     }
     let quantidadeFuncaoAdministrador = await bd.quantidadeFuncaoAdministrador()
-    //console.log('user: ', usuario)
     res.status(201).send({usuario, quantidadeFuncaoAdministrador, mesmoUsuario})
 })
 app.post('/updateUsuario', async(req, res) => {
-    console.log(req.body.post)
     let id = req.body.post.dados.idUsuario
-    //console.log('id: ', id)
     let updateUsuario = req.body.post.dados
     let mesmoUsuario = req.body.post.mesmoUsuario
     let funcaoUsuario = await bd.pegaUsuario(id)
     let quantidadeFuncaoAdministrador = await bd.quantidadeFuncaoAdministrador()
-    //console.log('pega usuario: ', funcaoUsuario)
-    //console.log('us_funcao', funcaoUsuario['us_funcao'])
-    //console.log('ad: ', quantidadeFuncaoAdministrador["COUNT('us_funcao')"])
     if(funcaoUsuario['us_funcao'] == 'Administrador'){
         if(mesmoUsuario){
             let usuario = new Usuario(updateUsuario.nome, updateUsuario.senha, updateUsuario.funcao, updateUsuario.login)
             await bd.updateUsuario(usuario, id)
-            console.log(usuario, id)
             res.status(200).redirect('/loggout');
         } else {
             let usuario = new Usuario(updateUsuario.nome, updateUsuario.senha, updateUsuario.funcao, updateUsuario.login)
             await bd.updateUsuario(usuario, id)
-            console.log('user adm: ', usuario, id)
             res.status(200).send(`Requisição recebida com sucesso! ${id}`);
         }
     }
      else{
         let usuario = new Usuario(updateUsuario.nome, updateUsuario.senha, updateUsuario.funcao, updateUsuario.login)
         await bd.updateUsuario(usuario, id)
-        console.log(usuario, id)
         res.status(200).send(`Requisição recebida com sucesso! ${id}`);
     }
 })
@@ -243,12 +212,10 @@ app.post('/resgataValoresProduto', async(req,res) => {
     let produto = await bd.pegaProduto(id)
     let produtoUtilizado = await bd.confereProduto(id)
     let produtos = await bd.listarProdutoDescricao()
-    console.log(produto)
     res.send({produto, produtoUtilizado, produtos})
 })
 
 app.post('/updateProduto', async(req,res)=>{
-    ////console.log(req.body)
     let id = req.body.id
     let regrasRecebimento = req.body.regras
     let descricao = req.body.descricao
@@ -305,7 +272,6 @@ app.post('/ativaUsuario', async (req, res) => {
 app.post('/deletePedido', async (req, res) => {
     let { post } = req.body;
     await bd.deletePedido(post);
-    console.log(post);
   });
 
 //========================= Deleta Fornecedor =========================
@@ -342,7 +308,6 @@ app.get('/listaProdutos', async (req, res) => {
 
 app.get('/getDescricaoProdutos', async (req, res) => {
     let produtos = await bd.listarProdutoDescricao()
-    // console.log("GetProdutos: ", produtos)
     res.send(produtos)
 })
 
@@ -353,11 +318,9 @@ app.get('/getDescricaoProdutos', async (req, res) => {
 app.post('/confereStatus', async (req, res) =>{
     let {id, acessando} = req.body
     let status = await bd.pegaStatus(id)
-    console.log(acessando)
     if (acessando === 'Nota Fiscal' && status !== 'A caminho' && status !== 'Finalizado' && status !== 'Aceito' && status !== 'Recusado'){
         let dados = await bd.pegaNf(id)
         dados['status'] = 'Edição'
-        console.log(dados)
         res.send(dados)
     }
     else if (acessando === 'Relatório de Compras' && status !== 'Finalizado' && status !== 'Aceito' && status !== 'Recusado'){
@@ -412,13 +375,11 @@ app.post('/confereStatus', async (req, res) =>{
         if(acessando === 'Relatório de Compras'){
             let dados = await bd.pegaRelatorioCompras(id)
             dados['status'] = 'Revisão'
-            console.log(dados)
             res.send({dados, editar:'Não permitir'})
         }
         else if(acessando === 'Nota Fiscal'){
             let dados = await await bd.pegaNf(id)
             dados['status'] = 'Revisão'
-            console.log(dados)
             res.send(dados)
         }
         else if(acessando === 'Análise Quantitativa'){
@@ -443,7 +404,6 @@ app.post('/confereStatus', async (req, res) =>{
 //========================= Inserção da nota fiscal =========================
 app.post('/postNota', async (req, res) => {
     let {id, unidade, produto,  dataEmissao, dataEntrega, cnpj, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento} = req.body.post
-    console.log(`unidadePost: ${unidade}`)
     let codigoFornecedor = await bd.pegarCodigo('for_codigo', 'fornecedor', 'for_cnpj', cnpj)
     let nf = new NotaFiscal(produto, dataEmissao, dataEntrega, cnpj, precoUnitario, quantidade, precoTotal, tipoFrete, transportadora, condicaoPagamento, codigoFornecedor, unidade, id)
     await bd.inserirNF(nf)
@@ -462,7 +422,6 @@ app.post('/updateNota', async (req,res) => {
 
 app.post('/postQuantitativa', async (req, res) => {
     let {id, pesagem} = req.body.post
-    console.log(req.body)
     await bd.inserirAnaliseQuantitativa(id, pesagem)
     res.send('Foi')
 })
@@ -491,12 +450,15 @@ app.get('/analiseQuali/:id', async (req, res) => {
 
 app.post('/postQualitativa', async (req, res) => {
     let {id, analises, laudo} = req.body.post
-    //console.log(id)
     await bd.laudoNF(id, laudo)
+    console.log(req.body)
+    console.log(req.body.post.analises)
+    console.log("------------------------------------------")
+    let controle = false
     try {
         analises.forEach(async (analise:AnaliseQualitativa) => {
-            await bd.inserirAnaliseQualitativa(id, analise)
-            
+            try{await bd.insereHistoricoQualitativa(id, analise)}
+            catch{console.log("DEU RUIM")}
         })
         await bd.mudaFinalizado(id)
         res.send('Foi')
@@ -511,8 +473,8 @@ app.post('/postQualitativa', async (req, res) => {
 
 app.post('/updateQualitativa', async (req, res) =>{
     let {id, analises, laudo} = req.body.post
-    console.log(analises)
     await bd.updateLaudoNF(id, laudo)
+    console.log(analises)
     try {
         analises.forEach(async (analise:AnaliseQualitativa) => {
             await bd.updateQualitativa(analise)
@@ -529,15 +491,16 @@ app.post('/updateQualitativa', async (req, res) =>{
 
 //======================= Relatório Final =======================
 
-app.post('/relatorioFinal', async(req,res) => {
-    let id = req.body.id
+app.get('/relatorioFinal/:id', async(req,res) => {
+    let id = req.params.id
+    let idInt = parseInt(id)
     let status = await bd.pegaStatus(id)
-    let relatorioFinal = await bd.pegaDadosRelatorioFinal(id, status);
-    if(status !== 'Recusado' && status !== 'Aceito'){
-        relatorioFinal.RegrasAnalises.forEach(async(regra:RegrasAnalises)=>{
-            await bd.guardaResultadoAnalise(regra, id)
-        })
-    }
+    let relatorioFinal = await bd.pegaDadosRelatorioFinal(idInt, status);
+    // if(status !== 'Recusado' && status !== 'Aceito'){
+    //     relatorioFinal.RegrasAnalises.forEach(async(regra:RegrasAnalises)=>{
+    //         await bd.guardaResultadoAnalise(regra, id)
+    //     })
+    // }
     res.send(relatorioFinal)
 })
 
