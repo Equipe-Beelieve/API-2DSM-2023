@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import api from '../services/api'
 import NavBar from './NavBar'
 import verificaLogado from '../funcoes/verificaLogado'
+import teste from '../images/seta-esquerda.png'
 
 interface Regras {
     tipo: string,
@@ -69,6 +70,10 @@ function RelatorioFinal() {
         }
     }
 
+    function irQualitativa() {
+        navigate(`/analiseQuali/${id}`)
+    }
+
     function navigateTo(caminho: string) {
         navigate(`/${caminho}`)
     }
@@ -102,12 +107,24 @@ function RelatorioFinal() {
         <>
             <NavBar />
             {/* Título Principal da página  */}
-            <h1 className='relatorioFinal'>Relatório Final</h1>
+            <div className='tituloCentralizadoRelatorio'>
+                    
+                    
+                    <h1 className='relatorioFinal'>Relatório Final</h1>
+                    <button className='botaoVaiQualitativa' type='button' onClick={irQualitativa}>
+                        <img src={teste} alt="" className="testeaEsquerda" />Análise Quantitativa
+                    </button>
+                    <div className='botaoNavegacaoQualitativa'></div>
+
+            </div>
 
             {/* Formulário que contém os dados do relatório */}
             <form>
-                <h2 className='tituloRelatorio' >Dados do Pedido</h2>
-
+                
+                <h2 className='dadosPedidos' >Dados do Pedido</h2>
+                
+                
+                
                 {/* Sessão de comparação entre os dados do Relatório de Compras e da Nota Fiscal */}
                 <div className='dados-compras-titulo'>
                     <h4 className='relatorio-compra'>Relatório de Compras</h4> <h4 className='dados-titulo'>Nota Fiscal</h4>

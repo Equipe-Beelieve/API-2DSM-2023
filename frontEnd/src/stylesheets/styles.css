@@ -1240,6 +1240,28 @@ p.solid {
   margin-right: 70vw;
 }
 
+.botaoVaiQualitativa{
+  background-color: gray;
+  color: white;
+  font-weight: bolder;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-size: 30px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  width: 200px;
+  margin-left: 30px;
+}
+
+.dadosPedidos{
+  font-size: 2vw;
+  margin-top: 1vh;
+  font-weight: bold;
+  text-align: center;
+}
+
 .botaoteste6 {
   background-color: gray;
   color: white;
@@ -1973,6 +1995,19 @@ p.solid {
     margin-top: 1vh;
     margin-bottom: 1vh;
     margin-left: 160vw;
+  }
+
+  .botaoNavegacaoQualitativa{
+    width: 200px;
+  }
+  #margem-left{
+    margin-left: 50%;
+  }
+
+  .tituloCentralizadoRelatorio{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .botaoteste6esquerda {

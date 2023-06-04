@@ -308,6 +308,10 @@ function AnaliseQuali() {
         navigate('/listaPedidos')
     }
 
+    function irRelatorioFinal(){
+        navigate(`/relatorioFinal/${id}`)
+    }
+
     //================== Botões ==================
     function irQuantitativa() {
         navigate(`/analiseQuant/${id}`)
@@ -449,7 +453,7 @@ function AnaliseQuali() {
                         </div>
                         <button className='botaoteste6' type='button' onClick={irQuantitativa}>
                                 <img src={teste} alt="" className="testeaEsquerda" />Análise Quantitativa</button>
-                        <button className='botaoteste6esquerda' type='button' onClick={() => {navigate('/listaPedidos')}}>
+                        <button className='botaoteste6esquerda' type='button' onClick={irRelatorioFinal}>
                                 Relatório Final<img src={teste} alt="" className="testeaDireita" /></button>
                         
                         <br />
