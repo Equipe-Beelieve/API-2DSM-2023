@@ -49,7 +49,6 @@ Resultado das entregas de cada sprint:
 | **03** | Deverá ser possível voltar em fases anteriores do processo de entrada de material |
 | **03** | Na fase de conferência qualitativa, o usuário deverá ter acesso há uma tela que o permite informar se há avarias, se o laudo veio anexado à nota fiscal e as informações relacionadas às regras de recebimento |
 | **04** | O Sistema deve gerar um relatório final com a decisão de aceite ou recusa (feita pelo próprio sistema a partir das regras de négocio e da comparação dos dados inseridos). |
-| **04** | Sistema deve guardar inforamções de entregas armazenadas (etregas que foram aceitas pelo administrador), bem como mostrar o que há no armazem |
 | **04** | Alteração de dados de fornecedores cadastrados |
 | **04** | Alteração de dados de usuários cadastrados |
 | **04** | Alteração de dados do produtos cadastrados |
