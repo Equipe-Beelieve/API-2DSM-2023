@@ -715,6 +715,10 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             if(status === "Finalizado"){
                 await this.mudaStatus(id, relatorioFinal.DecisaoFinal)
             }
+            else{
+                relatorioFinal.DecisaoFinal = status
+            }
+            console.log(relatorioFinal.DecisaoFinal)
             return relatorioFinal
         // }       
     }

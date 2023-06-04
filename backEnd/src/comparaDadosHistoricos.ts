@@ -180,27 +180,35 @@ export default function comparaDados(dadosRelatorio:any, regrasAnalise:any){
                 //Nota Fiscal x Dados da Análise | Peso
                 let pesoMinimo
                 let pesoMaximo
-                if(dadosRelatorio.nf_produto_massa.slice(-1) === 'g'){
-                    pesoMinimo = parseFloat(dadosRelatorio.nf_produto_massa.slice(0, -3)) * 0.95
-                    pesoMaximo = parseFloat(dadosRelatorio.nf_produto_massa.slice(0, -3)) * 1.05
-                }
-                else{
-                    pesoMinimo = parseFloat(dadosRelatorio.nf_produto_massa.slice(0, -2)) * 0.95
-                    pesoMaximo = parseFloat(dadosRelatorio.nf_produto_massa.slice(0, -2)) * 1.05
-                }
-                let valor = analise.historico_analise
-
-                if(valor.slice(-1) === 'g'){
-                    valor = parseFloat(valor.slice(0, -3))
-                }
-                else{
-                    valor = parseFloat(valor.slice(0, -2))
-                }
-                if(pesoMinimo <= valor && pesoMaximo >= valor){
-                    comparacoes.push({
-                        comparacao:'Nota Fiscal x Dados da Análise Quantitativa | Peso',
-                        resultado: true
-                    })
+                if(dadosRelatorio.nf_produto_massa.slice(-1) === analise.historico_analise.slice(-1)){
+                    if(dadosRelatorio.nf_produto_massa.slice(-1) === 'g'){
+                        pesoMinimo = parseFloat(dadosRelatorio.nf_produto_massa.slice(0, -3)) * 0.95
+                        pesoMaximo = parseFloat(dadosRelatorio.nf_produto_massa.slice(0, -3)) * 1.05
+                    }
+                    else{
+                        pesoMinimo = parseFloat(dadosRelatorio.nf_produto_massa.slice(0, -2)) * 0.95
+                        pesoMaximo = parseFloat(dadosRelatorio.nf_produto_massa.slice(0, -2)) * 1.05
+                    }
+                    let valor = analise.historico_analise
+    
+                    if(valor.slice(-1) === 'g'){
+                        valor = parseFloat(valor.slice(0, -3))
+                    }
+                    else{
+                        valor = parseFloat(valor.slice(0, -2))
+                    }
+                    if(pesoMinimo <= valor && pesoMaximo >= valor){
+                        comparacoes.push({
+                            comparacao:'Nota Fiscal x Dados da Análise Quantitativa | Peso',
+                            resultado: true
+                        })
+                    }
+                    else{
+                        comparacoes.push({
+                            comparacao:'Nota Fiscal x Dados da Análise Quantitativa | Peso',
+                            resultado: false
+                        })
+                    }
                 }
                 else{
                     comparacoes.push({
@@ -208,6 +216,7 @@ export default function comparaDados(dadosRelatorio:any, regrasAnalise:any){
                         resultado: false
                     })
                 }
+                
         }
 
 
