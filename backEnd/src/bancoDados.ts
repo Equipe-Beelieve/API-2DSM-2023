@@ -25,7 +25,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'root', //sua senha
+                password: '', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -673,6 +673,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
                 console.log(avaria)
                 if(avaria.length!==0){
                     console.log("FOIIIIIIIIIIIIIIIII")
+                    regraAnalise.push(avaria[0])
                     analise.push({tipo:avaria[0].historico_tipo, regra:avaria[0].historico_regra, valor:avaria[0].historico_analise, avaria:avaria[0].historico_avaria_comentario})
                     controle = false
                 }
