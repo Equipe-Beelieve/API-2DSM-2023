@@ -819,7 +819,7 @@ function CadPedido() {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input className="input_form" type="date" id="dataPedido" name="dataPedido" required
+                                            <td><input className="input_form" type="date" max="9999-12-31" id="dataPedido" name="dataPedido" required
                                                 value={dataPedido}
                                                 onChange={(e) => { setDataPedido(e.target.value) }} readOnly />
                                             </td>
@@ -837,7 +837,7 @@ function CadPedido() {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input className="input_form" type="date" id="dataEntrega" name="dataEntrega" required
+                                            <td><input className="input_form" type="date" max="9999-12-31"  id="dataEntrega" name="dataEntrega" required
                                                 value={dataEntrega}
                                                 onChange={(e) => { setDataEntrega(e.target.value) }} readOnly />
                                             </td>

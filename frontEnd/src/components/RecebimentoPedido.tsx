@@ -486,7 +486,7 @@ function RecebimentoPedido() {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input className="input_form" type="date" value={dataEmissao}
+                                            <td><input className="input_form" type="date" max="9999-12-31" value={dataEmissao}
                                                 onChange={(e) => { setDataEmissao(e.target.value) }} required />
                                             </td>
                                         </tr>
@@ -503,7 +503,7 @@ function RecebimentoPedido() {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input className="input_form" type="date" value={dataEntrega}
+                                            <td><input className="input_form" type="date" max="9999-12-31" value={dataEntrega}
                                                 onChange={(e) => { setDataEntrega(e.target.value) }} required />
                                             </td>
                                         </tr>
@@ -796,7 +796,7 @@ function RecebimentoPedido() {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input className="input_form" type="date" value={dataEmissao}
+                                            <td><input className="input_form" type="date" max="9999-12-31" value={dataEmissao}
                                                 onChange={(e) => { setDataEmissao(e.target.value) }} required readOnly />
                                             </td>
                                         </tr>
@@ -812,7 +812,7 @@ function RecebimentoPedido() {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input className="input_form" type="date" value={dataEntrega}
+                                            <td><input className="input_form" type="date" max="9999-12-31" value={dataEntrega}
                                                 onChange={(e) => { setDataEntrega(e.target.value) }} required readOnly />
                                             </td>
                                         </tr>
