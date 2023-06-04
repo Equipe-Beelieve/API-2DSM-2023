@@ -258,11 +258,11 @@ function RelatorioFinal() {
                                 <div className={`${resultadoAvaria?.resultado === true ? 'boxFinalReportGreen' : 'boxFinalReportRed'}`}>
                                     <label className='informacao-comparacao'>Avaria:</label>
                                     <input className='input-relatorio-final' type="text" value={'Não deve haver'} readOnly /> <input className='input-relatorio-final' type="text" value={regra.valor === 'true' ? 'Não há' : 'Há'} readOnly /><br /><br />
-                                    {(regra.avaria !== '' && regra.avaria !== 'undefined')  &&
-                                        <input className='input-relatorio-final' type="text" value={regra.avaria} readOnly />
-                                    }
-                                    <div className='informacao-comparacao'></div>
-
+                                    <div className='centered-input-container'>
+                                        {(regra.avaria !== '' && regra.avaria !== 'undefined') &&
+                                            <input className='input-relatorio-final' type="text" value={regra.avaria} readOnly />
+                                        }
+                                    </div>
                                 </div>
                             )
                         } else if (regra.tipo !== 'Personalizada' && regra.tipo !== 'Avaria' && regra.tipo !== 'Análise Quantitativa') {

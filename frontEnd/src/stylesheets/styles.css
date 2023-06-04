@@ -24,7 +24,7 @@ body::-webkit-scrollbar {
   margin-right: 200px;
 }
 
-.blocoInvisivelUsuarioEsquerda{
+.blocoInvisivelUsuarioEsquerda {
   width: 30px;
   margin-left: 200px;
 }
@@ -56,7 +56,8 @@ body::-webkit-scrollbar {
   margin-left: 10vw;
 }
 
-.mainTitle, .mainTitle2 {
+.mainTitle,
+.mainTitle2 {
   font-size: 2vw;
   margin-top: 4vh;
   font-weight: bold;
@@ -1411,6 +1412,11 @@ p.solid {
   width: 173px;
 }
 
+.centered-input-container {
+  display: flex;
+  justify-content: center;
+}
+
 .titulo-aprovado {
   background-color: #3E813B;
   color: #FFFFFF;
@@ -1492,7 +1498,7 @@ p.solid {
   margin-right: 0vw;
 }
 
-.botoesNavegacao .mainTitle2{
+.botoesNavegacao .mainTitle2 {
   margin-left: 0vw;
   margin-top: 2vh;
   font-size: 3vh;
@@ -1677,11 +1683,11 @@ p.solid {
     top: -1vh;
   }
 
-  .box3 .minimo .tipo-regra{
+  .box3 .minimo .tipo-regra {
     font-size: 3vw;
   }
 
-  .limitacao{
+  .limitacao {
     font-size: 2vh;
   }
 
@@ -1780,7 +1786,7 @@ p.solid {
     margin-left: 18vw;
   }
 
-  .botaoteste5Direita{
+  .botaoteste5Direita {
     font-size: 2vh;
     width: 27vw;
     margin-right: 27vw;
@@ -1789,7 +1795,7 @@ p.solid {
     margin-top: 2vh;
   }
 
-  .botaoteste5Esquerda{
+  .botaoteste5Esquerda {
     margin-right: 3vw;
     margin-top: 1vh;
     margin-bottom: 1vh;
@@ -1841,11 +1847,11 @@ p.solid {
     margin-left: -13vw;
   }
 
-  
+
   .botoesNavegacao .mainTitle {
     margin-left: 0vw;
   }
-  
+
   .botoesNavegacao2 .mainTitle2 {
     margin-left: 0vw;
     font-size: 3vh;
@@ -1861,7 +1867,7 @@ p.solid {
     margin-left: 0vw;
   }
 
-  .responsividadeforms .mainTitle{
+  .responsividadeforms .mainTitle {
     margin-left: 100vw;
   }
 
@@ -1889,22 +1895,22 @@ p.solid {
     margin-left: 2vw;
   }
 
-  .cancel_button2{
+  .cancel_button2 {
     width: 35vw;
     margin-top: 2vh;
     margin-left: 75vw;
   }
 
- .confirm_button2{
+  .confirm_button2 {
     margin-left: 75vw;
-  } 
+  }
 
   .botaoteste6 {
     margin-top: 1vh;
     margin-bottom: 1vh;
     margin-left: 160vw;
   }
-  
+
   .botaoteste6esquerda {
     margin-top: 2vh;
     margin-bottom: 1vh;
@@ -1917,7 +1923,7 @@ p.solid {
     text-align: center;
     width: 30vw;
   }
-  
+
   .dados-compras-titulo .dados-titulo {
     font-size: 2.5vh;
     margin-left: 10vw;
@@ -1925,7 +1931,8 @@ p.solid {
     width: 30vw;
   }
 
-  .boxFinalReportGreen, .boxFinalReportRed {
+  .boxFinalReportGreen,
+  .boxFinalReportRed {
     width: 90vw;
     margin-top: 3%;
     gap: 3%;
@@ -1963,13 +1970,14 @@ p.solid {
     width: 40vw;
   }
 
-  .ativado, .desativado{
+  .ativado,
+  .desativado {
     margin-left: -8vw;
     margin-bottom: 2vh;
     width: 30vw;
   }
 
-  .blocoInvisivel2{
+  .blocoInvisivel2 {
     margin-left: 15vw;
   }
 }

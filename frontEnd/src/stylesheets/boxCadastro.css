@@ -19,20 +19,20 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 .centerthis2 {
     align-self: center;
     justify-self: center;
-  }
+}
 
-.poscentralized{
-
+.poscentralized {
     -webkit-display: flex;
     display: flex;
     -webkit-align-items: center;
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center;
-    }
+}
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 table {
@@ -44,6 +44,7 @@ table {
 thead {
     text-align: center;
 }
+
 table:nth-child(even) {
     align-items: center;
 }
@@ -65,14 +66,9 @@ td {
     box-sizing: border-box;
 }
 
-
-
 .divFornecedor {
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
-
-  
