@@ -129,7 +129,6 @@ body::-webkit-scrollbar {
   padding: 0%;
   border: none;
   border-radius: 10px;
-
 }
 
 #register a,
@@ -942,7 +941,6 @@ p.solid {
 .finalizado {
   border-radius: 5px;
   border-style: solid;
-  /* border-color: #00FF66; */
   border-color: #3E813B;
   margin: auto;
   display: flex;
@@ -955,7 +953,6 @@ p.solid {
 }
 
 .finalizado.active {
-  /* background: #00FF66; */
   background: #3E813B;
   color: white;
   box-shadow: none;
@@ -1872,8 +1869,8 @@ p.solid {
   }
 
   .info {
-    margin-left: 100vw;
-    width: 100vw;
+    margin-left: 94vw;
+    width: 90vw;
     font-size: 1.75vh;
   }
 
@@ -1896,7 +1893,6 @@ p.solid {
   }
 
   .cancel_button2 {
-    width: 35vw;
     margin-top: 2vh;
     margin-left: 75vw;
   }
@@ -1979,5 +1975,26 @@ p.solid {
 
   .blocoInvisivel2 {
     margin-left: 15vw;
+  }
+
+  #register{
+    height: 0.5vh;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .listaIn{
+    width: 95vw;
+  }
+
+  .cadastro {
+    width: 22vw;
+    height: 2.6vh;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .info {
+    margin-left: 98vw;
   }
 }
