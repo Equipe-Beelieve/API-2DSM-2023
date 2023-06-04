@@ -733,6 +733,16 @@ p.solid {
 
 .resultadoCheckbox {
   font-weight: bold;
+  margin-left: 1vw;
+}
+
+.resultadoFinal{
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  align-items: center;
+  gap: 3px;
+  width: 50%;
 }
 
 .divCheckbox {
@@ -746,7 +756,9 @@ p.solid {
   color: #FFFFFF;
   font-weight: bold;
   text-align: center;
+  width: 27%;
   padding: 6px;
+  margin-left: -5vw;
   border-color: transparent;
 }
 
@@ -755,13 +767,13 @@ p.solid {
   color: #FFFFFF;
   font-weight: bold;
   text-align: center;
+  width: 27%;
   border-color: transparent;
   padding: 6px;
 
 }
 
 .laudo .checkbox {
-
   outline-color: #000000;
   accent-color: #000000;
 }
@@ -784,12 +796,12 @@ p.solid {
   font-weight: bold;
   text-align: center;
   padding: 6px;
+  width: 27%;
   border-color: transparent;
-  margin-left: 1vw;
+  margin-left: -5vw;
 }
 
 .laudo .checkbox {
-
   outline-color: #000000;
   accent-color: #000000;
 }
@@ -807,7 +819,7 @@ p.solid {
   color: #000000;
   background-color: #C0C0C0;
   border-width: 1px;
-  margin-left: 2vw;
+  margin-left: 1vw;
   margin-right: 2vw;
 }
 
@@ -825,6 +837,8 @@ p.solid {
   color: #FFFFFF;
   font-weight: bold;
   text-align: center;
+  width: 27%;
+  margin-left: 3vw;
   padding: 6px;
   border-color: transparent;
 
@@ -837,7 +851,7 @@ p.solid {
   text-align: center;
   border-color: transparent;
   padding: 6px;
-  width: 231px;
+  width: 27%;
 
 }
 
@@ -850,7 +864,20 @@ p.solid {
   color: hwb(0 0% 100%);
   width: 13vw;
   padding: 6px;
-  margin-left: 5%;
+  margin-left: 0%;
+  border-width: 1px;
+}
+
+.laudo .manipular-regra-final{
+  background-color: #C0C0C0;
+  display: flex;
+  font-weight: bold;
+  text-align: center;
+  border-color: black;
+  color: hwb(0 0% 100%);
+  width: 13vw;
+  padding: 6px;
+  margin-left: 0vw;
   border-width: 1px;
 }
 
@@ -871,7 +898,8 @@ p.solid {
   color: #FFFFFF;
   font-weight: bold;
   text-align: center;
-  width: 249px;
+  width: 27%;
+  margin-left: -5vw;
   padding: 6px;
   border-color: transparent;
 }
@@ -881,6 +909,8 @@ p.solid {
   color: #FFFFFF;
   font-weight: bold;
   text-align: center;
+  width: 27%;
+  margin-left: 0vw;
   border-color: transparent;
   padding: 6px;
 }
@@ -1722,7 +1752,7 @@ p.solid {
 
   .box3 {
     width: 95vw;
-    background-color: #FFEF78;
+    background-color: #C4F86F;
     border-radius: 7px;
     padding-top: 1vh;
     margin-left: 2.5%;
