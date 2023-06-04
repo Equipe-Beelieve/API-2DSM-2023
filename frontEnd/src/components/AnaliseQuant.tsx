@@ -50,11 +50,11 @@ function AnaliseQuant() {
             }
             else if (dado.status === 'Revisão') {
                 setMudanca('Revisão')
-                setPesagem(dado.regra_valor)
+                setPesagem(dado.historico_analise)
             }
             else if (dado.status === 'Edição') {
                 setMudanca('Edição')
-                setPesagem(dado.regra_valor)
+                setPesagem(dado.historico_analise)
 
             }
             else {

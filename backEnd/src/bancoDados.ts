@@ -12,6 +12,10 @@ import {trataRelatorioFinal, formatarData} from './trataRelatorioFinal.js';
 import RelatorioFinal from './RelatorioFinal.js';
 import RegrasAnalises from './RegrasAnalises.js';
 import comparaDadosHistoricos from './comparaDadosHistoricos.js';
+import resultadoAnalise from './resultadoAnaliseQualitativa.js';
+import resultadoAnaliseQualitativa from './resultadoAnaliseQualitativa.js';
+import resultadoAnaliseQuantitativa from './resultadoAnaliseQuantitativa.js';
+import decisaoFinal from './decisaoFinal.js';
 
 export default class bancoDados { //clase que contém, a princípio, tudo envolvendo banco de dados
     private conexao: mysql.Connection //atributo que tem o tipo "conexão com MySQL"
@@ -21,7 +25,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: 'Lopes@230763', //sua senha
+                password: '_Br1g4d31r0*', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -59,7 +63,6 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         let [consulta] = await this.conexao.query(`SELECT ${codigo} FROM ${tabela} WHERE ${campo} = "${condicao}"`) as Array<any>
         let linha = consulta[0]
         await this.conexao.end()
-        //console.log(linha)
         if (linha){
             return linha[codigo]
         }
@@ -173,7 +176,6 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     async dadosUsuario(credencias:any){
         await this.conectar()
         let [usuario, meta]:any = await this.conexao.query(`SELECT us_matricula,us_nome, us_senha, us_funcao, us_login, us_ativo FROM usuario WHERE us_login = "${credencias.login}" and us_senha = "${credencias.senha}" `)
-        console.log(`Login: ${credencias.login} e Senha: ${credencias.senha}`)
         await this.conexao.end()
         return usuario[0] 
     }
@@ -208,7 +210,6 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async inserirNF(nf:NotaFiscal) { 
         await this.conectar()
-        console.log(`CODIGOPEDIDO: ${nf['codigo_pedido']}`)
         if (nf['codigo_fornecedor'] !== 0){
             await this.conexao.query('INSERT INTO nota_fiscal(nf_cnpj, nf_data_emissao, nf_data_entrega, nf_transportadora, nf_produto_massa, nf_tipo_frete, nf_produto_descricao, nf_valor_total, nf_valor_unidade, for_codigo, nf_condicao_pagamento, nf_unidade, ped_codigo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
             [nf['cnpj'], nf['data_pedido'], nf['data_entrega'], nf['transportadora'], nf['produto_massa'], nf['tipo_frete'], nf['descricao'], nf['valor_total'], nf['valor_unidade'], nf['codigo_fornecedor'], nf['condicao_pagamento'], nf['unidade'], nf['codigo_pedido']]) 
@@ -234,6 +235,15 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conexao.query(`INSERT INTO parametros_do_pedido(regra_tipo, regra_valor, prod_codigo, ped_codigo) VALUES("Análise Quantitativa", "${pesagem}", ${prod_codigo[0].prod_codigo}, ${id})`)
         await this.conexao.query(`UPDATE pedido SET ped_status = 'Análise Qualitativa' WHERE ped_codigo=${id}`)
         await this.conexao.end()
+        await this.conectar()
+        let [nf_produto_massa] = await this.conexao.query("SELECT nf_produto_massa FROM nota_fiscal WHERE ped_codigo = ?", [id]) as Array<any>
+        await this.conexao.end()
+        let resultado = resultadoAnaliseQuantitativa(pesagem, nf_produto_massa[0].nf_produto_massa)
+        await this.conectar()
+        await this.conexao.query("INSERT INTO historico_analise(historico_tipo, historico_regra, historico_analise, historico_resultado, ped_codigo) VALUES(?, ?, ?, ?, ?)", 
+        [resultado.tipo, resultado.regra, resultado.valor, resultado.resultado, id])
+        await this.conexao.end()
+
     }
 
     async pegaStatus(id:string){
@@ -252,15 +262,14 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async pegaAnaliseQuantitativa(id:string){
         await this.conectar()
-        let [dado] = await this.conexao.query(`Select regra_valor FROM parametros_do_pedido WHERE ped_codigo = ${id} and regra_tipo = "Análise Quantitativa"`) as Array<any>
+        let [dado] = await this.conexao.query(`Select historico_analise FROM historico_analise WHERE ped_codigo = ${id} and historico_tipo = "Análise Quantitativa"`) as Array<any>
         await this.conexao.end()
         return dado[0]
     }
 
     async pegaAnaliseQualitativa(id:string){
         await this.conectar()
-        let [dado] = await this.conexao.query(`SELECT p.par_codigo, p.regra_tipo, p.regra_valor, a.av_comentario as regra_avaria FROM parametros_do_pedido p LEFT OUTER JOIN avaria_comentario a ON p.par_codigo = a.par_codigo WHERE p.ped_codigo = ${id} AND p.regra_tipo != 'Análise Quantitativa'`) as Array<any>
-        console.log(dado)
+        let [dado] = await this.conexao.query(`SELECT p.historico_codigo as par_codigo, p.historico_tipo as regra_tipo, p.historico_analise as regra_valor, a.historico_avaria_comentario as regra_avaria FROM historico_analise p LEFT OUTER JOIN historico_avaria a ON p.historico_codigo = a.historico_codigo WHERE p.ped_codigo = ${id} AND p.historico_tipo != 'Análise Quantitativa'`) as Array<any>
         await this.conexao.end()
         return dado
     }
@@ -316,10 +325,33 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         [analiseQualitativa['tipo'], analiseQualitativa['valor']])
         await this.conexao.end()
         if(analiseQualitativa['valor'] === 'false' && analiseQualitativa['avaria'] !== undefined && analiseQualitativa['avaria'] != ''){
-            console.log("Foi até aqui")    
             await this.insereComentarioAvaria(insert.insertId, analiseQualitativa['avaria'])
         }
-        console.log('Foi até o final')
+    }
+
+    async insereHistoricoQualitativa(id:string, analiseQualitativa:AnaliseQualitativa){
+        await this.conectar()
+        let [regra] = await this.conexao.query("SELECT reg_valor FROM regras_de_recebimento WHERE reg_codigo = ?", analiseQualitativa["codigo"]) as Array<any>
+        await this.conexao.end()
+        let objeto = {
+            regra_tipo:analiseQualitativa["tipo"],
+            regra_valor:analiseQualitativa["valor"],
+            regra:regra[0].reg_valor,
+            av_comentario:analiseQualitativa["avaria"]
+        }
+        let resultado = resultadoAnaliseQualitativa(objeto)
+        await this.conectar()
+        let [insert, fields]:[mysql.OkPacket, mysql.FieldPacket[]] = await this.conexao.query("INSERT INTO historico_analise(historico_tipo, historico_regra, historico_analise, historico_resultado, ped_codigo) VALUES(?, ?, ?, ?, ?)",
+        [resultado.regra_tipo, resultado.regra, resultado.regra_valor, resultado.resultado, id])
+        await this.conexao.end()
+
+        if(analiseQualitativa["tipo"] === "Avaria"){
+            console.log(resultado)
+            console.log(insert.insertId)
+            await this.conectar()
+            await  this.conexao.query("INSERT INTO historico_avaria(historico_avaria_comentario, historico_codigo) VALUES(?, ?)", [resultado.av_comentario, insert.insertId])
+            await this.conexao.end()
+        }
     }
 
     async insereComentarioAvaria(insertId:number, avaria:string){
@@ -341,16 +373,14 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
     //Confere unidade
     async condereUnidade(id:string){
         await this.conectar()
-        let [unidade, meta] = await this.conexao.query(`SELECT ped_produto_massa FROM pedido WHERE ped_codigo = ${id}`) as Array<any>
+        let [unidade, meta] = await this.conexao.query(`SELECT ped_produto_massa FROM pedido WHERE ped_codigo = ?`, [id]) as Array<any>
         await this.conexao.end()
         if(unidade[0].ped_produto_massa.slice(-1) === 't'){
             unidade[0].ped_produto_massa = 't'
         }
         else{
-            console.log(`UNIDADEEEE ${unidade[0].ped_produto_massa.slice(-2)}`)
             unidade[0].ped_produto_massa = unidade[0].ped_produto_massa.slice(-2)
         }
-        console.log(unidade[0].ped_produto_massa)
         return unidade[0].ped_produto_massa
     }
 
@@ -363,12 +393,10 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         if(trocaUnidade){
             let [pesagem] = await this.conexao.query(`SELECT regra_valor FROM parametros_do_pedido WHERE ped_codigo = ${id} and regra_tipo = 'Análise Quantitativa'`) as Array<any>
             pesagem = pesagem[0].regra_valor
-            console.log(`A unidade é ${unidade} || A pesagem é ${pesagem}`)
             if(pesagem.slice(-1) === 'g'){
                 pesagem = parseFloat(pesagem.slice(0, -2))
                 pesagem = pesagem / 1000
                 pesagem = pesagem.toString()
-                console.log(`Conversão ${pesagem}`)
                 pesagem = pesagem + ' t'
             }
             else{
@@ -391,6 +419,9 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             await this.conexao.query(`UPDATE nota_fiscal SET nf_cnpj = '${nf['cnpj']}', nf_data_emissao = '${nf['data_pedido'].slice(0, 10)}', nf_data_entrega = '${nf['data_entrega'].slice(0, 10)}', nf_transportadora = '${nf['transportadora']}', nf_produto_massa = '${nf['produto_massa']}', nf_tipo_frete = '${nf['tipo_frete']}', nf_produto_descricao = '${nf['descricao']}', nf_valor_total = '${nf['valor_total']}', nf_valor_unidade = '${nf['valor_unidade']}', nf_condicao_pagamento = '${nf['condicao_pagamento']}', nf_unidade = '${nf['unidade']}'  WHERE ped_codigo = ${nf['codigo_pedido']}`)
         }
         await this.conexao.end()
+        await this.conectar()
+        await this.conexao.query("UPDATE historico_analise SET historico_regra = ? WHERE ped_codigo = ? and historico_tipo = 'Análise Quantitativa'", [nf['produto_massa'], nf['codigo_pedido']])
+        await this.conexao.end()
     }
 
 
@@ -401,7 +432,6 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conectar()
         await this.conexao.query(`UPDATE produto SET prod_descricao = '${descricao}', prod_unidade_medida = '${unidadeMedida}' WHERE prod_codigo = ${id}`)
         await this.conexao.end()
-        console.log(descricaoAnterior[0])
         if (descricaoAnterior[0] !== descricao){
             await this.conectar()
             await this.conexao.query(`UPDATE pedido SET ped_descricao = '${descricao}' WHERE ped_descricao = '${descricaoAnterior[0].prod_descricao}' and ped_status <> 'Aceito' and ped_status <> 'Recusado' and ped_status <> 'Finalizado'`)
@@ -464,7 +494,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async updateQuantitativa(id:string, pesagem:string){
         await this.conectar()
-        await this.conexao.query(`Update parametros_do_pedido SET regra_valor = '${pesagem}' WHERE regra_tipo = 'Análise Quantitativa' and ped_codigo = ${id}`)
+        await this.conexao.query(`Update historico_analise SET historico_analise = '${pesagem}' WHERE historico_tipo = 'Análise Quantitativa' and ped_codigo = ${id}`)
         await this.conexao.end()
     }
 
@@ -494,7 +524,6 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
         await this.conectar()
         let [quantidadeFuncaoAdministrador, meta]:any = await this.conexao.query(`SELECT COUNT('us_funcao') from usuario WHERE us_funcao = 'Administrador'`)
         await this.conexao.end()
-        //console.log('ADM: ', quantidadeFuncaoAdministrador[0])
         return quantidadeFuncaoAdministrador[0]
     }
 
@@ -574,40 +603,54 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async pegaDadosRelatorioFinal(id:number, status:string){
         let relatorioFinal:RelatorioFinal
-        console.log(`===================================== ${status} ========================================`)
-        if(status === 'Finalizado'){
+        // if(status === 'Finalizado'){
+        //     await this.conectar()
+        //     let [dadosRecebimento] = await this.conexao.query(`SELECT p.ped_cnpj, p.ped_transportadora, p.ped_tipo_frete, p.ped_produto_massa, p.ped_descricao, p.ped_valor_unidade, p.ped_valor_total, p.ped_data_entrega, p.ped_data_pedido, p.ped_condicao_pagamento, 
+        //     nf.nf_cnpj, nf.nf_data_emissao, nf.nf_data_entrega, nf.nf_transportadora, nf.nf_produto_massa, nf.nf_tipo_frete, nf.nf_produto_descricao, nf.nf_laudo, nf.nf_valor_total, nf.nf_valor_unidade, nf.nf_condicao_pagamento, nf.nf_unidade FROM pedido p, nota_fiscal nf
+        //     WHERE p.ped_codigo = ${id} and p.ped_codigo = nf.ped_codigo`) as Array<any>
+        //     await this.conexao.end()
+        //     await this.conectar()
+        //     let [regraAnalise] = await this.conexao.query(`SELECT p.regra_tipo, p.regra_valor, r.reg_valor as regra, a.av_comentario
+        //     FROM produto prod, parametros_do_pedido p 
+        //     LEFT JOIN avaria_comentario a ON p.par_codigo = a.par_codigo
+        //     LEFT JOIN regras_de_recebimento r ON p.reg_codigo = r.reg_codigo
+        //     WHERE p.ped_codigo = ${id} and p.prod_codigo = prod.prod_codigo and prod.prod_codigo = r.prod_codigo`) as Array<any>
+        //     console.log(regraAnalise)
+        //     await this.conexao.end()
+        //     await this.conectar()
+        //     let [analiseQuantitativa] = await this.conexao.query(`SELECT regra_tipo, regra_valor FROM parametros_do_pedido WHERE ped_codigo = ${id}`) as Array<any>
+        //     await this.conexao.end()
+            
+        //     let relatorioFinal = trataRelatorioFinal(dadosRecebimento[0], regraAnalise, analiseQuantitativa[0])
+        //     await this.mudaStatus(id, relatorioFinal.DecisaoFinal)
+            
+        //     return relatorioFinal
+        // }
+        // else{
             await this.conectar()
-            let [dadosRecebimento] = await this.conexao.query(`SELECT p.ped_cnpj, p.ped_transportadora, p.ped_tipo_frete, p.ped_produto_massa, p.ped_descricao, p.ped_valor_unidade, p.ped_valor_total, p.ped_data_entrega, p.ped_data_pedido, p.ped_condicao_pagamento, 
+            let [dadosRecebimento] = await this.conexao.query(`SELECT p.ped_cnpj, p.ped_transportadora, p.ped_tipo_frete, p.ped_produto_massa, p.ped_descricao, p.ped_valor_unidade, p.ped_valor_total, p.ped_data_entrega, p.ped_data_pedido, p.ped_condicao_pagamento,
             nf.nf_cnpj, nf.nf_data_emissao, nf.nf_data_entrega, nf.nf_transportadora, nf.nf_produto_massa, nf.nf_tipo_frete, nf.nf_produto_descricao, nf.nf_laudo, nf.nf_valor_total, nf.nf_valor_unidade, nf.nf_condicao_pagamento, nf.nf_unidade FROM pedido p, nota_fiscal nf
             WHERE p.ped_codigo = ${id} and p.ped_codigo = nf.ped_codigo`) as Array<any>
             await this.conexao.end()
-            await this.conectar()
-            let [regraAnalise] = await this.conexao.query(`SELECT p.regra_tipo, p.regra_valor, r.reg_valor as regra, a.av_comentario
-            FROM produto prod, parametros_do_pedido p 
-            LEFT JOIN avaria_comentario a ON p.par_codigo = a.par_codigo
-            LEFT JOIN regras_de_recebimento r ON p.reg_codigo = r.reg_codigo
-            WHERE p.ped_codigo = ${id} and p.prod_codigo = prod.prod_codigo and prod.prod_codigo = r.prod_codigo`) as Array<any>
-            await this.conexao.end()
-            await this.conectar()
-            let [analiseQuantitativa] = await this.conexao.query(`SELECT regra_tipo, regra_valor FROM parametros_do_pedido WHERE ped_codigo = ${id}`) as Array<any>
-            await this.conexao.end()
             
-            console.log(dadosRecebimento[0])
-            let relatorioFinal = trataRelatorioFinal(dadosRecebimento[0], regraAnalise, analiseQuantitativa[0])
-            await this.mudaStatus(id, relatorioFinal.DecisaoFinal)
+            let controleRegras = true
+            let regraAnalise:Array<any> = []
+            while(controleRegras){
+                await this.conectar()
+                let [contagem] = await this.conexao.query("Select count(*) as contagem FROM historico_analise WHERE ped_codigo = ?", [id]) as Array<any>
+                await this.conexao.end()
+                console.log("AQUIII ->", contagem)
+                await this.conectar()
+                regraAnalise = await this.conexao.query(`SELECT h.historico_tipo, h.historico_regra, h.historico_analise, h.historico_resultado FROM historico_analise h WHERE h.ped_codigo = ${id} and historico_tipo <> "Avaria"`) as Array<any>
+                regraAnalise = regraAnalise[0]
+                await this.conexao.end()
+                console.log(contagem[0].contagem, regraAnalise.length)
+                if(contagem[0].contagem === regraAnalise.length + 1){
+                    controleRegras =false
+                }
+
+            }
             
-            return relatorioFinal
-        }
-        else{
-            await this.conectar()
-            let [dadosRecebimento] = await this.conexao.query(`SELECT p.ped_cnpj, p.ped_transportadora, p.ped_tipo_frete, p.ped_produto_massa, p.ped_descricao, p.ped_valor_unidade, p.ped_valor_total, p.ped_data_entrega, p.ped_data_pedido, p.ped_condicao_pagamento, p.ped_status,
-            nf.nf_cnpj, nf.nf_data_emissao, nf.nf_data_entrega, nf.nf_transportadora, nf.nf_produto_massa, nf.nf_tipo_frete, nf.nf_produto_descricao, nf.nf_laudo, nf.nf_valor_total, nf.nf_valor_unidade, nf.nf_condicao_pagamento, nf.nf_unidade FROM pedido p, nota_fiscal nf
-            WHERE p.ped_codigo = ${id} and p.ped_codigo = nf.ped_codigo`) as Array<any>
-            await this.conexao.end()
-            await this.conectar()
-            console.log(`SELECT h.historico_tipo, h.historico_regra, h.historico_analise, h.historico_resultado, hav.historico_avaria_comentario FROM historico_analise h LEFT JOIN historico_avaria hav ON h.historico_codigo = hav.historico_codigo and h.ped_codigo = ${id} WHERE h.ped_codigo = ${id}`)
-            let [regraAnalise] = await this.conexao.query(`SELECT h.historico_tipo, h.historico_regra, h.historico_analise, h.historico_resultado, hav.historico_avaria_comentario FROM historico_analise h LEFT JOIN historico_avaria hav ON h.historico_codigo = hav.historico_codigo and h.ped_codigo = ${id} WHERE h.ped_codigo = ${id}`) as Array<any>
-            await this.conexao.end()
             let analise:Array<RegrasAnalises> = []
             regraAnalise.forEach((regra:any)=>{
                 let linha:RegrasAnalises
@@ -619,8 +662,24 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
                 }
                 analise.push(linha)
             })
-            // console.log(dadosRecebimento)
+            // console.log(`SELECT h.historico_tipo, h.historico_regra, h.historico_analise, h.historico_resultado, av.historico_avaria_comentario FROM historico_analise h, historico_avaria av WHERE ped_codigo = ${id} and av.historico_codigo = h.historico_codigo`)
+            let controle = true
+            while(controle){
+                
+                await this.conectar()
+                let [avaria] = await this.conexao.query("SELECT h.historico_tipo, h.historico_regra, h.historico_analise, h.historico_resultado, av.historico_avaria_comentario FROM historico_analise h, historico_avaria av WHERE ped_codigo = ? and av.historico_codigo = h.historico_codigo", [id]) as Array<any>
+                await this.conexao.end()
+                console.log("LENGTH: ", avaria.length)
+                console.log(avaria)
+                if(avaria.length!==0){
+                    console.log("FOIIIIIIIIIIIIIIIII")
+                    regraAnalise.push(avaria[0])
+                    analise.push({tipo:avaria[0].historico_tipo, regra:avaria[0].historico_regra, valor:avaria[0].historico_analise, avaria:avaria[0].historico_avaria_comentario})
+                    controle = false
+                }
+            }
             dadosRecebimento = dadosRecebimento[0]
+            let resultados = comparaDadosHistoricos(dadosRecebimento, regraAnalise)
             relatorioFinal = {
                 pedido:{
                     CNPJ:dadosRecebimento.ped_cnpj,
@@ -649,13 +708,20 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
                 },
                 RegrasAnalises:analise,
 
-                Resultados:comparaDadosHistoricos(dadosRecebimento, regraAnalise),
+                Resultados:resultados,
 
-                DecisaoFinal:dadosRecebimento.ped_status
+                DecisaoFinal:decisaoFinal(resultados)
 
             }
+            if(status === "Finalizado"){
+                await this.mudaStatus(id, relatorioFinal.DecisaoFinal)
+            }
+            else{
+                relatorioFinal.DecisaoFinal = status
+            }
+            console.log(relatorioFinal.DecisaoFinal)
             return relatorioFinal
-        }       
+        // }       
     }
 
     async mudaStatusFinal(decisao:string, id:number) {
