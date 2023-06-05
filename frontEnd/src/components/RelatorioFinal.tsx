@@ -112,7 +112,7 @@ function RelatorioFinal() {
                     
                     <h1 className='relatorioFinal'>Relatório Final</h1>
                     <button className='botaoVaiQualitativa' type='button' onClick={irQualitativa}>
-                        <img src={teste} alt="" className="testeaEsquerda" />Análise Quantitativa
+                        <img src={teste} alt="" className="testeaEsquerda" />Análise Qualitativa
                     </button>
                     <div className='botaoNavegacaoQualitativa'></div>
 

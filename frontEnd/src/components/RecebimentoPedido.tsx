@@ -450,7 +450,7 @@ function RecebimentoPedido() {
                     <button type='button' onClick={irCadastroPedido} className="botaoteste4">
                             <img src={teste} alt="" className="testeaEsquerda" />Cadastro dos Pedidos</button>
                             {mudanca === 'Edição' &&
-                        <button type='button' onClick={irQuantitativa} className="botaoteste4esquerda">Análise Qualitativa
+                        <button type='button' onClick={irQuantitativa} className="botaoteste4esquerda">Análise Quantitativa
                             <img src={teste} alt="" className="testeaDireita" /></button>
                         }
                         <div className="grid-container poscentralized">
