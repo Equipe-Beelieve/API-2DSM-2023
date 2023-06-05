@@ -643,9 +643,11 @@ function CadProduto() {
                                                     value={regras[id].valor}
                                                     onChange={(e) => { mudaParametro(e, id) }} placeholder='Escolha um tipo antes' />
                                             }
+
+                                            
                                         </div>
 
-
+                                        <img src={lixeira} alt="Lixo" className='lixoInvisivel'/>
                                         {/* <div className='flexCheckbox'>
                                             <label className='obrigacao'>Obrigatória:</label>
                                             <input type="checkbox" className='checkboxzin' checked={regras[id].obrigatoriedade} onChange={(e) => { mudaObrigatoriedade(e, id) }} />

@@ -524,7 +524,7 @@ p.solid {
   flex-direction: column;
   justify-content: center;
   flex-wrap: nowrap;
-  width: 55vw;
+  width: 70vw;
   background-color: #C4F86F;
   border-radius: 7px;
   padding-top: 1vh;
@@ -1134,8 +1134,12 @@ p.solid {
   height: 1.5vw;
   border: 1px solid #000000;
   cursor: pointer;
-  position: absolute;
-  left: 24%;
+}
+.lixoInvisivel{
+  width: 1.5vw;
+  height: 1.5vw;
+  border: 1px solid #000000;
+  opacity:0;
 }
 
 .flexCheckbox_regras {
@@ -1680,6 +1684,9 @@ p.solid {
   .loggout {
     margin-right: 5vw;
   }
+  .desativado{
+    width: 8vw
+  }
 }
 
 /* Responsividade tela 500px */
@@ -1751,6 +1758,14 @@ p.solid {
   }
 
   .box3 {
+    width: 95vw;
+    background-color: #C4F86F;
+    border-radius: 7px;
+    padding-top: 1vh;
+    margin-left: 2.5%;
+  }
+
+  .caixa3{
     width: 95vw;
     background-color: #C4F86F;
     border-radius: 7px;
