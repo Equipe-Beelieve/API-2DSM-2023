@@ -42,7 +42,6 @@ CREATE TABLE `endereco_fornecedor` (
 
 LOCK TABLES `endereco_fornecedor` WRITE;
 /*!40000 ALTER TABLE `endereco_fornecedor` DISABLE KEYS */;
-INSERT INTO `endereco_fornecedor` VALUES (1,'1235678','São Paulo','São José dos Campos','Centro','Avenida Sabiá','40');
 /*!40000 ALTER TABLE `endereco_fornecedor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

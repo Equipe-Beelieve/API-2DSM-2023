@@ -26,6 +26,7 @@ Resultado das entregas de cada sprint:
 * <a href="docs/sprint1/demo_sprint1.gif">Sprint 1</a>
 * <a href="docs/sprint2/demo_sprint2.gif">Sprint 2</a>
 * <a href="docs/sprint3/demo_sprint3.gif">Sprint 3</a>
+* <a href="docs/sprint4/demo_sprint4.gif">Sprint 4</a>
 <span id="backlogs"></span>
 <h2>Backlog</h2>
 <h3>Backlog do Produto</h3>
