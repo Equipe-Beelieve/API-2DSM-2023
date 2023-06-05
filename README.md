@@ -4,15 +4,15 @@
     <a href="#sobre">Sobre</a> | 
     <a href="#entregas">Entregas</a> | 
     <a href="#backlogs">Backlogs</a> |
-    <a href="#dorDod">DoR e DoD</a>|
+    <a href="#dorDod">DoR e DoD</a> |
     <a href="#tecnologias">Tecnologias</a> | 
     <a href="#equipe">Equipe</a> | 
 </p>
 
 <span id="sobre"></span>
 <h2> Sobre o projeto </h2> 
-Projeto desenvolvido por alunos do 2º semestre do curso de Desenvolviento de Software Multiplatafora, da FATEC Prof Jessen Vidal em São José dos Campos. <br> Consiste no Desenvolvimento de um sistema de inspeção de entrada pra controle de recebimento de grãos em uma agroindústria.<br>
-O Back-end foi desenvolvido em TypeScript utilizando o framework express e o banco de dados foi o SQL com o SGBD MySQL.<br>
+Projeto desenvolvido por alunos do 2º semestre do curso de Desenvolvimento de Software Multiplataforma, da FATEC Prof. Jessen Vidal em São José dos Campos.<br> Consiste no Desenvolvimento de um sistema de inspeção de entrada pra controle de recebimento de grãos em uma agroindústria. <br>
+O Back-end foi desenvolvido em TypeScript utilizando o framework React e o banco de dados foi o SQL com o SGBD MySQL.<br>
 >Status do projeto: Em desenvolvimento :hourglass:
 
 <span id="entregas"></span>
