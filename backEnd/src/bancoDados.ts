@@ -25,7 +25,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
             this.conexao = await mysql.createConnection({ //o await é utilizado para garantir que a instrução vai ser executada antes de partir para a próxima, você verá o termo se repetir várias vezes no código
                 host: 'localhost',
                 user: 'root',
-                password: '', //sua senha
+                password: 'root', //sua senha
                 database: 'api', //base de dados do api
                 port: 3306
             })
@@ -269,7 +269,7 @@ export default class bancoDados { //clase que contém, a princípio, tudo envolv
 
     async pegaAnaliseQualitativa(id:string){
         await this.conectar()
-        let [dado] = await this.conexao.query(`SELECT p.historico_codigo as par_codigo, p.historico_tipo as regra_tipo, p.historico_analise as regra_valor, a.historico_avaria_comentario as regra_avaria FROM historico_analise p LEFT OUTER JOIN historico_avaria a ON p.historico_codigo = a.historico_codigo WHERE p.ped_codigo = ${id} AND p.historico_tipo != 'Análise Quantitativa'`) as Array<any>
+        let [dado] = await this.conexao.query(`SELECT p.historico_codigo as par_codigo, p.historico_tipo as regra_tipo, p.historico_analise as regra_valor, a.historico_avaria_comentario as regra_avaria, p.historico_regra as regra FROM historico_analise p LEFT OUTER JOIN historico_avaria a ON p.historico_codigo = a.historico_codigo WHERE p.ped_codigo = ${id} AND p.historico_tipo != 'Análise Quantitativa'`) as Array<any>
         await this.conexao.end()
         return dado
     }

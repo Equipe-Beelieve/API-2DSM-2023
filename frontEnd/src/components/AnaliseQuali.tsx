@@ -20,10 +20,13 @@ interface Analise {
     avaria?: string
 }
 
+
+
 interface RevisaoAnalise {
     par_codigo: number
     regra_tipo: string
     regra_valor: string
+    regra:string
     regra_avaria: string
 }
 
@@ -39,7 +42,7 @@ function AnaliseQuali() {
     async function getRegras() {
         try {
             const response = await api.get(`/analiseQuali/${id}`)
-            //console.log(response.data)
+            console.log(response.data)
             const regras = response.data
 
             regras.sort((a: Regra, b: Regra) => a.reg_tipo.localeCompare(b.reg_tipo))
@@ -80,10 +83,14 @@ function AnaliseQuali() {
 
             //console.log(dadosAnalises)
             if (dados.status === 'Primeira vez') {
-                setMudanca('Primeira vez')
+                getRegras().then(()=>{
+                    setMudanca('Primeira vez')
+                })
+                
             }
             else if (dados.status === 'Revisão') {
                 setMudanca('Revisão')
+                console.log(dados)
                 const laudo = dados.laudo.nf_laudo
                 const analisesFeitas = dados.analises
                 analisesFeitas.sort((a: RevisaoAnalise, b: RevisaoAnalise) => a.regra_tipo.localeCompare(b.regra_tipo))
@@ -111,8 +118,36 @@ function AnaliseQuali() {
                     }
                 })
 
+                const regra:Array<Regra> = analisesFeitas.map((regra:RevisaoAnalise) => {
+                    if (regra.regra_tipo === 'Avaria') {
+                        return {
+                            reg_codigo: regra.par_codigo,
+                            reg_tipo: regra.regra_tipo,
+                            reg_valor: regra.regra,
+                            reg_obrigatoriedade: true
+                        }
+                    } else if (regra.regra_tipo === 'Personalizada') {
+                        return {
+                            reg_codigo: regra.par_codigo,
+                            reg_tipo: regra.regra_tipo,
+                            reg_valor: regra.regra,
+                            reg_obrigatoriedade: true
+                        }
+                    } else {
+                        return {
+                            reg_codigo: regra.par_codigo,
+                            reg_tipo: regra.regra_tipo,
+                            reg_valor: regra.regra,
+                            reg_obrigatoriedade: true
+                        }
+                    }
+                })
+                console.log(regra)
+                setRegras(regra)
                 setAnalises(dadosAnalises)
                 setLaudo(laudo)
+                console.log(dadosAnalises)
+                
             }
             else {
                 const laudo = dados.laudo.nf_laudo
@@ -147,7 +182,7 @@ function AnaliseQuali() {
                 setLaudo(laudo)
 
             }
-        })
+        }).then(()=>{console.log("Regras", regras)})
     }
 
     function manipularAvaria(index: number, comentario: string) {
@@ -324,7 +359,7 @@ function AnaliseQuali() {
         async function veLogado() {
             let resultado = await verificaLogado()
             if (resultado.logado) {
-                getRegras().then(() => veStatus())
+                veStatus()
             } else {
                 navigate('/')
             }
