@@ -2010,12 +2010,12 @@ p.solid {
   }
 
   .laudo {
-    width: 75vw;
+    width: 85vw;
     margin-left: 90vw;
   }
 
   .laudo .descricao {
-    width: 60vw;
+    width: 74vw;
     padding: 10px;
     height: 120px;
     margin-left: 2vw;
@@ -2023,8 +2023,38 @@ p.solid {
   }
 
   .laudo .manipular-regra {
-    width: 36vw;
+    width: 44vw;
     margin-left: 2vw;
+  }
+
+  .laudo .resultadoCheckbox{
+    margin-left: 4vw;
+  }
+
+  .laudo .tipo-laudo{
+    width: 35vw;
+    margin-left: 1vw;
+  }
+
+  .laudo .haver{
+    width: 35vw;
+  }
+
+  .laudo .tipo-avaria{
+    width: 35vw;
+    margin-left: 1vw;
+  }
+
+  .laudo .regra-valor{
+    width: 35vw;
+  }
+
+  .laudo .tipo-regra{
+    width: 35vw;
+  }
+
+  .laudo .limitacao{
+    width: 35vw;
   }
 
   .cancel_button2 {
