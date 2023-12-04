@@ -21,6 +21,7 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 <br /><br />
 <img src="docs/imagens/linhaTempo.png" src="Linha do tempo">
 <br />
+
 Resultado das entregas de cada sprint: Completo :heavy_check_mark:
 
 * <a href="docs/sprint1/demo_sprint1.gif">Sprint 1</a>
