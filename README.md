@@ -11,9 +11,9 @@
 
 <span id="sobre"></span>
 <h2> Sobre o projeto </h2> 
-Projeto desenvolvido por alunos do 2º semestre do curso de Desenvolvimento de Software Multiplataforma, da FATEC Prof. Jessen Vidal em São José dos Campos.<br> Consiste no Desenvolvimento de um sistema de inspeção de entrada pra controle de recebimento de grãos em uma agroindústria. <br>
+Projeto desenvolvido por alunos do 2º semestre do curso de Desenvolvimento de Software Multiplataforma, da FATEC Prof. Jessen Vidal em São José dos Campos.<br> Consiste no Desenvolvimento de um sistema de inspeção de entrada para o controle de recebimento de grãos em uma agroindústria. <br>
 O Back-end foi desenvolvido em TypeScript utilizando o framework React e o banco de dados foi o SQL com o SGBD MySQL.<br>
->Status do projeto: Em desenvolvimento :hourglass:
+>Status do projeto: Em desenvolvimento [x]
 
 <span id="entregas"></span>
 <h2>Entregas</h2>
@@ -21,7 +21,7 @@ O projeto está sendo realizado utilizando-se da metodologia ágil SCRUM, separa
 <br /><br />
 <img src="docs/imagens/linhaTempo.png" src="Linha do tempo">
 <br />
-Resultado das entregas de cada sprint:
+Resultado das entregas de cada sprint: Completo :heavy_check_mark:
 
 * <a href="docs/sprint1/demo_sprint1.gif">Sprint 1</a>
 * <a href="docs/sprint2/demo_sprint2.gif">Sprint 2</a>
