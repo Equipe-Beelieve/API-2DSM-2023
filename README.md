@@ -13,7 +13,7 @@
 <h2> Sobre o projeto </h2> 
 Projeto desenvolvido por alunos do 2º semestre do curso de Desenvolvimento de Software Multiplataforma, da FATEC Prof. Jessen Vidal em São José dos Campos.<br> Consiste no Desenvolvimento de um sistema de inspeção de entrada para o controle de recebimento de grãos em uma agroindústria. <br>
 O Back-end foi desenvolvido em TypeScript utilizando o framework React e o banco de dados foi o SQL com o SGBD MySQL.<br>
->Status do projeto: Em desenvolvimento :heavy_check_mark:
+>Status do projeto: Finalizado :heavy_check_mark:
 
 <span id="entregas"></span>
 <h2>Entregas</h2>
